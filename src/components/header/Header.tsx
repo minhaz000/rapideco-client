@@ -31,10 +31,10 @@ const Header = () => {
             </button>
           </form>
         </div>
-        <div className="basis-1/4 ps-6 hidden lg:block">
-          <div className="flex items-center gap-5">
+        <div className="basis-1/4 ps-6 hidden lg:block text-center">
+          <div className="flex items-center justify-end gap-5">
             <div>
-              <Link href="/" className="flex items-center gap-1">
+              <Link href="/" className="flex items-center  gap-1">
                 <Image
                   src={Tracking}
                   alt="tracking icon"

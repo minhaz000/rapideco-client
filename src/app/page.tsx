@@ -1,10 +1,11 @@
+import HomeBanner from "@/components/HomeBanner/HomeBanner";
 import React from "react";
 
 const page = () => {
   return (
-    <div>
-      <h2>Hello world</h2>
-    </div>
+    <>
+      <HomeBanner />
+    </>
   );
 };
 

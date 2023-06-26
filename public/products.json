@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "product_name": "T9 Electric Rechargeable Trimer",
+    "regular_price": 29.99,
+    "discount_price": 19.99,
+    "image": "https://i.ibb.co/HF6Mbw9/p1.jpg",
+    "description": "জিরো থেকে ৪ সাইজ পর্যন্ত চুল দাড়ি কাটতে পারবেন খুব সহজে ।বাচ্চাদের চুল কাটার জন্য ব্যাবহার করতে পারবেন। 6 Month Battery warranty Origin: CN(Origin) Commodity Quality Certification：3C Size:15.5x4x2.5cm Item Type: Hair Trimmer"
+  },
+  {
+    "id": 2,
+    "product_name": "Painting Projection Table",
+    "regular_price": 49.99,
+    "discount_price": 39.99,
+    "image": "https://i.ibb.co/0K6VWwq/p2.jpg",
+    "description": "Furiously cultivate children's drawing skills. Early learning toys for boys and girls. Conducive to the development of children. Safe and non-toxic materials Create a precedent for children's education Teach children in a creative and fun way Encourage children to create amazing creativity "
+  },
+  {
+    "id": 3,
+    "product_name": "Cactus Toys",
+    "regular_price": 39.99,
+    "discount_price": 29.99,
+    "image": "https://i.ibb.co/wLYhz09/p3.jpg",
+    "description": "1.বাচ্চাদের হাসি খুশি রাখবে ২.খেলনাটি রিচার্জেবল ৩.বাচ্চাদের সাথে কথা বলবে হাসবে"
+  },
+  {
+    "id": 1,
+    "product_name": "T9 Electric Rechargeable Trimer T9 Electric Rechargeable Trimer",
+    "regular_price": 29.99,
+    "discount_price": 19.99,
+    "image": "https://i.ibb.co/HF6Mbw9/p1.jpg",
+    "description": "জিরো থেকে ৪ সাইজ পর্যন্ত চুল দাড়ি কাটতে পারবেন খুব সহজে ।বাচ্চাদের চুল কাটার জন্য ব্যাবহার করতে পারবেন। 6 Month Battery warranty Origin: CN(Origin) Commodity Quality Certification：3C Size:15.5x4x2.5cm Item Type: Hair Trimmer"
+  },
+  {
+    "id": 2,
+    "product_name": "Painting Projection Table",
+    "regular_price": 49.99,
+    "discount_price": 39.99,
+    "image": "https://i.ibb.co/0K6VWwq/p2.jpg",
+    "description": "Furiously cultivate children's drawing skills. Early learning toys for boys and girls. Conducive to the development of children. Safe and non-toxic materials Create a precedent for children's education Teach children in a creative and fun way Encourage children to create amazing creativity "
+  }
+]

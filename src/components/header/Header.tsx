@@ -26,7 +26,7 @@ const Header = () => {
               placeholder="Search"
               className="w-full border rounded-s-md px-2 md:px-3 py-[6px] md:py-[10px] outline-none"
             />
-            <button className="bg-[#059473] text-white px-3 rounded-e-md">
+            <button className="bg-[#3bb77e] text-white px-3 rounded-e-md">
               <FaSearch />
             </button>
           </form>
@@ -50,7 +50,7 @@ const Header = () => {
               <Link href="/">
                 <Image src={Cart} alt="tracking icon" width={40} height={40} />
               </Link>
-              <span className="absolute bg-[#059473] top-0 -right-[5px] text-white text-[12px] px-[5px] rounded-full">
+              <span className="absolute bg-[#3bb77e] top-0 -right-[5px] text-white text-[12px] px-[5px] rounded-full">
                 0
               </span>
             </div>
@@ -58,7 +58,7 @@ const Header = () => {
         </div>
       </div>
       {/* Main menu  */}
-      <nav className="bg-[#059473] mt-3 hidden lg:block">
+      <nav className="bg-[#3bb77e] mt-3 hidden lg:block">
         <ul className="flex gap-4 max-w-screen-xl mx-auto py-3 px-10 text-white text-[14px]">
           <li>
             <Link href="/">হোম </Link>

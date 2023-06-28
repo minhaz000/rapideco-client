@@ -20,3 +20,27 @@
   opacity: 0.75;
   color: white;
 }
+.slick-prev:before,
+.slick-next:before {
+  font-size: 24px;
+  color: #ff4141;
+}
+.slick-prev,
+.slick-next {
+  top: 92%;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  z-index: 99;
+}
+.slick-prev {
+  left: 44%;
+}
+.slick-prev:before,
+.slick-next:before {
+  font-size: 24px;
+  color: #ffffff;
+}
+.slick-next {
+  right: 44%;
+}

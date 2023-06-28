@@ -53,7 +53,7 @@ const Footer = () => {
             <h3 className="text-white text-xl mb-4">ঠিকানা</h3>
             <div className="flex flex-col gap-3 text-sm text-slate-100">
               <p>ঠিকানাঃ #০২, রোডঃ ০২,ঢাকা ।</p>
-              <p>মোবাইলঃ +৮৮০ ০১৭৬০-১০৭৭৬৪ ।</p>
+              <p>মোবাইলঃ (+৮৮০) ০১৭৬০১০৭৭৬৪ ।</p>
               <p> ইমেইলঃ rapidco@admin.com ।</p>
             </div>
           </div>

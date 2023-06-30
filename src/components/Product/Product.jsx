@@ -1,17 +1,10 @@
 "use client";
 import Link from "next/link";
-import React, { useEffect } from "react";
-import { useState } from "react";
 import ProductCard from "../ProductCard/ProductCard";
 import { BsArrowRightShort } from "react-icons/bs";
+import useProducts from "../../hooks/useProducts";
 const Product = ({ sectionTitle }) => {
-  const [products, setProducts] = useState([]);
-  useEffect(() => {
-    fetch("/products.json")
-      .then((res) => res.json())
-      .then((data) => setProducts(data));
-  }, []);
-
+  const [products] = useProducts();
   return (
     <section className="max-w-screen-xl mx-auto px-3 lg:px-10 mt-10">
       <div className="flex justify-between items-center mb-5">

@@ -9,9 +9,9 @@ const ProductCard = ({ product }) => {
     <Link href={`/product/${product.id}`}>
       <div className="border border-[#E9ECEF] rounded-md h-full flex flex-col">
         <div className="overflow-hidden relative">
-          <p className="absolute top-2 left-0 bg-white px-2 py-2 z-40 uppercase text-[11px] rounded-e-full shadow-xl">
-            Off{" "}
-            <span className="bg-green-600 text-white rounded-full py-1 px-1">
+          <p className="absolute top-2 left-0 bg-white px-2 py-2 z-40 uppercase text-[12px] rounded-e-full shadow-xl flex items-center gap-2">
+            Off
+            <span className="bg-green-600 text-white rounded-full w-7 h-7  text-[11px] flex justify-center items-center">
               24%
             </span>
           </p>

@@ -2,7 +2,7 @@ import Sidebar from "@/components/sidebar/Sidebar";
 
 import { FaRegBell } from "react-icons/fa";
 
-export default function RootLayout({
+export default function AdminLayout({
   children,
 }: {
   children: React.ReactNode;

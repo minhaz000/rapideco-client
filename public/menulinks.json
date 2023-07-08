@@ -1,0 +1,60 @@
+[
+  {
+    "title": "Dashboard",
+    "path": "/dashboard"
+  },
+  {
+    "title": "Products",
+    "childrens": [
+      {
+        "title": "all products",
+        "icon": "bi-house-fill",
+        "path": "/all-products"
+      },
+      {
+        "title": "Add Product",
+        "icon": "bi-info-circle-fill",
+        "path": "/add-product"
+      },
+      {
+        "title": "Edit Product",
+        "icon": "bi-question-circle-fill"
+      }
+    ]
+  },
+  {
+    "title": "Orders",
+    "childrens": [
+      {
+        "title": "All Orders",
+        "path": "/"
+      },
+      {
+        "title": "Pending Orders",
+        "path": "/"
+      },
+      {
+        "title": "Completed Orders",
+        "path": "/"
+      }
+    ]
+  },
+  {
+    "title": "Categories",
+    "childrens": [
+      {
+        "title": "all categories",
+        "path": "/all-categories"
+      },
+      {
+        "title": "Add category",
+        "path": "/add-category"
+      }
+    ]
+  },
+
+  {
+    "title": "Setting",
+    "path": "/support"
+  }
+]

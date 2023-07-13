@@ -12,10 +12,10 @@ export default function AdminLayout({
   const [profileOpen, setProfileOpen] = useState(false);
   return (
     <div className="relative">
-      <div className="bg-[#1E293B] w-80 h-screen absolute lg:fixed opacity-0 lg:opacity-100 overflow-y-auto px-6 pt-4 pb-3">
+      <div className="bg-[#1E293B] w-80 h-screen absolute xl:fixed opacity-0 xl:opacity-100 overflow-y-auto px-6 pt-4 pb-3">
         <Sidebar />
       </div>
-      <div className="lg:ps-80">
+      <div className="xl:ps-80">
         <div className="border-b border-[#E9ECEF] py-4 px-8 text-end">
           <div className="flex items-center justify-end">
             <div className="me-4">

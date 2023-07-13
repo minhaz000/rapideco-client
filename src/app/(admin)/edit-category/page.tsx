@@ -3,14 +3,14 @@ import React from "react";
 const page = () => {
   return (
     <div className="shadow-lg p-6 w-2/3 mx-auto border rounded">
-      <h2 className="border-b pb-2 text-xl">Category information</h2>
+      <h2 className="border-b pb-2 text-xl">Update Category information</h2>
       <form>
         <div className="mt-4">
           <label htmlFor="">Name</label>
           <br />
           <input
             type="text"
-            placeholder="Enter name"
+            defaultValue={"woman shoes"}
             className="w-full border py-2 px-3 outline-none mt-2"
           />
         </div>
@@ -46,7 +46,7 @@ const page = () => {
           <br />
           <input
             type="text"
-            placeholder="Meta Title"
+            defaultValue={"Women Clothing & Fashion"}
             className="w-full border py-2 px-3 outline-none mt-2"
           />
         </div>
@@ -54,7 +54,9 @@ const page = () => {
           <label htmlFor="">Meta description</label>
           <br />
           <textarea
-            placeholder="Meta description"
+            defaultValue={
+              "On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire,"
+            }
             className="w-full border py-2 px-3 outline-none mt-2 h-28"
           ></textarea>
         </div>

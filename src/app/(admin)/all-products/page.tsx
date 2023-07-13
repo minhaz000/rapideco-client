@@ -86,16 +86,22 @@ const AllProduct = () => {
                 </td>
                 <td>
                   <div className="flex gap-2 items-center">
-                    <span className="bg-green-500 bg-opacity-50 text-white text-xs p-[5px] rounded-full cursor-pointer">
+                    <span
+                      title="View"
+                      className="bg-green-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
+                    >
                       <FaRegEye />
                     </span>
-                    <span className="bg-yellow-500 bg-opacity-50 text-white text-xs p-[5px] rounded-full cursor-pointer">
+                    <span
+                      title="Edit"
+                      className="bg-yellow-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
+                    >
                       <FaRegEdit />
                     </span>
-                    <span className="bg-amber-700 bg-opacity-50 text-white text-xs p-[5px] rounded-full cursor-pointer">
-                      <FaRegEye />
-                    </span>
-                    <span className="bg-red-500 bg-opacity-50 text-white text-xs p-[5px] rounded-full cursor-pointer">
+                    <span
+                      title="Delete"
+                      className="bg-red-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
+                    >
                       <FaRegTrashAlt />
                     </span>
                   </div>
@@ -118,16 +124,22 @@ const AllProduct = () => {
                 </td>
                 <td>
                   <div className="flex gap-2 items-center">
-                    <span className="bg-green-500 bg-opacity-50 text-white text-xs p-[5px] rounded-full cursor-pointer">
+                    <span
+                      title="View"
+                      className="bg-green-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
+                    >
                       <FaRegEye />
                     </span>
-                    <span className="bg-yellow-500 bg-opacity-50 text-white text-xs p-[5px] rounded-full cursor-pointer">
+                    <span
+                      title="Edit"
+                      className="bg-yellow-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
+                    >
                       <FaRegEdit />
                     </span>
-                    <span className="bg-amber-700 bg-opacity-50 text-white text-xs p-[5px] rounded-full cursor-pointer">
-                      <FaRegEye />
-                    </span>
-                    <span className="bg-red-500 bg-opacity-50 text-white text-xs p-[5px] rounded-full cursor-pointer">
+                    <span
+                      title="Delete"
+                      className="bg-red-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
+                    >
                       <FaRegTrashAlt />
                     </span>
                   </div>
@@ -150,16 +162,22 @@ const AllProduct = () => {
                 </td>
                 <td>
                   <div className="flex gap-2 items-center">
-                    <span className="bg-green-500 bg-opacity-50 text-white text-xs p-[5px] rounded-full cursor-pointer">
+                    <span
+                      title="View"
+                      className="bg-green-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
+                    >
                       <FaRegEye />
                     </span>
-                    <span className="bg-yellow-500 bg-opacity-50 text-white text-xs p-[5px] rounded-full cursor-pointer">
+                    <span
+                      title="Edit"
+                      className="bg-yellow-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
+                    >
                       <FaRegEdit />
                     </span>
-                    <span className="bg-amber-700 bg-opacity-50 text-white text-xs p-[5px] rounded-full cursor-pointer">
-                      <FaRegEye />
-                    </span>
-                    <span className="bg-red-500 bg-opacity-50 text-white text-xs p-[5px] rounded-full cursor-pointer">
+                    <span
+                      title="Delete"
+                      className="bg-red-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
+                    >
                       <FaRegTrashAlt />
                     </span>
                   </div>
@@ -182,16 +200,22 @@ const AllProduct = () => {
                 </td>
                 <td>
                   <div className="flex gap-2 items-center">
-                    <span className="bg-green-500 bg-opacity-50 text-white text-xs p-[5px] rounded-full cursor-pointer">
+                    <span
+                      title="View"
+                      className="bg-green-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
+                    >
                       <FaRegEye />
                     </span>
-                    <span className="bg-yellow-500 bg-opacity-50 text-white text-xs p-[5px] rounded-full cursor-pointer">
+                    <span
+                      title="Edit"
+                      className="bg-yellow-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
+                    >
                       <FaRegEdit />
                     </span>
-                    <span className="bg-amber-700 bg-opacity-50 text-white text-xs p-[5px] rounded-full cursor-pointer">
-                      <FaRegEye />
-                    </span>
-                    <span className="bg-red-500 bg-opacity-50 text-white text-xs p-[5px] rounded-full cursor-pointer">
+                    <span
+                      title="Delete"
+                      className="bg-red-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
+                    >
                       <FaRegTrashAlt />
                     </span>
                   </div>
@@ -214,16 +238,22 @@ const AllProduct = () => {
                 </td>
                 <td>
                   <div className="flex gap-2 items-center">
-                    <span className="bg-green-500 bg-opacity-50 text-white text-xs p-[5px] rounded-full cursor-pointer">
+                    <span
+                      title="View"
+                      className="bg-green-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
+                    >
                       <FaRegEye />
                     </span>
-                    <span className="bg-yellow-500 bg-opacity-50 text-white text-xs p-[5px] rounded-full cursor-pointer">
+                    <span
+                      title="Edit"
+                      className="bg-yellow-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
+                    >
                       <FaRegEdit />
                     </span>
-                    <span className="bg-amber-700 bg-opacity-50 text-white text-xs p-[5px] rounded-full cursor-pointer">
-                      <FaRegEye />
-                    </span>
-                    <span className="bg-red-500 bg-opacity-50 text-white text-xs p-[5px] rounded-full cursor-pointer">
+                    <span
+                      title="Delete"
+                      className="bg-red-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
+                    >
                       <FaRegTrashAlt />
                     </span>
                   </div>
@@ -246,16 +276,22 @@ const AllProduct = () => {
                 </td>
                 <td>
                   <div className="flex gap-2 items-center">
-                    <span className="bg-green-500 bg-opacity-50 text-white text-xs p-[5px] rounded-full cursor-pointer">
+                    <span
+                      title="View"
+                      className="bg-green-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
+                    >
                       <FaRegEye />
                     </span>
-                    <span className="bg-yellow-500 bg-opacity-50 text-white text-xs p-[5px] rounded-full cursor-pointer">
+                    <span
+                      title="Edit"
+                      className="bg-yellow-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
+                    >
                       <FaRegEdit />
                     </span>
-                    <span className="bg-amber-700 bg-opacity-50 text-white text-xs p-[5px] rounded-full cursor-pointer">
-                      <FaRegEye />
-                    </span>
-                    <span className="bg-red-500 bg-opacity-50 text-white text-xs p-[5px] rounded-full cursor-pointer">
+                    <span
+                      title="Delete"
+                      className="bg-red-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
+                    >
                       <FaRegTrashAlt />
                     </span>
                   </div>

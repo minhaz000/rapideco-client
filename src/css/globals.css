@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 .sidebar-item {
-  padding: 0.75em 1em;
+  padding: 0.5em 0.5em;
   display: block;
   transition: background-color 0.15s;
   border-radius: 5px;
@@ -13,7 +13,6 @@
 
 .sidebar-title {
   display: flex;
-  font-size: 1.2em;
   justify-content: space-between;
 }
 .sidebar-title span i {
@@ -40,9 +39,7 @@
   color: #fff;
   text-decoration: none;
 }
-.sidebar-item.plain:hover {
-  text-decoration: underline;
-}
+
 .sidebar-item.plain i {
   display: inline-block;
   width: 1.7em;

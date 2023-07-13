@@ -14,28 +14,7 @@ const Sidebar = () => {
       <div className="pt-6">
         <p className="text-slate-200">Pages</p>
         <nav className="mt-6">
-          <ul className="capitalize flex flex-col gap-6">
-            {/* <li>
-              <Link href="/dashboard" className="flex items-center gap-2">
-                <Image src={Dashboard} alt="" width={26} height={26} />{" "}
-                Dashboard
-              </Link>
-            </li>
-            <li>
-              <Link href="#" className="flex items-center gap-2">
-                <Image src={Product} alt="" width={26} height={26} /> Products
-              </Link>
-            </li>
-            <li>
-              <Link href="#" className="flex items-center gap-2">
-                <Image src={Product} alt="" width={26} height={26} /> Categories
-              </Link>
-            </li>
-            <li>
-              <Link href="#" className="flex items-center gap-2">
-                <Image src={Orders} alt="" width={26} height={26} /> Orders
-              </Link>
-            </li> */}
+          <ul className="capitalize flex flex-col gap-2">
             {items.map((item, index) => (
               <SidebarItem key={index} item={item} />
             ))}

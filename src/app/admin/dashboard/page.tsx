@@ -12,7 +12,7 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
-
+import { faker } from "@faker-js/faker";
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -22,31 +22,18 @@ ChartJS.register(
   Legend
 );
 
-export const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: "top" as const,
-    },
-    title: {
-      display: true,
-      text: "Chart.js Bar Chart",
-    },
-  },
-};
-
 const labels = ["January", "February", "March", "April", "May", "June", "July"];
 export const data = {
   labels,
   datasets: [
     {
       label: "Dataset 1",
-      data: labels.map(() => {}),
+      data: labels.map(() => faker?.datatype?.number({ min: 0, max: 1000 })),
       backgroundColor: "rgba(255, 99, 132, 0.5)",
     },
     {
       label: "Dataset 2",
-      data: labels.map(() => {}),
+      data: labels.map(() => faker?.datatype?.number({ min: 0, max: 1000 })),
       backgroundColor: "rgba(53, 162, 235, 0.5)",
     },
   ],
@@ -92,9 +79,9 @@ const page = () => {
           </div>
         </div>
       </div>
-      <div className="flex gap-4">
+      <div className="flex gap-4 mt-9">
         <div className="basis-1/2">
-          {/* <Bar options={options} data={data} /> */}
+          <Bar data={data} />
         </div>
         <div></div>
       </div>

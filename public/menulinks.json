@@ -1,0 +1,58 @@
+[
+  {
+    "title": "Dashboard",
+    "path": "/admin/dashboard"
+  },
+  {
+    "title": "Products",
+    "childrens": [
+      {
+        "title": "all products",
+        "path": "/admin/all-products"
+      },
+      {
+        "title": "Add Product",
+        "path": "/admin/add-product"
+      },
+      {
+        "title": "Edit Product",
+        "path": "/admin/edit-product"
+      }
+    ]
+  },
+  {
+    "title": "Orders",
+    "childrens": [
+      {
+        "title": "All Orders",
+        "path": "/admin/all-order"
+      }
+    ]
+  },
+  {
+    "title": "Categories",
+    "childrens": [
+      {
+        "title": "all categories",
+        "path": "/admin/all-categories"
+      },
+      {
+        "title": "Add category",
+        "path": "/admin/add-category"
+      },
+      {
+        "title": "Edit category",
+        "path": "/admin/edit-category"
+      }
+    ]
+  },
+
+  {
+    "title": "Brand",
+    "path": "/admin/brand"
+  },
+  {
+    "title": "Setting",
+    "path": "/admin/support"
+  }
+]

@@ -2,38 +2,16 @@
 import JoditEditor from "jodit-react";
 import Image from "next/image";
 import React, { useState, useRef } from "react";
-
-const AddProduct = () => {
+import Img1 from "../../../../assets/img.png";
+const EditProduct = () => {
   const editor = useRef(null);
-  const [content, setContent] = useState("");
-  const [selectedImage, setSelectedImage] = useState();
-  const [selectedGalleryImage, setSelectedGalleryImage] = useState([]);
-  const handleImage = (e: any) => {
-    setSelectedImage(e.target.files[0]);
-  };
+  const [content, setContent] = useState(
+    "Apple iPhone 14 Pro , 128GB, 512GB, Deep Purple- Unlocked"
+  );
 
-  const handleGalleyImage = (event: any) => {
-    const selectedFiles = event.target.files;
-    const selectedFilesArray = Array.from(selectedFiles);
-
-    const imagesArray = selectedFilesArray.map((file) => {
-      return URL.createObjectURL(file);
-    });
-
-    setSelectedGalleryImage((previousImages) =>
-      previousImages.concat(imagesArray)
-    );
-
-    // FOR BUG IN CHROME
-    event.target.value = "";
-  };
-  function deleteHandler(image: any) {
-    setSelectedGalleryImage(selectedGalleryImage.filter((e) => e !== image));
-    URL.revokeObjectURL(image);
-  }
   return (
     <div className="pb-4">
-      <h2 className="text-2xl">Add Product</h2>
+      <h2 className="text-2xl">Edit Product</h2>
       <div className="mt-6">
         <form>
           <div>
@@ -43,7 +21,9 @@ const AddProduct = () => {
 
             <input
               type="text"
-              placeholder="Enter product name"
+              defaultValue={
+                "Apple iPhone 14 Pro , 128GB, 512GB, Deep Purple- Unlocked"
+              }
               className="border w-full py-2 px-3  rounded-md outline-none"
             />
           </div>
@@ -66,7 +46,8 @@ const AddProduct = () => {
             <JoditEditor
               ref={editor}
               value={content}
-              onBlur={(newContent) => setContent(newContent)}
+              onBlur={(newContent) => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
+              // onChange={newContent => {}}
             />
           </div>
           <div className="mt-3">
@@ -76,7 +57,7 @@ const AddProduct = () => {
 
             <input
               type="text"
-              placeholder="Enter regular price"
+              defaultValue={"100"}
               className="border w-full py-2 px-3  rounded-md outline-none"
             />
           </div>
@@ -87,7 +68,7 @@ const AddProduct = () => {
 
             <input
               type="text"
-              placeholder="Enter discount price"
+              defaultValue={"80"}
               className="border w-full py-2 px-3  rounded-md outline-none"
             />
           </div>
@@ -98,7 +79,7 @@ const AddProduct = () => {
 
             <input
               type="number"
-              placeholder="Quantity"
+              defaultValue={"2"}
               className="border w-full py-2 px-3  rounded-md outline-none"
             />
           </div>
@@ -113,35 +94,19 @@ const AddProduct = () => {
           </div>
           <div className="mt-3">
             <label htmlFor="name" className="mb-2 block">
-              Brand
-            </label>
-
-            <select name="" id="" className="border outline-none p-2 w-full">
-              <option value="">Select Brand</option>
-            </select>
-          </div>
-          <div className="mt-3">
-            <label htmlFor="name" className="mb-2 block">
               Product Image
             </label>
 
             <input
               type="file"
               className="border w-full py-2 px-3  rounded-md outline-none"
-              onChange={handleImage}
             />
-
-            {selectedImage && (
-              <div className="my-3">
-                <Image
-                  src={URL.createObjectURL(selectedImage)}
-                  alt="thumbnail"
-                  width={100}
-                  height={100}
-                  className="object-cover"
-                />
-              </div>
-            )}
+            <div className="relative inline-block mt-2">
+              <Image src={Img1} alt="" width={80} height={80} />
+              <span className="absolute top-2 -right-2 bg-gray-300 text-amber-500 text-xs px-2 py-1 rounded-full cursor-pointer">
+                X
+              </span>
+            </div>
           </div>
           <div className="mt-3">
             <label htmlFor="name" className="mb-2 block">
@@ -153,34 +118,32 @@ const AddProduct = () => {
                 type="file"
                 multiple
                 className="border w-full py-2 px-3  rounded-md outline-none"
-                onChange={handleGalleyImage}
               />
-              <div className="flex gap-2 my-3">
-                {selectedGalleryImage &&
-                  selectedGalleryImage.map((image) => {
-                    return (
-                      <div key={image} className="relative">
-                        <Image
-                          src={image}
-                          width={100}
-                          height={100}
-                          alt="upload"
-                        />
-                        <button
-                          className="absolute top-0 right-0 bg-red-400 text-white px-1"
-                          onClick={() => deleteHandler(image)}
-                        >
-                          x
-                        </button>
-                      </div>
-                    );
-                  })}
+              <div className="flex gap-5">
+                <div className="relative inline-block mt-2">
+                  <Image src={Img1} alt="" width={80} height={80} />
+                  <span className="absolute top-2 -right-2 bg-gray-300 text-amber-500 text-xs px-2 py-1 rounded-full cursor-pointer">
+                    X
+                  </span>
+                </div>
+                <div className="relative inline-block mt-2">
+                  <Image src={Img1} alt="" width={80} height={80} />
+                  <span className="absolute top-2 -right-2 bg-gray-300 text-amber-500 text-xs px-2 py-1 rounded-full cursor-pointer">
+                    X
+                  </span>
+                </div>
+                <div className="relative inline-block mt-2">
+                  <Image src={Img1} alt="" width={80} height={80} />
+                  <span className="absolute top-2 -right-2 bg-gray-300 text-amber-500 text-xs px-2 py-1 rounded-full cursor-pointer">
+                    X
+                  </span>
+                </div>
               </div>
             </div>
           </div>
           <input
             type="submit"
-            value="Add Product"
+            value="Update Product"
             className="bg-blue-600 text-white px-6 py-2 mt-4 rounded-md cursor-pointer"
           />
         </form>
@@ -189,4 +152,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default EditProduct;

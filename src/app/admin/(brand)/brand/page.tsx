@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
-import Img1 from "../../../assets/img.png";
+import Img1 from "../../../../assets/img.png";
 const Brand = () => {
   return (
     <div>

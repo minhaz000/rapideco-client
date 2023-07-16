@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
-import Qrcode from "../../../assets/qrcode.png";
-import Img1 from "../../../assets/img.png";
+import Qrcode from "../../../../assets/qrcode.png";
+import Img1 from "../../../../assets/img.png";
 import { FaPrint } from "react-icons/fa";
 const OrderDetails = () => {
   return (

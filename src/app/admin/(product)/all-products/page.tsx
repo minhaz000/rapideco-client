@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import Img1 from "../../../assets/img.png";
+import Img1 from "../../../../assets/img.png";
 import { FaRegEye, FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 const AllProduct = () => {
   return (

@@ -4,7 +4,7 @@ import Image from "next/image";
 import React, { useState, useRef } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "../../../../hooks/hook.axios";
-import FormValues from "./product";
+import FormValues from "../product";
 const AddProduct = () => {
   const editor = useRef(null);
   const [content, setContent] = useState("");

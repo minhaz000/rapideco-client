@@ -39,12 +39,9 @@
     "ts-node": "^10.9.1"
   },
   "devDependencies": {
-<<<<<<< HEAD
     "@faker-js/faker": "^8.0.2",
-=======
     "@types/multer": "^1.4.7",
     "@types/nodemailer": "^6.4.8",
->>>>>>> minhaz
     "@types/react-image-magnify": "^2.7.1",
     "daisyui": "^3.1.7",
     "typescript": "^5.1.3"

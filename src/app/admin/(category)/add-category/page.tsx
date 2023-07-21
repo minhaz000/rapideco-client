@@ -1,10 +1,10 @@
 "use client";
 import React from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm as useform, SubmitHandler } from "react-hook-form";
 import axios from "../../../../hooks/hook.axios";
 import FormValues from "../category";
 const page = () => {
-  const { register, handleSubmit } = useForm<FormValues>();
+  const { register, handleSubmit } = useform<FormValues>();
   // =============== FUNCTION FOR THE PRODUCT POST REQUEST
   const HandleAddCategory: SubmitHandler<FormValues> = (data) => {
     console.log(data);

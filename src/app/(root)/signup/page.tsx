@@ -6,7 +6,7 @@ const Signup = () => {
     <>
       <div className="max-w-screen-xl mx-auto px-3 lg:px-10 mt-6 hero min-h-screen bg-base-200">
         <div className="hero-content flex-col md:flex-row">
-          <div className=" w-1/2">
+          <div className=" w-1/2 hidden md:block">
             <img src="https://i.ibb.co/TLYbLkN/login.jpg" alt="" />
           </div>
           <div className="card w-full md:w-1/2 shadow-2xl bg-base-100 pb-10">

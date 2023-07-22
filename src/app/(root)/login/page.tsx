@@ -8,6 +8,9 @@ const Login = () => {
   // =============== FUNCTION FOR THE PRODUCT POST REQUEST
   const HandleLogin: SubmitHandler<FormValues> = (data) => {
     console.log(data);
+    axios.post("auth/v0/login", data).then((res) => {
+      console.log(res);
+    });
   };
   return (
     <>

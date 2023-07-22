@@ -29,7 +29,7 @@ const upload: any = multer({
   },
 });
 
-apiRoute.use(upload.array("files"));
+apiRoute.use(upload.array("image"));
 apiRoute.post((req: any, res: any) => {
   req.files.map((item: any) => {
     item.img_url = `${req.headers.host}/${item.path.split("public/")[1]}`;

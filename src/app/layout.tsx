@@ -19,7 +19,6 @@ export default function RootLayout({
       <body className={inter.className}>
         <Providers>
           <Context> {children} </Context>
-          {/* <ReactQueryDevtools initialIsOpen={true} /> */}
         </Providers>
       </body>
     </html>

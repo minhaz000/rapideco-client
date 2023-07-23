@@ -1,30 +1,33 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { useForm as useform, Controller, SubmitHandler } from "react-hook-form";
+import React from "react";
+import { useForm as useform, SubmitHandler } from "react-hook-form";
 import slugify from "slugify";
 import Uploder from "@/hooks/hook.upload";
 import { useQueryData, useMutationData } from "@/hooks/hook.query";
 import FormValues from "../category";
-import { UseQueryOptions } from "@tanstack/react-query";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 const Page = () => {
+  // let validationError: any;
   const { data: categories, refetch } = useQueryData(["categories"], "/api/v0/categories");
   const newCategory = useMutationData(["categories"], "post", "/api/v0/category");
-  const { watch, register, handleSubmit } = useform<FormValues>({
-    defaultValues: {
-      name: " ",
-    },
-  });
+  const { watch, register, reset, handleSubmit } = useform<FormValues>();
   // =============== FUNCTION FOR THE PRODUCT POST REQUEST
   const HandleAddCategory: SubmitHandler<FormValues> = async (data) => {
+    data.slug = slugify(data.name, { lower: true });
     data.icon = await Uploder(data.icon);
     data.imgURL = await Uploder(data.imgURL);
-    newCategory.mutate(data);
-    refetch;
+    data.parentID === "null" && delete data.parentID;
+    newCategory.mutate(data, {
+      onSuccess: () => {
+        toast.success("category added");
+        refetch();
+        reset();
+      },
+      onError: (error: any) => toast.error(error.message ? error.message : error?.data.message),
+    });
   };
 
-  newCategory.isError && toast.error(newCategory.failureReason?.message);
-  newCategory.isSuccess && toast.success("category added");
+  const validationError: any = newCategory.error?.data.errors;
 
   return (
     <div className="shadow-lg p-6 w-2/3 mx-auto border rounded">
@@ -39,8 +42,13 @@ const Page = () => {
             {...register("name")}
             type="text"
             placeholder="Enter name"
-            className="w-full border py-2 px-3 outline-none mt-2"
+            className={`w-full border py-2 px-3 outline-none mt-2 ${
+              validationError?.name && "border-red-600 text-red-400"
+            }`}
           />
+          {validationError?.name && (
+            <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.name.message}</p>
+          )}
         </div>
         <div className="mt-4">
           <label htmlFor="">Slug</label>
@@ -49,10 +57,15 @@ const Page = () => {
             disabled
             {...register("slug")}
             type=""
-            value={slugify(watch("name"), { lower: true })}
+            value={slugify(watch("name") ?? " ", { lower: true })}
             placeholder="slug"
-            className="w-full border py-2 px-3 outline-none mt-2"
+            className={`w-full border py-2 px-3 outline-none mt-2 ${
+              validationError?.slug && "border-red-600 text-red-400"
+            }`}
           />
+          {validationError?.slug && (
+            <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.slug.message}</p>
+          )}
         </div>
         <div className="mt-4">
           <label htmlFor="">Parent Category</label>

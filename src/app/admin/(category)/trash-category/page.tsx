@@ -1,13 +1,10 @@
 "use client";
-
-import Image from "next/image";
-import Link from "next/link";
 import React from "react";
+import Image from "next/image";
 import Img1 from "../../../../assets/img.png";
-import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
+import { FaRegClock, FaRegTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
-
-const AllCategory = () => {
+const Trash = () => {
   const handleDeleteProduct = () => {
     Swal.fire({
       title: "Are you sure?",
@@ -26,26 +23,12 @@ const AllCategory = () => {
   return (
     <div>
       <div className="flex justify-between items-center">
-        <h2 className="text-lg">All Categories</h2>
-        <Link
-          href={"/add-category"}
-          className="bg-sky-800 px-4 py-2 rounded text-white capitalize"
-        >
-          Add new Categories
-        </Link>
+        <h2 className="text-lg">All Trash Categories</h2>
       </div>
       <div className="shadow-[0_0_10px_5px_#d7d7d7bf] mt-6">
         <div className="flex justify-between items-center border-b pb-3 px-4 pt-4 mb-4">
           <div>
-            <h2 className="text-xl">Categories</h2>
-            <div>
-              <span className="text-[12px] underline text-slate-500 cursor-pointer mr-2">
-                <Link href={"/admin/all-categories"}>All Categories(1)</Link>
-              </span>
-              <span className="text-[12px] underline text-slate-500 cursor-pointer">
-                <Link href={"/admin/trash-category"}>Trash(5)</Link>
-              </span>
-            </div>
+            <h2 className="text-xl">Trash Categories</h2>
           </div>
           <div className="flex gap-4">
             <div>
@@ -97,10 +80,10 @@ const AllCategory = () => {
                 <td>
                   <div className="flex gap-2 items-center">
                     <span
-                      title="Edit"
+                      title="Restore"
                       className="bg-yellow-500 bg-opacity-50 text-white text-xs p-[5px] rounded-full cursor-pointer hover:bg-opacity-100"
                     >
-                      <FaRegEdit />
+                      <FaRegClock />
                     </span>
 
                     <span
@@ -121,4 +104,4 @@ const AllCategory = () => {
   );
 };
 
-export default AllCategory;
+export default Trash;

@@ -2,7 +2,7 @@
 import axios from "../hooks/hook.axios";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
-export const RootContext = createContext("");
+const RootContext = createContext("");
 function Context(props: any) {
   const [user, setUser] = useState(null);
   useEffect(() => {
@@ -11,9 +11,11 @@ function Context(props: any) {
   }, []);
 
   const value: any = { user };
-  return (
-    <RootContext.Provider value={value}> {props.children}</RootContext.Provider>
-  );
+  return <RootContext.Provider value={value}> {props.children}</RootContext.Provider>;
 }
 
 export default Context;
+
+const useRootContext = () => useContext(RootContext);
+
+export { useRootContext };

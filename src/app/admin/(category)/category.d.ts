@@ -4,10 +4,10 @@ interface ICategory {
   slug: string;
   icon?: string;
   imgURL?: string;
-  products: [];
+  products?: [];
   parentID?: ObjectId;
-  sub_cate: any;
-  is_delete: boolean;
+  sub_cate?: any;
+  is_delete?: boolean;
   meta_title: string;
   meta_description: string;
 }

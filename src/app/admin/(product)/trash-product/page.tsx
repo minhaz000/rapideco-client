@@ -3,9 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import Img1 from "../../../../assets/img.png";
-import { FaRegEye, FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
+import { FaRegClock, FaRegTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
-const AllProduct = () => {
+
+const TrashProduct = () => {
   const handleDeleteProduct = () => {
     Swal.fire({
       title: "Are you sure?",
@@ -23,19 +24,10 @@ const AllProduct = () => {
   };
   return (
     <div>
-      <div className="flex justify-between items-center">
-        <h2 className="text-lg">All Product</h2>
-        <Link
-          href={"/add-product"}
-          className="bg-sky-800 px-4 py-2 rounded text-white capitalize"
-        >
-          Add new Product
-        </Link>
-      </div>
       <div className="shadow-[0_0_10px_5px_#d7d7d7bf] mt-6">
         <div className="flex justify-between items-center border-b pb-3 px-4 pt-4 mb-4">
           <div>
-            <h2 className="text-xl">All Product</h2>
+            <h2 className="text-xl">All Trash Product</h2>
             <div>
               <span className="text-[12px] underline text-slate-500 cursor-pointer mr-2">
                 <Link href={"/admin/all-products"}>All Products(6)</Link>
@@ -114,16 +106,10 @@ const AllProduct = () => {
                 <td>
                   <div className="flex gap-2 items-center">
                     <span
-                      title="View"
-                      className="bg-green-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
-                    >
-                      <FaRegEye />
-                    </span>
-                    <span
-                      title="Edit"
+                      title="Restore"
                       className="bg-yellow-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
                     >
-                      <FaRegEdit />
+                      <FaRegClock />
                     </span>
                     <span
                       onClick={handleDeleteProduct}
@@ -153,16 +139,10 @@ const AllProduct = () => {
                 <td>
                   <div className="flex gap-2 items-center">
                     <span
-                      title="View"
-                      className="bg-green-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
-                    >
-                      <FaRegEye />
-                    </span>
-                    <span
-                      title="Edit"
+                      title="Restore"
                       className="bg-yellow-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
                     >
-                      <FaRegEdit />
+                      <FaRegClock />
                     </span>
                     <span
                       onClick={handleDeleteProduct}
@@ -192,133 +172,10 @@ const AllProduct = () => {
                 <td>
                   <div className="flex gap-2 items-center">
                     <span
-                      title="View"
-                      className="bg-green-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
-                    >
-                      <FaRegEye />
-                    </span>
-                    <span
-                      title="Edit"
+                      title="Restore"
                       className="bg-yellow-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
                     >
-                      <FaRegEdit />
-                    </span>
-                    <span
-                      onClick={handleDeleteProduct}
-                      title="Delete"
-                      className="bg-red-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
-                    >
-                      <FaRegTrashAlt />
-                    </span>
-                  </div>
-                </td>
-              </tr>
-              <tr className="text-xs font-normal text-start border-b">
-                <td className="py-5 ps-4">4</td>
-                <td>
-                  <Image src={Img1} width={50} height={50} alt=""></Image>
-                </td>
-                <td>Apple iPhone 14 Pro , 128GB, 512GB,</td>
-                <td>$200</td>
-                <td>$159</td>
-                <td>20</td>
-                <td>Apple</td>
-                <td>
-                  <span className="bg-green-500 bg-opacity-70 text-white text-sm p-1 rounded">
-                    Active
-                  </span>
-                </td>
-                <td>
-                  <div className="flex gap-2 items-center">
-                    <span
-                      title="View"
-                      className="bg-green-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
-                    >
-                      <FaRegEye />
-                    </span>
-                    <span
-                      title="Edit"
-                      className="bg-yellow-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
-                    >
-                      <FaRegEdit />
-                    </span>
-                    <span
-                      onClick={handleDeleteProduct}
-                      title="Delete"
-                      className="bg-red-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
-                    >
-                      <FaRegTrashAlt />
-                    </span>
-                  </div>
-                </td>
-              </tr>
-              <tr className="text-xs font-normal text-start border-b">
-                <td className="py-5 ps-4">5</td>
-                <td>
-                  <Image src={Img1} width={50} height={50} alt=""></Image>
-                </td>
-                <td>Apple iPhone 14 Pro , 128GB, 512GB,</td>
-                <td>$200</td>
-                <td>$159</td>
-                <td>20</td>
-                <td>Apple</td>
-                <td>
-                  <span className="bg-green-500 bg-opacity-70 text-white text-sm p-1 rounded">
-                    Active
-                  </span>
-                </td>
-                <td>
-                  <div className="flex gap-2 items-center">
-                    <span
-                      title="View"
-                      className="bg-green-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
-                    >
-                      <FaRegEye />
-                    </span>
-                    <span
-                      title="Edit"
-                      className="bg-yellow-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
-                    >
-                      <FaRegEdit />
-                    </span>
-                    <span
-                      onClick={handleDeleteProduct}
-                      title="Delete"
-                      className="bg-red-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
-                    >
-                      <FaRegTrashAlt />
-                    </span>
-                  </div>
-                </td>
-              </tr>
-              <tr className="text-xs font-normal text-start border-b">
-                <td className="py-5 ps-4">6</td>
-                <td>
-                  <Image src={Img1} width={50} height={50} alt=""></Image>
-                </td>
-                <td>Apple iPhone 14 Pro , 128GB, 512GB,</td>
-                <td>$200</td>
-                <td>$159</td>
-                <td>20</td>
-                <td>Apple</td>
-                <td>
-                  <span className="bg-green-500 bg-opacity-70 text-white text-sm p-1 rounded">
-                    Active
-                  </span>
-                </td>
-                <td>
-                  <div className="flex gap-2 items-center">
-                    <span
-                      title="View"
-                      className="bg-green-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
-                    >
-                      <FaRegEye />
-                    </span>
-                    <span
-                      title="Edit"
-                      className="bg-yellow-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
-                    >
-                      <FaRegEdit />
+                      <FaRegClock />
                     </span>
                     <span
                       onClick={handleDeleteProduct}
@@ -338,4 +195,4 @@ const AllProduct = () => {
   );
 };
 
-export default AllProduct;
+export default TrashProduct;

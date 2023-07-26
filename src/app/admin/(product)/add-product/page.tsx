@@ -3,14 +3,13 @@ import JoditEditor from "jodit-react";
 import Image from "next/image";
 import React, { useState, useRef } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import axios from "../../../../hooks/hook.axios";
 import FormValues from "../product";
 const AddProduct = () => {
   const editor = useRef(null);
   const [content, setContent] = useState("");
   const [selectedImage, setSelectedImage] = useState();
   const [selectedGalleryImage, setSelectedGalleryImage] = useState([]);
-  const { register, handleSubmit } = useForm<FormValues>();
+  const { register, handleSubmit, reset } = useForm<FormValues>();
   const handleImage = (e: any) => {
     setSelectedImage(e.target.files[0]);
   };
@@ -22,9 +21,7 @@ const AddProduct = () => {
       return URL.createObjectURL(file as any);
     });
 
-    setSelectedGalleryImage((previousImages) =>
-      previousImages.concat(imagesArray as any)
-    );
+    setSelectedGalleryImage((previousImages) => previousImages.concat(imagesArray as any));
 
     // FOR BUG IN CHROME
     event.target.value = "";
@@ -62,6 +59,7 @@ const AddProduct = () => {
             </label>
 
             <JoditEditor
+              {...register("short_description")}
               ref={editor}
               value={content}
               onBlur={(newContent) => setContent(newContent)}
@@ -72,11 +70,7 @@ const AddProduct = () => {
               Full Description
             </label>
 
-            <JoditEditor
-              ref={editor}
-              value={content}
-              onBlur={(newContent) => setContent(newContent)}
-            />
+            <JoditEditor ref={editor} value={content} onBlur={(newContent) => setContent(newContent)} />
           </div>
           <div className="mt-3">
             <label htmlFor="name" className="mb-2 block">
@@ -105,11 +99,7 @@ const AddProduct = () => {
               Quantity
             </label>
 
-            <input
-              type="number"
-              placeholder="Quantity"
-              className="border w-full py-2 px-3  rounded-md outline-none"
-            />
+            <input type="number" placeholder="Quantity" className="border w-full py-2 px-3  rounded-md outline-none" />
           </div>
           <div className="mt-3">
             <label htmlFor="name" className="mb-2 block">
@@ -134,11 +124,7 @@ const AddProduct = () => {
               Product Image
             </label>
 
-            <input
-              type="file"
-              className="border w-full py-2 px-3  rounded-md outline-none"
-              onChange={handleImage}
-            />
+            <input type="file" className="border w-full py-2 px-3  rounded-md outline-none" onChange={handleImage} />
 
             {selectedImage && (
               <div className="my-3">
@@ -169,12 +155,7 @@ const AddProduct = () => {
                   selectedGalleryImage.map((image) => {
                     return (
                       <div key={image} className="relative">
-                        <Image
-                          src={image}
-                          width={100}
-                          height={100}
-                          alt="upload"
-                        />
+                        <Image src={image} width={100} height={100} alt="upload" />
                         <button
                           className="absolute top-0 right-0 bg-red-400 text-white px-1"
                           onClick={() => deleteHandler(image)}

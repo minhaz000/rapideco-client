@@ -7,12 +7,15 @@ import Img1 from "../../../../assets/img.png";
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { useAdminContext } from "@/context/admin.context";
+import { useMutationData } from "@/hooks/hook.query";
+import { toast } from "react-toastify";
+import axios from "@/hooks/hook.axios";
 
 const AllCategory = () => {
   const { Categories }: any = useAdminContext();
   const constes = useAdminContext();
   console.log(constes);
-  const handleDelete = () => {
+  const handleDelete = (deleteId: string) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -20,10 +23,17 @@ const AllCategory = () => {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: "Move to trash",
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        axios
+          .delete(`/api/v0/category/${deleteId}`)
+          .then(() => {
+            toast.success("category moved to Trash");
+            Categories.refetch();
+          })
+          .catch((error: any) => toast.error(error.message ? error.message : error?.data.message));
       }
     });
   };
@@ -40,9 +50,6 @@ const AllCategory = () => {
           <div>
             <h2 className="text-xl">Categories</h2>
             <div>
-              <span className="text-[12px] underline text-slate-500 cursor-pointer mr-2">
-                <Link href={"/admin/all-categories"}>All Categories(1)</Link>
-              </span>
               <span className="text-[12px] underline text-slate-500 cursor-pointer">
                 <Link href={"/admin/trash-category"}>Trash(5)</Link>
               </span>
@@ -105,7 +112,7 @@ const AllCategory = () => {
                           </span>
 
                           <span
-                            onClick={handleDelete}
+                            onClick={() => handleDelete(item._id)}
                             title="Delete"
                             className="bg-red-500 bg-opacity-50 text-white text-xs p-[5px] rounded-full cursor-pointer hover:bg-opacity-100"
                           >
@@ -119,8 +126,9 @@ const AllCategory = () => {
                         <>
                           <tr className="text-xs font-normal text-start border-b">
                             <td className="py-5 ps-4">--</td>
-                            <td>{sub_item._id}</td>
-                            <td>{sub_item.parent_name}</td>
+                            <td>{sub_item.name}</td>
+                            <td>{sub_item.parent_info.name}</td>
+                            <td>{"sub_item"}</td>
                             {/* <td>0</td>
                       <td>0</td> */}
                             <td>
@@ -142,7 +150,7 @@ const AllCategory = () => {
                                 </span>
 
                                 <span
-                                  onClick={handleDelete}
+                                  onClick={() => handleDelete(sub_item._id)}
                                   title="Delete"
                                   className="bg-red-500 bg-opacity-50 text-white text-xs p-[5px] rounded-full cursor-pointer hover:bg-opacity-100"
                                 >

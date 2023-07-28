@@ -5,6 +5,7 @@ const useQueryData = (key: any[], url: string) => {
   return useQuery({
     queryKey: key,
     queryFn: async () => {
+      console.log("query fired");
       const res: any = await axios.get(url);
       return res.data;
     },

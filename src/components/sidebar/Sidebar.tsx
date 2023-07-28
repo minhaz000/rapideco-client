@@ -1,10 +1,5 @@
 "use client";
-import Link from "next/link";
 import React from "react";
-import Dashboard from "../../assets/icons/dashboard.png";
-import Product from "../../assets/icons/product.png";
-import Orders from "../../assets/icons/order.png";
-import Image from "next/image";
 import items from "../../../public/menulinks.json";
 import SidebarItem from "./SidebarItem";
 const Sidebar = () => {

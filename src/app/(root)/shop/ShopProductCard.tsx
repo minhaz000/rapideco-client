@@ -1,12 +1,12 @@
-"use clients";
-
 import Link from "next/link";
 import React from "react";
 
-const ProductCard = ({ product }) => {
+const ShopProductCard = ({ product }) => {
   return (
     <Link href={`/product/${product.id}`}>
-      <div className="border border-[#E9ECEF] rounded-md h-full flex flex-col">
+      <div
+        className={`border border-[#E9ECEF] rounded-md h-full flex flex-col`}
+      >
         <div className="overflow-hidden relative">
           <p className="absolute top-2 left-0 bg-white px-2 py-2 z-40 uppercase text-[12px] rounded-e-full shadow-xl flex items-center gap-2">
             Off
@@ -47,4 +47,4 @@ const ProductCard = ({ product }) => {
   );
 };
 
-export default ProductCard;
+export default ShopProductCard;

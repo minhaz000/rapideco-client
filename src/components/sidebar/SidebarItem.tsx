@@ -11,7 +11,9 @@ export default function SidebarItem({ item }) {
           className="sidebar-title cursor-pointer"
           onClick={() => setOpen(!open)}
         >
-          <span>{item.title}</span>
+          <span className="text-[13px]">
+            {item.icon && <i className={item.icon}></i>} {item.title}
+          </span>
           {open ? <FaAngleDown /> : <FaAngleRight />}
         </div>
         <div className="sidebar-content">
@@ -23,7 +25,7 @@ export default function SidebarItem({ item }) {
     );
   } else {
     return (
-      <Link href={item.path || "#"} className="sidebar-item plain">
+      <Link href={item.path || "#"} className="sidebar-item plain text-[13px]">
         {item.icon && <i className={item.icon}></i>}
         {item.title}
       </Link>

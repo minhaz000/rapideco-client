@@ -18,7 +18,6 @@
 }
 .sidebar-title span i {
   display: inline-block;
-  width: 1.5em;
 }
 .sidebar-title .toggle-btn {
   cursor: pointer;
@@ -44,5 +43,6 @@
 
 .sidebar-item.plain i {
   display: inline-block;
-  width: 1.7em;
+  width: 1em;
+  margin-right: 5px;
 }

@@ -1,10 +1,12 @@
 [
   {
     "title": "Dashboard",
-    "path": "/admin/dashboard"
+    "path": "/admin/dashboard",
+    "icon": "ri-dashboard-line"
   },
   {
     "title": "Products",
+    "icon": "ri-shopping-cart-line",
     "childrens": [
       {
         "title": "all products",
@@ -22,6 +24,7 @@
   },
   {
     "title": "Orders",
+    "icon": "ri-list-ordered",
     "childrens": [
       {
         "title": "All Orders",
@@ -31,6 +34,7 @@
   },
   {
     "title": "Categories",
+    "icon": "ri-focus-3-line",
     "childrens": [
       {
         "title": "all categories",
@@ -49,10 +53,12 @@
 
   {
     "title": "Brand",
-    "path": "/admin/brand"
+    "path": "/admin/brand",
+    "icon": "ri-brain-line"
   },
   {
     "title": "Setting",
-    "path": "/admin/support"
+    "path": "/admin/support",
+    "icon": "ri-tools-line"
   }
 ]

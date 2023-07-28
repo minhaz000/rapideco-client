@@ -3084,6 +3084,11 @@ regexparam@^2.0.1:
   resolved "https://registry.npmjs.org/regexparam/-/regexparam-2.0.1.tgz"
   integrity sha512-zRgSaYemnNYxUv+/5SeoHI0eJIgTL/A2pUtXUPLHQxUldagouJ9p+K6IbIZ/JiQuCEv2E2B1O11SjVQy3aMCkw==
 
+remixicon@^3.4.0:
+  version "3.4.0"
+  resolved "https://registry.npmjs.org/remixicon/-/remixicon-3.4.0.tgz"
+  integrity sha512-T1tJfMVNbmUIYdsrCJ//FOoQ/xgiWPuE3ZZvUeDRl5h/IZWKN2eTcKeUoro1g5aeJ/Rk1mZV6QPdF8qZxIu+3A==
+
 resize-observer-polyfill@^1.5.0:
   version "1.5.1"
   resolved "https://registry.npmjs.org/resize-observer-polyfill/-/resize-observer-polyfill-1.5.1.tgz"

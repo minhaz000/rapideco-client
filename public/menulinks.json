@@ -52,6 +52,11 @@
   },
 
   {
+    "title": "Payment Method",
+    "path": "/admin/payment-method",
+    "icon": "ri-bank-card-line"
+  },
+  {
     "title": "Brand",
     "path": "/admin/brand",
     "icon": "ri-brain-line"

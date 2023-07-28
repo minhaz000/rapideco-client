@@ -45,7 +45,10 @@ export default function AdminLayout({
             <div className="me-4">
               <FaRegBell className="text-2xl cursor-pointer" />
             </div>
-            <div className="relative">
+            <div
+              className="relative"
+              onClick={() => setProfileOpen(!profileOpen)}
+            >
               <div className="flex items-center justify-end gap-2 cursor-pointer">
                 <img
                   src="https://i.ibb.co/vBH9ybB/2-1.jpg"
@@ -54,7 +57,6 @@ export default function AdminLayout({
                 <span>Rapideco</span>
               </div>
               <div
-                onClick={() => setProfileOpen(!profileOpen)}
                 className={`bg-white border-l-4 border-cyan-700 shadow-lg w-32  rounded absolute top-10 -left-14 flex flex-col gap-3 py-3 px-2 ${
                   profileOpen ? "block" : "hidden"
                 }`}

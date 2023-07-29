@@ -5,6 +5,7 @@ import Img1 from "../../../../assets/img.png";
 import { FaRegClock, FaRegTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 import axios from "@/hooks/hook.axios";
+import deletePhoto from "axios";
 import Link from "next/link";
 import { toast } from "react-toastify";
 import { useQueryData } from "@/hooks/hook.query";
@@ -27,7 +28,9 @@ const Trash = () => {
         Swal.fire("Deleted!", "Your file has been deleted.", "success");
         axios
           .delete(`/api/v0/category/${deleteID}?permanent=true`)
-          .then(() => {
+          .then(async (res) => {
+            console.log(res.data);
+            await deletePhoto.post("/api/delete", [res.data.data.imgURL, res.data.data.icon]);
             toast.success("category deleted");
             refetch();
           })
@@ -70,11 +73,7 @@ const Trash = () => {
                 className="border outline-none text-sm py-2 px-3 w-40"
               />
             </div>
-            <select
-              name=""
-              id=""
-              className="border py-2 px-3 outline-none w-40 text-xs text-slate-500"
-            >
+            <select name="" id="" className="border py-2 px-3 outline-none w-40 text-xs text-slate-500">
               <option value="">Sort By</option>
             </select>
           </div>
@@ -105,10 +104,10 @@ const Trash = () => {
                       {/* <td>0</td> */}
                       <td>0</td>
                       <td>
-                        <Image src={Img1} width={50} height={50} alt=""></Image>
+                        <Image src={item.icon?.img_url} width={50} height={50} alt=""></Image>
                       </td>
                       <td>
-                        <Image src={Img1} width={50} height={50} alt=""></Image>
+                        <Image src={item.imgURL?.img_url} width={50} height={50} alt=""></Image>
                       </td>
                       <td>
                         <input type="checkbox" className="toggle toggle-success" checked />

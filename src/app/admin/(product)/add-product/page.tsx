@@ -13,7 +13,7 @@ const AddProduct = () => {
   const handleImage = (e: any) => {
     setSelectedImage(e.target.files[0]);
   };
-
+  console.log(content);
   const handleGalleyImage = (event: any) => {
     const selectedFiles = event.target.files;
     const selectedFilesArray = Array.from(selectedFiles);
@@ -62,7 +62,7 @@ const AddProduct = () => {
               {...register("short_description")}
               ref={editor}
               value={content}
-              onBlur={(newContent) => setContent(newContent)}
+              onChange={(newContent) => setContent(newContent)}
             />
           </div>
           <div className="mt-3">

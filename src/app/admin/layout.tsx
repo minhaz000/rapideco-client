@@ -17,7 +17,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     <AdminContext>
       <div className="relative">
         <div
-          className={`bg-[#1E293B] ${
+          className={`bg-[#141423]  ${
             mobileMenu
               ? "-translate-x-0 opacity-100 w-3/4"
               : "-translate-x-96 xl:w-80 xl:-translate-x-0 opacity-0 xl:opacity-100"

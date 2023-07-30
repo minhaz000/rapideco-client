@@ -13,8 +13,6 @@ import axios from "@/hooks/hook.axios";
 
 const AllCategory = () => {
   const { Categories }: any = useAdminContext();
-  const constes = useAdminContext();
-  console.log(constes);
   const handleDelete = (deleteId: string) => {
     Swal.fire({
       title: "Are you sure?",
@@ -64,11 +62,7 @@ const AllCategory = () => {
                 className="border outline-none text-sm py-2 px-3 w-40"
               />
             </div>
-            <select
-              name=""
-              id=""
-              className="border py-2 px-3 outline-none w-40 text-xs text-slate-500"
-            >
+            <select name="" id="" className="border py-2 px-3 outline-none w-40 text-xs text-slate-500">
               <option value="">Sort By</option>
             </select>
           </div>

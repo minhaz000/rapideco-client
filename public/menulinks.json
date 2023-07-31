@@ -50,6 +50,16 @@
       }
     ]
   },
+  {
+    "title": "Attributes",
+    "icon": "ri-creative-commons-by-line",
+    "childrens": [
+      {
+        "title": "All Attributes",
+        "path": "/admin/all-attributes"
+      }
+    ]
+  },
 
   {
     "title": "Payment Method",

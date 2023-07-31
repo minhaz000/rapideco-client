@@ -23,18 +23,16 @@ const upload: any = multer({
     const suportedformats = /png|jpeg|jpg|pjp|pjpeg|jfif|svg|webp|/;
     const extension = path.extname(file.originalname);
 
-    suportedformats.test(extension)
-      ? cb(null, true)
-      : cb(new Error(" invalid file type "));
+    suportedformats.test(extension) ? cb(null, true) : cb(new Error(" invalid file type "));
   },
 });
 
-apiRoute.use(upload.array("files"));
+apiRoute.use(upload.array("image"));
 apiRoute.post((req: any, res: any) => {
   req.files.map((item: any) => {
-    item.img_url = `${req.headers.host}/${item.path.split("public/")[1]}`;
+    item.img_url = `${item.path.split("public")[1]}`;
   });
-
+  6;
   res.status(201).json({ data: req.files });
 });
 export default apiRoute.handler({

@@ -1,6 +1,17 @@
 "use client";
 import Link from "next/link";
+import { useForm as useform, SubmitHandler } from "react-hook-form";
+import axios from "../../../hooks/hook.axios";
+import FormValues from "./login";
 const Login = () => {
+  const { register, handleSubmit } = useform<FormValues>();
+  // =============== FUNCTION FOR THE PRODUCT POST REQUEST
+  const HandleLogin: SubmitHandler<FormValues> = (data) => {
+    console.log(data);
+    axios.post("auth/v0/login", data).then((res) => {
+      console.log(res);
+    });
+  };
   return (
     <>
       <div className="max-w-screen-xl mx-auto px-3 lg:px-10 mt-6 hero min-h-screen bg-base-200">
@@ -13,13 +24,14 @@ const Login = () => {
               <h1 className="text-4xl font-bold text-center mb-6 border-b pb-4">
                 Login now!
               </h1>
-              <form>
+              <form onSubmit={handleSubmit(HandleLogin)}>
                 <div className="form-control">
                   <label className="label">
                     <span className="label-text">Email</span>
                   </label>
                   <input
-                    type="email"
+                    {...register("username")}
+                    // type="email"
                     placeholder="Email"
                     className="border w-full py-2 px-3 rounded outline-none mt-2"
                   />
@@ -30,6 +42,7 @@ const Login = () => {
                   </label>
                   <div className="relative">
                     <input
+                      {...register("password")}
                       type="password"
                       placeholder="Password"
                       className="border w-full py-2 px-3 rounded outline-none mt-2"

@@ -1,12 +1,21 @@
 "use client";
-import React, { createContext, useContext } from "react";
+import axios from "../hooks/hook.axios";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
-export const RootContext = createContext("");
-const value: any = { name: "minhaz" };
+const RootContext = createContext("");
 function Context(props: any) {
-  return (
-    <RootContext.Provider value={value}> {props.children}</RootContext.Provider>
-  );
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    axios.get("auth/v0/profile").then((res) => setUser(res.data));
+    // axios.get("api/v0/categories").then((res) => setUser(res.data));
+  }, []);
+
+  const value: any = { user };
+  return <RootContext.Provider value={value}> {props.children}</RootContext.Provider>;
 }
 
 export default Context;
+
+const useRootContext = () => useContext(RootContext);
+
+export { useRootContext };

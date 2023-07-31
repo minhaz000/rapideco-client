@@ -1,46 +1,64 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
+// import Router from "next/navigation";
 import { useForm as useform, SubmitHandler } from "react-hook-form";
 import slugify from "slugify";
 import Uploder from "@/hooks/hook.upload";
-import { useMutationData } from "@/hooks/hook.query";
-import FormValues from "../category";
+import { useMutationData, useQueryData } from "@/hooks/hook.query";
+import FormValues from "../../category";
 import { toast } from "react-toastify";
 import { useAdminContext } from "@/context/admin.context";
-const Page = () => {
+import { useRouter } from "next/navigation";
+import axios from "@/hooks/hook.axios";
+const Page = ({ params }: { params: { categoryID: string[] } }) => {
   const { Categories }: any = useAdminContext();
-  const newCategory = useMutationData(["add Category"], "post", "/api/v0/category");
-  const { watch, register, reset, handleSubmit } = useform<FormValues>();
+  const { data: currrentCategory, refetch } = useQueryData(
+    ["single Category"],
+    `/api/v0/category/${params.categoryID}`
+  );
+  const updateCategory = useMutationData(["add Category"], "put", `/api/v0/category/${params.categoryID}`);
+  const { watch, register, reset, handleSubmit, setValue } = useform<FormValues>({
+    defaultValues: async (): Promise<FormValues> => {
+      const res = await axios.get(`/api/v0/category/${params.categoryID}`);
+      return res.data;
+    },
+  });
+  console.log("currrentCategory ", currrentCategory?.data);
+
   // =============== FUNCTION FOR THE PRODUCT POST REQUEST
-  const HandleAddCategory: SubmitHandler<FormValues> = async (data) => {
+  const HandleEditCategory: SubmitHandler<FormValues> = async (data: any) => {
     data.slug = slugify(data.name, { lower: true });
-    data.icon = await Uploder(data.icon);
-    data.imgURL = await Uploder(data.imgURL);
+    data.icon.length < 1 ? (data.icon = await Uploder(data.icon)) : (data.icon = currrentCategory.data.icon);
+    data.imgURL.length < 1 ? (data.imgURL = await Uploder(data.imgURL)) : (data.icon = currrentCategory.data.imgURL);
     data.parentID === "null" && delete data.parentID;
-    newCategory.mutate(data, {
-      onSuccess: () => {
-        toast.success("category added");
-        Categories.refetch();
+
+    console.log(data);
+    updateCategory.mutate(data, {
+      onSuccess: async () => {
+        toast.success("category updated");
         reset();
+        refetch().then((res) => {
+          setValue("slug", res.data.data.slug);
+        });
+        Categories.refetch();
       },
       onError: (error: any) => toast.error(error.message ? error.message : error?.data.message),
     });
   };
 
-  const validationError: any = newCategory.error?.data.errors;
+  const validationError: any = updateCategory.error?.data?.errors;
 
   return (
     <div className="shadow-lg p-6 w-2/3 mx-auto border rounded">
-      <h2 className="border-b pb-2 text-xl">Category information</h2>
-      <form onSubmit={handleSubmit(HandleAddCategory)}>
-        {/* {console.log(slugify(watch("name") || " "))}
-        {console.log(watch("name"))} */}
+      <h2 className="border-b pb-2 text-xl">Update Category information</h2>
+      <form onSubmit={handleSubmit(HandleEditCategory)}>
         <div className="mt-4">
           <label htmlFor="">Name</label>
           <br />
           <input
             {...register("name")}
             type="text"
+            defaultValue={currrentCategory?.data.name}
             placeholder="Enter name"
             className={`w-full border py-2 px-3 outline-none mt-2 ${
               validationError?.name && "border-red-600 text-red-400"
@@ -56,8 +74,9 @@ const Page = () => {
           <input
             disabled
             {...register("slug")}
-            type=""
-            value={slugify(watch("name") ?? " ", { lower: true })}
+            type="text"
+            // defaultValue={currrentCategory?.data.slug}
+            value={watch("name") && slugify(watch("name"), { lower: true })}
             placeholder="slug"
             className={`w-full border py-2 px-3 outline-none mt-2 ${
               validationError?.slug && "border-red-600 text-red-400"
@@ -71,7 +90,7 @@ const Page = () => {
           <label htmlFor="">Parent Category</label>
           <br />
           <select {...register("parentID")} className="w-full border py-2 px-3 outline-none mt-2">
-            <option value="null">No parent</option>
+            <option value="null">{currrentCategory?.parent_info?.name}</option>
             {Categories.data?.data?.map((item: any) => {
               return (
                 <option key={item._id} value={item._id}>
@@ -96,6 +115,7 @@ const Page = () => {
           <br />
           <input
             {...register("meta_title")}
+            defaultValue={currrentCategory?.data.meta_title}
             type="text"
             placeholder="Meta Title"
             className="w-full border py-2 px-3 outline-none mt-2"
@@ -106,6 +126,7 @@ const Page = () => {
           <br />
           <textarea
             {...register("meta_description")}
+            defaultValue={currrentCategory?.data.meta_description}
             placeholder="Meta description"
             className="w-full border py-2 px-3 outline-none mt-2 h-28"
           ></textarea>

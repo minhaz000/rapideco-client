@@ -1,5 +1,7 @@
-interface IAttribute {
+export interface IAtrribute {
   name: string;
+  key: string;
+  value: string;
 }
 
-export default IAttribute;
+export default IAtrribute;

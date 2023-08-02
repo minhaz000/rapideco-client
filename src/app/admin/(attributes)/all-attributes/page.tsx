@@ -15,7 +15,7 @@ import axios from "@/hooks/hook.axios";
 const Attributes = () => {
   const { Atrribute }: any = useAdminContext();
   const newBrand = useMutationData(["add new attribute"], "post", "api/v0/attribute");
-  const { watch, register, reset, handleSubmit } = useform<FormValues>();
+  const { register, reset, handleSubmit } = useform<FormValues>();
   // =============== FUNCTION FOR THE PRODUCT POST REQUEST
   const HandleAddAtrribute: SubmitHandler<FormValues> = async (data) => {
     newBrand.mutate(data, {
@@ -88,17 +88,11 @@ const Attributes = () => {
                               title="Attributes values"
                               className="bg-blue-500 bg-opacity-50 text-white text-xs p-[5px] rounded-full cursor-pointer hover:bg-opacity-100"
                             >
-                              <Link href="/admin/attribute-detail">
+                              <Link href={`/admin/attribute-details/${item._id}`}>
                                 <BsGear />
                               </Link>
                             </span>
 
-                            <span
-                              title="Edit"
-                              className="bg-yellow-500 bg-opacity-50 text-white text-xs p-[5px] rounded-full cursor-pointer hover:bg-opacity-100"
-                            >
-                              <FaRegEdit />
-                            </span>
                             <span
                               onClick={() => handleDelete(item._id)}
                               title="Delete"

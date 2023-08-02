@@ -1,27 +1,48 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+.sidebar-item {
+  padding: 0.5em 0.5em;
+  display: block;
+  transition: background-color 0.15s;
+  border-radius: 5px;
+}
+.sidebar-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.sidebar-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.sidebar-title span i {
+  display: inline-block;
+}
+.sidebar-title .toggle-btn {
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+.sidebar-item.open > .sidebar-title .toggle-btn {
+  transform: rotate(180deg);
+}
+.sidebar-content {
+  padding-top: 0.25em;
+  height: 0;
+  overflow: hidden;
+  transition: height 0.5s;
+}
+.sidebar-item.open > .sidebar-content {
+  height: auto;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.sidebar-item.plain {
+  color: #fff;
+  text-decoration: none;
+}
+
+.sidebar-item.plain i {
+  display: inline-block;
+  width: 1em;
+  margin-right: 5px;
 }

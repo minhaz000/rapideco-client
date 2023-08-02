@@ -1,9 +1,10 @@
 "use client";
 import Image from "next/image";
 import React from "react";
+import Link from "next/link";
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 import { toast } from "react-toastify";
-import Img1 from "../../../../assets/img.png";
+import Swal from "sweetalert2";
 import { useForm as useform, SubmitHandler } from "react-hook-form";
 import FormValues from "../brand";
 import Uploder from "@/hooks/hook.upload";
@@ -48,7 +49,7 @@ const Brand = () => {
                 </tr>
               </thead>
               <tbody className="border pt-2">
-                {Brands.data?.data?.map((item, i: number) => {
+                {Brands.data?.data?.map((item: any, i: number) => {
                   return (
                     <>
                       <tr className="text-xs font-normal text-start border-b">
@@ -64,7 +65,9 @@ const Brand = () => {
                               title="Edit"
                               className="bg-yellow-500 bg-opacity-50 text-white text-xs p-[5px] rounded-full cursor-pointer hover:bg-opacity-100"
                             >
-                              <FaRegEdit />
+                              <Link href={`/admin/edit-brand/${item._id}`}>
+                                <FaRegEdit />
+                              </Link>
                             </span>
                             <span
                               title="Delete"

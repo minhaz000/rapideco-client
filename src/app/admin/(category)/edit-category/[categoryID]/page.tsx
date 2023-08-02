@@ -8,7 +8,6 @@ import { useMutationData, useQueryData } from "@/hooks/hook.query";
 import FormValues from "../../category";
 import { toast } from "react-toastify";
 import { useAdminContext } from "@/context/admin.context";
-import { useRouter } from "next/navigation";
 import axios from "@/hooks/hook.axios";
 const Page = ({ params }: { params: { categoryID: string[] } }) => {
   const { Categories }: any = useAdminContext();

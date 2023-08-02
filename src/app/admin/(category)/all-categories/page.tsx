@@ -3,11 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import Img1 from "../../../../assets/img.png";
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { useAdminContext } from "@/context/admin.context";
-import { useMutationData } from "@/hooks/hook.query";
 import { toast } from "react-toastify";
 import axios from "@/hooks/hook.axios";
 
@@ -83,7 +81,7 @@ const AllCategory = () => {
               </tr>
             </thead>
             <tbody className="border pt-2">
-              {Categories.data?.data?.map((item, i: number) => {
+              {Categories.data?.data?.map((item: any, i: number) => {
                 return (
                   <>
                     <tr className="text-xs font-normal text-start border-b">
@@ -122,7 +120,7 @@ const AllCategory = () => {
                         </div>
                       </td>
                     </tr>
-                    {item.sub_cate.map((sub_item: any) => {
+                    {item?.sub_cate?.map((sub_item: any) => {
                       return (
                         <>
                           <tr className="text-xs font-normal text-start border-b">

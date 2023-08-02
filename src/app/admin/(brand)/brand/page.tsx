@@ -10,14 +10,13 @@ import FormValues from "../brand";
 import Uploder from "@/hooks/hook.upload";
 import { useAdminContext } from "@/context/admin.context";
 import { useMutationData } from "@/hooks/hook.query";
+import axios from "@/hooks/hook.axios";
 const Brand = () => {
   const { Brands }: any = useAdminContext("/api/v0/brands");
   const newBrand = useMutationData(["add new brand"], "post", "api/v0/brand");
   const { watch, register, reset, handleSubmit } = useform<FormValues>();
   // =============== FUNCTION FOR THE PRODUCT POST REQUEST
   const HandleAddBrand: SubmitHandler<FormValues> = async (data) => {
-    console.log(data);
-    Brands.refetch();
     data.imgURL = await Uploder(data.imgURL);
     newBrand.mutate(data, {
       onSuccess: () => {
@@ -28,7 +27,28 @@ const Brand = () => {
       onError: (error: any) => toast.error(error.message ? error.message : error?.data.message),
     });
   };
-
+  const handleDelete = (deleteId: string) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "YES ",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        axios
+          .delete(`/api/v0/brand/${deleteId}?permanent=true`)
+          .then(() => {
+            toast.success("Brand deleted");
+            Brands.refetch();
+          })
+          .catch((error: any) => toast.error(error.message ? error.message : error?.data.message));
+      }
+    });
+  };
   return (
     <div>
       <h2 className="text-xl">All Brands</h2>
@@ -70,6 +90,7 @@ const Brand = () => {
                               </Link>
                             </span>
                             <span
+                              onClick={() => handleDelete(item._id)}
                               title="Delete"
                               className="bg-red-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
                             >

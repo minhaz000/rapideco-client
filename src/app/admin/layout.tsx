@@ -14,6 +14,25 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     setMobileMenu(false);
   };
   return (
+<<<<<<< HEAD
+    <div>
+      <div
+        onClick={() => setMobileMenu(false)}
+        className={`fixed  ${
+          mobileMenu ? "block opacity-100" : "hidden opacity-0"
+        } top-0 bottom-0 bg-black bg-opacity-50 z-10 h-screen w-full cursor-pointer duration-500`}
+      ></div>
+      <div
+        className={`bg-[#141423] ${
+          mobileMenu
+            ? "-translate-x-0 opacity-100 w-3/4"
+            : "-translate-x-96 xl:w-80 xl:-translate-x-0 opacity-0 xl:opacity-100"
+        }  h-screen fixed top-0 bottom-0  overflow-y-auto px-6 pt-4 pb-3 z-20 transition-all duration-500 ease-in-out`}
+      >
+        <button
+          className="absolute top-4 right-4 bg-sky-800 w-6 h-6 rounded-full text-white block xl:hidden"
+          onClick={handleMobileMenuHide}
+=======
     <AdminContext>
       <div className="relative">
         <div
@@ -22,6 +41,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               ? "-translate-x-0 opacity-100 w-3/4"
               : "-translate-x-96 xl:w-80 xl:-translate-x-0 opacity-0 xl:opacity-100"
           }  h-screen absolute xl:fixed  overflow-y-auto px-6 pt-4 pb-3 z-10 transition-all duration-500 ease-in-out`}
+>>>>>>> a2cfa9aa6a60711f4293b352337fe4a5c7b34d79
         >
           <button
             className="absolute top-4 right-4 bg-sky-800 w-6 h-6 rounded-full text-white block xl:hidden"

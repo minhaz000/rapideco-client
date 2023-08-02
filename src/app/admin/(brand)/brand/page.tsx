@@ -52,14 +52,14 @@ const Brand = () => {
   return (
     <div>
       <h2 className="text-xl">All Brands</h2>
-      <div className=" flex gap-6 mt-6">
+      <div className="flex lg:flex-row flex-col-reverse gap-6 mt-6">
         <div className="basis-7/12 shadow-[0_0_10px_5px_#d7d7d7bf]">
           <div className="flex justify-between items-center border-b px-6 py-4">
             <h2>Brands</h2>
             <input type="text" placeholder="Type name & enter" className="border outline-none py-2 px-2" />
           </div>
           <div className="overflow-x-auto mt-3 p-4">
-            <table className="table  w-[1130px] lg:w-full border">
+            <table className="table  w-[700px] lg:w-full border">
               <thead>
                 <tr className="border text-xs font-normal ">
                   <th className="py-3 text-slate-500 ps-4 text-start">#</th>

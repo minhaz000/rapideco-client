@@ -7,11 +7,7 @@ const AttributeDetail = () => {
         <div className="basis-7/12 shadow-[0_0_10px_5px_#d7d7d7bf]">
           <div className="flex justify-between items-center border-b px-6 py-4">
             <h2>Size</h2>
-            <input
-              type="text"
-              placeholder="Type name & enter"
-              className="border outline-none py-2 px-2"
-            />
+            <input type="text" placeholder="Type name & enter" className="border outline-none py-2 px-2" />
           </div>
           <div className="overflow-x-auto mt-3 p-4">
             <table className="table  w-[700px] lg:w-full border">
@@ -74,9 +70,7 @@ const AttributeDetail = () => {
           </div>
         </div>
         <div className="basis-5/12 shadow-[0_0_10px_5px_#d7d7d7bf] pb-6">
-          <h2 className="border px-6 py-4 text-xl font-semibold">
-            Add New Attribute Value
-          </h2>
+          <h2 className="border px-6 py-4 text-xl font-semibold">Add New Attribute Value</h2>
           <div className="px-6 pt-4">
             <form>
               <div>
@@ -96,11 +90,7 @@ const AttributeDetail = () => {
                   Attributes Value
                 </label>
 
-                <input
-                  type="text"
-                  placeholder="Name"
-                  className="border w-full py-2 px-3  rounded-md outline-none"
-                />
+                <input type="text" placeholder="Name" className="border w-full py-2 px-3  rounded-md outline-none" />
               </div>
               <input
                 type="submit"

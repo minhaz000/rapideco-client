@@ -8,7 +8,8 @@ function Context(props: any) {
     props.url || "/api/v0/categories?is_delete=false&parent_info._id=null"
   );
   const Brands = useQueryData(["all brands "], props.url || "api/v0/brands");
-  const value: any = { Categories, Brands };
+  const Atrribute = useQueryData(["all atrributes "], props.url || "/api/v0/attributes");
+  const value: any = { Categories, Brands, Atrribute };
   return <AdminContext.Provider value={value}> {props.children}</AdminContext.Provider>;
 }
 

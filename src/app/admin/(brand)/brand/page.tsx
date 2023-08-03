@@ -14,7 +14,7 @@ import axios from "@/hooks/hook.axios";
 const Brand = () => {
   const { Brands }: any = useAdminContext("/api/v0/brands");
   const newBrand = useMutationData(["add new brand"], "post", "api/v0/brand");
-  const { watch, register, reset, handleSubmit } = useform<FormValues>();
+  const { register, reset, handleSubmit } = useform<FormValues>();
   // =============== FUNCTION FOR THE PRODUCT POST REQUEST
   const HandleAddBrand: SubmitHandler<FormValues> = async (data) => {
     data.imgURL = await Uploder(data.imgURL);

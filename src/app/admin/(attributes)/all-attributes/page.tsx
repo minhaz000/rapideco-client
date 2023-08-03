@@ -71,39 +71,37 @@ const Attributes = () => {
               <tbody className="border pt-2">
                 {Atrribute?.data?.data.map((item: any, i: number) => {
                   return (
-                    <>
-                      <tr className="text-xs font-normal text-start border-b">
-                        <td className="py-5 ps-4">{i + 1}</td>
-                        <td>{item.name}</td>
-                        <td>
-                          <div className="flex gap-1 items-center">
-                            <span className="bg-gray-400 py-1 rounded-md block px-2">L</span>
-                            <span className="bg-gray-400 py-1 rounded-md block px-2">X</span>
-                          </div>
-                        </td>
+                    <tr key={i} className="text-xs font-normal text-start border-b">
+                      <td className="py-5 ps-4">{i + 1}</td>
+                      <td>{item.name}</td>
+                      <td>
+                        <div className="flex gap-1 items-center">
+                          <span className="bg-gray-400 py-1 rounded-md block px-2">L</span>
+                          <span className="bg-gray-400 py-1 rounded-md block px-2">X</span>
+                        </div>
+                      </td>
 
-                        <td>
-                          <div className="flex gap-2 items-center">
-                            <span
-                              title="Attributes values"
-                              className="bg-blue-500 bg-opacity-50 text-white text-xs p-[5px] rounded-full cursor-pointer hover:bg-opacity-100"
-                            >
-                              <Link href={`/admin/attribute-details/${item._id}`}>
-                                <BsGear />
-                              </Link>
-                            </span>
+                      <td>
+                        <div className="flex gap-2 items-center">
+                          <span
+                            title="Attributes values"
+                            className="bg-blue-500 bg-opacity-50 text-white text-xs p-[5px] rounded-full cursor-pointer hover:bg-opacity-100"
+                          >
+                            <Link href={`/admin/attribute-details/${item._id}`}>
+                              <BsGear />
+                            </Link>
+                          </span>
 
-                            <span
-                              onClick={() => handleDelete(item._id)}
-                              title="Delete"
-                              className="bg-red-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
-                            >
-                              <FaRegTrashAlt />
-                            </span>
-                          </div>
-                        </td>
-                      </tr>
-                    </>
+                          <span
+                            onClick={() => handleDelete(item._id)}
+                            title="Delete"
+                            className="bg-red-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
+                          >
+                            <FaRegTrashAlt />
+                          </span>
+                        </div>
+                      </td>
+                    </tr>
                   );
                 })}
               </tbody>

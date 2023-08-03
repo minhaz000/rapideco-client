@@ -28,11 +28,10 @@ const EditBrand = ({ params }: { params: { brandID: string[] } }) => {
       onSuccess: () => {
         toast.success("brand updated");
         refetch().then((res) => {
-          setSelectedBrand(res.data.data.imgUrl.img_url);
+          setSelectedBrand(res.data?.data?.imgUrl?.img_url);
         });
 
         allBrands.refetch();
-        refetch();
       },
       onError: (error: any) => toast.error(error.message ? error.message : error?.data.message),
     });

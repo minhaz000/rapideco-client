@@ -3,13 +3,15 @@ interface Product {
   short_description: string;
   description: string;
   code: string;
-  images: [];
+  product_image: string;
+  gallery_images: [];
   regular_price: number;
   discount_price: number;
-  variants: any[];
+  variants: [];
   qantity: number;
   status: "active" | "deactive";
-  categoryID: ObjectId;
+  category_info: { _id: any; name: string };
+  brand_info: { _id: any; name: string };
   is_delete: boolean;
 }
 

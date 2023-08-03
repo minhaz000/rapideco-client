@@ -8,6 +8,7 @@ import FormValues from "../../attributes";
 import { useMutationData, useQueryData } from "@/hooks/hook.query";
 import { useAdminContext } from "@/context/admin.context";
 import axios from "@/hooks/hook.axios";
+import { useState } from "react";
 
 const AttributeDetail = ({ params }: { params: { attributeID: string[] } }) => {
   const { Atrribute }: any = useAdminContext();
@@ -25,13 +26,13 @@ const AttributeDetail = ({ params }: { params: { attributeID: string[] } }) => {
   // =============== FUNCTION FOR THE PRODUCT POST REQUEST
   const HandleUpdateAtrribute: SubmitHandler<FormValues> = async (data: any) => {
     const newOptions = { key: data.key, value: data.value };
-    data.options.push(newOptions);
+    data.key.length > 0 && data.value.length > 0 && data.options.push(newOptions);
+
     updateAttribute.mutate(data, {
       onSuccess: () => {
         toast.success("atrribute updated");
         Atrribute.refetch();
         refetch();
-        reset();
       },
       onError: (error: any) => toast.error(error.message ? error.message : error?.data.message),
     });
@@ -49,16 +50,16 @@ const AttributeDetail = ({ params }: { params: { attributeID: string[] } }) => {
       if (result.isConfirmed) {
         Swal.fire("Deleted!", "Your file has been deleted.", "success");
         axios
-          .put(`/api/v0/attribute/${deleteId}?permanent=true`)
+          .put(`/api/v0/attribute/${deleteId}?remove=true`, { deleteId })
           .then(() => {
-            toast.success("Brand deleted");
-            // Atrribute.refetch();
+            toast.success("atrribute updated");
+            refetch();
           })
           .catch((error: any) => toast.error(error.message ? error.message : error?.data.message));
       }
     });
   };
-  console.log(oldAttribute);
+
   return (
     <div>
       <h2 className="text-xl">All Detail</h2>
@@ -93,7 +94,7 @@ const AttributeDetail = ({ params }: { params: { attributeID: string[] } }) => {
                       <td>
                         <div className="flex gap-2 items-center">
                           <span
-                            onClick={() => handleDelete(item.key)}
+                            onClick={() => handleDelete(item._id)}
                             title="Delete"
                             className="bg-red-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
                           >
@@ -118,6 +119,7 @@ const AttributeDetail = ({ params }: { params: { attributeID: string[] } }) => {
                 </label>
 
                 <input
+                  defaultValue={oldAttribute?.data.name}
                   {...register("name")}
                   type="text"
                   placeholder="Size"
@@ -130,7 +132,7 @@ const AttributeDetail = ({ params }: { params: { attributeID: string[] } }) => {
                 </label>
 
                 <input
-                  {...register("key", { required: true })}
+                  {...register("key")}
                   type="text"
                   placeholder="key"
                   className="border w-full py-2 px-3  rounded-md outline-none"
@@ -142,7 +144,7 @@ const AttributeDetail = ({ params }: { params: { attributeID: string[] } }) => {
                 </label>
 
                 <input
-                  {...register("value", { required: true })}
+                  {...register("value")}
                   type="text"
                   placeholder="value"
                   className="border w-full py-2 px-3  rounded-md outline-none"

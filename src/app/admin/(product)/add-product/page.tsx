@@ -9,11 +9,11 @@ const AddProduct = () => {
   const [content, setContent] = useState("");
   const [selectedImage, setSelectedImage] = useState();
   const [selectedGalleryImage, setSelectedGalleryImage] = useState([]);
-  const { register, handleSubmit, reset } = useForm<FormValues>();
+  const { register, handleSubmit, reset, setValue } = useForm<FormValues>();
   const handleImage = (e: any) => {
     setSelectedImage(e.target.files[0]);
   };
-  console.log(content);
+
   const handleGalleyImage = (event: any) => {
     const selectedFiles = event.target.files;
     const selectedFilesArray = Array.from(selectedFiles);
@@ -58,19 +58,13 @@ const AddProduct = () => {
               Short Description
             </label>
 
-            <JoditEditor
-              {...register("short_description")}
-              ref={editor}
-              value={content}
-              onChange={(newContent) => setContent(newContent)}
-            />
+            <JoditEditor onChange={(data) => setValue("short_description", data)} ref={editor} value={content} />
           </div>
           <div className="mt-3">
             <label htmlFor="name" className="mb-2 block">
               Full Description
             </label>
-
-            <JoditEditor ref={editor} value={content} onBlur={(newContent) => setContent(newContent)} />
+            <JoditEditor ref={editor} value={content} onChange={(data) => setValue("description", data)} />
           </div>
           <div className="mt-3">
             <label htmlFor="name" className="mb-2 block">
@@ -78,7 +72,8 @@ const AddProduct = () => {
             </label>
 
             <input
-              type="text"
+              {...register("regular_price")}
+              type="number"
               placeholder="Enter regular price"
               className="border w-full py-2 px-3  rounded-md outline-none"
             />
@@ -89,6 +84,7 @@ const AddProduct = () => {
             </label>
 
             <input
+              {...register("discount_price")}
               type="text"
               placeholder="Enter discount price"
               className="border w-full py-2 px-3  rounded-md outline-none"
@@ -99,14 +95,19 @@ const AddProduct = () => {
               Quantity
             </label>
 
-            <input type="number" placeholder="Quantity" className="border w-full py-2 px-3  rounded-md outline-none" />
+            <input
+              {...register("qantity")}
+              type="number"
+              placeholder="Quantity"
+              className="border w-full py-2 px-3  rounded-md outline-none"
+            />
           </div>
           <div className="mt-3">
             <label htmlFor="name" className="mb-2 block">
               Category
             </label>
 
-            <select name="" id="" className="border outline-none p-2 w-full">
+            <select {...register("category_info")} name="" id="" className="border outline-none p-2 w-full">
               <option value="">Select category</option>
             </select>
           </div>

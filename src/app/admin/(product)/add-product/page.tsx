@@ -4,26 +4,31 @@ import Image from "next/image";
 import React, { useState, useRef } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import FormValues from "../product";
+import { useAdminContext } from "@/context/admin.context";
+import axios from "@/hooks/hook.axios";
+import { toast } from "react-toastify";
+import { useMutationData } from "@/hooks/hook.query";
 const AddProduct = () => {
+  const { Categories, Brands, Atrribute, Products }: any = useAdminContext();
+  const newProduct = useMutationData(["add new prodct"], "post", "api/v0/product");
   const editor = useRef(null);
   const [content, setContent] = useState("");
   const [selectedImage, setSelectedImage] = useState();
   const [selectedGalleryImage, setSelectedGalleryImage] = useState([]);
   const { register, handleSubmit, reset, setValue } = useForm<FormValues>();
+
+  // =============== IMAGE HANDLEING
+
   const handleImage = (e: any) => {
     setSelectedImage(e.target.files[0]);
   };
-
   const handleGalleyImage = (event: any) => {
     const selectedFiles = event.target.files;
     const selectedFilesArray = Array.from(selectedFiles);
     const imagesArray = selectedFilesArray.map((file) => {
       return URL.createObjectURL(file as any);
     });
-
     setSelectedGalleryImage((previousImages) => previousImages.concat(imagesArray as any));
-
-    // FOR BUG IN CHROME
     event.target.value = "";
   };
   function deleteHandler(image: any) {
@@ -32,10 +37,23 @@ const AddProduct = () => {
   }
 
   // =============== FUNCTION FOR THE PRODUCT POST REQUEST
+
   const HandleAddProduct: SubmitHandler<FormValues> = (data) => {
     console.log(data);
-  };
+    data.status ? (data.status = "active") : (data.status = "deactive");
+    data.category_info = data.category_info && JSON.parse(data.category_info);
+    data.brand_info = data.brand_info && JSON.parse(data.brand_info);
 
+    newProduct.mutate(data, {
+      onSuccess: () => {
+        toast.success("product added");
+        Products.refetch();
+        // reset();
+      },
+      onError: (error: any) => toast.error(error.message ? error.message : error?.data.message),
+    });
+  };
+  const validationError: any = newProduct.error?.data.errors;
   return (
     <div className="pb-4">
       <h2 className="text-2xl">Add Product</h2>
@@ -50,8 +68,30 @@ const AddProduct = () => {
               {...register("title")}
               type="text"
               placeholder="Enter product name"
-              className="border w-full py-2 px-3  rounded-md outline-none"
+              className={`w-full border py-2 px-3 rounded-md  outline-none mt-2 ${
+                validationError?.title && "border-red-600 text-red-400"
+              }`}
             />
+            {validationError?.title && (
+              <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.title.message}</p>
+            )}
+          </div>
+          <div>
+            <label htmlFor="name" className="mb-2 block">
+              Product Code
+            </label>
+
+            <input
+              {...register("code")}
+              type="text"
+              placeholder="Enter product name"
+              className={`w-full border py-2 px-3 rounded-md  outline-none mt-2 ${
+                validationError?.code && "border-red-600 text-red-400"
+              }`}
+            />
+            {validationError?.code && (
+              <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.code.message}</p>
+            )}
           </div>
           <div className="mt-3">
             <label htmlFor="name" className="mb-2 block">
@@ -75,8 +115,13 @@ const AddProduct = () => {
               {...register("regular_price")}
               type="number"
               placeholder="Enter regular price"
-              className="border w-full py-2 px-3  rounded-md outline-none"
+              className={`w-full border py-2 px-3 rounded-md  outline-none mt-2 ${
+                validationError?.regular_price && "border-red-600 text-red-400"
+              }`}
             />
+            {validationError?.regular_price && (
+              <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.regular_price.message}</p>
+            )}
           </div>
           <div className="mt-3">
             <label htmlFor="name" className="mb-2 block">
@@ -99,17 +144,55 @@ const AddProduct = () => {
               {...register("qantity")}
               type="number"
               placeholder="Quantity"
-              className="border w-full py-2 px-3  rounded-md outline-none"
+              className={`w-full border py-2 px-3 rounded-md  outline-none mt-2 ${
+                validationError?.qantity && "border-red-600 text-red-400"
+              }`}
             />
+            {validationError?.qantity && (
+              <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.qantity.message}</p>
+            )}
           </div>
+          <div className="mt-3">
+            <label htmlFor="name" className="mb-2 block">
+              Status
+            </label>
+
+            <input
+              {...register("status")}
+              placeholder="Quantity"
+              type="checkbox"
+              className={`border  py-2 px-3  rounded-md outline-none toggle toggle-success ${
+                validationError?.status && "border-red-600  bg-red-400"
+              }`}
+            />
+            {validationError?.status && (
+              <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.status.message}</p>
+            )}
+          </div>
+
           <div className="mt-3">
             <label htmlFor="name" className="mb-2 block">
               Category
             </label>
 
-            <select {...register("category_info")} name="" id="" className="border outline-none p-2 w-full">
+            <select
+              {...register("category_info")}
+              className={`w-full border py-2 px-3 rounded-md  outline-none mt-2 ${
+                validationError?.qantity && "border-red-600 text-red-400"
+              }`}
+            >
               <option value="">Select category</option>
+              {Categories?.data?.data.map((item: any) => {
+                return (
+                  <option key={item._id} value={JSON.stringify({ _id: item._id, name: item.name })}>
+                    {item.name}
+                  </option>
+                );
+              })}
             </select>
+            {validationError?.category_info && (
+              <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.category_info.message}</p>
+            )}
           </div>
           <div className="mt-3">
             <label htmlFor="name" className="mb-2 block">
@@ -118,6 +201,13 @@ const AddProduct = () => {
 
             <select name="" id="" className="border outline-none p-2 w-full">
               <option value="">Select Brand</option>
+              {Brands?.data?.data.map((item: any) => {
+                return (
+                  <option key={item._id} value="">
+                    {item.name}
+                  </option>
+                );
+              })}
             </select>
           </div>
           <div className="mt-3">

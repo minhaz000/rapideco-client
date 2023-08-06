@@ -3,7 +3,7 @@ import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { useForm as useform, SubmitHandler } from "react-hook-form";
-import FormValues from "../../attributes";
+import FormValues from "@/interface/attributes";
 
 import { useMutationData, useQueryData } from "@/hooks/hook.query";
 import { useAdminContext } from "@/context/admin.context";

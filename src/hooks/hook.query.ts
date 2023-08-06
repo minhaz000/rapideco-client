@@ -1,5 +1,21 @@
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery, useMutation, UseMutateAsyncFunction } from "@tanstack/react-query";
 import axios from "@/hooks/hook.axios";
+import ErrorResponse from "@/interface/query.error";
+interface ErrorDetail {
+  type: string;
+  message: string;
+}
+
+interface Errors {
+  [key: string]: ErrorDetail;
+}
+
+interface Data {
+  status: string;
+  message: string;
+  type: string;
+  errors: Errors;
+}
 
 const useQueryData = (key: any[], url: string) => {
   return useQuery({
@@ -12,8 +28,8 @@ const useQueryData = (key: any[], url: string) => {
 };
 
 //
-const useMutationData = (key: any[], method: "get" | "post" | "delete" | "put" | "patch", url: string) => {
-  return useMutation({
+const useMutationData = <T>(key: any[], method: "post" | "put", url: string) => {
+  return useMutation<T, ErrorResponse>({
     mutationKey: key,
     mutationFn: async (payload: any) => {
       const res: any = await axios[method](url, payload);

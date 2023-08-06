@@ -3,16 +3,16 @@ import JoditEditor from "jodit-react";
 import Image from "next/image";
 import React, { useState, useRef } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import FormValues from "../product";
+import FormValues from "@/interface/product";
 import { useAdminContext } from "@/context/admin.context";
 import axios from "@/hooks/hook.axios";
 import { toast } from "react-toastify";
+import Uploder from "@/hooks/hook.upload";
 import { useMutationData } from "@/hooks/hook.query";
 const AddProduct = () => {
   const { Categories, Brands, Atrribute, Products }: any = useAdminContext();
   const newProduct = useMutationData(["add new prodct"], "post", "api/v0/product");
-  const editor = useRef(null);
-  const [content, setContent] = useState("");
+
   const [selectedImage, setSelectedImage] = useState();
   const [selectedGalleryImage, setSelectedGalleryImage] = useState([]);
   const { register, handleSubmit, reset, setValue } = useForm<FormValues>();
@@ -25,33 +25,40 @@ const AddProduct = () => {
   const handleGalleyImage = (event: any) => {
     const selectedFiles = event.target.files;
     const selectedFilesArray = Array.from(selectedFiles);
+    console.log(selectedFilesArray);
     const imagesArray = selectedFilesArray.map((file) => {
       return URL.createObjectURL(file as any);
     });
-    setSelectedGalleryImage((previousImages) => previousImages.concat(imagesArray as any));
+    setSelectedGalleryImage((previousImages: any) => previousImages.concat(imagesArray as any));
     event.target.value = "";
   };
+
   function deleteHandler(image: any) {
     setSelectedGalleryImage(selectedGalleryImage.filter((e) => e !== image));
     URL.revokeObjectURL(image);
   }
 
   // =============== FUNCTION FOR THE PRODUCT POST REQUEST
-
-  const HandleAddProduct: SubmitHandler<FormValues> = (data) => {
-    console.log(data);
+  console.log("grally ", selectedGalleryImage);
+  const HandleAddProduct: SubmitHandler<FormValues> = async (data) => {
+    // data.gallery_images = await Uploder(data.gallery_images);
+    // data.product_image = await Uploder(data.product_image);
     data.status ? (data.status = "active") : (data.status = "deactive");
     data.category_info = data.category_info && JSON.parse(data.category_info);
     data.brand_info = data.brand_info && JSON.parse(data.brand_info);
-
-    newProduct.mutate(data, {
-      onSuccess: () => {
-        toast.success("product added");
-        Products.refetch();
-        // reset();
-      },
-      onError: (error: any) => toast.error(error.message ? error.message : error?.data.message),
-    });
+    // console.log("product ", data.product_image);
+    // console.log("grally ", data.gallery_images);
+    // console.log("grally ", selectedGalleryImage);
+    console.log(data);
+    // console.log(data.product_image);.
+    // newProduct.mutate(data as any, {
+    //   onSuccess: () => {
+    //     toast.success("product added");
+    //     Products.refetch();
+    //     reset();
+    //   },
+    //   onError: (error: any) => toast.error(error.message ? error.message : error?.data.message),
+    // });
   };
   const validationError: any = newProduct.error?.data.errors;
   return (
@@ -98,13 +105,13 @@ const AddProduct = () => {
               Short Description
             </label>
 
-            <JoditEditor onChange={(data) => setValue("short_description", data)} ref={editor} value={content} />
+            <JoditEditor onChange={(data) => setValue("short_description", data)} value={""} />
           </div>
           <div className="mt-3">
             <label htmlFor="name" className="mb-2 block">
               Full Description
             </label>
-            <JoditEditor ref={editor} value={content} onChange={(data) => setValue("description", data)} />
+            <JoditEditor value={""} onChange={(data) => setValue("description", data)} />
           </div>
           <div className="mt-3">
             <label htmlFor="name" className="mb-2 block">
@@ -215,7 +222,14 @@ const AddProduct = () => {
               Product Image
             </label>
 
-            <input type="file" className="border w-full py-2 px-3  rounded-md outline-none" onChange={handleImage} />
+            <input
+              {...register("product_image")}
+              type="file"
+              multiple
+              name="product_image"
+              className="border w-full py-2 px-3  rounded-md outline-none"
+              onChange={handleImage}
+            />
 
             {selectedImage && (
               <div className="my-3">
@@ -236,6 +250,7 @@ const AddProduct = () => {
 
             <div>
               <input
+                {...register("gallery_images")}
                 type="file"
                 multiple
                 className="border w-full py-2 px-3  rounded-md outline-none"

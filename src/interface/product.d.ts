@@ -10,8 +10,8 @@ interface Product {
   variants: [];
   qantity: number;
   status: "active" | "deactive";
-  category_info: { _id: string; name: string };
-  brand_info: { _id: string; name: string };
+  category_info: { _id: string; name: string } | any;
+  brand_info: { _id: string; name: string } | any;
   is_delete: boolean;
 }
 

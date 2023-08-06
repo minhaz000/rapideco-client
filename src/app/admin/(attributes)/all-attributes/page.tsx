@@ -6,7 +6,7 @@ import Link from "next/link";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { useForm as useform, SubmitHandler } from "react-hook-form";
-import FormValues from "../attributes";
+import FormValues from "../../../../interface/attributes";
 
 import { useAdminContext } from "@/context/admin.context";
 import { useMutationData } from "@/hooks/hook.query";

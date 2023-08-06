@@ -6,7 +6,7 @@ import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { useForm as useform, SubmitHandler } from "react-hook-form";
-import FormValues from "../brand";
+import FormValues from "@/interface/brand";
 import Uploder from "@/hooks/hook.upload";
 import { useAdminContext } from "@/context/admin.context";
 import { useMutationData } from "@/hooks/hook.query";
@@ -18,7 +18,7 @@ const Brand = () => {
   // =============== FUNCTION FOR THE PRODUCT POST REQUEST
   const HandleAddBrand: SubmitHandler<FormValues> = async (data) => {
     data.imgURL = await Uploder(data.imgURL);
-    newBrand.mutate(data, {
+    newBrand.mutate(data as any, {
       onSuccess: () => {
         toast.success("brand added");
         Brands.refetch();

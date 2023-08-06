@@ -5,7 +5,7 @@ import { useForm as useform, SubmitHandler } from "react-hook-form";
 import slugify from "slugify";
 import Uploder from "@/hooks/hook.upload";
 import { useMutationData, useQueryData } from "@/hooks/hook.query";
-import FormValues from "../../category";
+import FormValues from "../../../../../interface/category";
 import { toast } from "react-toastify";
 import { useAdminContext } from "@/context/admin.context";
 import axios from "@/hooks/hook.axios";

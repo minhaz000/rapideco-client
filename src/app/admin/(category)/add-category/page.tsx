@@ -4,12 +4,13 @@ import { useForm as useform, SubmitHandler } from "react-hook-form";
 import slugify from "slugify";
 import Uploder from "@/hooks/hook.upload";
 import { useMutationData } from "@/hooks/hook.query";
-import FormValues from "../category";
+import FormValues from "@/interface/category";
 import { toast } from "react-toastify";
 import { useAdminContext } from "@/context/admin.context";
+
 const Page = () => {
   const { Categories }: any = useAdminContext();
-  const newCategory = useMutationData(["add Category"], "post", "/api/v0/category");
+  const newCategory = useMutationData<FormValues>(["add Category"], "post", "/api/v0/category");
   const { watch, register, reset, handleSubmit } = useform<FormValues>();
   // =============== FUNCTION FOR THE PRODUCT POST REQUEST
   const HandleAddCategory: SubmitHandler<FormValues> = async (data) => {
@@ -17,7 +18,7 @@ const Page = () => {
     data.icon = await Uploder(data.icon);
     data.imgURL = await Uploder(data.imgURL);
     data.parentID === "null" && delete data.parentID;
-    newCategory.mutate(data, {
+    newCategory.mutate(data as any, {
       onSuccess: () => {
         toast.success("category added");
         Categories.refetch();
@@ -27,7 +28,7 @@ const Page = () => {
     });
   };
 
-  const validationError: any = newCategory.error?.data.errors;
+  const validationError = newCategory.error?.data.errors;
 
   return (
     <div className="shadow-lg p-6 w-2/3 mx-auto border rounded">

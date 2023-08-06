@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useQueryData } from "@/hooks/hook.query";
 import { toast } from "react-toastify";
 import { useForm as useform, SubmitHandler } from "react-hook-form";
-import FormValues from "../../brand";
+import FormValues from "../../../../../interface/brand";
 import Uploder from "@/hooks/hook.upload";
 import { useAdminContext } from "@/context/admin.context";
 import { useMutationData } from "@/hooks/hook.query";

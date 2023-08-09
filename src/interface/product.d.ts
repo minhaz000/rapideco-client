@@ -7,7 +7,7 @@ interface Product {
   gallery_images: [];
   regular_price: number;
   discount_price: number;
-  variants: [];
+  variants: [] | any;
   qantity: number;
   status: "active" | "deactive";
   category_info: { _id: string; name: string } | any;

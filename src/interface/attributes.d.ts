@@ -1,7 +1,8 @@
 export interface IAtrribute {
-  name: string;
-  key: string;
+  label: string;
   value: string;
+  options: [{ label: string; value: string }];
+  key: any;
 }
 
 export default IAtrribute;

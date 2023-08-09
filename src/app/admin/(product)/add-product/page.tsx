@@ -5,25 +5,36 @@ import React, { useState, useRef } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import FormValues from "@/interface/product";
 import { useAdminContext } from "@/context/admin.context";
+import Select from "react-select";
 import axios from "@/hooks/hook.axios";
 import { toast } from "react-toastify";
 import Uploder from "@/hooks/hook.upload";
 import { useMutationData } from "@/hooks/hook.query";
+
 const AddProduct = () => {
   const { Categories, Brands, Atrribute, Products }: any = useAdminContext();
   const newProduct = useMutationData(["add new prodct"], "post", "api/v0/product");
-
+  const [attribute, setAttribute] = useState([]);
+  const [selectedOption, setSelectedOption] = useState(null);
   const [selectedImage, setSelectedImage] = useState();
   const [selectedGalleryImage, setSelectedGalleryImage] = useState([]);
-  const { register, handleSubmit, reset, setValue } = useForm<FormValues>();
+  const [selectedGalleryImageFile, setSelectedGalleryImageFile] = useState(null);
+  const { register, handleSubmit, watch, reset, setValue, getValues } = useForm<FormValues>();
 
   // =============== IMAGE HANDLEING
+
+  // const handleChange = (selectedOption) => {
+  //   setSelectedOption(selectedOption);
+  //   // this.setState({ selectedOption }, () => console.log(`Option selected:`, this.state.selectedOption));
+  // };
 
   const handleImage = (e: any) => {
     setSelectedImage(e.target.files[0]);
   };
   const handleGalleyImage = (event: any) => {
     const selectedFiles = event.target.files;
+
+    setSelectedGalleryImageFile(selectedFiles);
     const selectedFilesArray = Array.from(selectedFiles);
     console.log(selectedFilesArray);
     const imagesArray = selectedFilesArray.map((file) => {
@@ -31,15 +42,17 @@ const AddProduct = () => {
     });
     setSelectedGalleryImage((previousImages: any) => previousImages.concat(imagesArray as any));
     event.target.value = "";
+    console.log(event.target);
   };
-
   function deleteHandler(image: any) {
     setSelectedGalleryImage(selectedGalleryImage.filter((e) => e !== image));
+
     URL.revokeObjectURL(image);
   }
 
   // =============== FUNCTION FOR THE PRODUCT POST REQUEST
-  console.log("grally ", selectedGalleryImage);
+  // console.log("grally ", selectedGalleryImage);
+  console.log(selectedOption);
   const HandleAddProduct: SubmitHandler<FormValues> = async (data) => {
     // data.gallery_images = await Uploder(data.gallery_images);
     // data.product_image = await Uploder(data.product_image);
@@ -49,7 +62,9 @@ const AddProduct = () => {
     // console.log("product ", data.product_image);
     // console.log("grally ", data.gallery_images);
     // console.log("grally ", selectedGalleryImage);
-    console.log(data);
+    console.log(data.variants);
+    // console.log("file ", selectedGalleryImageFile);
+
     // console.log(data.product_image);.
     // newProduct.mutate(data as any, {
     //   onSuccess: () => {
@@ -176,7 +191,6 @@ const AddProduct = () => {
               <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.status.message}</p>
             )}
           </div>
-
           <div className="mt-3">
             <label htmlFor="name" className="mb-2 block">
               Category
@@ -217,6 +231,40 @@ const AddProduct = () => {
               })}
             </select>
           </div>
+          <div className="mt-3">
+            <label htmlFor="name" className="mb-2 block">
+              Atrribute
+            </label>
+
+            <Select
+              isMulti={true}
+              value={getValues("variants")}
+              onChange={(value) => setValue("variants", value)}
+              options={options}
+            />
+          </div>
+          {watch("variants")?.map((item: any, i: number) => {
+            return (
+              <div key={i} className="mt-3 grid grid-cols-12">
+                <label
+                  htmlFor="name"
+                  className="mb-2  text-center bg-slate-300 rounded-md h-[38px] flex items-center justify-center mr-4 col-span-4"
+                >
+                  {item.label}
+                </label>
+
+                <Select
+                  className="col-span-8"
+                  isMulti={true}
+                  // value={getValues("variants")}
+                  // onChange={(value) => setValue("variants", value)}
+                  // onChange={(value) => {}}
+                  options={item.atrributeOptions}
+                />
+              </div>
+            );
+          })}
+
           <div className="mt-3">
             <label htmlFor="name" className="mb-2 block">
               Product Image

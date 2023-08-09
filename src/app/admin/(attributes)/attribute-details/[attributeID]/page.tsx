@@ -11,13 +11,14 @@ import axios from "@/hooks/hook.axios";
 import { useState } from "react";
 
 const AttributeDetail = ({ params }: { params: { attributeID: string[] } }) => {
+  const [reload, setReload] = useState(true);
   const { Atrribute }: any = useAdminContext();
   const { data: oldAttribute, refetch } = useQueryData(
     ["get single attribute"],
     `/api/v0/attribute/${params.attributeID}`
   );
   const updateAttribute = useMutationData(["update new attribute"], "put", `/api/v0/attribute/${params.attributeID}`);
-  const { register, reset, handleSubmit } = useform<FormValues>({
+  const { register, reset, handleSubmit, setValue } = useform<FormValues>({
     defaultValues: async (): Promise<FormValues> => {
       const res = await axios.get(`/api/v0/attribute/${params.attributeID}`);
       return res.data.data;
@@ -25,17 +26,27 @@ const AttributeDetail = ({ params }: { params: { attributeID: string[] } }) => {
   });
   // =============== FUNCTION FOR THE PRODUCT POST REQUEST
   const HandleUpdateAtrribute: SubmitHandler<FormValues> = async (data: any) => {
-    const newOptions = { key: data.key, value: data.value };
-    data.key.length > 0 && data.value.length > 0 && data.options.push(newOptions);
+    // console.log(data);
 
-    updateAttribute.mutate(data, {
-      onSuccess: () => {
+    const url =
+      oldAttribute?.data.label !== data.label
+        ? `/api/v0/attribute/${params.attributeID}`
+        : `/api/v0/attribute/${params.attributeID}?add=true`;
+    const postData = oldAttribute?.data.label !== data.label ? data : data.key;
+
+    console.log(url);
+    axios
+      .put(url, postData)
+      .then(() => {
+        reset();
         toast.success("atrribute updated");
         Atrribute.refetch();
-        refetch();
-      },
-      onError: (error: any) => toast.error(error.message ? error.message : error?.data.message),
-    });
+        refetch().then((res) => {
+          console.log(res);
+          setValue("label", res.data.data[0].label);
+        });
+      })
+      .catch((error: any) => toast.error(error.message ? error.message : error?.data.message));
   };
   const handleDelete = (deleteId: string) => {
     Swal.fire({
@@ -85,7 +96,7 @@ const AttributeDetail = ({ params }: { params: { attributeID: string[] } }) => {
                     <tr key={i} className="text-xs font-normal text-start border-b">
                       <td className="py-5 ps-4">{i + 1}</td>
                       <td>
-                        <span className=" py-1 rounded-md px-2">{item.key}</span>
+                        <span className=" py-1 rounded-md px-2">{item.label}</span>
                       </td>
                       <td>
                         <span className="bg-gray-400 py-1 rounded-md px-2">{item.value}</span>
@@ -120,7 +131,7 @@ const AttributeDetail = ({ params }: { params: { attributeID: string[] } }) => {
 
                 <input
                   defaultValue={oldAttribute?.data.name}
-                  {...register("name")}
+                  {...register("label")}
                   type="text"
                   placeholder="Size"
                   className="border w-full py-2 px-3  rounded-md outline-none"
@@ -132,7 +143,7 @@ const AttributeDetail = ({ params }: { params: { attributeID: string[] } }) => {
                 </label>
 
                 <input
-                  {...register("key")}
+                  {...register("key.label")}
                   type="text"
                   placeholder="key"
                   className="border w-full py-2 px-3  rounded-md outline-none"
@@ -144,7 +155,7 @@ const AttributeDetail = ({ params }: { params: { attributeID: string[] } }) => {
                 </label>
 
                 <input
-                  {...register("value")}
+                  {...register("key.value")}
                   type="text"
                   placeholder="value"
                   className="border w-full py-2 px-3  rounded-md outline-none"

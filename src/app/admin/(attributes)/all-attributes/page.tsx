@@ -19,7 +19,6 @@ const Attributes = () => {
   // =============== FUNCTION FOR THE PRODUCT POST REQUEST
   const HandleAddAtrribute: SubmitHandler<FormValues> = async (data) => {
     data.value = slugify(data.label, { lower: true });
-    console.log(data);
     newBrand.mutate(data as any, {
       onSuccess: () => {
         toast.success("atrribute added");

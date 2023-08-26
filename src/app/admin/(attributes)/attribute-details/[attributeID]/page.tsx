@@ -8,9 +8,9 @@ import FormValues from "@/interface/attributes";
 import { useMutationData, useQueryData } from "@/hooks/hook.query";
 import { useAdminContext } from "@/context/admin.context";
 import axios from "@/hooks/hook.axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const AttributeDetail = ({ params }: { params: { attributeID: string[] } }) => {
+const Page = ({ params }: { params: { attributeID: string[] } }) => {
   const [reload, setReload] = useState(true);
   const { Atrribute }: any = useAdminContext();
   const { data: oldAttribute, refetch } = useQueryData(
@@ -18,35 +18,34 @@ const AttributeDetail = ({ params }: { params: { attributeID: string[] } }) => {
     `/api/v0/attribute/${params.attributeID}`
   );
   const updateAttribute = useMutationData(["update new attribute"], "put", `/api/v0/attribute/${params.attributeID}`);
-  const { register, reset, handleSubmit, setValue } = useform<FormValues>({
-    defaultValues: async (): Promise<FormValues> => {
-      const res = await axios.get(`/api/v0/attribute/${params.attributeID}`);
-      return res.data.data;
-    },
-  });
+  const { register, reset, handleSubmit, setValue } = useform<FormValues>();
   // =============== FUNCTION FOR THE PRODUCT POST REQUEST
   const HandleUpdateAtrribute: SubmitHandler<FormValues> = async (data: any) => {
-    // console.log(data);
-
+    console.log(data);
     const url =
       oldAttribute?.data.label !== data.label
         ? `/api/v0/attribute/${params.attributeID}`
         : `/api/v0/attribute/${params.attributeID}?add=true`;
     const postData = oldAttribute?.data.label !== data.label ? data : data.key;
-
     console.log(url);
-    axios
-      .put(url, postData)
-      .then(() => {
-        reset();
-        toast.success("atrribute updated");
-        Atrribute.refetch();
-        refetch().then((res) => {
-          console.log(res);
-          setValue("label", res.data.data[0].label);
-        });
-      })
-      .catch((error: any) => toast.error(error.message ? error.message : error?.data.message));
+    console.log(postData);
+    axios.put(url, postData).then(() => {
+      toast.success("category updated");
+      reset();
+      refetch();
+    });
+
+    // updateAttribute.mutate(data, {
+    //   onSuccess: async () => {
+    //     toast.success("atrrbute updated");
+    //     reset();
+    //     refetch().then((res) => {
+    //       // setValue("slug", res.data.data.slug);
+    //     });
+    //     Atrribute.refetch();
+    //   },
+    //   onError: (error: any) => toast.error(error.message ? error.message : error?.data.message),
+    // });
   };
   const handleDelete = (deleteId: string) => {
     Swal.fire({
@@ -70,7 +69,9 @@ const AttributeDetail = ({ params }: { params: { attributeID: string[] } }) => {
       }
     });
   };
-
+  useEffect(() => {
+    reset(oldAttribute?.data);
+  }, [oldAttribute]);
   return (
     <div>
       <h2 className="text-xl">All Detail</h2>
@@ -78,7 +79,7 @@ const AttributeDetail = ({ params }: { params: { attributeID: string[] } }) => {
         <div className="basis-7/12 shadow-[0_0_10px_5px_#d7d7d7bf]">
           <div className="flex justify-between items-center border-b px-6 py-4">
             <h2>Size</h2>
-            <input type="text" placeholder="Type name & enter" className="border outline-none py-2 px-2" />
+            {/* <input type="text" placeholder="Type name & enter" className="border outline-none py-2 px-2" /> */}
           </div>
           <div className="overflow-x-auto mt-3 p-4">
             <table className="table  w-[700px] lg:w-full border">
@@ -126,11 +127,11 @@ const AttributeDetail = ({ params }: { params: { attributeID: string[] } }) => {
             <form onSubmit={handleSubmit(HandleUpdateAtrribute)}>
               <div>
                 <label htmlFor="name" className="mb-2 block">
-                  Attributes Name
+                  Attributes Name + {oldAttribute?.data.label}
                 </label>
 
                 <input
-                  defaultValue={oldAttribute?.data.name}
+                  defaultValue={oldAttribute?.data.label}
                   {...register("label")}
                   type="text"
                   placeholder="Size"
@@ -174,4 +175,4 @@ const AttributeDetail = ({ params }: { params: { attributeID: string[] } }) => {
   );
 };
 
-export default AttributeDetail;
+export default Page;

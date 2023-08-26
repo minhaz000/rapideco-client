@@ -240,7 +240,7 @@ const AddProduct = () => {
               isMulti={true}
               value={getValues("variants")}
               onChange={(value) => setValue("variants", value)}
-              options={options}
+              // options={options}
             />
           </div>
           {watch("variants")?.map((item: any, i: number) => {

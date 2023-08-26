@@ -91,10 +91,18 @@ const AllCategory = () => {
                       <td>{"item.products.lenght"}</td>
                       {/* <td>0</td> */}
                       <td>
-                        <Image src={item.icon?.img_url} width={50} height={50} alt={item.name}></Image>
+                        {item.icon?.img_url ? (
+                          <Image src={item.icon?.img_url} width={50} height={50} alt={item.name}></Image>
+                        ) : (
+                          "-- _ --"
+                        )}
                       </td>
                       <td>
-                        <Image src={item.imgURL?.img_url} width={50} height={50} alt={item.name}></Image>
+                        {item.imgURL?.img_url ? (
+                          <Image src={item.imgURL?.img_url} width={50} height={50} alt={item.name}></Image>
+                        ) : (
+                          "-- _ --"
+                        )}
                       </td>
                       <td>
                         <input type="checkbox" className="toggle toggle-success" />

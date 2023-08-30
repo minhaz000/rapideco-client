@@ -92,7 +92,7 @@ const Page = ({ params }: { params: { attributeID: string[] } }) => {
                 </tr>
               </thead>
               <tbody className="border pt-2">
-                {oldAttribute?.data?.options.map((item: any, i: number) => {
+                {oldAttribute?.data?.attribute_options.map((item: any, i: number) => {
                   return (
                     <tr key={i} className="text-xs font-normal text-start border-b">
                       <td className="py-5 ps-4">{i + 1}</td>

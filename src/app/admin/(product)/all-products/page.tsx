@@ -5,8 +5,12 @@ import React from "react";
 import Img1 from "../../../../assets/img.png";
 import { FaRegEye, FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
+import { useAdminContext } from "@/context/admin.context";
+import axios from "@/hooks/hook.axios";
+import { toast } from "react-toastify";
 const AllProduct = () => {
-  const handleDeleteProduct = () => {
+  const { Products }: any = useAdminContext();
+  const handleDeleteProduct = (productID: string) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -18,6 +22,15 @@ const AllProduct = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire("Deleted!", "Your file has been deleted.", "success");
+
+        axios
+          .delete(`/api/v0/product/${productID}`)
+          .then((res) => {
+            console.log(res.data);
+            toast.success("product moved to Trash");
+            Products.refetch();
+          })
+          .catch((error: any) => toast.error(error.message ? error.message : error?.data.message));
       }
     });
   };
@@ -25,10 +38,7 @@ const AllProduct = () => {
     <div>
       <div className="flex justify-between items-center">
         <h2 className="text-lg">All Product</h2>
-        <Link
-          href={"/add-product"}
-          className="bg-sky-800 px-4 py-2 rounded text-white capitalize"
-        >
+        <Link href={"/add-product"} className="bg-sky-800 px-4 py-2 rounded text-white capitalize">
           Add new Product
         </Link>
       </div>
@@ -46,33 +56,17 @@ const AllProduct = () => {
             </div>
           </div>
           <div className="flex gap-4">
-            <select
-              name=""
-              id=""
-              className="border py-2 px-3 outline-none text-xs text-slate-500"
-            >
+            <select name="" id="" className="border py-2 px-3 outline-none text-xs text-slate-500">
               <option value="">Bulk Action</option>
             </select>
-            <select
-              name=""
-              id=""
-              className="border py-2 px-3 outline-none w-40 text-xs text-slate-500"
-            >
+            <select name="" id="" className="border py-2 px-3 outline-none w-40 text-xs text-slate-500">
               <option value="">All Sellers</option>
             </select>
-            <select
-              name=""
-              id=""
-              className="border py-2 px-3 outline-none w-40 text-xs text-slate-500"
-            >
+            <select name="" id="" className="border py-2 px-3 outline-none w-40 text-xs text-slate-500">
               <option value="">Sort By</option>
             </select>
             <div>
-              <input
-                type="text"
-                placeholder="Type & Enter"
-                className="border outline-none text-sm py-2 px-3 w-40"
-              />
+              <input type="text" placeholder="Type & Enter" className="border outline-none text-sm py-2 px-3 w-40" />
             </div>
           </div>
         </div>
@@ -83,12 +77,8 @@ const AllProduct = () => {
                 <th className="py-3 text-slate-500 ps-4 text-start">SL</th>
                 <th className="py-3 text-slate-500 text-start">Image</th>
                 <th className="py-3 text-slate-500 text-start">Title</th>
-                <th className="py-3 text-slate-500 text-start">
-                  Regular price
-                </th>
-                <th className="py-3 text-slate-500 text-start">
-                  Discount price
-                </th>
+                <th className="py-3 text-slate-500 text-start">Regular price</th>
+                <th className="py-3 text-slate-500 text-start">Discount price</th>
                 <th className="py-3 text-slate-500 text-start">Stock</th>
                 <th className="py-3 text-slate-500 text-start">Brand</th>
                 <th className="py-3 text-slate-500 text-start">Status</th>
@@ -96,240 +86,51 @@ const AllProduct = () => {
               </tr>
             </thead>
             <tbody className="border pt-2">
-              <tr className="text-xs font-normal text-start border-b">
-                <td className="py-5 ps-4">1</td>
-                <td>
-                  <Image src={Img1} width={50} height={50} alt=""></Image>
-                </td>
-                <td>Apple iPhone 14 Pro , 128GB, 512GB,</td>
-                <td>$200</td>
-                <td>$159</td>
-                <td>20</td>
-                <td>Apple</td>
-                <td>
-                  <span className="bg-green-500 bg-opacity-70 text-white text-sm p-1 rounded">
-                    Active
-                  </span>
-                </td>
-                <td>
-                  <div className="flex gap-2 items-center">
-                    <span
-                      title="View"
-                      className="bg-green-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
-                    >
-                      <FaRegEye />
-                    </span>
-                    <span
-                      title="Edit"
-                      className="bg-yellow-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
-                    >
-                      <FaRegEdit />
-                    </span>
-                    <span
-                      onClick={handleDeleteProduct}
-                      title="Delete"
-                      className="bg-red-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
-                    >
-                      <FaRegTrashAlt />
-                    </span>
-                  </div>
-                </td>
-              </tr>
-              <tr className="text-xs font-normal text-start border-b">
-                <td className="py-5 ps-4">2</td>
-                <td>
-                  <Image src={Img1} width={50} height={50} alt=""></Image>
-                </td>
-                <td>Apple iPhone 14 Pro , 128GB, 512GB,</td>
-                <td>$200</td>
-                <td>$159</td>
-                <td>20</td>
-                <td>Apple</td>
-                <td>
-                  <span className="bg-green-500 bg-opacity-70 text-white text-sm p-1 rounded">
-                    Active
-                  </span>
-                </td>
-                <td>
-                  <div className="flex gap-2 items-center">
-                    <span
-                      title="View"
-                      className="bg-green-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
-                    >
-                      <FaRegEye />
-                    </span>
-                    <span
-                      title="Edit"
-                      className="bg-yellow-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
-                    >
-                      <FaRegEdit />
-                    </span>
-                    <span
-                      onClick={handleDeleteProduct}
-                      title="Delete"
-                      className="bg-red-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
-                    >
-                      <FaRegTrashAlt />
-                    </span>
-                  </div>
-                </td>
-              </tr>
-              <tr className="text-xs font-normal text-start border-b">
-                <td className="py-5 ps-4">3</td>
-                <td>
-                  <Image src={Img1} width={50} height={50} alt=""></Image>
-                </td>
-                <td>Apple iPhone 14 Pro , 128GB, 512GB,</td>
-                <td>$200</td>
-                <td>$159</td>
-                <td>20</td>
-                <td>Apple</td>
-                <td>
-                  <span className="bg-green-500 bg-opacity-70 text-white text-sm p-1 rounded">
-                    Active
-                  </span>
-                </td>
-                <td>
-                  <div className="flex gap-2 items-center">
-                    <span
-                      title="View"
-                      className="bg-green-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
-                    >
-                      <FaRegEye />
-                    </span>
-                    <span
-                      title="Edit"
-                      className="bg-yellow-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
-                    >
-                      <FaRegEdit />
-                    </span>
-                    <span
-                      onClick={handleDeleteProduct}
-                      title="Delete"
-                      className="bg-red-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
-                    >
-                      <FaRegTrashAlt />
-                    </span>
-                  </div>
-                </td>
-              </tr>
-              <tr className="text-xs font-normal text-start border-b">
-                <td className="py-5 ps-4">4</td>
-                <td>
-                  <Image src={Img1} width={50} height={50} alt=""></Image>
-                </td>
-                <td>Apple iPhone 14 Pro , 128GB, 512GB,</td>
-                <td>$200</td>
-                <td>$159</td>
-                <td>20</td>
-                <td>Apple</td>
-                <td>
-                  <span className="bg-green-500 bg-opacity-70 text-white text-sm p-1 rounded">
-                    Active
-                  </span>
-                </td>
-                <td>
-                  <div className="flex gap-2 items-center">
-                    <span
-                      title="View"
-                      className="bg-green-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
-                    >
-                      <FaRegEye />
-                    </span>
-                    <span
-                      title="Edit"
-                      className="bg-yellow-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
-                    >
-                      <FaRegEdit />
-                    </span>
-                    <span
-                      onClick={handleDeleteProduct}
-                      title="Delete"
-                      className="bg-red-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
-                    >
-                      <FaRegTrashAlt />
-                    </span>
-                  </div>
-                </td>
-              </tr>
-              <tr className="text-xs font-normal text-start border-b">
-                <td className="py-5 ps-4">5</td>
-                <td>
-                  <Image src={Img1} width={50} height={50} alt=""></Image>
-                </td>
-                <td>Apple iPhone 14 Pro , 128GB, 512GB,</td>
-                <td>$200</td>
-                <td>$159</td>
-                <td>20</td>
-                <td>Apple</td>
-                <td>
-                  <span className="bg-green-500 bg-opacity-70 text-white text-sm p-1 rounded">
-                    Active
-                  </span>
-                </td>
-                <td>
-                  <div className="flex gap-2 items-center">
-                    <span
-                      title="View"
-                      className="bg-green-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
-                    >
-                      <FaRegEye />
-                    </span>
-                    <span
-                      title="Edit"
-                      className="bg-yellow-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
-                    >
-                      <FaRegEdit />
-                    </span>
-                    <span
-                      onClick={handleDeleteProduct}
-                      title="Delete"
-                      className="bg-red-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
-                    >
-                      <FaRegTrashAlt />
-                    </span>
-                  </div>
-                </td>
-              </tr>
-              <tr className="text-xs font-normal text-start border-b">
-                <td className="py-5 ps-4">6</td>
-                <td>
-                  <Image src={Img1} width={50} height={50} alt=""></Image>
-                </td>
-                <td>Apple iPhone 14 Pro , 128GB, 512GB,</td>
-                <td>$200</td>
-                <td>$159</td>
-                <td>20</td>
-                <td>Apple</td>
-                <td>
-                  <span className="bg-green-500 bg-opacity-70 text-white text-sm p-1 rounded">
-                    Active
-                  </span>
-                </td>
-                <td>
-                  <div className="flex gap-2 items-center">
-                    <span
-                      title="View"
-                      className="bg-green-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
-                    >
-                      <FaRegEye />
-                    </span>
-                    <span
-                      title="Edit"
-                      className="bg-yellow-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
-                    >
-                      <FaRegEdit />
-                    </span>
-                    <span
-                      onClick={handleDeleteProduct}
-                      title="Delete"
-                      className="bg-red-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
-                    >
-                      <FaRegTrashAlt />
-                    </span>
-                  </div>
-                </td>
-              </tr>
+              {Products?.data?.data.map((item: any, i: number) => {
+                return (
+                  <tr key={i} className="text-xs font-normal text-start border-b">
+                    <td className="py-5 ps-4">{i + 1}</td>
+                    <td>
+                      <Image src={Img1} width={50} height={50} alt=""></Image>
+                    </td>
+                    <td>{item.title}</td>
+                    <td>{item?.regular_price}</td>
+                    <td>{item?.discount_price}</td>
+                    <td>{item?.qantity}</td>
+                    <td>Apple</td>
+                    <td>
+                      {item.status === "active" ? (
+                        <span className="bg-green-500 bg-opacity-70 text-white text-sm p-1 rounded">Active</span>
+                      ) : (
+                        <span className="bg-red-500 bg-opacity-70 text-white text-sm p-1 rounded">Deactive</span>
+                      )}
+                    </td>
+                    <td>
+                      <div className="flex gap-2 items-center">
+                        <span
+                          title="View"
+                          className="bg-green-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
+                        >
+                          <FaRegEye />
+                        </span>
+                        <span
+                          title="Edit"
+                          className="bg-yellow-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
+                        >
+                          <FaRegEdit />
+                        </span>
+                        <span
+                          onClick={() => handleDeleteProduct(item._id)}
+                          title="Delete"
+                          className="bg-red-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
+                        >
+                          <FaRegTrashAlt />
+                        </span>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>

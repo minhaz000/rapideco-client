@@ -52,7 +52,7 @@ const AddProduct = () => {
 
   // =============== FUNCTION FOR THE PRODUCT POST REQUEST
   // console.log("grally ", selectedGalleryImage);
-  console.log(selectedOption);
+  // console.log(selectedOption);
   const HandleAddProduct: SubmitHandler<FormValues> = async (data) => {
     // data.gallery_images = await Uploder(data.gallery_images);
     // data.product_image = await Uploder(data.product_image);
@@ -62,20 +62,21 @@ const AddProduct = () => {
     // console.log("product ", data.product_image);
     // console.log("grally ", data.gallery_images);
     // console.log("grally ", selectedGalleryImage);
-    console.log(data.variants);
+    console.log(data);
     // console.log("file ", selectedGalleryImageFile);
 
     // console.log(data.product_image);.
-    // newProduct.mutate(data as any, {
-    //   onSuccess: () => {
-    //     toast.success("product added");
-    //     Products.refetch();
-    //     reset();
-    //   },
-    //   onError: (error: any) => toast.error(error.message ? error.message : error?.data.message),
-    // });
+    newProduct.mutate(data as any, {
+      onSuccess: () => {
+        toast.success("product added");
+        Products.refetch();
+        reset();
+      },
+      onError: (error: any) => toast.error(error.message ? error.message : error?.data.message),
+    });
   };
   const validationError: any = newProduct.error?.data.errors;
+
   return (
     <div className="pb-4">
       <h2 className="text-2xl">Add Product</h2>
@@ -240,7 +241,7 @@ const AddProduct = () => {
               isMulti={true}
               value={getValues("variants")}
               onChange={(value) => setValue("variants", value)}
-              // options={options}
+              options={Atrribute?.data?.data}
             />
           </div>
           {watch("variants")?.map((item: any, i: number) => {
@@ -256,10 +257,8 @@ const AddProduct = () => {
                 <Select
                   className="col-span-8"
                   isMulti={true}
-                  // value={getValues("variants")}
-                  // onChange={(value) => setValue("variants", value)}
-                  // onChange={(value) => {}}
-                  options={item.atrributeOptions}
+                  onChange={(value) => setValue("variants.attribute_options", value)}
+                  options={item.attribute_options}
                 />
               </div>
             );

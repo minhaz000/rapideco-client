@@ -78,10 +78,10 @@ const Attributes = () => {
                       <td>
                         <div className="flex gap-1 items-center">
                           <span className="bg-gray-400 py-1 rounded-md block px-2">
-                            {item.options[0]?.label ? item.options[0]?.label : "-"}
+                            {item.attribute_options[0]?.label ? item.attribute_options[0]?.label : "-"}
                           </span>
                           <span className="bg-gray-400 py-1 rounded-md block px-2">
-                            {item.options[1]?.label ? item.options[1]?.label : "-"}
+                            {item.attribute_options[1]?.label ? item.attribute_options[1]?.label : "-"}
                           </span>
                         </div>
                       </td>

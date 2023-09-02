@@ -63,7 +63,7 @@
 
   {
     "title": "Payment Method",
-    "path": "/admin/payment-method",
+    "path": "/admin/payments",
     "icon": "ri-bank-card-line"
   },
   {

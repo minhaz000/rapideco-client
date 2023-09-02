@@ -1,31 +1,46 @@
 "use client";
 import JoditEditor from "jodit-react";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import FormValues from "@/interface/product";
-import { useAdminContext } from "@/context/admin.context";
-import Select from "react-select";
+import Img1 from "@/assets/img.png";
+import { useMutationData, useQueryData } from "@/hooks/hook.query";
 import { toast } from "react-toastify";
-import Uploder from "@/hooks/hook.upload";
-import { useMutationData } from "@/hooks/hook.query";
-
-const AddProduct = () => {
+import { useAdminContext } from "@/context/admin.context";
+import FormValues from "@/interface/product";
+import Select from "react-select";
+const EditProduct = ({ params }: { params: { productID: string[] } }) => {
+  // const editor = useRef(null);
   const { Categories, Brands, Atrribute, Products }: any = useAdminContext();
-  const newProduct = useMutationData(["add new prodct"], "post", "api/v0/product");
-  const [attribute, setAttribute] = useState([]);
-  const [selectedOption, setSelectedOption] = useState(null);
   const [selectedImage, setSelectedImage] = useState();
   const [selectedGalleryImage, setSelectedGalleryImage] = useState([]);
   const [selectedGalleryImageFile, setSelectedGalleryImageFile] = useState(null);
+  const { data: oldProduct, refetch } = useQueryData(["get old product"], `/api/v0/product/${params.productID}`);
+  const updateProduct = useMutationData(["update product "], "put", `/api/v0/product/${params.productID}`);
   const { register, handleSubmit, watch, reset, setValue, getValues } = useForm<FormValues>();
+  // EDIT PRODUCT
+  const HandleEditProduct: SubmitHandler<FormValues> = async (data) => {
+    // data.gallery_images = await Uploder(data.gallery_images);
+    // data.product_image = await Uploder(data.product_image);
+    data.status ? (data.status = "active") : (data.status = "deactive");
+    data.category_info = data.category_info && JSON.parse(data.category_info);
+    data.brand_info = data.brand_info && JSON.parse(data.brand_info);
+    // console.log("product ", data.product_image);
+    // console.log("grally ", data.gallery_images);
+    // console.log("grally ", selectedGalleryImage);
+    console.log(data);
+    // console.log("file ", selectedGalleryImageFile);
 
-  // =============== IMAGE HANDLEING
-
-  // const handleChange = (selectedOption) => {
-  //   setSelectedOption(selectedOption);
-  //   // this.setState({ selectedOption }, () => console.log(`Option selected:`, this.state.selectedOption));
-  // };
+    // console.log(data.product_image);.
+    updateProduct.mutate(data as any, {
+      onSuccess: () => {
+        toast.success("product added");
+        Products.refetch();
+        reset();
+      },
+      onError: (error: any) => toast.error(error.message ? error.message : error?.data.message),
+    });
+  };
 
   const handleImage = (e: any) => {
     setSelectedImage(e.target.files[0]);
@@ -49,38 +64,16 @@ const AddProduct = () => {
     URL.revokeObjectURL(image);
   }
 
-  // =============== FUNCTION FOR THE PRODUCT POST REQUEST
-  // console.log("grally ", selectedGalleryImage);
-  // console.log(selectedOption);
-  const HandleAddProduct: SubmitHandler<FormValues> = async (data) => {
-    // data.gallery_images = await Uploder(data.gallery_images);
-    // data.product_image = await Uploder(data.product_image);
-    data.status ? (data.status = "active") : (data.status = "deactive");
-    data.category_info = data.category_info && JSON.parse(data.category_info);
-    data.brand_info = data.brand_info && JSON.parse(data.brand_info);
-    // console.log("product ", data.product_image);
-    // console.log("grally ", data.gallery_images);
-    // console.log("grally ", selectedGalleryImage);
-    console.log(data);
-    // console.log("file ", selectedGalleryImageFile);
-
-    // console.log(data.product_image);.
-    newProduct.mutate(data as any, {
-      onSuccess: () => {
-        toast.success("product added");
-        Products.refetch();
-        reset();
-      },
-      onError: (error: any) => toast.error(error.message ? error.message : error?.data.message),
-    });
-  };
-  const validationError: any = newProduct.error?.data.errors;
-
+  console.log(oldProduct);
+  useEffect(() => {
+    reset(oldProduct?.data);
+  }, [oldProduct]);
+  const validationError: any = updateProduct.error?.data.errors;
   return (
     <div className="pb-4">
-      <h2 className="text-2xl">Add Product</h2>
+      <h2 className="text-2xl">Edit Product</h2>
       <div className="mt-6">
-        <form onSubmit={handleSubmit(HandleAddProduct)}>
+        <form onSubmit={handleSubmit(HandleEditProduct)}>
           <div>
             <label htmlFor="name" className="mb-2 block">
               Product Title
@@ -202,7 +195,7 @@ const AddProduct = () => {
                 validationError?.qantity && "border-red-600 text-red-400"
               }`}
             >
-              <option value="">Select category</option>
+              <option value=""> {oldProduct?.data.category_info?.name} </option>
               {Categories?.data?.data.map((item: any) => {
                 return (
                   <option key={item._id} value={JSON.stringify({ _id: item._id, name: item.name })}>
@@ -211,6 +204,7 @@ const AddProduct = () => {
                 );
               })}
             </select>
+
             {validationError?.category_info && (
               <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.category_info.message}</p>
             )}
@@ -331,4 +325,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default EditProduct;

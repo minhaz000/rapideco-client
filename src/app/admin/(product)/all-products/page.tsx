@@ -13,7 +13,7 @@ const AllProduct = () => {
   const handleDeleteProduct = (productID: string) => {
     Swal.fire({
       title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      text: "You want to move this to trash",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -113,12 +113,16 @@ const AllProduct = () => {
                         >
                           <FaRegEye />
                         </span>
+
                         <span
                           title="Edit"
                           className="bg-yellow-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
                         >
-                          <FaRegEdit />
+                          <Link href={`/admin/edit-product/${item._id}`}>
+                            <FaRegEdit />
+                          </Link>
                         </span>
+
                         <span
                           onClick={() => handleDeleteProduct(item._id)}
                           title="Delete"

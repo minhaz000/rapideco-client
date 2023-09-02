@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import useProducts from "../../hooks/useProducts";
-import ProductCard from "../ProductCard/ProductCard";
+import ProductCard from "../Product/ProductCard";
 const RelatedProduct = () => {
   const [products] = useProducts();
   return (

@@ -9,7 +9,9 @@ import { useQueryData } from "@/hooks/hook.query";
 import axios from "@/hooks/hook.axios";
 import deletePhoto from "axios";
 import { toast } from "react-toastify";
+import { useAdminContext } from "@/context/admin.context";
 const TrashProduct = () => {
+  const { Products: AllProducts }: any = useAdminContext();
   const { data: Products, refetch } = useQueryData(["get deleted products"], "/api/v0/products?is_delete=true");
 
   const handleDeleteProduct = (deleteID: string) => {
@@ -25,7 +27,7 @@ const TrashProduct = () => {
       if (result.isConfirmed) {
         Swal.fire("Deleted!", "Your file has been deleted.", "success");
         axios
-          .delete(`/api/v0/category/${deleteID}?permanent=true`)
+          .delete(`/api/v0/product/${deleteID}?permanent=true`)
           .then(async (res) => {
             console.log(res.data);
             // await deletePhoto.post("/api/delete", [res.data.data.imgURL, res.data.data.icon]);
@@ -36,6 +38,16 @@ const TrashProduct = () => {
       }
     });
   };
+  const handleRecover = (deleteID: string) => {
+    axios
+      .delete(`/api/v0/product/${deleteID}?recover=true`)
+      .then(() => {
+        toast.success("category restored");
+        refetch();
+        AllProducts.refetch();
+      })
+      .catch((error: any) => toast.error(error.message ? error.message : error?.data.message));
+  };
 
   console.log(Products?.data);
 
@@ -44,7 +56,7 @@ const TrashProduct = () => {
       <div className="shadow-[0_0_10px_5px_#d7d7d7bf] mt-6">
         <div className="flex justify-between items-center border-b pb-3 px-4 pt-4 mb-4">
           <div>
-            <h2 className="text-xl">All Trash Product</h2>
+            <h2 className="text-xl">Trash Products</h2>
             <div>
               <span className="text-[12px] underline text-slate-500 cursor-pointer mr-2">
                 <Link href={"/admin/all-products"}>All Products(6)</Link>
@@ -106,18 +118,13 @@ const TrashProduct = () => {
                     </td>
                     <td>
                       <div className="flex gap-2 items-center">
-                        {/* <span
-                          title="View"
-                          className="bg-green-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
-                        >
-                          <FaRegEye />
-                        </span>
                         <span
-                          title="Edit"
-                          className="bg-yellow-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
+                          onClick={() => handleRecover(item._id)}
+                          title="Restore"
+                          className="bg-yellow-500 bg-opacity-50 text-white text-xs p-[5px] rounded-full cursor-pointer hover:bg-opacity-100"
                         >
-                          <FaRegEdit />
-                        </span> */}
+                          <FaRegClock />
+                        </span>
                         <span
                           onClick={() => handleDeleteProduct(item._id)}
                           title="Delete"

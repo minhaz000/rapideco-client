@@ -7,7 +7,7 @@ function AddToCartButton({ productID }: { productID: string }) {
   const hadleAddToCart = (ID: string) => {
     console.log(ID);
     axios
-      .get(`/api/v0/cart/${ID}`)
+      .put(`/api/v0/cart/add?productID=${ID}`)
       .then(() => {
         toast.success("product added to cart");
       })

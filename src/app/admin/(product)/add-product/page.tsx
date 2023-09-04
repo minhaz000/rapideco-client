@@ -163,7 +163,7 @@ const AddProduct = () => {
             </label>
 
             <input
-              {...register("qantity")}
+              {...register("quantity")}
               type="number"
               placeholder="Quantity"
               className={`w-full border py-2 px-3 rounded-md  outline-none mt-2 ${

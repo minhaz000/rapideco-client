@@ -1,4 +1,5 @@
 interface Product {
+  _id: string;
   title: string;
   short_description: string;
   description: string;
@@ -8,7 +9,7 @@ interface Product {
   regular_price: number;
   discount_price: number;
   variants: [] | any;
-  qantity: number;
+  quantity: number;
   status: "active" | "deactive";
   category_info: { _id: string; name: string } | any;
   brand_info: { _id: string; name: string } | any;

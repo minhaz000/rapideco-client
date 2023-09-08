@@ -91,13 +91,17 @@ const AllProduct = () => {
                   <tr key={i} className="text-xs font-normal text-start border-b">
                     <td className="py-5 ps-4">{i + 1}</td>
                     <td>
-                      <Image src={Img1} width={50} height={50} alt=""></Image>
+                      {item.product_image ? (
+                        <Image src={item.product_image?.img_url} width={50} height={50} alt=""></Image>
+                      ) : (
+                        "__-__"
+                      )}
                     </td>
                     <td>{item.title}</td>
                     <td>{item?.regular_price}</td>
-                    <td>{item?.discount_price}</td>
-                    <td>{item?.qantity}</td>
-                    <td>Apple</td>
+                    <td>{item.discount_price ? item.discount_price : "-"}</td>
+                    <td>{item?.quantity}</td>
+                    <td>{item.brand_info?.name ? item.brand_info.name : "-"}</td>
                     <td>
                       {item.status === "active" ? (
                         <span className="bg-green-500 bg-opacity-70 text-white text-sm p-1 rounded">Active</span>

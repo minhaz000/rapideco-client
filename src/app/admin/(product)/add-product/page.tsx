@@ -13,62 +13,45 @@ import { useMutationData } from "@/hooks/hook.query";
 const AddProduct = () => {
   const { Categories, Brands, Atrribute, Products }: any = useAdminContext();
   const newProduct = useMutationData(["add new prodct"], "post", "api/v0/product");
-  const [attribute, setAttribute] = useState([]);
-  const [selectedOption, setSelectedOption] = useState(null);
-  const [selectedImage, setSelectedImage] = useState();
+  const [selectedImage, setSelectedImage]: any = useState();
   const [selectedGalleryImage, setSelectedGalleryImage] = useState([]);
-  const [selectedGalleryImageFile, setSelectedGalleryImageFile] = useState(null);
   const { register, handleSubmit, watch, reset, setValue, getValues } = useForm<FormValues>();
 
   // =============== IMAGE HANDLEING
 
-  // const handleChange = (selectedOption) => {
-  //   setSelectedOption(selectedOption);
-  //   // this.setState({ selectedOption }, () => console.log(`Option selected:`, this.state.selectedOption));
-  // };
-
   const handleImage = (e: any) => {
+    console.log(e.target.files);
     setSelectedImage(e.target.files[0]);
+    setValue("product_image", e.target.files[0]);
   };
   const handleGalleyImage = (event: any) => {
-    const selectedFiles = event.target.files;
-
-    setSelectedGalleryImageFile(selectedFiles);
-    const selectedFilesArray = Array.from(selectedFiles);
-    console.log(selectedFilesArray);
-    const imagesArray = selectedFilesArray.map((file) => {
-      return URL.createObjectURL(file as any);
-    });
-    setSelectedGalleryImage((previousImages: any) => previousImages.concat(imagesArray as any));
+    const selectedFiles: any = [...event.target.files, ...selectedGalleryImage];
+    console.log(Array.from(selectedFiles));
+    setSelectedGalleryImage(selectedFiles);
     event.target.value = "";
-    console.log(event.target);
   };
-  function deleteHandler(image: any) {
+  const deleteHandler = (image: any) => {
     setSelectedGalleryImage(selectedGalleryImage.filter((e) => e !== image));
-
-    URL.revokeObjectURL(image);
-  }
+  };
 
   // =============== FUNCTION FOR THE PRODUCT POST REQUEST
-  // console.log("grally ", selectedGalleryImage);
-  // console.log(selectedOption);
+
   const HandleAddProduct: SubmitHandler<FormValues> = async (data) => {
-    // data.gallery_images = await Uploder(data.gallery_images);
+    data.gallery_images = await Uploder(selectedGalleryImage);
     // data.product_image = await Uploder(data.product_image);
     data.status ? (data.status = "active") : (data.status = "deactive");
     data.category_info = data.category_info && JSON.parse(data.category_info);
     data.brand_info = data.brand_info && JSON.parse(data.brand_info);
-    // console.log("product ", data.product_image);
-    // console.log("grally ", data.gallery_images);
-    // console.log("grally ", selectedGalleryImage);
-    console.log(data);
-    // console.log("file ", selectedGalleryImageFile);
 
-    // console.log(data.product_image);.
+    console.log(data);
+
+    console.log(data.product_image);
     newProduct.mutate(data as any, {
       onSuccess: () => {
         toast.success("product added");
         Products.refetch();
+        setSelectedGalleryImage([]);
+        setSelectedImage(null);
         reset();
       },
       onError: (error: any) => toast.error(error.message ? error.message : error?.data.message),
@@ -269,11 +252,9 @@ const AddProduct = () => {
             </label>
 
             <input
-              {...register("product_image")}
               type="file"
-              multiple
-              name="product_image"
-              className="border w-full py-2 px-3  rounded-md outline-none"
+              className="w-full file-input file-input-bordered file-input-xs  outline-none mt-2 "
+              // className="border w-full py-2 px-3  rounded-md outline-none"
               onChange={handleImage}
             />
 
@@ -299,18 +280,21 @@ const AddProduct = () => {
                 {...register("gallery_images")}
                 type="file"
                 multiple
-                className="border w-full py-2 px-3  rounded-md outline-none"
+                className="w-full file-input file-input-bordered file-input-xs  outline-none mt-2 "
                 onChange={handleGalleyImage}
               />
               <div className="flex gap-2 my-3">
                 {selectedGalleryImage &&
-                  selectedGalleryImage.map((image) => {
+                  selectedGalleryImage.map((image: any, i: number) => {
                     return (
-                      <div key={image} className="relative">
-                        <Image src={image} width={100} height={100} alt="upload" />
+                      <div key={i} className="relative">
+                        <Image src={URL.createObjectURL(image as any)} width={100} height={100} alt="upload" />
                         <button
                           className="absolute top-0 right-0 bg-red-400 text-white px-1"
-                          onClick={() => deleteHandler(image)}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            deleteHandler(image);
+                          }}
                         >
                           x
                         </button>

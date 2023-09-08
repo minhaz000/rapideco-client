@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
-import useProducts from "../../hooks/useProducts";
+// import useProducts from "../../hooks/useProducts";
 import ProductCard from "../Product/ProductCard";
 const RelatedProduct = () => {
-  const [products] = useProducts();
+  const products = [];
   return (
     <div className="mt-20">
       <h2 className="mb-3 text-xl font-semibold">Related Products</h2>

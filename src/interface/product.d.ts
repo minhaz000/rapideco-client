@@ -4,8 +4,8 @@ interface Product {
   short_description: string;
   description: string;
   code: string;
-  product_image: string;
-  gallery_images: [];
+  product_image: any;
+  gallery_images: any;
   regular_price: number;
   discount_price: number;
   variants: [] | any;

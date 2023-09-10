@@ -20,9 +20,8 @@ const AddProduct = () => {
   // =============== IMAGE HANDLEING
 
   const handleImage = (e: any) => {
-    console.log(e.target.files);
     setSelectedImage(e.target.files[0]);
-    setValue("product_image", e.target.files[0]);
+    setValue("product_image", e.target.files);
   };
   const handleGalleyImage = (event: any) => {
     const selectedFiles: any = [...event.target.files, ...selectedGalleryImage];
@@ -37,15 +36,15 @@ const AddProduct = () => {
   // =============== FUNCTION FOR THE PRODUCT POST REQUEST
 
   const HandleAddProduct: SubmitHandler<FormValues> = async (data) => {
-    data.gallery_images = await Uploder(selectedGalleryImage);
-    // data.product_image = await Uploder(data.product_image);
+    data.gallery_images =
+      selectedGalleryImage.length == 1 ? [await Uploder(selectedGalleryImage)] : await Uploder(selectedGalleryImage);
+    data.product_image?.length > 0 && (data.product_image = await Uploder(data.product_image));
     data.status ? (data.status = "active") : (data.status = "deactive");
     data.category_info = data.category_info && JSON.parse(data.category_info);
     data.brand_info = data.brand_info && JSON.parse(data.brand_info);
 
     console.log(data);
 
-    console.log(data.product_image);
     newProduct.mutate(data as any, {
       onSuccess: () => {
         toast.success("product added");
@@ -203,11 +202,11 @@ const AddProduct = () => {
               Brand
             </label>
 
-            <select name="" id="" className="border outline-none p-2 w-full">
+            <select {...register("brand_info")} className="border outline-none p-2 w-full">
               <option value="">Select Brand</option>
               {Brands?.data?.data.map((item: any) => {
                 return (
-                  <option key={item._id} value="">
+                  <option key={item._id} value={JSON.stringify({ _id: item._id, name: item.name })}>
                     {item.name}
                   </option>
                 );

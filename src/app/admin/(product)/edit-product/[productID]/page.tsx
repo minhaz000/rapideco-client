@@ -10,11 +10,10 @@ import { useAdminContext } from "@/context/admin.context";
 import FormValues from "@/interface/product";
 import Select from "react-select";
 const EditProduct = ({ params }: { params: { productID: string[] } }) => {
-  // const editor = useRef(null);
   const { Categories, Brands, Atrribute, Products }: any = useAdminContext();
   const [selectedImage, setSelectedImage] = useState();
   const [selectedGalleryImage, setSelectedGalleryImage] = useState([]);
-  const [selectedGalleryImageFile, setSelectedGalleryImageFile] = useState(null);
+  const [selectedGalleryImageFile, setSelectedGalleryImageFile] = useState([]);
   const { data: oldProduct, refetch } = useQueryData(["get old product"], `/api/v0/product/${params.productID}`);
   const updateProduct = useMutationData(["update product "], "put", `/api/v0/product/${params.productID}`);
   const { register, handleSubmit, watch, reset, setValue, getValues } = useForm<FormValues>();
@@ -23,52 +22,53 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
     // data.gallery_images = await Uploder(data.gallery_images);
     // data.product_image = await Uploder(data.product_image);
     data.status ? (data.status = "active") : (data.status = "deactive");
-    data.category_info = data.category_info && JSON.parse(data.category_info);
-    data.brand_info = data.brand_info && JSON.parse(data.brand_info);
+    // data.category_info = data.category_info && JSON.parse(data.category_info);
+    // data.brand_info = data.brand_info && JSON.parse(data.brand_info);
     // console.log("product ", data.product_image);
     // console.log("grally ", data.gallery_images);
     // console.log("grally ", selectedGalleryImage);
     console.log(data);
     // console.log("file ", selectedGalleryImageFile);
-
     // console.log(data.product_image);.
-    updateProduct.mutate(data as any, {
-      onSuccess: () => {
-        toast.success("product added");
-        Products.refetch();
-        reset();
-      },
-      onError: (error: any) => toast.error(error.message ? error.message : error?.data.message),
-    });
+
+    // updateProduct.mutate(data as any, {
+    //   onSuccess: () => {
+    //     toast.success("product updated");
+    //     refetch().then((res: any) => reset(res.data));
+    //   },
+    //   onError: (error: any) => toast.error(error.message ? error.message : error?.data.message),
+    // });
   };
 
   const handleImage = (e: any) => {
     setSelectedImage(e.target.files[0]);
   };
   const handleGalleyImage = (event: any) => {
-    const selectedFiles = event.target.files;
-
+    const selectedFiles = [...event.target.files];
     setSelectedGalleryImageFile(selectedFiles);
-    const selectedFilesArray = Array.from(selectedFiles);
-    console.log(selectedFilesArray);
-    const imagesArray = selectedFilesArray.map((file) => {
-      return URL.createObjectURL(file as any);
-    });
-    setSelectedGalleryImage((previousImages: any) => previousImages.concat(imagesArray as any));
-    event.target.value = "";
-    console.log(event.target);
+
+    // setSelectedGalleryImageFile(selectedFiles);
+    // const selectedFilesArray = Array.from(selectedFiles);
+    // const imagesArray = selectedFilesArray.map((file) => {
+    //   return URL.createObjectURL(file as any);
+    // });
+    // setSelectedGalleryImage((previousImages: any) => previousImages.concat(imagesArray as any));
+    // event.target.value = "";
+    // console.log(event.target);
   };
+  console.log(selectedGalleryImage);
   function deleteHandler(image: any) {
+    console.log(image);
     setSelectedGalleryImage(selectedGalleryImage.filter((e) => e !== image));
 
     URL.revokeObjectURL(image);
   }
 
-  console.log(oldProduct);
   useEffect(() => {
+    setSelectedGalleryImage(oldProduct?.data?.gallery_images);
     reset(oldProduct?.data);
   }, [oldProduct]);
-  const validationError: any = updateProduct.error?.data.errors;
+  const validationError: any = updateProduct.error?.data?.errors;
   return (
     <div className="pb-4">
       <h2 className="text-2xl">Edit Product</h2>
@@ -156,7 +156,7 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
             </label>
 
             <input
-              {...register("qantity")}
+              {...register("quantity")}
               type="number"
               placeholder="Quantity"
               className={`w-full border py-2 px-3 rounded-md  outline-none mt-2 ${
@@ -250,6 +250,7 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
                 <Select
                   className="col-span-8"
                   isMulti={true}
+                  defaultInputValue={item.attribute_options}
                   onChange={(value) => setValue("variants.attribute_options", value)}
                   options={item.attribute_options}
                 />
@@ -271,17 +272,15 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
               onChange={handleImage}
             />
 
-            {selectedImage && (
-              <div className="my-3">
-                <Image
-                  src={URL.createObjectURL(selectedImage)}
-                  alt="thumbnail"
-                  width={100}
-                  height={100}
-                  className="object-cover"
-                />
-              </div>
-            )}
+            <div className="my-3">
+              <Image
+                src={selectedImage ? URL.createObjectURL(selectedImage) : oldProduct?.data?.product_image?.img_url}
+                alt="thumbnail"
+                width={100}
+                height={100}
+                className="object-cover"
+              />
+            </div>
           </div>
           <div className="mt-3">
             <label htmlFor="name" className="mb-2 block">
@@ -298,10 +297,10 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
               />
               <div className="flex gap-2 my-3">
                 {selectedGalleryImage &&
-                  selectedGalleryImage.map((image) => {
+                  selectedGalleryImage.map((image: any) => {
                     return (
                       <div key={image} className="relative">
-                        <Image src={image} width={100} height={100} alt="upload" />
+                        <Image src={image.img_url} width={100} height={100} alt="upload" />
                         <button
                           className="absolute top-0 right-0 bg-red-400 text-white px-1"
                           onClick={() => deleteHandler(image)}
@@ -311,6 +310,19 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
                       </div>
                     );
                   })}
+                {selectedGalleryImageFile.map((image: any, i) => {
+                  return (
+                    <div key={i} className="relative">
+                      <Image src={URL.createObjectURL(image)} width={100} height={100} alt="upload" />
+                      <button
+                        className="absolute top-0 right-0 bg-red-400 text-white px-1"
+                        onClick={() => deleteHandler(image)}
+                      >
+                        x
+                      </button>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>

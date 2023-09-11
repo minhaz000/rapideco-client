@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const Upload = async (fileList: any) => {
+const Upload = async (fileList: any, resType?: "arry" | "object") => {
   const Result: any = [];
   // IMAGE UPLOAD LOGIC
   const formData = new FormData();
@@ -14,6 +14,9 @@ const Upload = async (fileList: any) => {
     const formate = { img_url: item.img_url, path: item.path };
     Result.push(formate);
   });
+  if (resType === "arry") {
+    return Result;
+  }
   return Result.length > 1 ? Result : Result[0];
 };
 

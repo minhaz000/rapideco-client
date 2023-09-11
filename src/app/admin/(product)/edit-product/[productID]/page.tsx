@@ -3,27 +3,29 @@ import JoditEditor from "jodit-react";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import Img1 from "@/assets/img.png";
 import { useMutationData, useQueryData } from "@/hooks/hook.query";
 import { toast } from "react-toastify";
 import { useAdminContext } from "@/context/admin.context";
 import FormValues from "@/interface/product";
 import Select from "react-select";
+import Uploder from "@/hooks/hook.upload";
 const EditProduct = ({ params }: { params: { productID: string[] } }) => {
   const { Categories, Brands, Atrribute, Products }: any = useAdminContext();
-  const [selectedImage, setSelectedImage] = useState();
-  const [selectedGalleryImage, setSelectedGalleryImage] = useState([]);
+  const [selectedImage, setSelectedImage] = useState([]);
+  const [oldGalleryImage, setOldGalleryImage] = useState([]);
   const [selectedGalleryImageFile, setSelectedGalleryImageFile] = useState([]);
   const { data: oldProduct, refetch } = useQueryData(["get old product"], `/api/v0/product/${params.productID}`);
   const updateProduct = useMutationData(["update product "], "put", `/api/v0/product/${params.productID}`);
   const { register, handleSubmit, watch, reset, setValue, getValues } = useForm<FormValues>();
   // EDIT PRODUCT
   const HandleEditProduct: SubmitHandler<FormValues> = async (data) => {
-    // data.gallery_images = await Uploder(data.gallery_images);
-    // data.product_image = await Uploder(data.product_image);
+    const gallery_images = await Uploder(selectedGalleryImageFile, "arry");
+    // gallery_images && (data.gallery_images = [...data.gallery_images, ...gallery_images]);
+    data.gallery_images = gallery_images ? [...oldGalleryImage, ...gallery_images] : [...oldGalleryImage];
+    selectedImage.length > 0 && (data.product_image = await Uploder(selectedImage));
     data.status ? (data.status = "active") : (data.status = "deactive");
-    // data.category_info = data.category_info && JSON.parse(data.category_info);
-    // data.brand_info = data.brand_info && JSON.parse(data.brand_info);
+    data.category_info = data.category_info.length > 1 && JSON.parse(data.category_info);
+    data.brand_info = data.brand_info.length > 1 && JSON.parse(data.brand_info);
     // console.log("product ", data.product_image);
     // console.log("grally ", data.gallery_images);
     // console.log("grally ", selectedGalleryImage);
@@ -31,41 +33,37 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
     // console.log("file ", selectedGalleryImageFile);
     // console.log(data.product_image);.
 
-    // updateProduct.mutate(data as any, {
-    //   onSuccess: () => {
-    //     toast.success("product updated");
-    //     refetch().then((res: any) => reset(res.data));
-    //   },
-    //   onError: (error: any) => toast.error(error.message ? error.message : error?.data.message),
-    // });
+    updateProduct.mutate(data as any, {
+      onSuccess: () => {
+        toast.success("product updated");
+        refetch().then((res: any) => reset(res.data));
+        setSelectedGalleryImageFile([]);
+      },
+      onError: (error: any) => toast.error(error.message ? error.message : error?.data.message),
+    });
   };
 
   const handleImage = (e: any) => {
     setSelectedImage(e.target.files[0]);
   };
   const handleGalleyImage = (event: any) => {
-    const selectedFiles = [...event.target.files];
+    const selectedFiles: any = [...event.target.files, ...selectedGalleryImageFile];
     setSelectedGalleryImageFile(selectedFiles);
-
-    // setSelectedGalleryImageFile(selectedFiles);
-    // const selectedFilesArray = Array.from(selectedFiles);
-    // const imagesArray = selectedFilesArray.map((file) => {
-    //   return URL.createObjectURL(file as any);
-    // });
-    // setSelectedGalleryImage((previousImages: any) => previousImages.concat(imagesArray as any));
-    // event.target.value = "";
-    // console.log(event.target);
   };
-  console.log(selectedGalleryImage);
+
   function deleteHandler(image: any) {
     console.log(image);
-    setSelectedGalleryImage(selectedGalleryImage.filter((e) => e !== image));
-
-    URL.revokeObjectURL(image);
+    setOldGalleryImage(oldGalleryImage.filter((e) => e !== image));
+    setSelectedGalleryImageFile(selectedGalleryImageFile.filter((e) => e !== image));
   }
-
+  function handleOnChange(e: any) {
+    // e.target.value
+    console.log(e.target.name);
+    setValue(e.target.name, e.target.value);
+  }
+  console.log(oldProduct?.data?.category_info?.name);
   useEffect(() => {
-    setSelectedGalleryImage(oldProduct?.data?.gallery_images);
+    setOldGalleryImage(oldProduct?.data?.gallery_images);
     reset(oldProduct?.data);
   }, [oldProduct]);
   const validationError: any = updateProduct.error?.data?.errors;
@@ -190,15 +188,16 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
             </label>
 
             <select
-              {...register("category_info")}
+              name="category_info"
+              onChange={handleOnChange}
               className={`w-full border py-2 px-3 rounded-md  outline-none mt-2 ${
-                validationError?.qantity && "border-red-600 text-red-400"
+                validationError?.category_info && "border-red-600 text-red-400"
               }`}
             >
-              <option value=""> {oldProduct?.data.category_info?.name} </option>
-              {Categories?.data?.data.map((item: any) => {
+              <option value="">{oldProduct?.data?.category_info?.name} </option>
+              {Categories?.data?.data.map((item: any, i: number) => {
                 return (
-                  <option key={item._id} value={JSON.stringify({ _id: item._id, name: item.name })}>
+                  <option key={i} value={JSON.stringify({ _id: item._id, name: item.name })}>
                     {item.name}
                   </option>
                 );
@@ -214,11 +213,11 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
               Brand
             </label>
 
-            <select name="" id="" className="border outline-none p-2 w-full">
+            <select name="brand_info" onChange={handleOnChange} className="border outline-none p-2 w-full">
               <option value="">Select Brand</option>
-              {Brands?.data?.data.map((item: any) => {
+              {Brands?.data?.data.map((item: any, i: number) => {
                 return (
-                  <option key={item._id} value="">
+                  <option key={i} value={JSON.stringify({ _id: item._id, name: item.name })}>
                     {item.name}
                   </option>
                 );
@@ -274,7 +273,11 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
 
             <div className="my-3">
               <Image
-                src={selectedImage ? URL.createObjectURL(selectedImage) : oldProduct?.data?.product_image?.img_url}
+                src={
+                  selectedImage.length > 1
+                    ? URL.createObjectURL(selectedImage[0])
+                    : oldProduct?.data?.product_image?.img_url
+                }
                 alt="thumbnail"
                 width={100}
                 height={100}
@@ -289,17 +292,16 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
 
             <div>
               <input
-                {...register("gallery_images")}
                 type="file"
                 multiple
                 className="border w-full py-2 px-3  rounded-md outline-none"
                 onChange={handleGalleyImage}
               />
               <div className="flex gap-2 my-3">
-                {selectedGalleryImage &&
-                  selectedGalleryImage.map((image: any) => {
+                {oldGalleryImage &&
+                  oldGalleryImage.map((image: any, i: number) => {
                     return (
-                      <div key={image} className="relative">
+                      <div key={i} className="relative">
                         <Image src={image.img_url} width={100} height={100} alt="upload" />
                         <button
                           className="absolute top-0 right-0 bg-red-400 text-white px-1"

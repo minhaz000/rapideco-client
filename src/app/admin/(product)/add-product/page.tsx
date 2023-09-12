@@ -11,7 +11,11 @@ import Uploder from "@/hooks/hook.upload";
 import { useMutationData } from "@/hooks/hook.query";
 const AddProduct = () => {
   const { Categories, Brands, Atrribute, Products }: any = useAdminContext();
-  const newProduct = useMutationData(["add new prodct"], "post", "api/v0/product");
+  const newProduct = useMutationData(
+    ["add new prodct"],
+    "post",
+    "api/v0/product"
+  );
 
   const [selectedImage, setSelectedImage] = useState();
   const [selectedGalleryImage, setSelectedGalleryImage] = useState([]);
@@ -29,7 +33,9 @@ const AddProduct = () => {
     const imagesArray = selectedFilesArray.map((file) => {
       return URL.createObjectURL(file as any);
     });
-    setSelectedGalleryImage((previousImages: any) => previousImages.concat(imagesArray as any));
+    setSelectedGalleryImage((previousImages: any) =>
+      previousImages.concat(imagesArray as any)
+    );
     event.target.value = "";
   };
 
@@ -80,7 +86,9 @@ const AddProduct = () => {
               }`}
             />
             {validationError?.title && (
-              <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.title.message}</p>
+              <p className="text-red-600 text-[14px]  mb-[5px] text-right">
+                {validationError.title.message}
+              </p>
             )}
           </div>
           <div>
@@ -97,7 +105,9 @@ const AddProduct = () => {
               }`}
             />
             {validationError?.code && (
-              <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.code.message}</p>
+              <p className="text-red-600 text-[14px]  mb-[5px] text-right">
+                {validationError.code.message}
+              </p>
             )}
           </div>
           <div className="mt-3">
@@ -105,13 +115,19 @@ const AddProduct = () => {
               Short Description
             </label>
 
-            <JoditEditor onChange={(data) => setValue("short_description", data)} value={""} />
+            <JoditEditor
+              onChange={(data) => setValue("short_description", data)}
+              value={""}
+            />
           </div>
           <div className="mt-3">
             <label htmlFor="name" className="mb-2 block">
               Full Description
             </label>
-            <JoditEditor value={""} onChange={(data) => setValue("description", data)} />
+            <JoditEditor
+              value={""}
+              onChange={(data) => setValue("description", data)}
+            />
           </div>
           <div className="mt-3">
             <label htmlFor="name" className="mb-2 block">
@@ -127,7 +143,9 @@ const AddProduct = () => {
               }`}
             />
             {validationError?.regular_price && (
-              <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.regular_price.message}</p>
+              <p className="text-red-600 text-[14px]  mb-[5px] text-right">
+                {validationError.regular_price.message}
+              </p>
             )}
           </div>
           <div className="mt-3">
@@ -156,7 +174,9 @@ const AddProduct = () => {
               }`}
             />
             {validationError?.qantity && (
-              <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.qantity.message}</p>
+              <p className="text-red-600 text-[14px]  mb-[5px] text-right">
+                {validationError.qantity.message}
+              </p>
             )}
           </div>
           <div className="mt-3">
@@ -173,7 +193,9 @@ const AddProduct = () => {
               }`}
             />
             {validationError?.status && (
-              <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.status.message}</p>
+              <p className="text-red-600 text-[14px]  mb-[5px] text-right">
+                {validationError.status.message}
+              </p>
             )}
           </div>
 
@@ -191,14 +213,19 @@ const AddProduct = () => {
               <option value="">Select category</option>
               {Categories?.data?.data.map((item: any) => {
                 return (
-                  <option key={item._id} value={JSON.stringify({ _id: item._id, name: item.name })}>
+                  <option
+                    key={item._id}
+                    value={JSON.stringify({ _id: item._id, name: item.name })}
+                  >
                     {item.name}
                   </option>
                 );
               })}
             </select>
             {validationError?.category_info && (
-              <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.category_info.message}</p>
+              <p className="text-red-600 text-[14px]  mb-[5px] text-right">
+                {validationError.category_info.message}
+              </p>
             )}
           </div>
           <div className="mt-3">
@@ -261,7 +288,12 @@ const AddProduct = () => {
                   selectedGalleryImage.map((image) => {
                     return (
                       <div key={image} className="relative">
-                        <Image src={image} width={100} height={100} alt="upload" />
+                        <Image
+                          src={image}
+                          width={100}
+                          height={100}
+                          alt="upload"
+                        />
                         <button
                           className="absolute top-0 right-0 bg-red-400 text-white px-1"
                           onClick={() => deleteHandler(image)}

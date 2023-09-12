@@ -46,3 +46,7 @@
   width: 1em;
   margin-right: 5px;
 }
+.slick-prev,
+.slick-next {
+  z-index: 50 !important;
+}

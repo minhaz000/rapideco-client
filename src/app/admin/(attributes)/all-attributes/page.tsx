@@ -11,14 +11,15 @@ import FormValues from "../../../../interface/attributes";
 import { useAdminContext } from "@/context/admin.context";
 import { useMutationData } from "@/hooks/hook.query";
 import axios from "@/hooks/hook.axios";
-
+import slugify from "slugify";
 const Attributes = () => {
   const { Atrribute }: any = useAdminContext();
   const newBrand = useMutationData(["add new attribute"], "post", "api/v0/attribute");
   const { register, reset, handleSubmit } = useform<FormValues>();
   // =============== FUNCTION FOR THE PRODUCT POST REQUEST
   const HandleAddAtrribute: SubmitHandler<FormValues> = async (data) => {
-    newBrand.mutate(data, {
+    data.value = slugify(data.label, { lower: true });
+    newBrand.mutate(data as any, {
       onSuccess: () => {
         toast.success("atrribute added");
         Atrribute.refetch();
@@ -73,11 +74,15 @@ const Attributes = () => {
                   return (
                     <tr key={i} className="text-xs font-normal text-start border-b">
                       <td className="py-5 ps-4">{i + 1}</td>
-                      <td>{item.name}</td>
+                      <td>{item.label}</td>
                       <td>
                         <div className="flex gap-1 items-center">
-                          <span className="bg-gray-400 py-1 rounded-md block px-2">L</span>
-                          <span className="bg-gray-400 py-1 rounded-md block px-2">X</span>
+                          <span className="bg-gray-400 py-1 rounded-md block px-2">
+                            {item.attribute_options[0]?.label ? item.attribute_options[0]?.label : "-"}
+                          </span>
+                          <span className="bg-gray-400 py-1 rounded-md block px-2">
+                            {item.attribute_options[1]?.label ? item.attribute_options[1]?.label : "-"}
+                          </span>
                         </div>
                       </td>
 
@@ -118,7 +123,7 @@ const Attributes = () => {
                 </label>
 
                 <input
-                  {...register("name")}
+                  {...register("label")}
                   type="text"
                   placeholder="Attribute name"
                   className="border w-full py-2 px-3  rounded-md outline-none"

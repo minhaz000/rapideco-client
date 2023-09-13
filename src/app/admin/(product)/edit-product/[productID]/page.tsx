@@ -1,40 +1,46 @@
 "use client";
 import JoditEditor from "jodit-react";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import FormValues from "@/interface/product";
-import { useAdminContext } from "@/context/admin.context";
-import Select from "react-select";
+import Img1 from "@/assets/img.png";
+import { useMutationData, useQueryData } from "@/hooks/hook.query";
 import { toast } from "react-toastify";
-import Uploder from "@/hooks/hook.upload";
-import { useMutationData } from "@/hooks/hook.query";
-
-const AddProduct = () => {
+import { useAdminContext } from "@/context/admin.context";
+import FormValues from "@/interface/product";
+import Select from "react-select";
+const EditProduct = ({ params }: { params: { productID: string[] } }) => {
+  // const editor = useRef(null);
   const { Categories, Brands, Atrribute, Products }: any = useAdminContext();
-<<<<<<< HEAD
-  const newProduct = useMutationData(
-    ["add new prodct"],
-    "post",
-    "api/v0/product"
-  );
-
-=======
-  const newProduct = useMutationData(["add new prodct"], "post", "api/v0/product");
-  const [attribute, setAttribute] = useState([]);
-  const [selectedOption, setSelectedOption] = useState(null);
->>>>>>> 9edbf895518b3f801c1d561ed8502ee0d3292423
   const [selectedImage, setSelectedImage] = useState();
   const [selectedGalleryImage, setSelectedGalleryImage] = useState([]);
   const [selectedGalleryImageFile, setSelectedGalleryImageFile] = useState(null);
+  const { data: oldProduct, refetch } = useQueryData(["get old product"], `/api/v0/product/${params.productID}`);
+  const updateProduct = useMutationData(["update product "], "put", `/api/v0/product/${params.productID}`);
   const { register, handleSubmit, watch, reset, setValue, getValues } = useForm<FormValues>();
+  // EDIT PRODUCT
+  const HandleEditProduct: SubmitHandler<FormValues> = async (data) => {
+    // data.gallery_images = await Uploder(data.gallery_images);
+    // data.product_image = await Uploder(data.product_image);
+    data.status ? (data.status = "active") : (data.status = "deactive");
+    data.category_info = data.category_info && JSON.parse(data.category_info);
+    data.brand_info = data.brand_info && JSON.parse(data.brand_info);
+    // console.log("product ", data.product_image);
+    // console.log("grally ", data.gallery_images);
+    // console.log("grally ", selectedGalleryImage);
+    console.log(data);
+    // console.log("file ", selectedGalleryImageFile);
 
-  // =============== IMAGE HANDLEING
-
-  // const handleChange = (selectedOption) => {
-  //   setSelectedOption(selectedOption);
-  //   // this.setState({ selectedOption }, () => console.log(`Option selected:`, this.state.selectedOption));
-  // };
+    // console.log(data.product_image);.
+    updateProduct.mutate(data as any, {
+      onSuccess: () => {
+        toast.success("product added");
+        Products.refetch();
+        reset();
+      },
+      onError: (error: any) => toast.error(error.message ? error.message : error?.data.message),
+    });
+  };
 
   const handleImage = (e: any) => {
     setSelectedImage(e.target.files[0]);
@@ -48,9 +54,7 @@ const AddProduct = () => {
     const imagesArray = selectedFilesArray.map((file) => {
       return URL.createObjectURL(file as any);
     });
-    setSelectedGalleryImage((previousImages: any) =>
-      previousImages.concat(imagesArray as any)
-    );
+    setSelectedGalleryImage((previousImages: any) => previousImages.concat(imagesArray as any));
     event.target.value = "";
     console.log(event.target);
   };
@@ -60,38 +64,16 @@ const AddProduct = () => {
     URL.revokeObjectURL(image);
   }
 
-  // =============== FUNCTION FOR THE PRODUCT POST REQUEST
-  // console.log("grally ", selectedGalleryImage);
-  // console.log(selectedOption);
-  const HandleAddProduct: SubmitHandler<FormValues> = async (data) => {
-    // data.gallery_images = await Uploder(data.gallery_images);
-    // data.product_image = await Uploder(data.product_image);
-    data.status ? (data.status = "active") : (data.status = "deactive");
-    data.category_info = data.category_info && JSON.parse(data.category_info);
-    data.brand_info = data.brand_info && JSON.parse(data.brand_info);
-    // console.log("product ", data.product_image);
-    // console.log("grally ", data.gallery_images);
-    // console.log("grally ", selectedGalleryImage);
-    console.log(data);
-    // console.log("file ", selectedGalleryImageFile);
-
-    // console.log(data.product_image);.
-    newProduct.mutate(data as any, {
-      onSuccess: () => {
-        toast.success("product added");
-        Products.refetch();
-        reset();
-      },
-      onError: (error: any) => toast.error(error.message ? error.message : error?.data.message),
-    });
-  };
-  const validationError: any = newProduct.error?.data.errors;
-
+  console.log(oldProduct);
+  useEffect(() => {
+    reset(oldProduct?.data);
+  }, [oldProduct]);
+  const validationError: any = updateProduct.error?.data.errors;
   return (
     <div className="pb-4">
-      <h2 className="text-2xl">Add Product</h2>
+      <h2 className="text-2xl">Edit Product</h2>
       <div className="mt-6">
-        <form onSubmit={handleSubmit(HandleAddProduct)}>
+        <form onSubmit={handleSubmit(HandleEditProduct)}>
           <div>
             <label htmlFor="name" className="mb-2 block">
               Product Title
@@ -106,9 +88,7 @@ const AddProduct = () => {
               }`}
             />
             {validationError?.title && (
-              <p className="text-red-600 text-[14px]  mb-[5px] text-right">
-                {validationError.title.message}
-              </p>
+              <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.title.message}</p>
             )}
           </div>
           <div>
@@ -125,9 +105,7 @@ const AddProduct = () => {
               }`}
             />
             {validationError?.code && (
-              <p className="text-red-600 text-[14px]  mb-[5px] text-right">
-                {validationError.code.message}
-              </p>
+              <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.code.message}</p>
             )}
           </div>
           <div className="mt-3">
@@ -135,19 +113,13 @@ const AddProduct = () => {
               Short Description
             </label>
 
-            <JoditEditor
-              onChange={(data) => setValue("short_description", data)}
-              value={""}
-            />
+            <JoditEditor onChange={(data) => setValue("short_description", data)} value={""} />
           </div>
           <div className="mt-3">
             <label htmlFor="name" className="mb-2 block">
               Full Description
             </label>
-            <JoditEditor
-              value={""}
-              onChange={(data) => setValue("description", data)}
-            />
+            <JoditEditor value={""} onChange={(data) => setValue("description", data)} />
           </div>
           <div className="mt-3">
             <label htmlFor="name" className="mb-2 block">
@@ -163,9 +135,7 @@ const AddProduct = () => {
               }`}
             />
             {validationError?.regular_price && (
-              <p className="text-red-600 text-[14px]  mb-[5px] text-right">
-                {validationError.regular_price.message}
-              </p>
+              <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.regular_price.message}</p>
             )}
           </div>
           <div className="mt-3">
@@ -186,7 +156,7 @@ const AddProduct = () => {
             </label>
 
             <input
-              {...register("quantity")}
+              {...register("qantity")}
               type="number"
               placeholder="Quantity"
               className={`w-full border py-2 px-3 rounded-md  outline-none mt-2 ${
@@ -194,9 +164,7 @@ const AddProduct = () => {
               }`}
             />
             {validationError?.qantity && (
-              <p className="text-red-600 text-[14px]  mb-[5px] text-right">
-                {validationError.qantity.message}
-              </p>
+              <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.qantity.message}</p>
             )}
           </div>
           <div className="mt-3">
@@ -213,9 +181,7 @@ const AddProduct = () => {
               }`}
             />
             {validationError?.status && (
-              <p className="text-red-600 text-[14px]  mb-[5px] text-right">
-                {validationError.status.message}
-              </p>
+              <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.status.message}</p>
             )}
           </div>
           <div className="mt-3">
@@ -229,22 +195,18 @@ const AddProduct = () => {
                 validationError?.qantity && "border-red-600 text-red-400"
               }`}
             >
-              <option value="">Select category</option>
+              <option value=""> {oldProduct?.data.category_info?.name} </option>
               {Categories?.data?.data.map((item: any) => {
                 return (
-                  <option
-                    key={item._id}
-                    value={JSON.stringify({ _id: item._id, name: item.name })}
-                  >
+                  <option key={item._id} value={JSON.stringify({ _id: item._id, name: item.name })}>
                     {item.name}
                   </option>
                 );
               })}
             </select>
+
             {validationError?.category_info && (
-              <p className="text-red-600 text-[14px]  mb-[5px] text-right">
-                {validationError.category_info.message}
-              </p>
+              <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.category_info.message}</p>
             )}
           </div>
           <div className="mt-3">
@@ -339,12 +301,7 @@ const AddProduct = () => {
                   selectedGalleryImage.map((image) => {
                     return (
                       <div key={image} className="relative">
-                        <Image
-                          src={image}
-                          width={100}
-                          height={100}
-                          alt="upload"
-                        />
+                        <Image src={image} width={100} height={100} alt="upload" />
                         <button
                           className="absolute top-0 right-0 bg-red-400 text-white px-1"
                           onClick={() => deleteHandler(image)}
@@ -368,4 +325,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default EditProduct;

@@ -46,3 +46,6 @@
   width: 1em;
   margin-right: 5px;
 }
+.slick-slide > div:focus-visible {
+  outline: none !important;
+}

@@ -6,8 +6,6 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "https://imgbb.com/",
-        port: "",
-        pathname: "/account123/**",
       },
     ],
   },

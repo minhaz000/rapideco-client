@@ -75,5 +75,15 @@
     "title": "Setting",
     "path": "/admin/support",
     "icon": "ri-tools-line"
+  },
+  {
+    "title": "Pages",
+    "icon": "ri-creative-commons-by-line",
+    "childrens": [
+      {
+        "title": "Home Page",
+        "path": "/admin/home-page"
+      }
+    ]
   }
 ]

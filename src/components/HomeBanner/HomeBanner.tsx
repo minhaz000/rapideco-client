@@ -18,7 +18,10 @@ const HomeBanner = () => {
     nav: true,
   };
   return (
-    <div className="max-w-screen-xl mx-auto px-3 lg:px-10 mt-4 relative">
+    <div
+      className="max-w-screen-xl mx-auto px-3 lg:px-10 mt-4 relative"
+      id="homeSlider"
+    >
       <Slider {...settings}>
         <div>
           <Image src={Slider1} alt="" className="w-full rounded-md" />

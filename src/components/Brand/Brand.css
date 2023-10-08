@@ -1,4 +1,4 @@
-#homeSlider .slick-dots {
+#brand .slick-dots {
   position: absolute;
   bottom: 22px;
   display: block;
@@ -8,7 +8,7 @@
   list-style: none;
   text-align: center;
 }
-#homeSlider .slick-dots li button:before {
+#brand .slick-dots li button:before {
   font-family: "slick";
   font-size: 12px;
   width: 27px;
@@ -16,31 +16,31 @@
   opacity: 0.25;
   color: white;
 }
-#homeSlider .slick-dots li.slick-active button:before {
+#brand .slick-dots li.slick-active button:before {
   opacity: 0.75;
   color: white;
 }
-#homeSlider .slick-prev:before,
-#homeSlider .slick-next:before {
+#brand .slick-prev:before,
+#brand .slick-next:before {
   font-size: 24px;
   color: #ff4141;
 }
-#homeSlider .slick-prev,
-#homeSlider .slick-next {
+#brand .slick-prev,
+#brand .slick-next {
   top: 92%;
   width: 20px;
   height: 20px;
   padding: 0;
   z-index: 99;
 }
-#homeSlider .slick-prev {
+#brand .slick-prev {
   left: 44%;
 }
-#homeSlider .slick-prev:before,
-#homeSlider .slick-next:before {
+#brand .slick-prev:before,
+#brand .slick-next:before {
   font-size: 24px;
   color: #ffffff;
 }
-#homeSlider .slick-next {
+#brand .slick-next {
   right: 44%;
 }

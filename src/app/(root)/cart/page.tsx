@@ -53,7 +53,7 @@ const Cart = () => {
             </tr>
           </thead>
           <tbody className="border pt-2">
-            {Cart?.data.items.map((item: Iproduct, i: number) => {
+            {Cart?.data?.items.map((item: Iproduct, i: number) => {
               return (
                 <tr key={i} className="text-xs font-normal text-start border-b">
                   <td className="py-5 ps-4">

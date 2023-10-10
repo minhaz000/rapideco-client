@@ -5,7 +5,7 @@ import SidebarItem from "./SidebarItem";
 import "remixicon/fonts/remixicon.css";
 const Sidebar = () => {
   return (
-    <div className="text-slate-100">
+    <aside className="text-slate-100">
       <h2 className="text-slate-200 text-xl border-b border-slate-500 pb-3">
         Rapideco
       </h2>
@@ -21,7 +21,7 @@ const Sidebar = () => {
           </ul>
         </nav>
       </div>
-    </div>
+    </aside>
   );
 };
 

@@ -4,7 +4,11 @@ import Link from "next/link";
 import { useState } from "react";
 import { FaRegBell, FaBars } from "react-icons/fa";
 import AdminContext from "@/context/admin.context";
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
+export default function AdminLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [profileOpen, setProfileOpen] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(false);
   const handleMobileMenuShow = () => {
@@ -15,7 +19,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   };
   return (
     <AdminContext>
-      <div>
+      <>
         <div
           onClick={() => setMobileMenu(false)}
           className={`fixed  ${
@@ -40,7 +44,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <div className="xl:ps-80">
           <div className="flex justify-between items-center border-b border-[#E9ECEF] py-4 px-3 xl:px-8 text-end">
             <div>
-              <button className="block xl:hidden" onClick={handleMobileMenuShow}>
+              <button
+                className="block xl:hidden"
+                onClick={handleMobileMenuShow}
+              >
                 <FaBars className="text-2xl" />
               </button>
             </div>
@@ -50,7 +57,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               </div>
               <div className="relative">
                 <div className="flex items-center justify-end gap-2 cursor-pointer">
-                  <img src="https://i.ibb.co/vBH9ybB/2-1.jpg" className="rounded-full w-10 h-10" alt="" />
+                  <img
+                    src="https://i.ibb.co/vBH9ybB/2-1.jpg"
+                    className="rounded-full w-10 h-10"
+                    alt=""
+                  />
                   <span>Rapideco</span>
                 </div>
                 <div
@@ -71,7 +82,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           </div>
           <div className="pt-10 px-3 xl:px-8">{children}</div>
         </div>
-      </div>
+      </>
     </AdminContext>
   );
 }

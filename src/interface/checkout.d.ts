@@ -6,11 +6,19 @@ interface ICheckout {
     email: string;
     delivery_area: string;
   };
-  paymet_info: {
+  payment_info: {
+    method_name: string;
+    method_img_url: string;
     number: string;
     trx_id: string;
   };
+  order_info: {
+    total: number;
+    date: any;
+    item_count: number;
+  };
   ordered_items: [{}];
+  status: "on hold" | "processing" | "complete" | "canceled";
 }
 
 export default ICheckout;

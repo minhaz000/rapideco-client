@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { useForm as useform, SubmitHandler } from "react-hook-form";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
@@ -12,18 +12,20 @@ import { toast } from "react-toastify";
 import axios from "@/hooks/hook.axios";
 import { useQueryData } from "@/hooks/hook.query";
 const Checkout = () => {
+  const [tabIndex, setTabIndex] = useState(0);
   const { watch, register, reset, handleSubmit, setValue } = useform<FormValues>();
   const { data: payments } = useQueryData(["get payment methods"], "/api/v0/payments?");
   const handleCheckOut: SubmitHandler<FormValues> = async (data) => {
-    const res = await axios.get("/api/v0/cart");
-    data.ordered_items = res.data.data.items;
+    const Cart = await axios.get("/api/v0/cart");
+    data.ordered_items = Cart.data.data.items;
+    data.payment_info.method_name = payments.data[tabIndex].method_name;
+    data.payment_info.method_img_url = payments.data[tabIndex].method_img.img_url;
     console.log(data);
-
     axios
       .post("/api/v0/order", data)
       .then((res) => {
-        console.log(res);
-        toast.success("order  placed");
+        axios.delete(`/api/v0/cart/${Cart.data.data._id}`).then((res) => console.log("fuvk"));
+        toast.success("order placed successfully");
       })
       .catch((error: any) => toast.error(error.message ? error.message : error?.data.message));
   };
@@ -83,7 +85,7 @@ const Checkout = () => {
             <h3 className="text-center text-lg pt-3 pb-5">পেমেন্ট মেথড সিলেক্ট করুন:</h3>
             {payments?.data && (
               <div className="mt-3">
-                <Tabs>
+                <Tabs selectedIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
                   <TabList>
                     {payments?.data.map((item: any, i: number) => {
                       return (
@@ -106,7 +108,7 @@ const Checkout = () => {
                             <div className="mt-3">
                               <label>Your {item.method_name} Account Number</label> <br />
                               <input
-                                {...register("paymet_info.number")}
+                                {...register("payment_info.number")}
                                 type="text"
                                 placeholder="01XXXXXXXXX"
                                 className="border w-full py-2 px-3 rounded outline-none mt-2"
@@ -115,7 +117,7 @@ const Checkout = () => {
                               <br />
                               <label>{item.method_name} Transaction ID</label> <br />
                               <input
-                                {...register("paymet_info.trx_id")}
+                                {...register("payment_info.trx_id")}
                                 type="text"
                                 placeholder="xxxxxx"
                                 required

@@ -60,8 +60,8 @@ const Footer = () => {
         </div>
       </div>
       {/* copyright */}
-      <div className="md:flex items-center justify-between max-w-screen-xl mx-auto px-3 lg:px-10 border-t-[1px] border-slate-50 mt-8 pt-3">
-        <p className="text-slate-100 text-sm">
+      <div className="flex flex-col md:flex-row items-center justify-between max-w-screen-xl mx-auto px-3 lg:px-10 border-t-[1px] border-slate-50 mt-8 pt-3">
+        <p className="text-slate-100 text-sm text-center md:text-left">
           Copyright © {new Date().getFullYear()} Rapideco. All rights reserved.
         </p>
         <div className="flex gap-3 text-sm text-slate-100">

@@ -1,11 +1,16 @@
+"use client";
+
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import Logo from "../../assets/logo.png";
+
 import Tracking from "../../assets/finding.png";
 import Cart from "../../assets/bag.png";
 import Link from "next/link";
 import { FaSearch } from "react-icons/fa";
+import SearchResult from "./SearchResult";
 const Header = () => {
+  const [isSearchResult, setIsSearchResult] = useState("");
   return (
     <header className="pt-3">
       {/* Top bar */}
@@ -19,17 +24,20 @@ const Header = () => {
             />
           </Link>
         </div>
-        <div className="basis-8/12 lg:basis-1/2">
+        <div className="basis-8/12 lg:basis-1/2 relative">
           <form className="flex">
             <input
               type="text"
               placeholder="Search"
               className="w-full border rounded-s-md px-2 md:px-3 py-[6px] md:py-[10px] outline-none"
+              onChange={(e) => setIsSearchResult(e.target.value)}
             />
             <button className="bg-[#3bb77e] text-white px-3 rounded-e-md">
               <FaSearch />
             </button>
           </form>
+          {/* Search data show */}
+          {isSearchResult === "" ? "" : <SearchResult />}
         </div>
         <div className="basis-1/4 ps-6 hidden lg:block text-center">
           <div className="flex items-center justify-end gap-5">

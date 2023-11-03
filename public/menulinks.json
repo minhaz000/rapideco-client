@@ -73,7 +73,7 @@
   },
   {
     "title": "Setting",
-    "path": "/admin/support",
+    "path": "/admin/settings",
     "icon": "ri-tools-line"
   },
   {

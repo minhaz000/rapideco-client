@@ -12,7 +12,7 @@ const page = () => {
       <Product sectionTitle="Hot Deal" />
       <Product sectionTitle="Hot Deal" />
       <Product sectionTitle="Hot Deal" />
-      <Brand />
+      {/* <Brand /> */}
     </>
   );
 };

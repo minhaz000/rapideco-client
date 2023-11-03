@@ -1,0 +1,38 @@
+{
+  "header": {
+    "nav_menu": [{ "value": "aSAS", "lavel": "MIn" }],
+    "color": "#df2a2a",
+    "meta_title": "rapid eco",
+    "meta_description": "this is god "
+  },
+  "body": {
+    "banner": [
+      {
+        "img_url": "/uploads/screenshot-from-2023-10-15-21-58-01-1699028206175.png",
+        "path": "public/uploads/screenshot-from-2023-10-15-21-58-01-1699028206175.png"
+      },
+      {
+        "img_url": "/uploads/screenshot-from-2023-10-16-21-35-10-1699028206194.png",
+        "path": "public/uploads/screenshot-from-2023-10-16-21-35-10-1699028206194.png"
+      },
+      {
+        "img_url": "/uploads/screenshot-from-2023-10-16-22-07-57-1699028206253.png",
+        "path": "public/uploads/screenshot-from-2023-10-16-22-07-57-1699028206253.png"
+      },
+      {
+        "img_url": "/uploads/screenshot-from-2023-10-16-22-32-57-1699028206272.png",
+        "path": "public/uploads/screenshot-from-2023-10-16-22-32-57-1699028206272.png"
+      }
+    ],
+    "cat_menu": [
+      { "lavel": "MInhazf", "value": "653f31324ae66acc66b3a130" },
+      { "lavel": "az", "value": "ger" }
+    ]
+  },
+  "footer": {
+    "links": [{ "value": "", "lavel": "asconaksc" }],
+    "description": "",
+    "contact_info": { "address": "MInhaz", "phone": "", "email": "" },
+    "copyright": "Rabipeco eCommerce CMS 2023"
+  }
+}

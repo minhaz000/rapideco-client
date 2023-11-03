@@ -5,18 +5,14 @@ import Tracking from "../../assets/finding.png";
 import Cart from "../../assets/bag.png";
 import Link from "next/link";
 import { FaSearch } from "react-icons/fa";
-const Header = () => {
+const Header = ({ data }: any) => {
   return (
     <header className="pt-3">
       {/* Top bar */}
       <div className="flex flex-row justify-between items-center max-w-screen-xl mx-auto px-3 lg:px-10">
         <div className="basis-4/12 lg:basis-1/4">
           <Link href="/" className="inline-block">
-            <Image
-              src={Logo}
-              alt="Logo image"
-              className="w-24 md:w-32 lg:w-40"
-            />
+            <Image src={Logo} alt="Logo image" className="w-24 md:w-32 lg:w-40" />
           </Link>
         </div>
         <div className="basis-8/12 lg:basis-1/2">
@@ -35,19 +31,14 @@ const Header = () => {
           <div className="flex items-center justify-end gap-5">
             <div>
               <Link href="/" className="flex items-center  gap-1">
-                <Image
-                  src={Tracking}
-                  alt="tracking icon"
-                  width={40}
-                  height={40}
-                />
+                <Image src={Tracking} alt="tracking icon" width={40} height={40} />
                 <span className="block text-center font-bold text-[14px]">
                   অর্ডার ট্র্যাক <br /> করুন
                 </span>
               </Link>
             </div>
             <div className="relative">
-              <Link href="/">
+              <Link href="/cart">
                 <Image src={Cart} alt="tracking icon" width={40} height={40} />
               </Link>
               <span className="absolute bg-[#3bb77e] top-0 -right-[5px] text-white text-[12px] px-[5px] rounded-full">

@@ -137,7 +137,7 @@ const Payment = () => {
               </div>
               <div>
                 <label htmlFor="name" className="mb-2 block">
-                  Method Name
+                  Method Code
                 </label>
 
                 <input
@@ -149,7 +149,7 @@ const Payment = () => {
               </div>
 
               <div className="mt-4">
-                <label htmlFor="">Meta description</label>
+                <label htmlFor="">Method description</label>
                 <br />
                 <textarea
                   {...register("method_descrption")}
@@ -159,7 +159,7 @@ const Payment = () => {
               </div>
 
               <div className="mt-4">
-                <label htmlFor="">Meta Title</label>
+                <label htmlFor="">Method Number</label>
                 <br />
                 <input
                   {...register("payment_number")}

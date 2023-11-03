@@ -1,65 +1,97 @@
 "use client";
-import { useState } from "react";
-const HeaderSetting = () => {
-  const [pageItem, setPageItem] = useState(1);
+import { useEffect, useState } from "react";
+import { useForm as useform, SubmitHandler, useFieldArray } from "react-hook-form";
+import FormValues from "@/interface/settings";
+import { toast } from "react-toastify";
+import axios from "axios";
+import Uploder from "@/hooks/hook.upload";
+
+const HeaderSetting = ({ setting }: { setting: any }) => {
+  const [menuItem, setMenuItem] = useState(1);
+  const { control, register, reset, handleSubmit, setValue, getValues } = useform<FormValues>();
+  const { append, remove, fields } = useFieldArray({ control, name: "header.nav_menu" });
+  // =============== FUNCTION FOR THE PRODUCT POST REQUEST
+  const HandleEditHeader: SubmitHandler<FormValues> = async (data: any) => {
+    data.header.logo.length > 0 ? (data.header.logo = await Uploder(data.header.logo)) : delete data.header.logo;
+    axios.post("/api/siteconfig", data).then((res) => {
+      toast.success("site updated");
+    });
+  };
   const handlePageItem = (e: any) => {
     e.preventDefault();
-    setPageItem((prev) => prev + 1);
+    append({ value: "", lavel: "" });
   };
+  const handleRemove = (i: number) => {
+    remove(i);
+  };
+  useEffect(() => {
+    reset(setting);
+  }, [setting]);
+
   return (
-    <form className="border mt-10 py-6 px-4 lg:px-10">
-      <div className="flex gap-5">
-        <div className="basis-1/2">
-          <label htmlFor="logo" className="block mb-3 text-sm">
-            Logo Upload
-          </label>
-          <input
-            type="file"
-            className="w-full py-1 px-1 rounded border"
-            id="logo"
-          />
+    <div>
+      <form onSubmit={handleSubmit(HandleEditHeader)} className="border mt-10 py-6 px-4 lg:px-10">
+        <div className="flex gap-5">
+          <div className="basis-1/2">
+            <label htmlFor="logo" className="block mb-3 text-sm">
+              Logo Upload
+            </label>
+            <input {...register("header.logo")} type="file" className="w-full py-1 px-1 rounded border" />
+          </div>
+          <div className="basis-1/2">
+            <label htmlFor="theme" className="block mb-2 text-sm">
+              Header Color
+            </label>
+            <input {...register("header.color")} type="color" className="w-full h-10 rounded border" />
+          </div>
         </div>
-        <div className="basis-1/2">
-          <label htmlFor="theme" className="block mb-3 text-sm">
-            Header Color
-          </label>
-          <input
-            type="color"
-            className="w-full h-10 rounded border"
-            id="theme"
-          />
+        <div className="flex gap-5">
+          <div className="basis-1/2">
+            <label htmlFor="logo" className="block mb-2 text-sm">
+              Meta Title
+            </label>
+            <input {...register("header.meta_title")} className="w-full py-1 px-1 rounded border" />
+          </div>
+          <div className="basis-1/2">
+            <label htmlFor="theme" className="block mb-3 text-sm">
+              Meta desprition
+            </label>
+            <textarea
+              {...register("header.meta_description")}
+              placeholder="Meta description"
+              className="w-full border py-1 px-1 outline-none  h-28"
+            ></textarea>
+          </div>
         </div>
-      </div>
-      <div className="mt-10 border-t pt-6 capitalize">
-        <h2 className="text-sm mb-2">Header nav menu</h2>
-        <form>
-          {Array.from({ length: pageItem }, (_, i) => (
-            <div
-              className="flex justify-between gap-3 items-center mb-3"
-              key={i}
-            >
+        <div className="mt-10 border-t pt-6 capitalize">
+          <h2 className="text-sm mb-2">Header nav menu</h2>
+
+          {fields.map((item, i: any) => (
+            <div className="flex justify-between gap-3 items-center mb-3" key={i}>
               <input
+                {...register(`header.nav_menu.${i}.lavel`)}
                 type="text"
                 className="basis-3/12 border rounded outline-none py-2 px-2"
                 placeholder="Lavel"
               />
               <input
                 type="text"
+                {...register(`header.nav_menu.${i}.value`)}
                 className="basis-8/12 border rounded outline-none py-2 px-2"
                 placeholder="Link with http:// Or https://"
               />
               <button
                 className=" bg-red-500 bg-opacity-20 rounded-full w-8 h-8 text-red-600"
-                onClick={() => setPageItem((prev) => prev - 1)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleRemove(i);
+                }}
               >
                 X
               </button>
             </div>
           ))}
-          <button
-            onClick={handlePageItem}
-            className=" bg-gray-200 py-1 px-3 rounded text-[12px] mt-[7px]"
-          >
+          <button onClick={handlePageItem} className=" bg-gray-200 py-1 px-3 rounded text-[12px] mt-[7px]">
             Add New
           </button>
           <input
@@ -67,9 +99,9 @@ const HeaderSetting = () => {
             value="Update"
             className="bg-blue-600 block text-white px-6 py-[6px] mt-4 rounded-md cursor-pointer ml-auto"
           />
-        </form>
-      </div>
-    </form>
+        </div>
+      </form>
+    </div>
   );
 };
 

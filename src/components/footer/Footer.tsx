@@ -2,13 +2,8 @@ import React from "react";
 import Logo from "../../assets/logo-white1.png";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  FaFacebookF,
-  FaLinkedinIn,
-  FaInstagram,
-  FaWhatsapp,
-} from "react-icons/fa";
-const Footer = () => {
+import { FaFacebookF, FaLinkedinIn, FaInstagram, FaWhatsapp } from "react-icons/fa";
+const Footer = ({ data: any }) => {
   return (
     <section className="bg-[#3bb77e] pt-7 pb-3 mt-14">
       <div className="max-w-screen-xl mx-auto px-3 lg:px-10">
@@ -18,11 +13,9 @@ const Footer = () => {
               <Image src={Logo} alt="" className="w-24 md:w-32 lg:w-40" />
             </Link>
             <p className="text-slate-100 text-sm mt-2">
-              ওনেমার্ট ই-কমার্স ওয়েবসাইট একটি ব্যবসা প্ল্যাটফর্ম, যেখানে আপনি
-              আপনার পছন্দের পণ্য অনলাইনে ক্রয় করতে পারেন। ওনেমার্টে আপনি বিভিন্ন
-              ক্যাটেগরিতে পণ্য সন্ধান করতে পারেন, যেমন পোশাক, স্বাস্থ্য ও
-              সৌন্দর্য, ইলেক্ট্রনিক্স, গৃহস্থালি, খাদ্য ও পানীয় সামগ্রী এবং
-              অন্যান্য।
+              ওনেমার্ট ই-কমার্স ওয়েবসাইট একটি ব্যবসা প্ল্যাটফর্ম, যেখানে আপনি আপনার পছন্দের পণ্য অনলাইনে ক্রয় করতে
+              পারেন। ওনেমার্টে আপনি বিভিন্ন ক্যাটেগরিতে পণ্য সন্ধান করতে পারেন, যেমন পোশাক, স্বাস্থ্য ও সৌন্দর্য,
+              ইলেক্ট্রনিক্স, গৃহস্থালি, খাদ্য ও পানীয় সামগ্রী এবং অন্যান্য।
             </p>
             <div className="flex gap-4 mt-3 text-slate-100">
               <Link href="/">

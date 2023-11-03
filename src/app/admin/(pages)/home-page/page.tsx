@@ -4,7 +4,16 @@ import "react-tabs/style/react-tabs.css";
 import HeaderSetting from "./components/HeaderSetting";
 import FooterSetting from "./components/FooterSetting";
 import BodySetting from "./components/BodySetting";
+import axios from "axios";
+import { useEffect, useState } from "react";
 const HomePage = () => {
+  const [setting, setSetting] = useState({});
+  useEffect(() => {
+    axios.get("/assets/site.settings.json").then((res) => {
+      setSetting(res.data);
+    });
+  }, []);
+
   return (
     <>
       <Tabs>
@@ -15,13 +24,13 @@ const HomePage = () => {
         </TabList>
 
         <TabPanel>
-          <HeaderSetting />
+          <HeaderSetting setting={setting} />
         </TabPanel>
         <TabPanel>
-          <BodySetting />
+          <BodySetting setting={setting} />
         </TabPanel>
         <TabPanel>
-          <FooterSetting />
+          <FooterSetting setting={setting} />
         </TabPanel>
       </Tabs>
     </>

@@ -5,8 +5,8 @@ import React, { useEffect } from "react";
 
 async function ClientLayout({ children }: { children: React.ReactNode }) {
   // const data = await axios.get("api/v0/categories");
-  const data = await axios.get("http://localhost:3000/assets/site.settings.json");
-
+  // const data = await axios.get("http://localhost:3000/assets/site.settings.json");
+  const data = "d";
   return (
     <>
       <Header data={data} />

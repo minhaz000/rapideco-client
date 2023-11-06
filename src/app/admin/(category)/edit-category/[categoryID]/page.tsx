@@ -22,8 +22,8 @@ const Page = ({ params }: { params: { categoryID: string[] } }) => {
   };
   // =============== FUNCTION FOR THE PRODUCT POST REQUEST
   const HandleEditCategory: SubmitHandler<FormValues> = async (fdata: any) => {
-    fdata.icon.length > 0 ? (fdata.icon = await Uploder(fdata.icon)) : delete fdata.icon;
-    fdata.imgURL.length > 0 ? (fdata.imgURL = await Uploder(fdata.imgURL)) : delete fdata.imgURL;
+    fdata.icon?.length > 0 ? (fdata.icon = await Uploder(fdata.icon)) : delete fdata.icon;
+    fdata.imgURL?.length > 0 ? (fdata.imgURL = await Uploder(fdata.imgURL)) : delete fdata.imgURL;
     fdata.parentID === "null" && delete fdata.parentID;
     fdata.slug = slugify(fdata.name, { lower: true });
 

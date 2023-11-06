@@ -4,7 +4,9 @@ import "slick-carousel/slick/slick-theme.css";
 import Cat1 from "../../assets/category/2.png";
 import Slider from "react-slick";
 import Image from "next/image";
-const BrandCarousel = () => {
+import brands from "@/interface/brand";
+const BrandCarousel = ({ Brands }: { Brands: any }) => {
+  console.log(Brands);
   var settings = {
     dots: false,
     arrows: false,
@@ -41,30 +43,12 @@ const BrandCarousel = () => {
   };
   return (
     <Slider {...settings}>
-      <div>
-        <Image src={Cat1} alt="" />
-      </div>
-      <div>
-        <Image src={Cat1} alt="" />
-      </div>
-      <div>
-        <Image src={Cat1} alt="" />
-      </div>
-      <div>
-        <Image src={Cat1} alt="" />
-      </div>
-      <div>
-        <Image src={Cat1} alt="" />
-      </div>
-      <div>
-        <Image src={Cat1} alt="" />
-      </div>
-      <div>
-        <Image src={Cat1} alt="" />
-      </div>
-      <div>
-        <Image src={Cat1} alt="" />
-      </div>
+      {Brands.data.map((item: any) => (
+        <div key={item._id}>
+          {item.name}
+          <Image src={Cat1} alt="" />
+        </div>
+      ))}
     </Slider>
   );
 };

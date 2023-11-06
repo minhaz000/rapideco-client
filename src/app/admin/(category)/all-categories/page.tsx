@@ -33,6 +33,17 @@ const AllCategory = () => {
       }
     });
   };
+  const handleFeatured = (e: any, ID: string) => {
+    e.preventDefault();
+    const data = e.target.checked ? { featured: true } : { featured: false };
+    axios
+      .put(`/api/v0/category/${ID}`, data)
+      .then(() => {
+        Categories.refetch();
+        toast.success(!e.target.checked ? "add to featured category" : "removed from featured ");
+      })
+      .catch((error: any) => toast.error(error.message ? error.message : error?.data.message));
+  };
   return (
     <div>
       <div className="flex justify-between items-center">
@@ -88,7 +99,7 @@ const AllCategory = () => {
                       <td className="py-5 ps-4">{i + 1}</td>
                       <td>{item.name}</td>
                       <td>{"root"}</td>
-                      <td>{"item.products.lenght"}</td>
+                      <td>{item.products.length}</td>
                       {/* <td>0</td> */}
                       <td>
                         {item.icon?.img_url ? (
@@ -105,7 +116,12 @@ const AllCategory = () => {
                         )}
                       </td>
                       <td>
-                        <input type="checkbox" className="toggle toggle-success" />
+                        <input
+                          onChange={(e) => handleFeatured(e, item._id)}
+                          type="checkbox"
+                          className="toggle toggle-success"
+                          defaultChecked={item.featured ? true : false}
+                        />
                       </td>
                       <td>
                         <div className="flex gap-2 items-center">

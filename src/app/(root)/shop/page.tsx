@@ -43,41 +43,45 @@ const Shop = () => {
           </div>
           <div className="border rounded-md mt-6 p-4">
             <h3 className="text-[15px] font-semibold">Categories</h3>
-            <div className="mt-4 flex flex-col gap-3">
-              <div>
-                <label className="cursor-pointer flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    className="text-[13px] border cursor-pointer text-slate-300"
-                  />
-                  <span className="text-[12px]">Men Fashion (9)</span>
-                </label>
+            <form>
+              <div className="mt-4 flex flex-col gap-3">
+                <div>
+                  <label className="cursor-pointer flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      className="text-[13px] border cursor-pointer text-slate-300"
+                    />
+                    <span className="text-[12px]">Men Fashion (9)</span>
+                  </label>
+                </div>
+                <div>
+                  <label className="cursor-pointer flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      className="text-[13px] border cursor-pointer text-slate-300"
+                    />
+                    <span className="text-[12px]">Women Fashion (4)</span>
+                  </label>
+                </div>
+                <div>
+                  <label className="cursor-pointer flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      className="text-[13px] border cursor-pointer text-slate-300"
+                    />
+                    <span className="text-[12px]">Baby Fashion (3)</span>
+                  </label>
+                </div>
               </div>
-              <div>
-                <label className="cursor-pointer flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    className="text-[13px] border cursor-pointer text-slate-300"
-                  />
-                  <span className="text-[12px]">Women Fashion (4)</span>
-                </label>
-              </div>
-              <div>
-                <label className="cursor-pointer flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    className="text-[13px] border cursor-pointer text-slate-300"
-                  />
-                  <span className="text-[12px]">Baby Fashion (3)</span>
-                </label>
-              </div>
-            </div>
+            </form>
           </div>
           <div className="border rounded-md mt-6 p-4">
             <h3 className="text-[15px] font-semibold">Filter By Price</h3>
-            <div className="mt-4">
-              <PriceRange min={10} max={500} />
-            </div>
+            <form>
+              <div className="mt-4">
+                <PriceRange min={10} max={500} />
+              </div>
+            </form>
           </div>
         </div>
         <div className="basis-9/12">

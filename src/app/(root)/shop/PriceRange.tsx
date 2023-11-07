@@ -1,11 +1,15 @@
 "use client";
+type Props = {
+  min: number;
+  max: number;
+};
 import React, { useState } from "react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
-const PriceRange = ({ min, max }) => {
+const PriceRange = ({ min, max }: Props) => {
   const [values, setValues] = useState([min, max]);
 
-  const handleSliderChange = (newValues) => {
+  const handleSliderChange = (newValues: any) => {
     setValues(newValues);
   };
   return (

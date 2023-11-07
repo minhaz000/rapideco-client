@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 
-const ShopProductCard = ({ product }) => {
+const ShopProductCard = ({ product }: any) => {
   return (
     <Link href={`/product/${product.id}`}>
       <div

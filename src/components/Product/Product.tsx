@@ -2,9 +2,11 @@ import Link from "next/link";
 import ProductCard from "./ProductCard";
 import { BsArrowRightShort } from "react-icons/bs";
 import axios from "@/hooks/hook.axios";
-const Product = async ({ sectionTitle }: { sectionTitle: string }) => {
+const Product = async ({ sectionTitle, categoryValue }: { sectionTitle: string; categoryValue: string }) => {
   // const { data: products } = await axios.get("api/v0/products");
-  const products = { data: [] };
+  const { data: products } = await axios.get(`api/v0/products?is_delete=false&category_info._id=${categoryValue}`);
+  console.log("pro", categoryValue);
+
   return (
     <section className="max-w-screen-xl mx-auto px-3 lg:px-10 mt-10">
       <div className="flex justify-between items-center mb-5">
@@ -16,7 +18,6 @@ const Product = async ({ sectionTitle }: { sectionTitle: string }) => {
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
         {products?.data.map((product: any) => {
           return <ProductCard product={product} key={product._id} />;
-          // return <> hrllo </>;
         })}
       </div>
     </section>

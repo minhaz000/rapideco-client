@@ -49,6 +49,17 @@ const Brand = () => {
       }
     });
   };
+  const handleFeatured = (e: any, ID: string) => {
+    e.preventDefault();
+    const data = e.target.checked ? { featured: true } : { featured: false };
+    axios
+      .put(`/api/v0/brand/${ID}`, data)
+      .then(() => {
+        Brands.refetch();
+        toast.success(!e.target.checked ? "add to featured brand" : "removed from featured ");
+      })
+      .catch((error: any) => toast.error(error.message ? error.message : error?.data.message));
+  };
   return (
     <div>
       <h2 className="text-xl">All Brands</h2>
@@ -81,6 +92,12 @@ const Brand = () => {
 
                         <td>
                           <div className="flex gap-2 items-center">
+                            <input
+                              onChange={(e) => handleFeatured(e, item._id)}
+                              type="checkbox"
+                              className="toggle toggle-success"
+                              defaultChecked={item.featured ? true : false}
+                            />
                             <span
                               title="Edit"
                               className="bg-yellow-500 bg-opacity-50 text-white text-xs p-[5px] rounded-full cursor-pointer hover:bg-opacity-100"

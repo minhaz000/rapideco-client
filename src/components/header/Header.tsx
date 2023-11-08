@@ -7,7 +7,6 @@ import SearchForm from "./SearchForm";
 import SettingData from "../../../public/assets/site.settings.json";
 const Header = () => {
   const headerBg = SettingData?.header?.color;
-  console.log(headerBg);
   return (
     <header className="pt-3">
       {/* Top bar */}
@@ -51,7 +50,7 @@ const Header = () => {
         </div>
       </div>
       {/* Main menu  */}
-      <nav className={`bg-[#df2a2a] mt-3 hidden lg:block`}>
+      <nav className={`bg-[${headerBg}] mt-3 hidden lg:block`}>
         <ul className="flex gap-4 max-w-screen-xl mx-auto py-3 px-10 text-white text-[14px]">
           {SettingData?.header?.nav_menu?.map((item: any, index: number) => (
             <li key={index}>

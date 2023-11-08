@@ -9,8 +9,8 @@ interface ICheckout {
   payment_info: {
     method_name: string;
     method_img_url: string;
-    number: string;
-    trx_id: string;
+    number?: string;
+    trx_id?: string;
   };
   order_info: {
     total: number;

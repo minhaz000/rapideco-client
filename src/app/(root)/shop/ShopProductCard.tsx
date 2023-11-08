@@ -1,12 +1,10 @@
 import Link from "next/link";
 import React from "react";
-
-const ShopProductCard = ({ product }) => {
+import product from "@/interface/product";
+const ShopProductCard = ({ product }: { product: product }) => {
   return (
-    <Link href={`/product/${product.id}`}>
-      <div
-        className={`border border-[#E9ECEF] rounded-md h-full flex flex-col`}
-      >
+    <Link href={`/product/${product._id}`}>
+      <div className={`border border-[#E9ECEF] rounded-md h-full flex flex-col`}>
         <div className="overflow-hidden relative">
           <p className="absolute top-2 left-0 bg-white px-2 py-2 z-40 uppercase text-[12px] rounded-e-full shadow-xl flex items-center gap-2">
             Off
@@ -15,7 +13,7 @@ const ShopProductCard = ({ product }) => {
             </span>
           </p>
           <img
-            src={product.image}
+            src={product?.product_image?.img_url}
             alt="product image"
             className="w-full transition-transform duration-500 hover:scale-110"
           />
@@ -23,18 +21,12 @@ const ShopProductCard = ({ product }) => {
         <div className="py-3 px-4 text-center">
           <div>
             <h2 className="text-[13px] capitalize hover:text-green-600">
-              {product.product_name.length > 47
-                ? product.product_name.slice(0, 48) + "..."
-                : product.product_name}
+              {product.title.length > 47 ? product.title.slice(0, 48) + "..." : product.title}
             </h2>
           </div>
           <div className="flex justify-center gap-3 mt-1">
-            <p className="text-[#3bb77e] font-semibold text-sm">
-              Tk{product.regular_price}
-            </p>
-            <p className="line-through text-gray-400 text-sm">
-              Tk{product.discount_price}
-            </p>
+            <p className="text-[#3bb77e] font-semibold text-sm">Tk{product.regular_price}</p>
+            <p className="line-through text-gray-400 text-sm">Tk{product.discount_price}</p>
           </div>
         </div>
         <div className="mt-auto">

@@ -41,6 +41,7 @@ const Header = () => {
                 <Image src={Cart} alt="tracking icon" width={40} height={40} />
               </Link>
               <span
+                style={{ backgroundColor: `${headerBg}` }}
                 className={`absolute bg-[${headerBg}] top-0 -right-[5px] text-white text-[12px] px-[5px] rounded-full`}
               >
                 0
@@ -50,7 +51,10 @@ const Header = () => {
         </div>
       </div>
       {/* Main menu  */}
-      <nav className={`bg-[${headerBg}] mt-3 hidden lg:block`}>
+      <nav
+        className={` mt-3 hidden lg:block`}
+        style={{ backgroundColor: `${headerBg}` }}
+      >
         <ul className="flex gap-4 max-w-screen-xl mx-auto py-3 px-10 text-white text-[14px]">
           {SettingData?.header?.nav_menu?.map((item: any, index: number) => (
             <li key={index}>

@@ -1,17 +1,53 @@
+"use client";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+
 import CategoryCard from "./CategoryCard";
-import Cat1 from "../../assets/category/baby-carwe.png";
 import axios from "@/hooks/hook.axios";
+import SectionHeading from "../common/SectionHeading";
 
 const Category = async () => {
-  const { data: Categories } = await axios.get("/api/v0/categories?is_delete=false&featured=true");
-
+  const { data: Categories } = await axios.get(
+    "/api/v0/categories?is_delete=false&featured=true"
+  );
   return (
     <section className="max-w-screen-xl mx-auto px-3 lg:px-10 mt-10">
-      <h2 className="text-xl font-semibold text-[#3bb77e] capitalize">SHOP BY CATEGORIES</h2>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mt-6">
-        {Categories.data.map((item: any) => (
-          <CategoryCard key={item._id} item={item} />
-        ))}
+      <SectionHeading sectionTitle="SHOP BY CATEGORIES" />
+      <div className="mt-3">
+        <Swiper
+          modules={[Navigation]}
+          navigation={true}
+          breakpoints={{
+            0: {
+              slidesPerView: 1,
+              spaceBetween: 10,
+            },
+            480: {
+              slidesPerView: 2,
+              spaceBetween: 10,
+            },
+            768: {
+              slidesPerView: 3,
+              spaceBetween: 15,
+            },
+            1020: {
+              slidesPerView: 4,
+              spaceBetween: 15,
+            },
+            1200: {
+              slidesPerView: 6,
+              spaceBetween: 15,
+            },
+          }}
+        >
+          {Categories?.data?.map((item: any) => (
+            <SwiperSlide key={item.id}>
+              <CategoryCard item={item} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
     </section>
   );

@@ -1,46 +1,15 @@
-#brand .slick-dots {
-  position: absolute;
-  bottom: 22px;
-  display: block;
-  width: 100%;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  text-align: center;
+#shop-brand .slick-prev {
+  left: 16px !important;
 }
-#brand .slick-dots li button:before {
-  font-family: "slick";
-  font-size: 12px;
-  width: 27px;
-  height: 20px;
-  opacity: 0.25;
-  color: white;
+#shop-brand .slick-next {
+  right: 26px !important;
 }
-#brand .slick-dots li.slick-active button:before {
-  opacity: 0.75;
-  color: white;
+#shop-brand .slick-prev:before,
+#shop-brand .slick-next:before {
+  color: #0f8100 !important;
 }
-#brand .slick-prev:before,
-#brand .slick-next:before {
-  font-size: 24px;
-  color: #ff4141;
-}
-#brand .slick-prev,
-#brand .slick-next {
-  top: 92%;
-  width: 20px;
-  height: 20px;
-  padding: 0;
-  z-index: 99;
-}
-#brand .slick-prev {
-  left: 44%;
-}
-#brand .slick-prev:before,
-#brand .slick-next:before {
-  font-size: 24px;
-  color: #ffffff;
-}
-#brand .slick-next {
-  right: 44%;
+#shop-brand .slick-prev:before,
+#shop-brand .slick-next:before {
+  font-size: 29px !important;
+  opacity: 1;
 }

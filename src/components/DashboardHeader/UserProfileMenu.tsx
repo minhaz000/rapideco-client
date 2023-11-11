@@ -1,0 +1,46 @@
+"use client";
+import Link from "next/link";
+import { useState } from "react";
+const UserProfileMenu = () => {
+  const [profileOpen, setProfileOpen] = useState(false);
+  console.log(profileOpen);
+  const handleLogout = () => {
+    console.log("Logout successfully");
+  };
+  return (
+    <div className="">
+      <div className="relative">
+        <div
+          className="flex items-center gap-3 cursor-pointer"
+          onClick={() => setProfileOpen(!profileOpen)}
+        >
+          <img
+            src="https://i.ibb.co/vBH9ybB/2-1.jpg"
+            className="rounded-full w-10 h-10"
+            alt=""
+          />
+          <div className="text-left">
+            <h3 className="text-lg font-semibold leading-4">Isoftex</h3>
+            <span className="opacity-90 text-sm">Admin</span>
+          </div>
+        </div>
+        <div
+          className={`bg-white border-l-4 border-cyan-700 shadow-lg w-40  rounded absolute top-14 -left-14 duration-300 transition-all flex flex-col gap-3 py-3 px-2 z-50 ${
+            profileOpen
+              ? "visible opacity-100 translate-y-2"
+              : "invisible opacity-0 translate-y-12"
+          }`}
+        >
+          <div className="text-start" onClick={() => setProfileOpen(false)}>
+            <Link href={"/admin/profile"}>Profile</Link>
+          </div>
+          <button className="text-start" onClick={handleLogout}>
+            Logout
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default UserProfileMenu;

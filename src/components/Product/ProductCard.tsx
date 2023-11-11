@@ -18,22 +18,32 @@ const ProductCard = ({ product }: { product: any }) => {
           )}
 
           <Image
-            src={product?.product_image?.img_url ? product.product_image.img_url : loadImg}
+            src={
+              product?.product_image?.img_url
+                ? product.product_image.img_url
+                : loadImg
+            }
             alt={product.title}
             width={100}
             height={100}
-            className="w-full transition-transform duration-500 hover:scale-110"
+            className="w-full h-[160px] transition-transform duration-500 hover:scale-110 object-cover"
           />
         </div>
         <div className="py-3 px-4 text-center">
           <div>
-            <h2 className="text-[13px] capitalize hover:text-green-600">
-              {product.title.length > 47 ? product.title.slice(0, 48) + "..." : product.title}
+            <h2 className="text-[15px] capitalize hover:text-green-600">
+              {product.title.length > 47
+                ? product.title.slice(0, 48) + "..."
+                : product.title}
             </h2>
           </div>
           <div className="flex justify-center gap-3 mt-1">
-            <p className="text-[#3bb77e] font-semibold text-sm">Tk{product.regular_price}</p>
-            <p className="line-through text-gray-400 text-sm">Tk{product.discount_price}</p>
+            <p className="text-[#3bb77e] font-semibold text-sm">
+              Tk{product.regular_price}
+            </p>
+            <p className="line-through text-gray-400 text-sm">
+              Tk{product.discount_price}
+            </p>
           </div>
         </div>
       </Link>

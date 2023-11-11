@@ -16,7 +16,10 @@ const SearchForm = ({ headerBg }: Props) => {
           className="w-full border rounded-s-md px-2 md:px-3 py-[6px] md:py-[10px] outline-none"
           onChange={(e) => setIsSearchResult(e.target.value)}
         />
-        <button className={`bg-[${headerBg}] text-white px-3 rounded-e-md`}>
+        <button
+          style={{ backgroundColor: `${headerBg}` }}
+          className={` text-white px-3 rounded-e-md`}
+        >
           <FaSearch />
         </button>
       </form>

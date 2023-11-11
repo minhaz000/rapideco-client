@@ -3,13 +3,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
-import Cat1 from "../../assets/category/2.png";
-import Image from "next/image";
-import brands from "@/interface/brand";
-import Link from "next/link";
-const BrandCarousel = ({ Brands }: { Brands: any }) => {
+import ProductCard from "./ProductCard";
+
+const ProductCarousel = ({ products }: any) => {
   return (
-    <>
+    <div className="">
       <Swiper
         modules={[Navigation]}
         navigation={true}
@@ -36,16 +34,14 @@ const BrandCarousel = ({ Brands }: { Brands: any }) => {
           },
         }}
       >
-        {Brands?.data?.map((item: any) => (
-          <SwiperSlide key={item.id}>
-            <Link href="/">
-              <Image src={Cat1} alt="" />
-            </Link>
+        {products?.data.map((product: any) => (
+          <SwiperSlide key={product.id}>
+            <ProductCard product={product} />
           </SwiperSlide>
         ))}
       </Swiper>
-    </>
+    </div>
   );
 };
 
-export default BrandCarousel;
+export default ProductCarousel;

@@ -3,7 +3,6 @@
 @tailwind utilities;
 .sidebar-item {
   padding: 0.5em 0.5em;
-  display: block;
   transition: background-color 0.15s;
   border-radius: 5px;
 }
@@ -16,9 +15,7 @@
   justify-content: space-between;
   align-items: center;
 }
-.sidebar-title span i {
-  display: inline-block;
-}
+
 .sidebar-title .toggle-btn {
   cursor: pointer;
   transition: transform 0.3s;
@@ -36,16 +33,6 @@
   height: auto;
 }
 
-.sidebar-item.plain {
-  color: #fff;
-  text-decoration: none;
-}
-
-.sidebar-item.plain i {
-  display: inline-block;
-  width: 1em;
-  margin-right: 5px;
-}
 .slick-slide > div:focus-visible {
   outline: none !important;
 }

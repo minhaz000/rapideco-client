@@ -2,7 +2,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import Img1 from "../../../../assets/img.png";
 import { FaRegEye, FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 import axios from "@/hooks/hook.axios";

@@ -1,15 +1,26 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Img1 from "../../../../assets/img.png";
 import { FaRegEye, FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
-import { useAdminContext } from "@/context/admin.context";
 import axios from "@/hooks/hook.axios";
 import { toast } from "react-toastify";
+import { useQueryData } from "@/hooks/hook.query";
+import Pagination from "@/components/pagination/pagination";
+import { useAdminContext } from "@/context/admin.context";
 const AllProduct = () => {
-  const { Products }: any = useAdminContext();
+  const { Brands, Categories }: any = useAdminContext();
+  const [query, setQuery]: any = useState({ s: "", category: "", brand: false, sort: "", status: "" });
+  const [pagination, setPagination] = useState({ page: 1, limit: 10 });
+  const { data: Products, refetch } = useQueryData(
+    ["get all product", pagination, query],
+    `/api/v0/products?page=${pagination.page}&limit=${pagination.limit}&s=${query.s}&sort=${
+      query.sort
+    }&category_info._id=${query.category}&status=${query.status}${query.brand && `&brand_info._id=${query.brand}`}`
+  );
+
   const handleDeleteProduct = (productID: string) => {
     Swal.fire({
       title: "Are you sure?",
@@ -34,11 +45,22 @@ const AllProduct = () => {
       }
     });
   };
+  const HandleQuery = (e: any) => {
+    e.preventDefault();
+    setQuery((pre: any) => {
+      return { ...pre, [e.target.name]: e.target.value };
+    });
+  };
+  useEffect(() => {
+    const Debouncing = setTimeout(() => refetch, 1500);
+    return () => clearTimeout(Debouncing);
+  }, [pagination, query]);
+
   return (
     <div>
       <div className="flex justify-between items-center">
         <h2 className="text-lg">All Product</h2>
-        <Link href={"/add-product"} className="bg-sky-800 px-4 py-2 rounded text-white capitalize">
+        <Link href={"/admin/add-product"} className="bg-sky-800 px-4 py-2 rounded text-white capitalize">
           Add new Product
         </Link>
       </div>
@@ -48,25 +70,64 @@ const AllProduct = () => {
             <h2 className="text-xl">All Product</h2>
             <div>
               <span className="text-[12px] underline text-slate-500 cursor-pointer mr-2">
-                <Link href={"/admin/all-products"}>All Products(6)</Link>
+                <Link href={"/admin/all-products"}>All Products</Link>
               </span>
               <span className="text-[12px] underline text-slate-500 cursor-pointer">
-                <Link href={"/admin/trash-product"}>Trash(5)</Link>
+                <Link href={"/admin/trash-product"}>Trash</Link>
               </span>
             </div>
           </div>
           <div className="flex gap-4">
-            <select name="" id="" className="border py-2 px-3 outline-none text-xs text-slate-500">
-              <option value="">Bulk Action</option>
+            <select
+              onChange={HandleQuery}
+              name="brand"
+              className="border py-2 px-3 outline-none w-30 text-xs text-slate-500"
+            >
+              <option value="">Brands</option>
+              {Brands?.data?.data.map((item: any) => (
+                <option key={item._id} value={item._id}>
+                  {item.name}
+                </option>
+              ))}
             </select>
-            <select name="" id="" className="border py-2 px-3 outline-none w-40 text-xs text-slate-500">
-              <option value="">All Sellers</option>
+            <select
+              onChange={HandleQuery}
+              name="category"
+              className="border py-2 px-3 outline-none w-30 text-xs text-slate-500"
+            >
+              <option value="">Categories</option>
+              {Categories?.data?.data.map((item: any) => (
+                <option key={item._id} value={item._id}>
+                  {item.name}
+                </option>
+              ))}
             </select>
-            <select name="" id="" className="border py-2 px-3 outline-none w-40 text-xs text-slate-500">
+            <select
+              onChange={HandleQuery}
+              name="status"
+              className="border py-2 px-3 outline-none w-30 text-xs text-slate-500"
+            >
+              <option value="">Status</option>
+              <option value="active">active</option>
+              <option value="deactive">deactive</option>
+            </select>
+            <select
+              onChange={HandleQuery}
+              name="sort"
+              className="border py-2 px-3 outline-none w-30 text-xs text-slate-500"
+            >
               <option value="">Sort By</option>
+              <option value="">oldest</option>
+              <option value="-createdAt">newest</option>
             </select>
             <div>
-              <input type="text" placeholder="Type & Enter" className="border outline-none text-sm py-2 px-3 w-40" />
+              <input
+                onChange={HandleQuery}
+                name="s"
+                type="text"
+                placeholder="Type & Enter"
+                className="border outline-none text-sm py-2 px-3 w-40"
+              />
             </div>
           </div>
         </div>
@@ -86,7 +147,7 @@ const AllProduct = () => {
               </tr>
             </thead>
             <tbody className="border pt-2">
-              {Products?.data?.data.map((item: any, i: number) => {
+              {Products?.data?.map((item: any, i: number) => {
                 return (
                   <tr key={i} className="text-xs font-normal text-start border-b">
                     <td className="py-5 ps-4">{i + 1}</td>
@@ -143,6 +204,7 @@ const AllProduct = () => {
           </table>
         </div>
       </div>
+      {Products?.data && <Pagination pagination={Products.pagination} setPagination={setPagination} />}
     </div>
   );
 };

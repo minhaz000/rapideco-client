@@ -26,6 +26,7 @@
     "next-connect": "^1.0.0",
     "nodemailer": "^6.9.3",
     "postcss": "8.4.24",
+    "qrcode.react": "^3.1.0",
     "rc-slider": "^10.2.1",
     "react": "18.2.0",
     "react-chartjs-2": "^5.2.0",

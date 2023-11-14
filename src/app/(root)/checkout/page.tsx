@@ -15,7 +15,7 @@ const Checkout = () => {
   const handleCheckOut: SubmitHandler<FormValues> = async (data) => {
     const Cart = await axios.get("/api/v0/cart");
     data.ordered_items = Cart.data.data.items;
-    data.payment_info = { method_name: "", method_img_url: "" };
+    data.payment_info = { amount: Cart.data.data.subtotal, method_name: "", method_img_url: "" };
     data.payment_info.method_name = payments?.data[tabIndex].method_name;
     data.payment_info.method_img_url = payments.data[tabIndex].method_img.img_url;
     console.log(data);

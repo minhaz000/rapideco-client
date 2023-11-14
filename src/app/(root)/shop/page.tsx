@@ -9,38 +9,56 @@ import { useQueryData } from "@/hooks/hook.query";
 import axios from "@/hooks/hook.axios";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
-const priceRangeArry = [0, 1000];
+const priceRangeArry = [0, 10000];
 const Shop = () => {
   const querry = useSearchParams();
   const [isFilterOn, setIsFilterOn] = useState(false);
   const [prams, setParms] = useState([] as string[]);
   const [search, setSearch] = useState("");
-  const [price, setPrice] = useState(priceRangeArry);
+  const [sort, setSort] = useState(1);
+  const [price, setPrice] = useState({ priceRangeArry, update: false } as any);
   const [loader, setLoader] = useState(false);
   const [products, setProducts] = useState([]);
   const cate = querry?.getAll("cate");
+  const [url, setUrl] = useState(`/api/v0/products?is_delete=false&category_info._id=${cate}`);
   const { data: Categories }: any = useQueryData(["shop"], `/api/v0/categories?is_delete=false`);
 
   const handleCate = (e: any, cate_ID: string) => {
     e.target.checked ? setParms((pre) => [...pre, cate_ID]) : setParms((pre) => pre.filter((item) => item != cate_ID));
+    setPrice((pre: any) => {
+      return { ...pre, update: false };
+    });
   };
   const handleSearch = (e: any) => {
     e.preventDefault();
     setSearch(e.target.value);
   };
-
+  const handleSort = (e: any) => {
+    e.preventDefault();
+    setSort(parseInt(e.target.value));
+  };
   const handleSliderChange = (newValues: any) => {
-    setPrice(newValues);
+    setPrice({ priceRangeArry: newValues, update: true });
   };
   useEffect(() => {
-    const url = `/api/v0/products?is_delete=false&regular_price<${price[1]}&regular_price>${price[0]}&category_info._id=${prams}${cate}`;
-    console.log(url);
-    axios.get(url).then((res) => {
-      setLoader(true);
-      setProducts(res.data.data);
-    });
-  }, [prams, price]);
-  console.log(price);
+    const Debouncing = setTimeout(() => {
+      let fromate_url = url;
+      prams.length > 0 && (fromate_url = url + prams);
+      search.length > 0 && (fromate_url = fromate_url + `&s=${search}`);
+      price.update &&
+        (fromate_url =
+          fromate_url + `&regular_price<${price.priceRangeArry[1]}&regular_price>${price.priceRangeArry[0]}`);
+      sort < 0 && (fromate_url = fromate_url + `&sort=-createdAt`);
+      axios.get(fromate_url).then((res) => {
+        setLoader(true);
+        setProducts(res.data.data);
+      });
+
+      console.log(fromate_url);
+    }, 1500);
+    return () => clearTimeout(Debouncing);
+  }, [prams, price, search, sort]);
+  console.log(prams);
   return (
     <section className="max-w-screen-xl mx-auto px-3 lg:px-10 mt-6 overflow-hidden  relative">
       {/* Breadcrumb section */}
@@ -91,10 +109,10 @@ const Shop = () => {
             <h3 className="text-[15px] font-semibold">Filter By Price</h3>
             <div className="mt-4">
               <div className="w-full max-w-xs mx-auto mt-4">
-                <Slider range min={0} max={1000} value={price} onChange={handleSliderChange} />
+                <Slider range min={0} max={1000} value={price.priceRangeArry} onChange={handleSliderChange} />
                 <div className="flex justify-between mt-2">
-                  <span>${price[0]}</span>
-                  <span>${price[1]}</span>
+                  <span>${price.priceRangeArry[0]}</span>
+                  <span>${price.priceRangeArry[1]}</span>
                 </div>
               </div>
             </div>
@@ -109,8 +127,9 @@ const Shop = () => {
             </div>
             <div>
               <label className="text-[15px] mr-4 text-slate-500">Sort By:</label>
-              <select className="border text-[15px] text-slate-500 rounded-md p-1 outline-none">
-                <option value="new-to-old">New To Old</option>
+              <select onChange={handleSort} className="border text-[15px] text-slate-500 rounded-md p-1 outline-none">
+                <option value={1}>Old</option>
+                <option value={-1}>New</option>
               </select>
             </div>
           </div>

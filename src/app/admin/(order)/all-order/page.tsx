@@ -1,10 +1,37 @@
 "use client";
 import { useQueryData } from "@/hooks/hook.query";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import order from "@/interface/checkout";
 import { FaRegEye, FaRegTrashAlt, FaDownload } from "react-icons/fa";
+import Link from "next/link";
+import Pagination from "@/components/pagination/pagination";
 const AllOrders = () => {
-  const { data: allOrders, refetch } = useQueryData(["get all order"], "/api/v0/orders");
+  const [query, setQuery] = useState({ _id: "", sort: "", status: "" });
+  const [pagination, setPagination] = useState({ page: 1, limit: 10 });
+  const { data: allOrders, refetch } = useQueryData(
+    ["get all order", pagination, query],
+    `/api/v0/orders?page=${pagination.page}&limit=${pagination.limit}&_id=${query._id}&sort=${query.sort}&status=${query.status}`
+  );
+
+  const HandleQuery = (e: any) => {
+    e.preventDefault();
+    setQuery((pre) => {
+      return { ...pre, [e.target.name]: e.target.value };
+    });
+  };
+
+  useEffect(() => {
+    const Debouncing = setTimeout(() => refetch, 1500);
+    return () => clearTimeout(Debouncing);
+  }, [pagination, query]);
+  function convertDateFormat(inputDate: string): string {
+    const dateObject = new Date(inputDate);
+    const options: Intl.DateTimeFormatOptions = { year: "numeric", month: "short", day: "numeric" };
+    const formattedDate: string = new Intl.DateTimeFormat("en-US", options).format(dateObject);
+    return formattedDate;
+  }
+  console.log(query);
+  console.log(allOrders?.data);
   // const newPayment = useMutationData(["add new payament"], "post", "api/v0/payment");
   return (
     <div>
@@ -12,28 +39,39 @@ const AllOrders = () => {
         <div className="lg:flex justify-between items-center border-b pb-3 px-4 pt-4 mb-4">
           <h2 className="text-xl">All Orders</h2>
           <div className="flex flex-col lg:flex-row gap-4">
-            <select name="" id="" className="border py-2 px-3 outline-none text-xs text-slate-500 w-full">
-              <option value="">Bulk Action</option>
-            </select>
-            <select name="" id="" className="border py-2 px-3 outline-none lg:w-40 text-xs text-slate-500 w-full">
+            <select
+              onChange={HandleQuery}
+              name="status"
+              id=""
+              className="border py-2 px-3 outline-none lg:w-40 text-xs text-slate-500 w-full"
+            >
               <option value="">Filter by payment state</option>
-              <option value="">Pending</option>
-              <option value="">Completed</option>
+              <option value="on hold">On hold</option>
+              <option value="processing">Processing</option>
+              <option value="complete">Completed</option>
+              <option value="canceled">Canceled</option>
             </select>
-            <select name="" id="" className="border py-2 px-3 outline-none lg:w-40 text-xs text-slate-500 w-full">
-              <option value="">Filter By Date</option>
-              <option value="">Today</option>
-              <option value="">Tomorrow</option>
+            <select
+              onChange={HandleQuery}
+              name="sort"
+              id=""
+              className="border py-2 px-3 outline-none lg:w-40 text-xs text-slate-500 w-full"
+            >
+              <option value="he">Filter By Date</option>
+              <option value="createdAt">Old</option>
+              <option value="-createdAt">New</option>
             </select>
             <div>
               <input
+                onChange={HandleQuery}
                 type="text"
+                name="_id"
                 placeholder="Type order code"
                 className="border outline-none text-sm py-2 px-3 w-full lg:w-40 "
               />
             </div>
             <div>
-              <button className="bg-orange-600 text-sm py-2 px-5 text-white">Filter</button>
+              <button className="text-sm py-2 px-5 text-white">Filter</button>
             </div>
           </div>
         </div>
@@ -56,15 +94,14 @@ const AllOrders = () => {
             <tbody className="border pt-2">
               {allOrders?.data.map((item: any, i: number) => {
                 return (
-                  <tr className="text-xs font-normal text-start border-b">
+                  <tr key={i} className="text-xs font-normal text-start border-b">
                     <td className="py-5 ps-4">{item._id}</td>
-                    <td>{i + 1}</td>
+                    <td>{item.ordered_items.length}</td>
                     <td>{item.user_info.name}</td>
-                    <td>$999.000</td>
+                    <td>{item.payment_info.amount}৳</td>
                     <td>{item.status}</td>
                     <td>{item.payment_info.method_name}</td>
-                    <td>9 june 2023</td>
-
+                    <td>{convertDateFormat(item.createdAt)}</td>
                     <td>
                       {item.payment_info.trx_id ? (
                         <span className="bg-green-500 bg-opacity-70 text-white text-sm p-1 rounded">Paid</span>
@@ -78,7 +115,9 @@ const AllOrders = () => {
                           title="View"
                           className="bg-green-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
                         >
-                          <FaRegEye />
+                          <Link href={`/admin/order-details/${item._id}`}>
+                            <FaRegEye />
+                          </Link>
                         </span>
                         <span
                           title="Download"
@@ -100,6 +139,7 @@ const AllOrders = () => {
             </tbody>
           </table>
         </div>
+        {allOrders?.data && <Pagination pagination={allOrders.pagination} setPagination={setPagination} />}
       </div>
     </div>
   );

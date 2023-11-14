@@ -56,7 +56,7 @@ const AddProduct = () => {
       onError: (error: any) => toast.error(error.message ? error.message : error?.data.message),
     });
   };
-  const validationError: any = newProduct.error?.data.errors;
+  const validationError: any = newProduct.error?.data?.errors;
 
   return (
     <div className="pb-4">

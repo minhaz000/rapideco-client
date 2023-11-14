@@ -1,11 +1,20 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
+import { toast } from "react-toastify";
+import axios from "../../hooks/hook.axios";
 const UserProfileMenu = () => {
   const [profileOpen, setProfileOpen] = useState(false);
   console.log(profileOpen);
-  const handleLogout = () => {
-    console.log("Logout successfully");
+  const handleLogout = async () => {
+    axios
+      .delete("auth/v0/logout")
+      .then((res) => {
+        toast.success("Successfully Logout!!");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
   return (
     <div className="">

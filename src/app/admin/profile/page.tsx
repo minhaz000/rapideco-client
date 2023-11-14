@@ -1,14 +1,13 @@
 "use client";
-import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
-
+import axios from "../../../hooks/hook.axios";
 const Profile = () => {
   const { register, handleSubmit } = useForm();
   // =============== FUNCTION FOR THE PRODUCT POST REQUEST
   const handleUpdate = (data: any) => {
     console.log(data);
-    axios.post("auth/v0/login", data).then((res) => {
+    axios.post("auth/v0/manage", data).then((res) => {
       console.log(res);
     });
   };

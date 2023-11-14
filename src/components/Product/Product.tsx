@@ -2,24 +2,33 @@ import Link from "next/link";
 import ProductCard from "./ProductCard";
 import { BsArrowRightShort } from "react-icons/bs";
 import axios from "@/hooks/hook.axios";
-const Product = async ({ sectionTitle, categoryValue }: { sectionTitle: string; categoryValue: string }) => {
+import SectionHeading from "../common/SectionHeading";
+import ProductCarousel from "./ProductCarousel";
+const Product = async ({
+  sectionTitle,
+  categoryValue,
+}: {
+  sectionTitle: string;
+  categoryValue: string;
+}) => {
   // const { data: products } = await axios.get("api/v0/products");
-  const { data: products } = await axios.get(`api/v0/products?is_delete=false&category_info._id=${categoryValue}`);
+  const { data: products } = await axios.get(
+    `api/v0/products?is_delete=false&category_info._id=${categoryValue}`
+  );
   console.log("pro", categoryValue);
 
   return (
     <section className="max-w-screen-xl mx-auto px-3 lg:px-10 mt-10">
       <div className="flex justify-between items-center mb-5">
-        <h2 className="text-xl font-semibold text-[#3bb77e] capitalize">{sectionTitle}</h2>
-        <Link href="/" className="flex items-center gap-2 text-sm hover:text-[#3bb77e]">
+        <SectionHeading sectionTitle={sectionTitle} />
+        <Link
+          href="/"
+          className="flex items-center gap-2 text-sm hover:text-[#3bb77e]"
+        >
           See More <BsArrowRightShort />
         </Link>
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
-        {products?.data.map((product: any) => {
-          return <ProductCard product={product} key={product._id} />;
-        })}
-      </div>
+      <ProductCarousel products={products} />
     </section>
   );
 };

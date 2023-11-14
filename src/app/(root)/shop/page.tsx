@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import ShopProduct from "./ShopProduct";
-import PriceRange from "./PriceRange";
 import { useRouter, useSearchParams } from "next/navigation";
 // import { BsGrid, BsListTask } from "react-icons/bs";
 import { FiFilter } from "react-icons/fi";

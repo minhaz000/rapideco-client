@@ -6,7 +6,7 @@ import AddToCartButton from "./addToCartButton";
 const ProductCard = ({ product }: { product: any }) => {
   return (
     <div className="border border-[#E9ECEF] rounded-md h-full flex flex-col">
-      <Link href={`/product/${product._id}`}>
+      <Link href={`/product?_id=${product._id}`}>
         <div className="overflow-hidden relative">
           {product.discount_price && (
             <p className="absolute top-2 left-0 bg-white px-2 py-2 z-40 uppercase text-[12px] rounded-e-full shadow-xl flex items-center gap-2">
@@ -18,11 +18,7 @@ const ProductCard = ({ product }: { product: any }) => {
           )}
 
           <Image
-            src={
-              product?.product_image?.img_url
-                ? product.product_image.img_url
-                : loadImg
-            }
+            src={product?.product_image?.img_url ? product.product_image.img_url : loadImg}
             alt={product.title}
             width={100}
             height={100}
@@ -32,18 +28,12 @@ const ProductCard = ({ product }: { product: any }) => {
         <div className="py-3 px-4 text-center">
           <div>
             <h2 className="text-[15px] capitalize hover:text-green-600">
-              {product.title.length > 47
-                ? product.title.slice(0, 48) + "..."
-                : product.title}
+              {product.title.length > 47 ? product.title.slice(0, 48) + "..." : product.title}
             </h2>
           </div>
           <div className="flex justify-center gap-3 mt-1">
-            <p className="text-[#3bb77e] font-semibold text-sm">
-              Tk{product.regular_price}
-            </p>
-            <p className="line-through text-gray-400 text-sm">
-              Tk{product.discount_price}
-            </p>
+            <p className="text-[#3bb77e] font-semibold text-sm">Tk{product.regular_price}</p>
+            <p className="line-through text-gray-400 text-sm">Tk{product.discount_price}</p>
           </div>
         </div>
       </Link>

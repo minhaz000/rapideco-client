@@ -5,7 +5,6 @@ import Product from "@/components/Product/Product";
 import React from "react";
 import site from "../../../public/assets/site.settings.json";
 const page = () => {
-  console.log();
   return (
     <>
       <HomeBanner />

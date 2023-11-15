@@ -1,4 +1,4 @@
-// import ProductSinglePage from "../../../components/ProductSinglePage/ProductSinglePage";
+import React from "react";
 import ProductSinglePage from "../../../components/ProductSinglePage/ProductSinglePage";
 const SingleProduct = () => {
   return (

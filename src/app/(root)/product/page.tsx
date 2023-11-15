@@ -1,4 +1,3 @@
-import React from "react";
 import ProductSinglePage from "../../../components/ProductSinglePage/ProductSinglePage";
 const SingleProduct = async () => {
   return (

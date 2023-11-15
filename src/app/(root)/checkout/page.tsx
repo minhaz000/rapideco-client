@@ -4,21 +4,19 @@ import React, { useState } from "react";
 import { useForm as useform, SubmitHandler } from "react-hook-form";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
-import Bkash from "../../../assets/bKash.png";
-import Nagad from "../../../assets/Nagad.png";
-import Rocket from "../../../assets/Rocket.png";
 import FormValues from "@/interface/checkout";
 import { toast } from "react-toastify";
 import axios from "@/hooks/hook.axios";
 import { useQueryData } from "@/hooks/hook.query";
 const Checkout = () => {
   const [tabIndex, setTabIndex] = useState(0);
-  const { watch, register, reset, handleSubmit, setValue } = useform<FormValues>();
+  const { register, reset, handleSubmit } = useform<FormValues>();
   const { data: payments } = useQueryData(["get payment methods"], "/api/v0/payments?");
   const handleCheckOut: SubmitHandler<FormValues> = async (data) => {
     const Cart = await axios.get("/api/v0/cart");
     data.ordered_items = Cart.data.data.items;
-    data.payment_info.method_name = payments.data[tabIndex].method_name;
+    data.payment_info = { amount: Cart.data.data.subtotal, method_name: "", method_img_url: "" };
+    data.payment_info.method_name = payments?.data[tabIndex].method_name;
     data.payment_info.method_img_url = payments.data[tabIndex].method_img.img_url;
     console.log(data);
     axios
@@ -26,6 +24,7 @@ const Checkout = () => {
       .then((res) => {
         axios.delete(`/api/v0/cart/${Cart.data.data._id}`).then((res) => console.log("fuvk"));
         toast.success("order placed successfully");
+        reset();
       })
       .catch((error: any) => toast.error(error.message ? error.message : error?.data.message));
   };

@@ -5,6 +5,7 @@ import { useQueryData } from "@/hooks/hook.query";
 import Iproduct from "@/interface/product";
 import axios from "@/hooks/hook.axios";
 import { toast } from "react-toastify";
+import Link from "next/link";
 const Cart = () => {
   const { data: Cart, refetch } = useQueryData(["get cart"], "/api/v0/cart");
   console.log(Cart);
@@ -126,9 +127,10 @@ const Cart = () => {
       <div className="mt-3 p-4">
         <div className="w-full md:w-4/12 ms-auto border rounded px-5 pt-3">
           <div className="flex justify-between items-center">
-            <span className="font-bold">Sub Total:</span>
-            <span>$100.00</span>
+            <span className="font-bold">Total:</span>
+            <span>{Cart?.data?.subtotal}</span>
           </div>
+<<<<<<< HEAD
           <div className="flex justify-between items-center my-5">
             <span className="font-bold">Sales Tax:</span>
             <span>$20.00</span>
@@ -140,6 +142,12 @@ const Cart = () => {
           <button className="bg-green-700 text-white w-full py-2 rounded-md mt-3">
             Proceed to Checkout
           </button>
+=======
+
+          <Link href={"/checkout"} className="bg-green-700 text-white w-full py-2 rounded-md mt-3">
+            Proceed to Checkout
+          </Link>
+>>>>>>> minhaz
         </div>
       </div>
     </section>

@@ -1,3 +1,4 @@
+"use client";
 import DashboardTable from "./components/DashboardTable";
 import DashboardStats from "./components/DashboardStats";
 import ChartOne from "./components/ChartOne";

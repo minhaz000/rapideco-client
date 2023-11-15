@@ -43,7 +43,7 @@ const Category = async () => {
           }}
         >
           {Categories?.data?.map((item: any) => (
-            <SwiperSlide key={item.id}>
+            <SwiperSlide key={item._id}>
               <CategoryCard item={item} />
             </SwiperSlide>
           ))}

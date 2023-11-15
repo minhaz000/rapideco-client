@@ -5,7 +5,6 @@ import "swiper/css";
 import "swiper/css/navigation";
 import Cat1 from "../../assets/category/2.png";
 import Image from "next/image";
-import brands from "@/interface/brand";
 import Link from "next/link";
 const BrandCarousel = ({ Brands }: { Brands: any }) => {
   return (
@@ -37,7 +36,7 @@ const BrandCarousel = ({ Brands }: { Brands: any }) => {
         }}
       >
         {Brands?.data?.map((item: any) => (
-          <SwiperSlide key={item.id}>
+          <SwiperSlide key={item._id}>
             <Link href="/">
               <Image src={Cat1} alt="" />
             </Link>

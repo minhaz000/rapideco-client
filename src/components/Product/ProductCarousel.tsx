@@ -35,7 +35,7 @@ const ProductCarousel = ({ products }: any) => {
         }}
       >
         {products?.data.map((product: any) => (
-          <SwiperSlide key={product.id}>
+          <SwiperSlide key={product._id}>
             <ProductCard product={product} />
           </SwiperSlide>
         ))}

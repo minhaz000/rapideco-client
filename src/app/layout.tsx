@@ -9,8 +9,8 @@ const poppins = Poppins({
 });
 
 export const metadata = {
-  title: "Rapid Eco ",
-  description: "rapid growing ecommere ",
+  title: "Isoftex",
+  description: "Rapid growing e-commerce ",
 };
 
 export default function RootLayout({

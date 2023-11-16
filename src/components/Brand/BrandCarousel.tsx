@@ -37,7 +37,7 @@ const BrandCarousel = ({ Brands }: { Brands: any }) => {
         }}
       >
         {Brands?.data?.map((item: any) => (
-          <SwiperSlide key={item.id}>
+          <SwiperSlide key={item._id}>
             <Link href="/">
               <Image src={Cat1} alt="" />
             </Link>

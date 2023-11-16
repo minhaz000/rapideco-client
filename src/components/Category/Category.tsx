@@ -9,9 +9,7 @@ import axios from "@/hooks/hook.axios";
 import SectionHeading from "../common/SectionHeading";
 
 const Category = async () => {
-  const { data: Categories } = await axios.get(
-    "/api/v0/categories?is_delete=false&featured=true"
-  );
+  const { data: Categories } = await axios.get("/api/v0/categories?is_delete=false&featured=true");
   return (
     <section className="max-w-screen-xl mx-auto px-3 lg:px-10 mt-10">
       <SectionHeading sectionTitle="SHOP BY CATEGORIES" />
@@ -43,7 +41,7 @@ const Category = async () => {
           }}
         >
           {Categories?.data?.map((item: any) => (
-            <SwiperSlide key={item.id}>
+            <SwiperSlide key={item._id}>
               <CategoryCard item={item} />
             </SwiperSlide>
           ))}

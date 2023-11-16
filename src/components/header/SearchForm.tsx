@@ -4,7 +4,6 @@ type Props = {
 };
 import React, { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import SearchResult from "./SearchResult";
 import { useQueryData } from "@/hooks/hook.query";
 import Link from "next/link";
 import Image from "next/image";

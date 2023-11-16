@@ -13,16 +13,7 @@ import {
   Legend,
 } from "chart.js";
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Filler,
-  Legend
-);
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Filler, Legend);
 
 export const options = {
   responsive: true,
@@ -36,21 +27,21 @@ export const options = {
   },
 };
 
-const labels = ["January", "February", "March", "April", "May", "June", "July"];
-
-export const data = {
-  labels,
-  datasets: [
-    {
-      fill: true,
-      label: "Sales",
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-      borderColor: "rgb(29, 209, 89,0.7)",
-      backgroundColor: "rgb(29, 209, 89,0.7)",
-    },
-  ],
-};
-const ChartOne = () => {
+const ChartOne = ({ chartData }: { chartData: any }) => {
+  const labels = Object.keys(chartData).reverse();
+  console.log(labels);
+  const data = {
+    labels,
+    datasets: [
+      {
+        fill: true,
+        label: "Sales",
+        data: Object.values(chartData).reverse(),
+        borderColor: "rgb(29, 209, 89,0.7)",
+        backgroundColor: "rgb(29, 209, 89,0.7)",
+      },
+    ],
+  };
   return (
     <div className="md:basis-7/12">
       <h2 className="text-xl">Yearly Sales</h2>

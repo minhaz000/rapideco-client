@@ -8,10 +8,13 @@ import { useQueryData } from "@/hooks/hook.query";
 const ProductSinglePage = () => {
   const sech = useSearchParams();
   const ID = sech.get("_id");
-  const { data: product } = useQueryData(["get single data"], `/api/v0/product/${ID}`);
+  const { data: product } = useQueryData(
+    ["get single data"],
+    `/api/v0/product/${ID}`
+  );
   return (
     <div>
-      <ProductDetails data={product?.data} />
+      <ProductDetails />
       <RelatedProduct categoryID={product?.data?.category_info?._id} />
     </div>
   );

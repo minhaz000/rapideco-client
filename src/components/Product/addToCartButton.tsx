@@ -4,22 +4,24 @@ import axios from "@/hooks/hook.axios";
 import { toast } from "react-toastify";
 
 function AddToCartButton({ productID }: { productID: string }) {
-  const hadleAddToCart = (ID: string) => {
+  const handleAddToCart = (ID: string) => {
     console.log(ID);
     axios
       .put(`/api/v0/cart/add?productID=${ID}`)
       .then(() => {
         toast.success("product added to cart");
       })
-      .catch((error: any) => toast.error(error.message ? error.message : error?.data.message));
+      .catch((error: any) =>
+        toast.error(error.message ? error.message : error?.data.message)
+      );
   };
   return (
     <>
       <button
-        onClick={() => hadleAddToCart(productID)}
-        className="bg-[#3bb77e] text-white px-3 py-2 text-[12px] rounded-sm w-full font-semibold transition-colors duration-300 hover:bg-[#fdc040]"
+        onClick={() => handleAddToCart(productID)}
+        className="bg-[#3bb77e] text-white px-3 py-2 text-[12px] rounded-sm w-full font-semibold transition-colors duration-300 hover:bg-[#278056]"
       >
-        Add to Cart
+        Buy Now
       </button>
     </>
   );

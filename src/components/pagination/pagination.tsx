@@ -1,19 +1,28 @@
 import React from "react";
 
-function pagination({ pagination, setPagination }: { pagination: any; setPagination: any }) {
+function pagination({
+  pagination,
+  setPagination,
+}: {
+  pagination: any;
+  setPagination: any;
+}) {
   const handlePage = (e: any) => {
     e.preventDefault();
     setPagination((pre: any) => {
-      return { ...pre, page: parseInt(e.target.value) };
+      return { ...pre, page: parseInt(e?.target?.value) };
     });
   };
   const handlePerPage = (e: any) => {
     e.preventDefault();
     setPagination((pre: any) => {
-      return { ...pre, limit: parseInt(e.target.value) };
+      return { ...pre, limit: parseInt(e?.target?.value) };
     });
   };
-  const Pages = Array.from({ length: pagination.total_page }, (_, index) => index + 1);
+  const Pages = Array?.from(
+    { length: pagination?.total_page },
+    (_, index) => index + 1
+  );
   return (
     <div className="">
       <div className="join mt-20 ">
@@ -22,7 +31,10 @@ function pagination({ pagination, setPagination }: { pagination: any; setPaginat
             onClick={handlePage}
             key={item}
             value={item}
-            className={"join-item btn " + `${pagination.page == item && `bg-slate-700 text-white`}`}
+            className={
+              "join-item btn " +
+              `${pagination?.page == item && `bg-slate-700 text-white`}`
+            }
           >
             {item}
           </button>
@@ -30,7 +42,7 @@ function pagination({ pagination, setPagination }: { pagination: any; setPaginat
 
         <select
           onChange={handlePerPage}
-          defaultValue={pagination.limit}
+          defaultValue={pagination?.limit}
           name="per_page"
           className="select select-bordered w-full max-w-xs"
         >

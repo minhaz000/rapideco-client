@@ -1,10 +1,10 @@
 {
   "header": {
     "nav_menu": [
-      { "value": "home", "lavel": "Home" },
+      { "value": "/", "lavel": "Home" },
       { "value": "shop", "lavel": "Shop" }
     ],
-    "color": "#3f21ab",
+    "color": "#0f8100",
     "meta_title": "rapid ecommerce",
     "meta_description": "Let's develop our country together"
   },

@@ -12,11 +12,7 @@ const RelatedProduct = ({ categoryID }) => {
     <div className="mt-20">
       <h2 className="mb-3 text-xl font-semibold">Related Products</h2>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
-<<<<<<< HEAD
-        {products?.map((product) => {
-=======
         {products?.data.map((product) => {
->>>>>>> minhaz
           return <ProductCard product={product} key={product._id} />;
         })}
       </div>

@@ -7,7 +7,7 @@ import ProductCard from "./ProductCard";
 
 const ProductCarousel = ({ products }: any) => {
   return (
-    <div className="">
+    <div className="mt-4">
       <Swiper
         modules={[Navigation]}
         navigation={true}
@@ -29,12 +29,12 @@ const ProductCarousel = ({ products }: any) => {
             spaceBetween: 15,
           },
           1200: {
-            slidesPerView: 6,
+            slidesPerView: 5,
             spaceBetween: 15,
           },
         }}
       >
-        {products?.data.map((product: any) => (
+        {products?.data?.map((product: any) => (
           <SwiperSlide key={product._id}>
             <ProductCard product={product} />
           </SwiperSlide>

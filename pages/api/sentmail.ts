@@ -1,28 +1,41 @@
+import generateOrderNotificationEmail from "@/utils/template[order]";
 import { NextApiHandler, NextApiResponse, NextApiRequest } from "next";
 import nodemailer from "nodemailer";
+import { createRouter } from "next-connect";
+const apiRoute = createRouter<NextApiRequest, NextApiResponse>();
+
 const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST || "mail.isoftex.com",
-  port: process.env.SMTP_PORT || 465,
-  secure: process.env.SMTP_SECURE || true,
+  host: process.env.SMTP_HOST,
+  port: parseInt(process.env.SMTP_PORT as any),
+  secure: Boolean(process.env.SMTP_SECURE),
   auth: {
-    // TODO: replace `user` and `pass` values from <https://forwardemail.net>
-    user: process.env.SMTP_AUTH_USER || "easyshopia@isoftex.com",
-    pass: process.env.SMTP_AUTH_PASSWORD || "ra43641652#",
+    user: process.env.SMTP_AUTH_USER,
+    pass: process.env.SMTP_AUTH_PASSWORD,
   },
 });
 
-async function sendEmail(email?: string, subject?: string, body?: any) {
+async function sendEmail(subject?: string, body?: any) {
   // send mail with defined transport object
   const info = await transporter.sendMail({
-    from: "easyshopia@isoftex.com", // sender address
-    to: "mrmminhaz@gmail.com", // list of receivers
+    from: process.env.SMTP_AUTH_USER, // sender address
+    to: process.env.ADMIN_EMAIL, // list of receivers
     subject: subject, // Subject line
-    html: "helo", // html body
+    html: body, // html body
   });
   return info;
 }
-export default async function handle(req: NextApiRequest, res: NextApiResponse) {
-  await sendEmail();
-  console.log("email sent ");
-  res.send(req.body);
-}
+
+apiRoute.post(async (req: any, res: any) => {
+  // main api function
+
+  const body = generateOrderNotificationEmail(req.body.order);
+  await sendEmail(req.body.subject || "Notification of New Order", body);
+  res.status(201).json({ message: "email sent sucessfully" });
+});
+
+export default apiRoute.handler({
+  onError: (err: any, req, res) => {
+    console.error(err.stack);
+    res.status(err.statusCode || 500).end(err.message);
+  },
+});

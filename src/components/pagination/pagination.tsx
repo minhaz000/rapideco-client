@@ -25,7 +25,7 @@ function pagination({
   );
   return (
     <div className="">
-      <div className="join mt-20 ">
+      <div className="join mt-6">
         {Pages.map((item) => (
           <button
             onClick={handlePage}

@@ -45,7 +45,7 @@ const ChartOne = ({ chartData }: { chartData: any }) => {
   return (
     <div className="md:basis-7/12">
       <h2 className="text-xl">Yearly Sales</h2>
-      <div className="w-full overflow-x-auto h-[390px]">
+      <div className="w-full h-[390px]">
         <Line options={options} data={data} />;
       </div>
     </div>

@@ -25,7 +25,7 @@ const ChartTwo = ({ chartData }: { chartData: any }) => {
   return (
     <div className="md:basis-5/12 ps-6">
       <h2 className="text-xl">Top Products Sales</h2>
-      <div className="h-[330px] overflow-x-auto md:w-full">
+      <div className="h-[330px] md:w-full">
         <Pie data={data} />
       </div>
     </div>

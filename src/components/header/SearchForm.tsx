@@ -2,13 +2,11 @@
 type Props = {
   headerBg: string;
 };
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { useQueryData } from "@/hooks/hook.query";
 import Link from "next/link";
 import Image from "next/image";
-import P1 from "../../assets/img.png";
-
 const SearchForm = ({ headerBg }: Props) => {
   const [query, setQuery] = useState({ s: "", active: false });
   const { data: results, refetch } = useQueryData(
@@ -22,7 +20,6 @@ const SearchForm = ({ headerBg }: Props) => {
   const HandleBur = (e: any) => {
     setQuery((pre) => ({ ...pre, active: false }));
   };
-
   return (
     <div className="basis-8/12 lg:basis-1/2 relative">
       <form className="flex">
@@ -48,12 +45,22 @@ const SearchForm = ({ headerBg }: Props) => {
           {results?.data
             ? results.data.map((item: any) => (
                 <div className="flex gap-3 flex-col mt-3">
-                  <Link href="/">
+                  <Link href={`/product?_id=${item._id}`}>
                     <div className="flex gap-3 items-center">
-                      <Image src={item?.product_image?.img_url} alt="" width={40} height={40} />
+                      <Image
+                        src={item?.product_image?.img_url}
+                        alt=""
+                        width={40}
+                        height={40}
+                      />
                       <div>
                         <h3 className="text-[12px]">{item?.title}</h3>
-                        <span>{item?.discount_price ? item?.discount_price : item?.regular_price} ৳</span>
+                        <span>
+                          {item?.discount_price
+                            ? item?.discount_price
+                            : item?.regular_price}{" "}
+                          ৳
+                        </span>
                       </div>
                     </div>
                   </Link>

@@ -5,7 +5,6 @@ import "swiper/css";
 import "swiper/css/navigation";
 import Cat1 from "../../assets/category/2.png";
 import Image from "next/image";
-import brands from "@/interface/brand";
 import Link from "next/link";
 const BrandCarousel = ({ Brands }: { Brands: any }) => {
   return (

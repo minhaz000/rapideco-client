@@ -5,6 +5,7 @@ import Cart from "../../assets/bag.png";
 import Link from "next/link";
 import SearchForm from "./SearchForm";
 import SettingData from "../../../public/assets/site.settings.json";
+import { FaPhoneAlt } from "react-icons/fa";
 const Header = () => {
   const headerBg = SettingData?.header?.color;
   return (
@@ -21,20 +22,19 @@ const Header = () => {
           </Link>
         </div>
         <SearchForm headerBg={headerBg} />
-        <div className="basis-1/4 ps-6 hidden lg:block text-center">
-          <div className="flex items-center justify-end gap-5">
-            <div>
-              <Link href="/" className="flex items-center  gap-1">
-                <Image
-                  src={Tracking}
-                  alt="tracking icon"
-                  width={40}
-                  height={40}
+        <div className="basis-1/4 ps-6 hidden lg:block">
+          <div className="flex items-center justify-end gap-6">
+            <div className="flex gap-4 items-center">
+              <div>
+                <FaPhoneAlt
+                  className="text-2xl"
+                  style={{ color: `${headerBg}` }}
                 />
-                <span className="block text-center font-bold text-[14px]">
-                  অর্ডার ট্র্যাক <br /> করুন
-                </span>
-              </Link>
+              </div>
+              <div className="text-start">
+                <span className="text-[15px] text-gray-600">Phone</span>
+                <p className="text-[13px]">০১৭৬০১০৭৭৬৪</p>
+              </div>
             </div>
             <div className="relative">
               <Link href="/cart">
@@ -42,7 +42,7 @@ const Header = () => {
               </Link>
               <span
                 style={{ backgroundColor: `${headerBg}` }}
-                className={`absolute bg-[${headerBg}] top-0 -right-[5px] text-white text-[12px] px-[5px] rounded-full`}
+                className={`absolute top-0 -right-[5px] text-white text-[12px] px-[5px] rounded-full`}
               >
                 0
               </span>

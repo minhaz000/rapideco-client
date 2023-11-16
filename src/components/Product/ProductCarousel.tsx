@@ -4,42 +4,53 @@ import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import ProductCard from "./ProductCard";
+import getProducts from "@/lib/getProducts";
+import ProductSkeleton from "./ProductSkeleton";
 
-const ProductCarousel = ({ products }: any) => {
+const ProductCarousel = ({ categoryValue }: any) => {
+  const { products, isLoading } = getProducts(categoryValue);
   return (
     <div className="mt-4">
-      <Swiper
-        modules={[Navigation]}
-        navigation={true}
-        breakpoints={{
-          0: {
-            slidesPerView: 1,
-            spaceBetween: 10,
-          },
-          480: {
-            slidesPerView: 2,
-            spaceBetween: 10,
-          },
-          768: {
-            slidesPerView: 3,
-            spaceBetween: 15,
-          },
-          1020: {
-            slidesPerView: 4,
-            spaceBetween: 15,
-          },
-          1200: {
-            slidesPerView: 5,
-            spaceBetween: 15,
-          },
-        }}
-      >
-        {products?.data?.map((product: any) => (
-          <SwiperSlide key={product._id}>
-            <ProductCard product={product} />
-          </SwiperSlide>
-        ))}
-      </Swiper>
+      {isLoading ? (
+        <div className="grid grid-cols-5 gap-5">
+          {Array.from({ length: 5 }, (_, i) => (
+            <ProductSkeleton key={i} />
+          ))}
+        </div>
+      ) : (
+        <Swiper
+          modules={[Navigation]}
+          navigation={true}
+          breakpoints={{
+            0: {
+              slidesPerView: 1,
+              spaceBetween: 10,
+            },
+            480: {
+              slidesPerView: 2,
+              spaceBetween: 10,
+            },
+            768: {
+              slidesPerView: 3,
+              spaceBetween: 15,
+            },
+            1020: {
+              slidesPerView: 4,
+              spaceBetween: 15,
+            },
+            1200: {
+              slidesPerView: 5,
+              spaceBetween: 15,
+            },
+          }}
+        >
+          {products?.data?.map((product: any) => (
+            <SwiperSlide key={product._id}>
+              <ProductCard product={product} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      )}
     </div>
   );
 };

@@ -2,9 +2,8 @@
 
 import { useQuery } from "@tanstack/react-query";
 import axios from "../hooks/hook.axios";
-
 const getProducts = (categoryValue: any) => {
-  const { data: products1, isLoading } = useQuery({
+  const { data: products, isLoading } = useQuery({
     queryKey: ["products"],
     queryFn: async () => {
       const res = await axios.get(
@@ -13,6 +12,6 @@ const getProducts = (categoryValue: any) => {
       return res.data;
     },
   });
-  return { products1, isLoading };
+  return { products, isLoading };
 };
 export default getProducts;

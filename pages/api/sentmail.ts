@@ -1,34 +1,28 @@
-// import { NextApiHandler, NextApiResponse, NextApiRequest } from "next";
-// import nodemailer from "nodemailer";
-// const sentEmail = async (address: string, subject: string, payload: any) => {
-//   try {
-//     console.log("email is sending... ");
+import { NextApiHandler, NextApiResponse, NextApiRequest } from "next";
+import nodemailer from "nodemailer";
+const transporter = nodemailer.createTransport({
+  host: process.env.SMTP_HOST || "mail.isoftex.com",
+  port: process.env.SMTP_PORT || 465,
+  secure: process.env.SMTP_SECURE || true,
+  auth: {
+    // TODO: replace `user` and `pass` values from <https://forwardemail.net>
+    user: process.env.SMTP_AUTH_USER || "easyshopia@isoftex.com",
+    pass: process.env.SMTP_AUTH_PASSWORD || "ra43641652#",
+  },
+});
 
-//     let transporter = nodemailer.createTransport({
-//       host: process.env.SMTP_HOST,
-//       port: process.env.SMTP_PORT,
-//       secure: process.env.SMTP_SECURE,
-//       service: process.env.SMTP_SERVICE_PROVIDER,
-//       auth: {
-//         user: process.env.SMTP_AUTH_USER, // generated ethereal user
-//         pass: process.env.SMTP_AUTH_PASSWORD, // generated ethereal password
-//       },
-//     });
-
-//     let info = await transporter.sendMail({
-//       from: process.env.SMTP_AUTH_USER, // sender address
-//       to: address, // list of receivers
-//       subject: subject || "Testing gmail STMP server", // Subject line
-//       text: " ", // plain text body
-//       html: payload || "<b>Hello. I was just testing you </b>", // html body
-//     });
-
-//     console.log("Message successfully sent => ", info.messageId);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-// export default function handle(req: NextApiRequest, res: NextApiResponse) {
-//   console.log(req.body);
-//   res.send(req.body);
-// }
+async function sendEmail(email?: string, subject?: string, body?: any) {
+  // send mail with defined transport object
+  const info = await transporter.sendMail({
+    from: "easyshopia@isoftex.com", // sender address
+    to: "mrmminhaz@gmail.com", // list of receivers
+    subject: subject, // Subject line
+    html: "helo", // html body
+  });
+  return info;
+}
+export default async function handle(req: NextApiRequest, res: NextApiResponse) {
+  await sendEmail();
+  console.log("email sent ");
+  res.send(req.body);
+}

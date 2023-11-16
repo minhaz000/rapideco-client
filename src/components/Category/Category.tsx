@@ -10,7 +10,6 @@ import CategorySkeleton from "./CategorySkeleton";
 
 const Category = () => {
   const { categories, isLoading } = getCategories();
-
   return (
     <section className="max-w-screen-xl mx-auto px-3 lg:px-10 mt-10">
       <SectionHeading sectionTitle="SHOP BY CATEGORIES" seeMoreUrl={"/"} />

@@ -11,13 +11,15 @@ import Pagination from "@/components/pagination/pagination";
 import { useAdminContext } from "@/context/admin.context";
 const AllProduct = () => {
   const { Brands, Categories }: any = useAdminContext();
-  const [query, setQuery]: any = useState({ s: "", category: "", brand: false, sort: "", status: "" });
+  const [query, setQuery]: any = useState({ s: "", category: "", brand: "", sort: "", status: "" });
   const [pagination, setPagination] = useState({ page: 1, limit: 10 });
   const { data: Products, refetch } = useQueryData(
     ["get all product", pagination, query],
     `/api/v0/products?page=${pagination.page}&limit=${pagination.limit}&s=${query.s}&sort=${
       query.sort
-    }&category_info._id=${query.category}&status=${query.status}${query.brand && `&brand_info._id=${query.brand}`}`
+    }&category_info._id=${query.category}${query.status && `&status=${query.status}`}${
+      query.brand && `&brand_info._id=${query.brand}`
+    }`
   );
 
   const handleDeleteProduct = (productID: string) => {
@@ -151,11 +153,11 @@ const AllProduct = () => {
                   <tr key={i} className="text-xs font-normal text-start border-b">
                     <td className="py-5 ps-4">{i + 1}</td>
                     <td>
-                      {item.product_image ? (
+                      {/* {item.product_image?.img_url ? (
                         <Image src={item.product_image?.img_url} width={50} height={50} alt=""></Image>
                       ) : (
                         "__-__"
-                      )}
+                      )} */}
                     </td>
                     <td>{item.title}</td>
                     <td>{item?.regular_price}</td>

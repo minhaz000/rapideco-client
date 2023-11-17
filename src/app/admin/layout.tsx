@@ -9,16 +9,14 @@ import { useRouter } from "next/navigation";
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const [mobileMenu, setMobileMenu] = useState(false);
-  const { data: user, isLoading, isSuccess, isError } = useQueryData(["get user"], "/auth/v0/profile");
+  const { data: user, isSuccess, isError } = useQueryData(["get user"], "/auth/v0/profile");
   const handleMobileMenuShow = () => {
     setMobileMenu(true);
   };
   const handleMobileMenuHide = () => {
     setMobileMenu(false);
   };
-  if (isLoading) {
-    return "loading ";
-  }
+
   if (isError) {
     router.push("/login");
   }

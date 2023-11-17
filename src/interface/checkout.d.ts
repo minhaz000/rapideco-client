@@ -7,7 +7,7 @@ interface ICheckout {
     delivery_area: string;
   };
   payment_info: {
-    status: "paid" | "unpaid";
+    status?: "paid" | "unpaid";
     method_name: string;
     method_img_url: string;
     number?: string;

@@ -5,6 +5,7 @@ export interface ISettings {
     meta_title: string;
     meta_description: string;
     nav_menu: any;
+    phone_number: string;
   };
   body: {
     banner: any[];

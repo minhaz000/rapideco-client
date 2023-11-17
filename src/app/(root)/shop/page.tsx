@@ -10,8 +10,7 @@ import Slider from "rc-slider";
 import Pagination from "@/components/pagination/pagination";
 import "rc-slider/assets/index.css";
 import Link from "next/link";
-import { Metadata } from "next";
-export const metadata: Metadata = {
+export const metadata = {
   title: "Shop",
 };
 const Shop = () => {

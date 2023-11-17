@@ -4,21 +4,25 @@ import { useState } from "react";
 import { FaBars } from "react-icons/fa";
 import AdminContext from "@/context/admin.context";
 import UserProfileMenu from "@/components/DashboardHeader/UserProfileMenu";
-export default function AdminLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+import { useQueryData } from "@/hooks/hook.query";
+import { useRouter } from "next/navigation";
+export default function AdminLayout({ children }: { children: React.ReactNode }) {
+  const router = useRouter();
   const [mobileMenu, setMobileMenu] = useState(false);
+  const { data: user, isSuccess, isError } = useQueryData(["get user"], "/auth/v0/profile");
   const handleMobileMenuShow = () => {
     setMobileMenu(true);
   };
   const handleMobileMenuHide = () => {
     setMobileMenu(false);
   };
-  return (
-    <AdminContext>
-      <>
+
+  if (isError) {
+    router.push("/login");
+  }
+  if (user?.data && isSuccess) {
+    return (
+      <AdminContext>
         <div
           onClick={() => setMobileMenu(false)}
           className={`fixed  ${
@@ -43,10 +47,7 @@ export default function AdminLayout({
         <div className="xl:ps-[300px]">
           <div className="flex justify-between items-center border-b border-[#E9ECEF] py-4 px-3 xl:px-8 text-end">
             <div>
-              <button
-                className="block xl:hidden"
-                onClick={handleMobileMenuShow}
-              >
+              <button className="block xl:hidden" onClick={handleMobileMenuShow}>
                 <FaBars className="text-2xl" />
               </button>
             </div>
@@ -54,7 +55,7 @@ export default function AdminLayout({
           </div>
           <div className="px-3 xl:px-8 mt-8 mb-4">{children}</div>
         </div>
-      </>
-    </AdminContext>
-  );
+      </AdminContext>
+    );
+  }
 }

@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import ShopProduct from "./ShopProduct";
 import { useRouter, useSearchParams } from "next/navigation";
-
 // import { BsGrid, BsListTask } from "react-icons/bs";
 import { FiFilter } from "react-icons/fi";
 import { useQueryData } from "@/hooks/hook.query";
@@ -10,9 +9,6 @@ import Slider from "rc-slider";
 import Pagination from "@/components/pagination/pagination";
 import "rc-slider/assets/index.css";
 import Link from "next/link";
-export const metadata = {
-  title: "Shop",
-};
 const Shop = () => {
   const params = useSearchParams();
   const cate = params?.getAll("cate");

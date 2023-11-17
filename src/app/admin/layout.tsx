@@ -52,7 +52,7 @@ export default function AdminLayout({
             </div>
             <UserProfileMenu />
           </div>
-          <div className="px-3 xl:px-8">{children}</div>
+          <div className="px-3 xl:px-8 mt-8">{children}</div>
         </div>
       </>
     </AdminContext>

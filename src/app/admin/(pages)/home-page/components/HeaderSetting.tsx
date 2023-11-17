@@ -1,6 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useForm as useform, SubmitHandler, useFieldArray } from "react-hook-form";
+import {
+  useForm as useform,
+  SubmitHandler,
+  useFieldArray,
+} from "react-hook-form";
 import FormValues from "@/interface/settings";
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -8,11 +12,17 @@ import Uploder from "@/hooks/hook.upload";
 
 const HeaderSetting = ({ setting }: { setting: any }) => {
   const [menuItem, setMenuItem] = useState(1);
-  const { control, register, reset, handleSubmit, setValue, getValues } = useform<FormValues>();
-  const { append, remove, fields } = useFieldArray({ control, name: "header.nav_menu" });
+  const { control, register, reset, handleSubmit, setValue, getValues } =
+    useform<FormValues>();
+  const { append, remove, fields } = useFieldArray({
+    control,
+    name: "header.nav_menu",
+  });
   // =============== FUNCTION FOR THE PRODUCT POST REQUEST
   const HandleEditHeader: SubmitHandler<FormValues> = async (data: any) => {
-    data.header.logo.length > 0 ? (data.header.logo = await Uploder(data.header.logo)) : delete data.header.logo;
+    data.header.logo.length > 0
+      ? (data.header.logo = await Uploder(data.header.logo))
+      : delete data.header.logo;
     axios.post("/api/siteconfig", data).then((res) => {
       toast.success("site updated");
     });
@@ -30,36 +40,50 @@ const HeaderSetting = ({ setting }: { setting: any }) => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit(HandleEditHeader)} className="border mt-10 py-6 px-4 lg:px-10">
-        <div className="flex gap-5">
-          <div className="basis-1/2">
+      <form
+        onSubmit={handleSubmit(HandleEditHeader)}
+        className="border mt-10 py-6 px-4 lg:px-10"
+      >
+        <div className="md:flex gap-5">
+          <div className="md:basis-1/2">
             <label htmlFor="logo" className="block mb-3 text-sm">
               Logo Upload
             </label>
-            <input {...register("header.logo")} type="file" className="w-full py-1 px-1 rounded border" />
+            <input
+              {...register("header.logo")}
+              type="file"
+              className="w-full py-1 px-1 rounded border"
+            />
           </div>
-          <div className="basis-1/2">
+          <div className="md:basis-1/2">
             <label htmlFor="theme" className="block mb-2 text-sm">
               Header Color
             </label>
-            <input {...register("header.color")} type="color" className="w-full h-10 rounded border" />
+            <input
+              {...register("header.color")}
+              type="color"
+              className="w-full h-10 rounded border"
+            />
           </div>
         </div>
-        <div className="flex gap-5">
-          <div className="basis-1/2">
+        <div className="md:flex gap-5 mt-3">
+          <div className="md:basis-1/2">
             <label htmlFor="logo" className="block mb-2 text-sm">
               Meta Title
             </label>
-            <input {...register("header.meta_title")} className="w-full py-1 px-1 rounded border" />
+            <input
+              {...register("header.meta_title")}
+              className="w-full p-2 rounded border"
+            />
           </div>
-          <div className="basis-1/2">
+          <div className="md:basis-1/2">
             <label htmlFor="theme" className="block mb-3 text-sm">
-              Meta desprition
+              Meta description
             </label>
             <textarea
               {...register("header.meta_description")}
               placeholder="Meta description"
-              className="w-full border py-1 px-1 outline-none  h-28"
+              className="w-full border p-2 outline-none  h-28"
             ></textarea>
           </div>
         </div>
@@ -67,7 +91,10 @@ const HeaderSetting = ({ setting }: { setting: any }) => {
           <h2 className="text-sm mb-2">Header nav menu</h2>
 
           {fields.map((item, i: any) => (
-            <div className="flex justify-between gap-3 items-center mb-3" key={i}>
+            <div
+              className="flex justify-between gap-3 items-center mb-3"
+              key={i}
+            >
               <input
                 {...register(`header.nav_menu.${i}.lavel`)}
                 type="text"
@@ -77,7 +104,7 @@ const HeaderSetting = ({ setting }: { setting: any }) => {
               <input
                 type="text"
                 {...register(`header.nav_menu.${i}.value`)}
-                className="basis-8/12 border rounded outline-none py-2 px-2"
+                className="basis-8/12 border rounded outline-none py-3 px-3"
                 placeholder="Link with http:// Or https://"
               />
               <button
@@ -91,7 +118,10 @@ const HeaderSetting = ({ setting }: { setting: any }) => {
               </button>
             </div>
           ))}
-          <button onClick={handlePageItem} className=" bg-gray-200 py-1 px-3 rounded text-[12px] mt-[7px]">
+          <button
+            onClick={handlePageItem}
+            className=" bg-gray-200 py-2 px-3 rounded text-[12px] mt-[7px]"
+          >
             Add New
           </button>
           <input

@@ -36,3 +36,13 @@
 .slick-slide > div:focus-visible {
   outline: none !important;
 }
+.react-tabs__tab--selected {
+  background: #141423 !important;
+  border-color: #fff !important;
+  color: white !important;
+  border-radius: 5px 5px 0 0;
+}
+.react-tabs__tab-list {
+  border-bottom: 0px solid #aaa !important;
+  margin: 0 0 0px !important;
+}

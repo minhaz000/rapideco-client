@@ -6,7 +6,7 @@ import BannerSlider from "./BannerSlider";
 const HomeBanner = () => {
   return (
     <div
-      className="max-w-screen-xl mx-auto px-3 lg:px-10 mt-4 relative"
+      className="max-w-screen-xl mx-auto px-3 lg:px-20 mt-4 relative"
       id="homeSlider"
     >
       <BannerSlider/>

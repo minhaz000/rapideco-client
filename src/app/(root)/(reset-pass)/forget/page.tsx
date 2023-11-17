@@ -2,7 +2,7 @@ import React from "react";
 
 function ForgetPage() {
   return (
-    <section className="max-w-screen-sm mx-auto lg:px-10 mt-6 border rounded py-6 px-10">
+    <section className="max-w-screen-sm mx-auto lg:px-20 mt-6 border rounded py-6 px-10">
       <form>
         <input
           type="email"

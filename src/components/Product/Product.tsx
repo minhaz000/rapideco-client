@@ -8,7 +8,7 @@ const Product = ({
   categoryValue: string;
 }) => {
   return (
-    <section className="max-w-screen-xl mx-auto px-3 lg:px-10 mt-10">
+    <section className="max-w-screen-xl mx-auto px-3 lg:px-20 mt-10">
       <SectionHeading sectionTitle={sectionTitle} seeMoreUrl="/" />
       {<ProductCarousel categoryValue={categoryValue} />}
     </section>

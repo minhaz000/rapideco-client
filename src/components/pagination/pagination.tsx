@@ -24,7 +24,7 @@ function pagination({
     (_, index) => index + 1
   );
   return (
-    <div className="">
+    <div className="flex justify-end">
       <div className="join mt-6">
         {Pages.map((item) => (
           <button
@@ -33,7 +33,7 @@ function pagination({
             value={item}
             className={
               "join-item btn " +
-              `${pagination?.page == item && `bg-slate-700 text-white`}`
+              `${pagination?.page == item && `bg-green-700 text-white`}`
             }
           >
             {item}

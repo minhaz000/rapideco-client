@@ -30,7 +30,7 @@ const Checkout = () => {
   };
 
   return (
-    <section className="max-w-screen-xl mx-auto px-3 lg:px-10 mt-6">
+    <section className="max-w-screen-xl mx-auto px-3 lg:px-20 mt-6">
       <h2 className="text-center text-3xl font-semibold mt-10">Checkout Page</h2>
       <form onSubmit={handleSubmit(handleCheckOut)}>
         <div className="lg:flex gap-6 mt-14">

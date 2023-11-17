@@ -1,17 +1,17 @@
 import Image from "next/image";
 import Logo from "../../assets/logo.png";
-import Tracking from "../../assets/finding.png";
 import Cart from "../../assets/bag.png";
 import Link from "next/link";
 import SearchForm from "./SearchForm";
 import SettingData from "../../../public/assets/site.settings.json";
 import { FaPhoneAlt } from "react-icons/fa";
+import { BsCart } from "react-icons/bs";
 const Header = () => {
   const headerBg = SettingData?.header?.color;
   return (
     <header className="pt-3">
       {/* Top bar */}
-      <div className="flex flex-row justify-between items-center max-w-screen-xl mx-auto px-3 lg:px-10">
+      <div className="flex flex-row justify-between items-center max-w-screen-xl mx-auto px-3 lg:px-20">
         <div className="basis-4/12 lg:basis-1/4">
           <Link href="/" className="inline-block">
             <Image
@@ -38,11 +38,11 @@ const Header = () => {
             </div>
             <div className="relative">
               <Link href="/cart">
-                <Image src={Cart} alt="tracking icon" width={40} height={40} />
+                <BsCart className="text-3xl" />
               </Link>
               <span
                 style={{ backgroundColor: `${headerBg}` }}
-                className={`absolute top-0 -right-[5px] text-white text-[12px] px-[5px] rounded-full`}
+                className={`absolute -top-[3px] -right-[6px] text-white text-[12px] px-[5px] rounded-full`}
               >
                 0
               </span>
@@ -55,7 +55,7 @@ const Header = () => {
         className={` mt-3 hidden lg:block`}
         style={{ backgroundColor: `${headerBg}` }}
       >
-        <ul className="flex gap-4 max-w-screen-xl mx-auto py-3 px-10 text-white text-[14px]">
+        <ul className="flex gap-4 max-w-screen-xl mx-auto py-3 lg:px-20 text-white text-[14px]">
           {SettingData?.header?.nav_menu?.map((item: any, index: number) => (
             <li key={index}>
               <Link href={item?.value}>{item?.lavel}</Link>

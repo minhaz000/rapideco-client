@@ -2,13 +2,18 @@
 import React, { useEffect, useState } from "react";
 import ShopProduct from "./ShopProduct";
 import { useRouter, useSearchParams } from "next/navigation";
+
 // import { BsGrid, BsListTask } from "react-icons/bs";
 import { FiFilter } from "react-icons/fi";
 import { useQueryData } from "@/hooks/hook.query";
-import axios from "@/hooks/hook.axios";
 import Slider from "rc-slider";
 import Pagination from "@/components/pagination/pagination";
 import "rc-slider/assets/index.css";
+import Link from "next/link";
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "Shop",
+};
 const Shop = () => {
   const params = useSearchParams();
   const cate = params?.getAll("cate");
@@ -60,18 +65,18 @@ const Shop = () => {
   }, [pagination, query]);
 
   return (
-    <section className="max-w-screen-xl mx-auto px-3 lg:px-10 mt-6 overflow-hidden  relative">
+    <section className="max-w-screen-xl mx-auto px-3 lg:px-20 mt-4 overflow-hidden  relative">
       {/* Breadcrumb section */}
       <div className="text-sm breadcrumbs">
         <ul>
           <li>
-            <a>Home</a>
+            <Link href={"/"}>Home</Link>
           </li>
           <li>Shop</li>
         </ul>
       </div>
       {/* Product area */}
-      <div className="lg:flex mt-10 gap-8">
+      <div className="lg:flex mt-5 gap-8">
         <div
           className={`w-2/3 transition-all duration-300 ${
             isFilterOn

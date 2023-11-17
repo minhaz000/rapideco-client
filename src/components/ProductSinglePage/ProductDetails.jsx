@@ -1,9 +1,10 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
-import ReactImageMagnify from "react-image-magnify";
 import { useSearchParams } from "next/navigation";
 import { useQueryData } from "@/hooks/hook.query";
+import { FaPhoneAlt } from "react-icons/fa";
+import { toast } from "react-toastify";
 const ProductDetails = () => {
   const sech = useSearchParams();
   const ID = sech.get("_id");
@@ -12,65 +13,58 @@ const ProductDetails = () => {
     `/api/v0/product/${ID}`
   );
   console.log(product?.data);
-  const [quantity, setQuantity] = useState(1);
-  const [imageUrl, setImageUrl] = useState(
-    `${product?.data?.product_image?.img_url}`
-  );
+  const [quantity, setQuantity] = useState(0);
+  const [imageUrl, setImageUrl] = useState(`https://i.ibb.co/0K6VWwq/p2.jpg`);
   const handleQuantityPlus = () => {
     if (quantity < 10) {
-      setQuantity(quantity + 1);
+      setQuantity((prev) => prev + 1);
+    } else {
+      toast.error("You can't buy over 10");
     }
   };
   const handleQuantityMinus = () => {
-    if (quantity > 0) {
-      setQuantity(quantity - 1);
+    if (quantity > 1) {
+      setQuantity((prev) => prev - 1);
+    } else {
+      toast.error("You can't select less then 1");
     }
   };
   return (
     <div className="lg:flex gap-5">
       <div className="lg:basis-1/2">
         <p className="text-sm mb-2">
-          <Link href="/">Home</Link> / Add product breadcrumb
+          <Link href="/">Home</Link> / {product?.data?.title}
         </p>
-        <ReactImageMagnify
-          {...{
-            smallImage: {
-              alt: "Wristwatch by Ted Baker London",
-              isFluidWidth: true,
-              src: imageUrl,
-              width: 500,
-              height: 380,
-            },
-            largeImage: {
-              src: imageUrl,
-              width: 1100,
-              height: 1000,
-            },
-          }}
+        <img
+          src={imageUrl}
+          className="w-full h-[350px] object-cover rounded cursor-pointer"
+          alt=""
         />
-        <div className="flex gap-3 mt-2">
+        <div className="grid grid-cols-6 gap-3 mt-2">
           <img
             src="https://i.ibb.co/0K6VWwq/p2.jpg"
-            className="w-24 h-24 rounded cursor-pointer"
+            className="sm:w-20 sm:h-20 rounded cursor-pointer"
             alt=""
             onClick={() => setImageUrl("https://i.ibb.co/0K6VWwq/p2.jpg")}
           />
           <img
             src="https://i.ibb.co/h7bn4QT/p1.jpg"
-            className="w-24 h-24 rounded cursor-pointer"
+            className="sm:w-20 sm:h-20 rounded cursor-pointer"
             alt=""
             onClick={() => setImageUrl("https://i.ibb.co/h7bn4QT/p1.jpg")}
           />
           <img
             src="https://i.ibb.co/wLYhz09/p3.jpg"
-            className="w-24 h-24 rounded cursor-pointer"
+            className="sn:w-20 sm:h-20 rounded cursor-pointer"
             alt=""
             onClick={() => setImageUrl("https://i.ibb.co/wLYhz09/p3.jpg")}
           />
         </div>
       </div>
       <div className="lg:basis-1/2 pt-6">
-        <h2 className="text-2xl font-medium">{product?.data?.title}</h2>
+        <h2 className="text-3xl font-medium text-slate-800">
+          {product?.data?.title}
+        </h2>
 
         <div className="mt-2">
           <p>
@@ -79,21 +73,6 @@ const ProductDetails = () => {
               Tk 200
             </span>
             <span className="line-through text-gray-500 ">Tk 100</span>
-          </p>
-        </div>
-        <div className="mt-4">
-          <h2 className="mb-2">Short Description:</h2>
-          <p className="text-[13px] text-gray-500">
-            আপনার যত প্রশ্ন আছে তা বর্ননার সাথে মিলিয়ে অথবা আমাদের কাছ থেকে জেনে
-            পন্য অর্ডার করুন। ছবি এবং বর্ণনার সাথে পন্যের মিল থাকলে পণ্য ফেরত
-            নেয়া হবে না । তবে আপনি চাইলে আপনার গ্রহন করা পন্যের সম মুল্যের কি বা
-            বেশি মুল্যের পণ্য নিতে পারবেন (যে টাকা বেশি হবে তা প্রদান করতে হবে )
-            । কম মুল্যের পণ্য নেয়া যাবে না । পণ্য আনা নেয়ার খরচ আপনাকে দিতে হবে।
-            যে সকল পন্যে ওয়ারেন্টি আছে তার ওয়ারেন্টি সার্ভিস আমরা প্রদান
-            করবো।তবে কিছু কিছু ক্ষেত্রে পন্যের ব্রান্ড আপনাকে সার্ভিস প্রদান
-            করবে তবে সে ক্ষেত্রে আপনার নিকটস্থ সার্ভিস পয়েন্ট থেকে সার্ভিস নিতে
-            পারবেন। পণ্য সার্ভিস করতে যাওয়া আসা বা পাঠানো এবং রিটার্ন করার খরজ
-            আপনাকে বহন করতে হবে।
           </p>
         </div>
         <div className="mt-4 flex">
@@ -152,12 +131,35 @@ const ProductDetails = () => {
           <p className="me-3 text-gray-500 text-xs">(20 Available)</p>
         </div>
         <div className="flex gap-2 mt-5">
-          <button className="bg-green-600 text-white px-10 rounded-sm py-2">
+          <button className="bg-green-600 text-white px-10 rounded-sm py-2 w-full">
             Buy Now
           </button>
-          <button className="bg-orange-600 text-white px-10 rounded-sm py-2">
+          <button className="bg-orange-600 text-white px-10 rounded-sm py-2 w-full">
             Add to Cart
           </button>
+        </div>
+        <div className="mt-2 w-full">
+          <Link
+            href={"/"}
+            className="bg-blue-500 text-white px-10 rounded-sm py-2 w-full text-center flex items-center justify-center gap-1"
+          >
+            <FaPhoneAlt />
+            01745689754
+          </Link>
+        </div>
+        <div className="mt-3">
+          <div className="flex justify-between items-center border-y py-2 px-3">
+            <h3 className=" text-[17px] text-blue-400">
+              ঢাকার বাইরে ডেলিভারি খরচ
+            </h3>
+            <span className="font-semibold">৳ 120</span>
+          </div>
+          <div className="flex justify-between items-center border-b py-2 px-3">
+            <h3 className="text-slate-700 text-[17px] text-blue-400">
+              ঢাকার ভিতরে ডেলিভারি খরচ
+            </h3>
+            <span className="font-semibold">৳ 60</span>
+          </div>
         </div>
       </div>
     </div>

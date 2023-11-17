@@ -30,7 +30,7 @@ const FooterSetting = ({ setting }: { setting: any }) => {
     reset(setting);
   }, [setting]);
   return (
-    <div className="border mt-10 py-6 px-4 lg:px-10">
+    <div className="border mt-5 py-6 px-4 lg:px-10">
       <h2 className="text-sm mb-2">Footer Widget</h2>
       <div className="lg:flex gap-5 mt-5">
         <div className="lg:basis-1/2 border p-3">

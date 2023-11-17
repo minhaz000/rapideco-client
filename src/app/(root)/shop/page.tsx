@@ -9,6 +9,9 @@ import Slider from "rc-slider";
 import Pagination from "@/components/pagination/pagination";
 import "rc-slider/assets/index.css";
 import Link from "next/link";
+// export const metadata = {
+//   title: "Shop",
+// };
 const Shop = () => {
   const params = useSearchParams();
   const cate = params?.getAll("cate");

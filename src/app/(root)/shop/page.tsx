@@ -10,9 +10,9 @@ import Slider from "rc-slider";
 import Pagination from "@/components/pagination/pagination";
 import "rc-slider/assets/index.css";
 import Link from "next/link";
-export const metadata = {
-  title: "Shop",
-};
+// export const metadata = {
+//   title: "Shop",
+// };
 const Shop = () => {
   const params = useSearchParams();
   const cate = params?.getAll("cate");
@@ -24,17 +24,11 @@ const Shop = () => {
     update: false,
   });
   const [pagination, setPagination] = useState({ page: 1, limit: 10 });
-  const { data: Categories } = useQueryData(
-    ["shop"],
-    `/api/v0/categories?is_delete=false`
-  );
+  const { data: Categories } = useQueryData(["shop"], `/api/v0/categories?is_delete=false`);
   // prettier-ignore
   const url = `/api/v0/products?is_delete=false&status=active&page=${pagination.page}&s=${query.s}&limit=${pagination.limit}&sort=${query.sort}&category_info._id=${query.categories}&regular_price>${query.price[0]}`;
   const formate = query.update ? url + `&regular_price<${query.price[1]}` : url;
-  const { data: products, refetch } = useQueryData(
-    ["get shop products", pagination, query],
-    formate
-  );
+  const { data: products, refetch } = useQueryData(["get shop products", pagination, query], formate);
 
   const [isFilterOn, setIsFilterOn] = useState(false);
 
@@ -78,9 +72,7 @@ const Shop = () => {
       <div className="lg:flex mt-5 gap-8">
         <div
           className={`w-2/3 transition-all duration-300 ${
-            isFilterOn
-              ? "translate-x-0 opacity-100"
-              : "translate-x-96 lg:translate-x-0 opacity-0 lg:opacity-100"
+            isFilterOn ? "translate-x-0 opacity-100" : "translate-x-96 lg:translate-x-0 opacity-0 lg:opacity-100"
           } lg:basis-3/12 absolute right-0 top-14 lg:top-0 h-fit bg-slate-200 py-10 lg:py-0 px-2 lg:px-0 lg:bg-white lg:h-full lg:relative z-50`}
         >
           <div>
@@ -117,13 +109,7 @@ const Shop = () => {
             <h3 className="text-[15px] font-semibold">Filter By Price</h3>
             <div className="mt-4">
               <div className="w-full max-w-xs mx-auto mt-4">
-                <Slider
-                  range
-                  min={0}
-                  max={10000}
-                  value={query.price}
-                  onChange={handePrice}
-                />
+                <Slider range min={0} max={10000} value={query.price} onChange={handePrice} />
                 <div className="flex justify-between mt-2">
                   <span>${query.price[0]}</span>
                   <span>${query.price[1]}</span>
@@ -135,17 +121,12 @@ const Shop = () => {
         <div className="lg:basis-9/12">
           <div className="flex gap-5 justify-between items-center mb-4">
             <div className="flex gap-3 items-center">
-              <button
-                className="text-[18px] text-slate-500 block lg:hidden"
-                onClick={() => setIsFilterOn(!isFilterOn)}
-              >
+              <button className="text-[18px] text-slate-500 block lg:hidden" onClick={() => setIsFilterOn(!isFilterOn)}>
                 <FiFilter />
               </button>
             </div>
             <div>
-              <label className="text-[15px] mr-4 text-slate-500">
-                Sort By:
-              </label>
+              <label className="text-[15px] mr-4 text-slate-500">Sort By:</label>
               <select
                 name="sort"
                 onChange={HandleQuery}
@@ -157,12 +138,7 @@ const Shop = () => {
             </div>
           </div>
           {products?.data && <ShopProduct products={products?.data} />}
-          {products?.data && (
-            <Pagination
-              pagination={products.pagination}
-              setPagination={setPagination}
-            />
-          )}
+          {products?.data && <Pagination pagination={products.pagination} setPagination={setPagination} />}
         </div>
       </div>
     </section>

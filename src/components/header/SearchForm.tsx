@@ -3,22 +3,23 @@ type Props = {
   headerBg: string;
 };
 import React, { useState } from "react";
-import { FaSearch } from "react-icons/fa";
 import { useQueryData } from "@/hooks/hook.query";
 import Link from "next/link";
-import Image from "next/image";
 const SearchForm = ({ headerBg }: Props) => {
-  const [query, setQuery] = useState({ s: "", active: false });
+  const [query, setQuery] = useState("");
+  const [isActive, setIsActive] = useState(false);
   const { data: results, refetch } = useQueryData(
     ["get search", query],
-    `/api/v0/products?is_delete=false&status=active&s=${query.s}`
+    `/api/v0/products?is_delete=false&status=active&s=${query}`
   );
   const HandleQuery = (e: any) => {
     e.preventDefault();
-    setQuery({ active: true, s: e.target.value });
+    setQuery(e.target.value);
+    setIsActive(true);
   };
-  const HandleBur = (e: any) => {
-    setQuery((pre) => ({ ...pre, active: false }));
+  const handleSearch = () => {
+    setQuery("");
+    setIsActive(false);
   };
   return (
     <div className="basis-8/12 lg:basis-1/2 relative">
@@ -28,26 +29,28 @@ const SearchForm = ({ headerBg }: Props) => {
           placeholder="Search"
           className="w-full border rounded-s-md px-2 md:px-3 py-[6px] md:py-[10px] outline-none"
           onChange={HandleQuery}
-          onBlur={HandleBur}
         />
         <button
           onChange={(e) => e.preventDefault()}
           style={{ backgroundColor: `${headerBg}` }}
           className={` text-white px-3 rounded-e-md`}
         >
-          <FaSearch />
+          Search
         </button>
       </form>
       {/* Search data show */}
-      {query.active && (
-        <div className="absolute bg-slate-50 border top-12 left-0 w-[95%] px-4 py-2 z-50">
+      {isActive && (
+        <div className="absolute bg-slate-50 border top-12 left-0 w-[95%] px-4 py-2 z-[999999]">
           <h2 className="text-sm border-b pb-2 text-end">Products</h2>
           {results?.data
             ? results.data.map((item: any) => (
-                <div className="flex gap-3 flex-col mt-3">
+                <div
+                  className="flex gap-3 flex-col mt-3"
+                  onClick={handleSearch}
+                >
                   <Link href={`/product?_id=${item._id}`}>
                     <div className="flex gap-3 items-center">
-                      <Image
+                      <img
                         src={item?.product_image?.img_url}
                         alt=""
                         width={40}

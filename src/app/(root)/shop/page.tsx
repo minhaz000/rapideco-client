@@ -63,7 +63,7 @@ const Shop = () => {
   }, [pagination, query]);
 
   return (
-    <section className="max-w-screen-xl mx-auto px-3 lg:px-20 mt-4 overflow-hidden  relative">
+    <section className="max-w-screen-xl mx-auto px-3 lg:px-12 mt-4 overflow-hidden  relative">
       {/* Breadcrumb section */}
       <div className="text-sm breadcrumbs">
         <ul>

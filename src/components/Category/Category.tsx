@@ -7,11 +7,10 @@ import CategoryCard from "./CategoryCard";
 import SectionHeading from "../common/SectionHeading";
 import getCategories from "@/lib/getCategories";
 import CategorySkeleton from "./CategorySkeleton";
-
 const Category = () => {
   const { categories, isLoading } = getCategories();
   return (
-    <section className="max-w-screen-xl mx-auto px-3 lg:px-20 mt-10">
+    <section className="max-w-screen-xl mx-auto px-3 lg:px-12 mt-10">
       <SectionHeading sectionTitle="SHOP BY CATEGORIES" seeMoreUrl={"/"} />
       <div className="mt-3">
         {isLoading ? (
@@ -26,7 +25,7 @@ const Category = () => {
             navigation={true}
             breakpoints={{
               0: {
-                slidesPerView: 1,
+                slidesPerView: 2,
                 spaceBetween: 10,
               },
               480: {

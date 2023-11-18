@@ -20,7 +20,7 @@ const BannerSlider = () => {
           <img
             src={item?.img_url}
             alt=""
-            className="w-full rounded-md h-full md:h-[400px] object-cover"
+            className="w-full h-full md:h-[400px] object-cover"
           />
         </div>
       ))}

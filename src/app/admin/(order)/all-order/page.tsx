@@ -1,8 +1,7 @@
 "use client";
 import { useQueryData } from "@/hooks/hook.query";
 import React, { useEffect, useState } from "react";
-import order from "@/interface/checkout";
-import { FaRegEye, FaRegTrashAlt, FaDownload } from "react-icons/fa";
+import { FaRegEye } from "react-icons/fa";
 import Link from "next/link";
 import Pagination from "@/components/pagination/pagination";
 const AllOrders = () => {
@@ -26,8 +25,15 @@ const AllOrders = () => {
   }, [pagination, query]);
   function convertDateFormat(inputDate: string): string {
     const dateObject = new Date(inputDate);
-    const options: Intl.DateTimeFormatOptions = { year: "numeric", month: "short", day: "numeric" };
-    const formattedDate: string = new Intl.DateTimeFormat("en-US", options).format(dateObject);
+    const options: Intl.DateTimeFormatOptions = {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    };
+    const formattedDate: string = new Intl.DateTimeFormat(
+      "en-US",
+      options
+    ).format(dateObject);
     return formattedDate;
   }
   console.log(query);
@@ -35,7 +41,7 @@ const AllOrders = () => {
   // const newPayment = useMutationData(["add new payament"], "post", "api/v0/payment");
   return (
     <div>
-      <div className="shadow-[0_0_10px_5px_#d7d7d7bf]">
+      <div className="shadow-[0_0_8px_3px_#d7d7d7bf] pb-3">
         <div className="lg:flex justify-between items-center border-b pb-3 px-4 pt-4 mb-4">
           <h2 className="text-xl">All Orders</h2>
           <div className="flex flex-col lg:flex-row gap-4">
@@ -71,22 +77,34 @@ const AllOrders = () => {
               />
             </div>
             <div>
-              <button className="text-sm py-2 px-5 text-white">Filter</button>
+              <button className="text-sm py-2 px-5 text-white bg-green-500">
+                Filter
+              </button>
             </div>
           </div>
         </div>
         <div className="overflow-x-auto mt-3 p-4">
-          <table className="table  w-[1130px] lg:w-full border">
+          <table className="table  w-[1270px] xl:w-full border">
             <thead>
               <tr className="border text-xs font-normal ">
-                <th className="py-3 text-slate-500 ps-4 text-start">Order Code:</th>
-                <th className="py-3 text-slate-500 text-start">Num. of Products</th>
+                <th className="py-3 text-slate-500 ps-4 text-start">
+                  Order Code:
+                </th>
+                <th className="py-3 text-slate-500 text-start">
+                  Num. of Products
+                </th>
                 <th className="py-3 text-slate-500 text-start">Customer</th>
                 <th className="py-3 text-slate-500 text-start">Amount</th>
-                <th className="py-3 text-slate-500 text-start">Delivery Status</th>
-                <th className="py-3 text-slate-500 text-start">Payment method</th>
+                <th className="py-3 text-slate-500 text-start">
+                  Delivery Status
+                </th>
+                <th className="py-3 text-slate-500 text-start">
+                  Payment method
+                </th>
                 <th className="py-3 text-slate-500 text-start">Date</th>
-                <th className="py-3 text-slate-500 text-start">Payment Status</th>
+                <th className="py-3 text-slate-500 text-start">
+                  Payment Status
+                </th>
 
                 <th className="py-3 text-slate-500 text-start">Action</th>
               </tr>
@@ -94,7 +112,10 @@ const AllOrders = () => {
             <tbody className="border pt-2">
               {allOrders?.data.map((item: any, i: number) => {
                 return (
-                  <tr key={i} className="text-xs font-normal text-start border-b">
+                  <tr
+                    key={i}
+                    className="text-xs font-normal text-start border-b"
+                  >
                     <td className="py-5 ps-4">{item._id}</td>
                     <td>{item.ordered_items.length}</td>
                     <td>{item.user_info.name}</td>
@@ -104,9 +125,13 @@ const AllOrders = () => {
                     <td>{convertDateFormat(item.createdAt)}</td>
                     <td>
                       {item.payment_info.trx_id ? (
-                        <span className="bg-green-500 bg-opacity-70 text-white text-sm p-1 rounded">Paid</span>
+                        <span className="bg-green-500 bg-opacity-70 text-white text-sm p-1 rounded">
+                          Paid
+                        </span>
                       ) : (
-                        <span className="bg-red-500 bg-opacity-70 text-white text-sm p-1 rounded">Unpaid</span>
+                        <span className="bg-red-500 bg-opacity-70 text-white text-sm p-1 rounded">
+                          Unpaid
+                        </span>
                       )}
                     </td>
                     <td>
@@ -119,18 +144,6 @@ const AllOrders = () => {
                             <FaRegEye />
                           </Link>
                         </span>
-                        <span
-                          title="Download"
-                          className="bg-yellow-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
-                        >
-                          <FaDownload />
-                        </span>
-                        <span
-                          title="Delete"
-                          className="bg-red-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
-                        >
-                          <FaRegTrashAlt />
-                        </span>
                       </div>
                     </td>
                   </tr>
@@ -139,7 +152,12 @@ const AllOrders = () => {
             </tbody>
           </table>
         </div>
-        {allOrders?.data && <Pagination pagination={allOrders.pagination} setPagination={setPagination} />}
+        {allOrders?.data && (
+          <Pagination
+            pagination={allOrders.pagination}
+            setPagination={setPagination}
+          />
+        )}
       </div>
     </div>
   );

@@ -12,9 +12,10 @@ const ProductDetails = () => {
     ["get single data"],
     `/api/v0/product/${ID}`
   );
-  console.log(product?.data);
+  const [imageUrl, setImageUrl] = useState(
+    `${product?.data?.product_image?.img_url}`
+  );
   const [quantity, setQuantity] = useState(0);
-  const [imageUrl, setImageUrl] = useState(`https://i.ibb.co/0K6VWwq/p2.jpg`);
   const handleQuantityPlus = () => {
     if (quantity < 10) {
       setQuantity((prev) => prev + 1);
@@ -32,33 +33,24 @@ const ProductDetails = () => {
   return (
     <div className="lg:flex gap-5">
       <div className="lg:basis-1/2">
-        <p className="text-sm mb-2">
-          <Link href="/">Home</Link> / {product?.data?.title}
-        </p>
         <img
           src={imageUrl}
-          className="w-full h-[350px] object-cover rounded cursor-pointer"
+          className="w-full text-[300px] md:h-[350px] object-cover rounded cursor-pointer"
           alt=""
         />
         <div className="grid grid-cols-6 gap-3 mt-2">
-          <img
-            src="https://i.ibb.co/0K6VWwq/p2.jpg"
-            className="sm:w-20 sm:h-20 rounded cursor-pointer"
-            alt=""
-            onClick={() => setImageUrl("https://i.ibb.co/0K6VWwq/p2.jpg")}
-          />
-          <img
-            src="https://i.ibb.co/h7bn4QT/p1.jpg"
-            className="sm:w-20 sm:h-20 rounded cursor-pointer"
-            alt=""
-            onClick={() => setImageUrl("https://i.ibb.co/h7bn4QT/p1.jpg")}
-          />
-          <img
-            src="https://i.ibb.co/wLYhz09/p3.jpg"
-            className="sn:w-20 sm:h-20 rounded cursor-pointer"
-            alt=""
-            onClick={() => setImageUrl("https://i.ibb.co/wLYhz09/p3.jpg")}
-          />
+          {[
+            ...product?.data?.gallery_images,
+            { img_url: product?.data?.product_image?.img_url },
+          ]?.map((item, index) => (
+            <img
+              key={index}
+              src={item?.img_url}
+              className="sm:w-20 h-14 md:h-20 rounded cursor-pointer object-cover"
+              alt=""
+              onClick={() => setImageUrl(item?.img_url)}
+            />
+          ))}
         </div>
       </div>
       <div className="lg:basis-1/2 pt-6">
@@ -70,41 +62,48 @@ const ProductDetails = () => {
           <p>
             <b className="text-green-600 font-medium text-xl me-2"> Price:</b>
             <span className="text-green-600 font-medium text-xl me-2">
-              Tk 200
+              Tk {product?.data?.discount_price}
             </span>
-            <span className="line-through text-gray-500 ">Tk 100</span>
+            <span className="line-through text-gray-500 ">
+              Tk {product?.data?.regular_price}
+            </span>
           </p>
         </div>
-        <div className="mt-4 flex">
-          <p className="me-4 text-gray-500">Size:</p>
-          <div className="flex gap-4">
-            <button className="uppercase text-sm px-2 rounded-full hover:bg-sky-600 hover:text-white">
-              s
-            </button>
-            <button className="uppercase text-sm px-2 rounded-full hover:bg-sky-600 hover:text-white">
-              m
-            </button>
-            <button className="uppercase text-sm px-2 rounded-full hover:bg-sky-600 hover:text-white">
-              l
-            </button>
-            <button className="uppercase  text-sm px-2 rounded-full hover:bg-sky-600 hover:text-white">
-              xl
-            </button>
-            <button className="uppercase text-sm px-2 rounded-full hover:bg-sky-600 hover:text-white">
-              xxl
-            </button>
+        {product?.data?.variants?.length > 0 ? (
+          <div className="mt-4 flex">
+            <p className="me-4 text-gray-500">Size:</p>
+            <div className="flex gap-4">
+              <button className="uppercase text-sm px-2 rounded-full hover:bg-sky-600 hover:text-white">
+                s
+              </button>
+              <button className="uppercase text-sm px-2 rounded-full hover:bg-sky-600 hover:text-white">
+                m
+              </button>
+              <button className="uppercase text-sm px-2 rounded-full hover:bg-sky-600 hover:text-white">
+                l
+              </button>
+              <button className="uppercase  text-sm px-2 rounded-full hover:bg-sky-600 hover:text-white">
+                xl
+              </button>
+              <button className="uppercase text-sm px-2 rounded-full hover:bg-sky-600 hover:text-white">
+                xxl
+              </button>
+            </div>
           </div>
-        </div>
-        <div className="mt-4 flex">
-          <p className="me-4 text-gray-500">Colors:</p>
-          <div className="flex gap-4 items-center">
-            <button className="uppercase w-4 h-4 text-sm px-2 rounded-full bg-slate-500"></button>
-            <button className="uppercase w-4 h-4 text-sm px-2 rounded-full bg-red-500"></button>
-            <button className="uppercase w-4 h-4 text-sm px-2 rounded-full bg-blue-600"></button>
-            <button className="uppercase w-4 h-4 text-sm px-2 rounded-full bg-orange-700"></button>
-            <button className="uppercase w-4 h-4 text-sm px-2 rounded-full bg-green-500"></button>
+        ) : null}
+        {product?.data?.variants?.length > 0 ? (
+          <div className="mt-4 flex">
+            <p className="me-4 text-gray-500">Colors:</p>
+            <div className="flex gap-4 items-center">
+              <button className="uppercase w-4 h-4 text-sm px-2 rounded-full bg-slate-500"></button>
+              <button className="uppercase w-4 h-4 text-sm px-2 rounded-full bg-red-500"></button>
+              <button className="uppercase w-4 h-4 text-sm px-2 rounded-full bg-blue-600"></button>
+              <button className="uppercase w-4 h-4 text-sm px-2 rounded-full bg-orange-700"></button>
+              <button className="uppercase w-4 h-4 text-sm px-2 rounded-full bg-green-500"></button>
+            </div>
           </div>
-        </div>
+        ) : null}
+
         <div className="mt-3 flex items-center">
           <p className="me-2 text-gray-500">Quantity:</p>
           <div className="flex gap-1 me-3">
@@ -131,10 +130,10 @@ const ProductDetails = () => {
           <p className="me-3 text-gray-500 text-xs">(20 Available)</p>
         </div>
         <div className="flex gap-2 mt-5">
-          <button className="bg-green-600 text-white px-10 rounded-sm py-2 w-full">
-            Buy Now
+          <button className="bg-green-600 text-white px-5 md:px-10 rounded-sm py-2 w-full">
+            অর্ডার করুন
           </button>
-          <button className="bg-orange-600 text-white px-10 rounded-sm py-2 w-full">
+          <button className="bg-orange-600 text-white px-5 md:px-10 rounded-sm py-2 w-full">
             Add to Cart
           </button>
         </div>
@@ -149,13 +148,13 @@ const ProductDetails = () => {
         </div>
         <div className="mt-3">
           <div className="flex justify-between items-center border-y py-2 px-3">
-            <h3 className=" text-[17px] text-blue-400">
+            <h3 className=" text-[16px] text-blue-400">
               ঢাকার বাইরে ডেলিভারি খরচ
             </h3>
             <span className="font-semibold">৳ 120</span>
           </div>
           <div className="flex justify-between items-center border-b py-2 px-3">
-            <h3 className="text-slate-700 text-[17px] text-blue-400">
+            <h3 className="text-[16px] text-blue-400">
               ঢাকার ভিতরে ডেলিভারি খরচ
             </h3>
             <span className="font-semibold">৳ 60</span>

@@ -14,12 +14,12 @@ const Login = () => {
   };
   return (
     <>
-      <div className="max-w-screen-xl mx-auto px-3 lg:px-20 mt-6 hero min-h-screen bg-base-200">
+      <div className="max-w-screen-xl mx-auto px-3 lg:px-12 mt-6 hero min-h-screen bg-base-200">
         <div className="md:flex flex-row gap-8">
-          <div className="w-full md:w-1/2 hidden  md:block">
+          <div className="w-full md:w-1/2 hidden md:block">
             <img src="https://i.ibb.co/TLYbLkN/login.jpg" alt="" />
           </div>
-          <div className="card shadow-2xl bg-base-100 w-full md:w-1/2">
+          <div className="card shadow-xl bg-base-100 w-full md:w-1/2 me-0 md:me-8">
             <div className="card-body">
               <h1 className="text-4xl font-bold text-center mb-6 border-b pb-4">
                 Login now!

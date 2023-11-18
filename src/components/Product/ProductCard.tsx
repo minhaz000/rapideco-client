@@ -1,13 +1,11 @@
 import Link from "next/link";
 import React from "react";
-import Image from "next/image";
-import loadImg from "@/assets/images.jpeg";
 import AddToCartButton from "./addToCartButton";
 const ProductCard = ({ product }: { product: any }) => {
   return (
     <Link
       href={`/product?_id=${product._id}`}
-      className="flex flex-col group duration-300 hover:border hover:border-[#0f8100] hover:shadow-lg border p-1  sm:p-3 rounded-sm"
+      className="flex flex-col group duration-300 hover:border hover:border-[#0f8100] hover:shadow-lg border p-1  sm:p-2 rounded-sm"
     >
       <div>
         <div className="overflow-hidden relative">

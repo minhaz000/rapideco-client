@@ -26,7 +26,7 @@ const Footer = async () => {
       className="pt-7 pb-3 mt-12 mb-16 md:mb-0"
       style={{ backgroundColor: `${headerBg}` }}
     >
-      <div className="max-w-screen-xl mx-auto px-3 lg:px-20">
+      <div className="max-w-screen-xl mx-auto px-3 lg:px-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
           <div>
             <Link href="/" className="inline-block">
@@ -69,7 +69,7 @@ const Footer = async () => {
         </div>
       </div>
       {/* copyright */}
-      <div className="flex flex-col md:flex-row items-center justify-between max-w-screen-xl mx-auto px-3 lg:px-20 border-t-[1px] border-slate-50 mt-8 pt-3">
+      <div className="flex flex-col md:flex-row items-center justify-between max-w-screen-xl mx-auto px-3 lg:px-12 border-t-[1px] border-slate-50 mt-8 pt-3">
         <p className="text-slate-100 text-sm text-center md:text-left">
           {footer?.copyright}
         </p>

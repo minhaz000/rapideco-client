@@ -44,7 +44,7 @@ const Cart = () => {
   };
 
   return (
-    <section className="max-w-screen-xl mx-auto px-3 lg:px-20 mt-6">
+    <section className="max-w-screen-xl mx-auto px-3 lg:px-12 mt-6">
       <h2 className="text-center text-3xl font-semibold">
         Your Cart (3 Items)
       </h2>

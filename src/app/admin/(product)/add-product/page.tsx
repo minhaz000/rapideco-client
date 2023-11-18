@@ -11,6 +11,7 @@ import Uploder from "@/hooks/hook.upload";
 import { useMutationData } from "@/hooks/hook.query";
 
 const AddProduct = () => {
+<<<<<<< HEAD
   const { Categories, Brands, Atrribute, Products }: any = useAdminContext();
   const newProduct = useMutationData(
     ["add new prodct"],
@@ -21,6 +22,14 @@ const AddProduct = () => {
   const [selectedGalleryImage, setSelectedGalleryImage] = useState([]);
   const { register, handleSubmit, watch, reset, setValue, getValues } =
     useForm<FormValues>();
+=======
+  const { Categories, Brands, Atrribute }: any = useAdminContext();
+  const newProduct = useMutationData(["add new prodct"], "post", "api/v0/product");
+  const [selectedImage, setSelectedImage]: any = useState();
+  const [selectedGalleryImage, setSelectedGalleryImage] = useState([]);
+  const [selectedDesImage, setSelectedDesImage] = useState([]);
+  const { register, handleSubmit, watch, reset, setValue, getValues } = useForm<FormValues>();
+>>>>>>> minhaz
 
   // =============== IMAGE HANDLEING
 
@@ -34,6 +43,12 @@ const AddProduct = () => {
     setSelectedGalleryImage(selectedFiles);
     event.target.value = "";
   };
+  const handleDesImage = (event: any) => {
+    const selectedFiles: any = [...event.target.files, ...selectedDesImage];
+    console.log(Array.from(selectedFiles));
+    setSelectedDesImage(selectedFiles);
+    event.target.value = "";
+  };
   const deleteHandler = (image: any) => {
     setSelectedGalleryImage(selectedGalleryImage.filter((e) => e !== image));
   };
@@ -42,18 +57,24 @@ const AddProduct = () => {
 
   const HandleAddProduct: SubmitHandler<FormValues> = async (data) => {
     data.gallery_images =
+<<<<<<< HEAD
       selectedGalleryImage.length == 1
         ? [await Uploder(selectedGalleryImage)]
         : await Uploder(selectedGalleryImage);
     data.product_image?.length > 0 &&
       (data.product_image = await Uploder(data.product_image));
+=======
+      selectedGalleryImage.length == 1 ? [await Uploder(selectedGalleryImage)] : await Uploder(selectedGalleryImage);
+    data.description_img =
+      selectedDesImage.length == 1 ? [await Uploder(selectedDesImage)] : await Uploder(selectedDesImage);
+    data.product_image?.length > 0 && (data.product_image = await Uploder(data.product_image));
+>>>>>>> minhaz
     data.status ? (data.status = "active") : (data.status = "deactive");
     data.category_info = data.category_info && JSON.parse(data.category_info);
     data.brand_info = data.brand_info && JSON.parse(data.brand_info);
     newProduct.mutate(data as any, {
       onSuccess: () => {
         toast.success("product added");
-        Products.refetch();
         setSelectedGalleryImage([]);
         setSelectedImage(null);
         reset();
@@ -298,7 +319,6 @@ const AddProduct = () => {
             <label htmlFor="name" className="mb-2 block">
               Gallery Image
             </label>
-
             <div>
               <input
                 {...register("gallery_images")}
@@ -318,6 +338,39 @@ const AddProduct = () => {
                           height={100}
                           alt="upload"
                         />
+                        <button
+                          className="absolute top-0 right-0 bg-red-400 text-white px-1"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            deleteHandler(image);
+                          }}
+                        >
+                          x
+                        </button>
+                      </div>
+                    );
+                  })}
+              </div>
+            </div>
+          </div>
+          <div className="mt-3">
+            <label htmlFor="name" className="mb-2 block">
+              Description Image
+            </label>
+            <div>
+              <input
+                {...register("description_img")}
+                type="file"
+                multiple
+                className="w-full file-input file-input-bordered file-input-xs  outline-none mt-2 "
+                onChange={handleDesImage}
+              />
+              <div className="flex gap-2 my-3">
+                {selectedDesImage &&
+                  selectedDesImage.map((image: any, i: number) => {
+                    return (
+                      <div key={i} className="relative">
+                        <Image src={URL.createObjectURL(image as any)} width={100} height={100} alt="upload" />
                         <button
                           className="absolute top-0 right-0 bg-red-400 text-white px-1"
                           onClick={(e) => {

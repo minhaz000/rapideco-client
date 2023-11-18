@@ -6,6 +6,7 @@ interface Product {
   code: string;
   product_image: any;
   gallery_images: any;
+  description_img: any;
   regular_price: number;
   discount_price: number;
   variants: [] | any;

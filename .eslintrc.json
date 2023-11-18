@@ -1,3 +1,24 @@
 {
-  "extends": ["next/core-web-vitals", "next/babel"]
+  // You might want to additionally set this in monorepos where Next.js app is in a subdir
+  "root": true,
+
+  "extends": ["next/core-web-vitals"],
+  "overrides": [
+    {
+      // Adapt to your needs (e.g. some might want to only override "next.config.js")
+      "files": ["*.js", "*.ts"],
+      // This is the default parser of ESLint
+      "parser": "@babel/eslint-parser",
+      "parserOptions": {
+        "sourceType": "module"
+      }
+    }
+  ],
+  "plugins": ["react-hooks"],
+  "rules": {
+    // ...
+    "@typescript-eslint/ban-ts-ignore": "off",
+    "react-hooks/rules-of-hooks": "warn", // Checks rules of Hooks
+    "react-hooks/exhaustive-deps": "warn" // Checks effect dependencies
+  }
 }

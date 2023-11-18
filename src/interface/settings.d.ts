@@ -1,4 +1,4 @@
-export interface ISettings {
+interface ISettings {
   header: {
     logo: any;
     color: any;

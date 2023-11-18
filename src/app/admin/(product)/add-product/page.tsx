@@ -1,5 +1,4 @@
 "use client";
-import JoditEditor from "jodit-react";
 import Image from "next/image";
 import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -117,19 +116,6 @@ const AddProduct = () => {
               </p>
             )}
           </div>
-<<<<<<< HEAD
-          <div className="mt-3">
-            <label htmlFor="name" className="mb-2 block">
-              Full Description
-            </label>
-            <JoditEditor
-              value={""}
-              onChange={(data) => setValue("description", data)}
-            />
-          </div>
-=======
-
->>>>>>> test
           <div className="mt-3">
             <label htmlFor="name" className="mb-2 block">
               Regular Price

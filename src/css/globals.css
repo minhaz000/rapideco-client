@@ -46,3 +46,21 @@
   border-bottom: 0px solid #aaa !important;
   margin: 0 0 0px !important;
 }
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  font-size: 12px !important;
+  color: white;
+  font-weight: 700;
+}
+.swiper-button-next,
+.swiper-rtl .swiper-button-prev {
+  background: red !important;
+  width: 26px !important;
+  height: 26px !important;
+}
+.swiper-button-prev,
+.swiper-rtl .swiper-button-next {
+  background: red !important;
+  width: 26px !important;
+  height: 26px !important;
+}

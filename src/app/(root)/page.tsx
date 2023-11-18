@@ -10,7 +10,11 @@ const page = () => {
       <Category />
 
       {site.body.cat_menu.map((item, i) => (
-        <Product key={i} categoryValue={item.value} sectionTitle={item.lavel} />
+        <Product
+          key={i}
+          categoryValue={item?.value}
+          sectionTitle={item?.lavel}
+        />
       ))}
 
       <Brand />

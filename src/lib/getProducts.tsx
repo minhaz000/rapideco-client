@@ -1,5 +1,4 @@
 "use client";
-
 import { useQuery } from "@tanstack/react-query";
 import axios from "../hooks/hook.axios";
 const getProducts = (categoryValue: any) => {

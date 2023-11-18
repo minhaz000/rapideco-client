@@ -17,6 +17,7 @@ const ProductDetails = () => {
   );
   const [quantity, setQuantity] = useState(0);
   const handleQuantityPlus = () => {
+    console.log(quantity);
     if (quantity < 10) {
       setQuantity((prev) => prev + 1);
     } else {
@@ -115,7 +116,7 @@ const ProductDetails = () => {
             </span>
             <input
               type="number"
-              defaultValue={quantity}
+              value={quantity}
               min={"1"}
               max={"10"}
               className="w-10 border border-gray-300 outline-none text-center"

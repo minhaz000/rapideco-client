@@ -18,8 +18,10 @@ const SearchForm = ({ headerBg }: Props) => {
     setIsActive(true);
   };
   const handleSearch = () => {
-    setQuery("");
-    setIsActive(false);
+    setTimeout(() => {
+      setIsActive(false);
+      setQuery("");
+    }, 100);
   };
   return (
     <div className="basis-8/12 lg:basis-1/2 relative">
@@ -29,6 +31,7 @@ const SearchForm = ({ headerBg }: Props) => {
           placeholder="Search"
           className="w-full border rounded-s-md px-2 md:px-3 py-[6px] md:py-[10px] outline-none"
           onChange={HandleQuery}
+          onBlur={handleSearch}
         />
         <button
           onChange={(e) => e.preventDefault()}
@@ -44,13 +47,27 @@ const SearchForm = ({ headerBg }: Props) => {
           <h2 className="text-sm border-b pb-2 text-end">Products</h2>
           {results?.data
             ? results.data.map((item: any) => (
-                <div key={item._id} className="flex gap-3 flex-col mt-3" onClick={handleSearch}>
+                <div
+                  key={item._id}
+                  className="flex gap-3 flex-col mt-3"
+                  onClick={handleSearch}
+                >
                   <Link href={`/product?_id=${item._id}`}>
                     <div className="flex gap-3 items-center">
-                      <img src={item?.product_image?.img_url} alt={""} width={40} height={40} />
+                      <img
+                        src={item?.product_image?.img_url}
+                        alt={""}
+                        width={40}
+                        height={40}
+                      />
                       <div>
                         <h3 className="text-[12px]">{item?.title}</h3>
-                        <span>{item?.discount_price ? item?.discount_price : item?.regular_price} ৳</span>
+                        <span>
+                          {item?.discount_price
+                            ? item?.discount_price
+                            : item?.regular_price}{" "}
+                          ৳
+                        </span>
                       </div>
                     </div>
                   </Link>

@@ -6,18 +6,10 @@ import AdminContext from "@/context/admin.context";
 import UserProfileMenu from "@/components/DashboardHeader/UserProfileMenu";
 import { useQueryData } from "@/hooks/hook.query";
 import { useRouter } from "next/navigation";
-export default function AdminLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const [mobileMenu, setMobileMenu] = useState(false);
-  const {
-    data: user,
-    isSuccess,
-    isError,
-  } = useQueryData(["get user"], "/auth/v0/profile");
+  // const { data: user, isSuccess, isError } = useQueryData(["get user"], "/auth/v0/profile");
   const handleMobileMenuShow = () => {
     setMobileMenu(true);
   };
@@ -61,7 +53,7 @@ export default function AdminLayout({
           </div>
           <UserProfileMenu />
         </div>
-        <div className="px-3 xl:px-8 mt-8 mb-4">{children}</div>
+        <div className="px-3 xl:px-8 mt-8">{children}</div>
       </div>
     </AdminContext>
   );

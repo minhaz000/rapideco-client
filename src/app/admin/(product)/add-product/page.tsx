@@ -117,6 +117,7 @@ const AddProduct = () => {
               </p>
             )}
           </div>
+<<<<<<< HEAD
           <div className="mt-3">
             <label htmlFor="name" className="mb-2 block">
               Full Description
@@ -126,6 +127,9 @@ const AddProduct = () => {
               onChange={(data) => setValue("description", data)}
             />
           </div>
+=======
+
+>>>>>>> test
           <div className="mt-3">
             <label htmlFor="name" className="mb-2 block">
               Regular Price

@@ -1,4 +1,4 @@
-export interface IBrand {
+interface IBrand {
   name: string;
   description: string;
   email: string;

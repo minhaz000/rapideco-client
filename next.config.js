@@ -22,10 +22,6 @@ const nextConfig = {
 
     return {
       ...config,
-      externals: {
-        react: "React",
-        "react-dom": "ReactDOM",
-      },
     };
   },
 };

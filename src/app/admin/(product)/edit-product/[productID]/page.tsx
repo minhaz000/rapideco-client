@@ -217,7 +217,7 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
               <option value="">Select Brand</option>
               {Brands?.data?.data.map((item: any, i: number) => {
                 return (
-                  <option key={i} value={JSON.stringify({ _id: item._id, name: item.name })}>
+                  <option key={i} value={JSON.stringify({ _id: item._id, name: item.name })} >
                     {item.name}
                   </option>
                 );

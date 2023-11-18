@@ -1,4 +1,4 @@
-export interface IAtrribute {
+interface IAtrribute {
   label: string;
   value: string;
   options: [{ label: string; value: string }];

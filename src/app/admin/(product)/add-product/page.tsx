@@ -11,8 +11,7 @@ import Uploder from "@/hooks/hook.upload";
 import { useMutationData } from "@/hooks/hook.query";
 
 const AddProduct = () => {
-<<<<<<< HEAD
-  const { Categories, Brands, Atrribute, Products }: any = useAdminContext();
+  const { Categories, Brands, Atrribute }: any = useAdminContext();
   const newProduct = useMutationData(
     ["add new prodct"],
     "post",
@@ -20,16 +19,9 @@ const AddProduct = () => {
   );
   const [selectedImage, setSelectedImage]: any = useState();
   const [selectedGalleryImage, setSelectedGalleryImage] = useState([]);
+  const [selectedDesImage, setSelectedDesImage] = useState([]);
   const { register, handleSubmit, watch, reset, setValue, getValues } =
     useForm<FormValues>();
-=======
-  const { Categories, Brands, Atrribute }: any = useAdminContext();
-  const newProduct = useMutationData(["add new prodct"], "post", "api/v0/product");
-  const [selectedImage, setSelectedImage]: any = useState();
-  const [selectedGalleryImage, setSelectedGalleryImage] = useState([]);
-  const [selectedDesImage, setSelectedDesImage] = useState([]);
-  const { register, handleSubmit, watch, reset, setValue, getValues } = useForm<FormValues>();
->>>>>>> minhaz
 
   // =============== IMAGE HANDLEING
 
@@ -57,18 +49,15 @@ const AddProduct = () => {
 
   const HandleAddProduct: SubmitHandler<FormValues> = async (data) => {
     data.gallery_images =
-<<<<<<< HEAD
       selectedGalleryImage.length == 1
         ? [await Uploder(selectedGalleryImage)]
         : await Uploder(selectedGalleryImage);
+    data.description_img =
+      selectedDesImage.length == 1
+        ? [await Uploder(selectedDesImage)]
+        : await Uploder(selectedDesImage);
     data.product_image?.length > 0 &&
       (data.product_image = await Uploder(data.product_image));
-=======
-      selectedGalleryImage.length == 1 ? [await Uploder(selectedGalleryImage)] : await Uploder(selectedGalleryImage);
-    data.description_img =
-      selectedDesImage.length == 1 ? [await Uploder(selectedDesImage)] : await Uploder(selectedDesImage);
-    data.product_image?.length > 0 && (data.product_image = await Uploder(data.product_image));
->>>>>>> minhaz
     data.status ? (data.status = "active") : (data.status = "deactive");
     data.category_info = data.category_info && JSON.parse(data.category_info);
     data.brand_info = data.brand_info && JSON.parse(data.brand_info);
@@ -370,7 +359,12 @@ const AddProduct = () => {
                   selectedDesImage.map((image: any, i: number) => {
                     return (
                       <div key={i} className="relative">
-                        <Image src={URL.createObjectURL(image as any)} width={100} height={100} alt="upload" />
+                        <Image
+                          src={URL.createObjectURL(image as any)}
+                          width={100}
+                          height={100}
+                          alt="upload"
+                        />
                         <button
                           className="absolute top-0 right-0 bg-red-400 text-white px-1"
                           onClick={(e) => {

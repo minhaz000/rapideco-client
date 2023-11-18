@@ -105,19 +105,7 @@ const AddProduct = () => {
               <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.code.message}</p>
             )}
           </div>
-          <div className="mt-3">
-            <label htmlFor="name" className="mb-2 block">
-              Short Description
-            </label>
 
-            <JoditEditor onChange={(data) => setValue("short_description", data)} value={""} />
-          </div>
-          <div className="mt-3">
-            <label htmlFor="name" className="mb-2 block">
-              Full Description
-            </label>
-            <JoditEditor value={""} onChange={(data) => setValue("description", data)} />
-          </div>
           <div className="mt-3">
             <label htmlFor="name" className="mb-2 block">
               Regular Price

@@ -22,8 +22,8 @@ const EditBrand = ({ params }: { params: { brandID: string[] } }) => {
   });
 
   // =============== FUNCTION FOR THE UPDATE BRAND
-  const HandleUpdateBrand: SubmitHandler<FormValues> = async (data) => {
-    data.imgURL.length > 0 ? (data.imgURL = await Uploder(data.imgURL)) : null;
+  const HandleUpdateBrand: SubmitHandler<FormValues> = async (data: any) => {
+    data.imgURL?.length > 0 ? (data.imgURL = await Uploder(data.imgURL)) : null;
     updateBrand.mutate(data, {
       onSuccess: () => {
         toast.success("brand updated");

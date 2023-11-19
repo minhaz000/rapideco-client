@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import Logo from "../../assets/logo-white1.png";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,14 +11,16 @@ import {
 } from "react-icons/fa";
 import SettingData from "../../../public/assets/site.settings.json";
 import MobileBottomMenu from "./MobileBottomMenu";
-import { BiHomeAlt, BiPhoneCall, BiCart, BiHeart } from "react-icons/bi";
+import { BiHomeAlt, BiPhoneCall, BiCart } from "react-icons/bi";
 import { AiOutlineBars } from "react-icons/ai";
-const Footer = async () => {
-  const [mobileMenu, setMobileMenu] = useState(true);
+import { RxDashboard } from "react-icons/rx";
+import { useRootContext } from "@/context/root.context";
+const Footer = () => {
+  const { collapseMenu, setCollapseMenu }: any = useRootContext();
   const { footer } = SettingData;
   const { phone, email, address } = footer?.contact_info;
-  const handleSidebar = () => {
-    setMobileMenu(!mobileMenu);
+  const handleRootMenu = () => {
+    setCollapseMenu(!collapseMenu);
   };
   const headerBg = SettingData?.header?.color;
   return (
@@ -79,17 +81,25 @@ const Footer = async () => {
         </div>
       </div>
       {/* bottom menu */}
-      <div className="fixed bottom-0 left-0 bg-white border-t-2 flex gap-3 justify-between items-center w-full px-6 py-2 lg:hidden z-[99999]">
+      <div className="fixed bottom-0 left-0 bg-white border-t-2 flex gap-3 justify-between items-center w-full px-6 py-2 lg:hidden z-[99]">
         <Link href="/">
           <MobileBottomMenu Icon={BiHomeAlt} name="Home" />
         </Link>
         <MobileBottomMenu
-          Icon={AiOutlineBars}
-          onSidebar={handleSidebar}
-          name="Shop"
+          Icon={RxDashboard}
+          onSidebar={handleRootMenu}
+          name="Category"
         />
-        <MobileBottomMenu Icon={BiPhoneCall} name="Phone" />
-        <MobileBottomMenu Icon={BiCart} name="Cart" />
+        <Link href={"/shop"}>
+          <MobileBottomMenu Icon={AiOutlineBars} name="Shop" />
+        </Link>
+        <Link href="to:01760107764">
+          <MobileBottomMenu Icon={BiPhoneCall} name="Phone" />
+        </Link>
+        <Link href={"/cart"}>
+          {" "}
+          <MobileBottomMenu Icon={BiCart} name="Cart" />
+        </Link>
       </div>
     </section>
   );

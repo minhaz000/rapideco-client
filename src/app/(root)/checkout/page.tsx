@@ -12,7 +12,10 @@ import { useQueryData } from "@/hooks/hook.query";
 const Checkout = () => {
   const [tabIndex, setTabIndex] = useState(0);
   const { register, reset, handleSubmit } = useform<FormValues>();
-  const { data: payments } = useQueryData(["get payment methods"], "/api/v0/payments?");
+  const { data: payments } = useQueryData(
+    ["get payment methods"],
+    "/api/v0/payments?"
+  );
   const handleCheckOut: SubmitHandler<FormValues> = async (data) => {
     const Cart = await axios.get("/api/v0/cart");
     data.ordered_items = Cart.data.data.items;
@@ -23,7 +26,8 @@ const Checkout = () => {
       status: data?.payment_info?.trx_id ? "paid" : "unpaid",
     };
     data.payment_info.method_name = payments?.data[tabIndex].method_name;
-    data.payment_info.method_img_url = payments.data[tabIndex].method_img.img_url;
+    data.payment_info.method_img_url =
+      payments.data[tabIndex].method_img.img_url;
     axios
       .post("/api/v0/order", data)
       .then((res) => {
@@ -32,16 +36,22 @@ const Checkout = () => {
         axios2.post("/api/sentmail", { order: res.data?.data });
         reset();
       })
-      .catch((error: any) => toast.error(error.message ? error.message : error?.data.message));
+      .catch((error: any) =>
+        toast.error(error.message ? error.message : error?.data.message)
+      );
   };
 
   return (
     <section className="max-w-screen-xl mx-auto px-3 lg:px-12 mt-6">
-      <h2 className="text-center text-3xl font-semibold mt-10">Checkout Page</h2>
+      <h2 className="text-center text-3xl font-semibold mt-10">
+        Checkout Page
+      </h2>
       <form onSubmit={handleSubmit(handleCheckOut)}>
         <div className="lg:flex gap-6 mt-14">
-          <div className="basis-7/12 shadow-xl border rounded-md py-3 px-5">
-            <h3 className="text-center text-lg pt-3 pb-5">To confirm your order , please enter your details</h3>
+          <div className="lg:basis-7/12 shadow-xl border rounded py-3 px-5">
+            <h3 className="text-center text-lg pt-3 pb-5">
+              To confirm your order , please enter your details
+            </h3>
             <div>
               <label>Name</label> <br />
               <input
@@ -80,23 +90,37 @@ const Checkout = () => {
             </div>
             <div className="mt-3">
               <label>Select your area</label> <br />
-              <select name="" id="" className="border w-full py-2 px-3 rounded outline-none mt-2">
+              <select
+                name=""
+                id=""
+                className="border w-full py-2 px-3 rounded outline-none mt-2"
+              >
                 <option value="in-dhaka">In Dhaka City</option>
                 <option value="out-of-dhaka">Out of Dhaka City</option>
               </select>
             </div>
           </div>
-          <div className="basis-5/12 shadow-xl border rounded-md py-3 px-5">
-            <h3 className="text-center text-lg pt-3 pb-5">পেমেন্ট মেথড সিলেক্ট করুন:</h3>
+          <div className="lg:basis-5/12 shadow-xl border rounded-md py-3 px-5 mt-4 lg:mt-0">
+            <h3 className="text-center text-lg pt-3 pb-5">
+              পেমেন্ট মেথড সিলেক্ট করুন:
+            </h3>
             {payments?.data && (
               <div className="mt-3">
-                <Tabs selectedIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
+                <Tabs
+                  selectedIndex={tabIndex}
+                  onSelect={(index) => setTabIndex(index)}
+                >
                   <TabList>
                     {payments?.data.map((item: any, i: number) => {
                       return (
                         <Tab key={i}>
                           <div className="flex gap-2 items-center">
-                            <Image src={item.method_img.img_url} alt="" width={30} height={30} />
+                            <Image
+                              src={item.method_img.img_url}
+                              alt=""
+                              width={30}
+                              height={30}
+                            />
                             <span> {item.method_name}</span>
                           </div>
                         </Tab>
@@ -111,7 +135,10 @@ const Checkout = () => {
                           {item?.method_descrption}
                           {item.method_code !== "cod" && (
                             <div className="mt-3">
-                              <label>Your {item.method_name} Account Number</label> <br />
+                              <label>
+                                Your {item.method_name} Account Number
+                              </label>{" "}
+                              <br />
                               <input
                                 {...register("payment_info.number")}
                                 type="text"
@@ -120,7 +147,10 @@ const Checkout = () => {
                                 required
                               />
                               <br />
-                              <label>{item.method_name} Transaction ID</label> <br />
+                              <label>
+                                {item.method_name} Transaction ID
+                              </label>{" "}
+                              <br />
                               <input
                                 {...register("payment_info.trx_id")}
                                 type="text"
@@ -135,7 +165,10 @@ const Checkout = () => {
                     );
                   })}
                 </Tabs>
-                <button type="submit" className="mt-3 bg-sky-700 text-white py-2 px-4 rounded w-full ">
+                <button
+                  type="submit"
+                  className="mt-3 bg-sky-700 text-white py-2 px-4 rounded w-full "
+                >
                   Place Order
                 </button>
               </div>

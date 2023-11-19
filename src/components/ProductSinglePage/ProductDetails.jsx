@@ -36,7 +36,7 @@ const ProductDetails = () => {
       <div className="lg:basis-1/2">
         <img
           src={imageUrl}
-          className="w-full text-[300px] md:h-[350px] object-cover rounded cursor-pointer"
+          className="w-full text-[300px] h-[300px] md:h-[350px] object-cover rounded cursor-pointer"
           alt=""
         />
         <div className="grid grid-cols-6 gap-3 mt-2">

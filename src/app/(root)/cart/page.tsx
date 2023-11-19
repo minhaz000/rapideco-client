@@ -125,18 +125,20 @@ const Cart = () => {
         </table>
       </div>
       <div className="mt-3 p-4">
-        <div className="w-full md:w-4/12 ms-auto border rounded px-5 pt-3">
+        <div className="w-full md:w-4/12 ms-auto border rounded px-5 pt-3 pb-5">
           <div className="flex justify-between items-center">
             <span className="font-bold">Total:</span>
             <span>{Cart?.data?.subtotal}</span>
           </div>
 
-          <Link
-            href={"/checkout"}
-            className="bg-green-700 text-white w-full py-2 rounded-md mt-3"
-          >
-            Proceed to Checkout
-          </Link>
+          <div className="mt-4">
+            <Link
+              href={"/checkout"}
+              className="bg-green-700 text-white w-full py-2 px-3 rounded-md mt-3"
+            >
+              Proceed to Checkout
+            </Link>
+          </div>
         </div>
       </div>
     </section>

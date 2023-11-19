@@ -21,7 +21,7 @@ const SearchForm = ({ headerBg }: Props) => {
     setTimeout(() => {
       setIsActive(false);
       setQuery("");
-    }, 100);
+    }, 500);
   };
   return (
     <div className="basis-8/12 lg:basis-1/2 relative">

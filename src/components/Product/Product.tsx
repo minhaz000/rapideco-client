@@ -7,7 +7,6 @@ const Product = ({
   sectionTitle: string;
   categoryValue: string;
 }) => {
-  console.log(categoryValue);
   return (
     <section className="max-w-screen-xl mx-auto px-3 lg:px-12 mt-10">
       <SectionHeading sectionTitle={sectionTitle} seeMoreUrl="/" />

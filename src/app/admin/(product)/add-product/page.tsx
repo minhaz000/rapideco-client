@@ -74,81 +74,84 @@ const AddProduct = () => {
   const validationError: any = newProduct.error?.data?.errors;
 
   return (
-    <div className="pb-4">
+    <div className="pb-4 shadow-md border rounded mb-3 px-2 md:px-6 pt-2">
       <h2 className="text-2xl">Add Product</h2>
       <div className="mt-6">
         <form onSubmit={handleSubmit(HandleAddProduct)}>
-          <div>
-            <label htmlFor="name" className="mb-2 block">
-              Product Title
-            </label>
-
-            <input
-              {...register("title")}
-              type="text"
-              placeholder="Enter product name"
-              className={`w-full border py-2 px-3 rounded-md  outline-none mt-2 ${
-                validationError?.title && "border-red-600 text-red-400"
-              }`}
-            />
-            {validationError?.title && (
-              <p className="text-red-600 text-[14px]  mb-[5px] text-right">
-                {validationError.title.message}
-              </p>
-            )}
+          <div className="md:grid grid-cols-2 gap-3">
+            <div>
+              <label htmlFor="name" className="block">
+                Product Title
+              </label>
+              <input
+                {...register("title")}
+                type="text"
+                placeholder="Enter product name"
+                className={`w-full border py-2 px-3 rounded-md  outline-none mt-2 ${
+                  validationError?.title && "border-red-600 text-red-400"
+                }`}
+              />
+              {validationError?.title && (
+                <p className="text-red-600 text-[14px]  mb-[5px] text-right">
+                  {validationError.title.message}
+                </p>
+              )}
+            </div>
+            <div>
+              <label htmlFor="name" className="block">
+                Product Code
+              </label>
+              <input
+                {...register("code")}
+                type="text"
+                placeholder="Enter product name"
+                className={`w-full border py-2 px-3 rounded-md  outline-none mt-2 ${
+                  validationError?.code && "border-red-600 text-red-400"
+                }`}
+              />
+              {validationError?.code && (
+                <p className="text-red-600 text-[14px]  mb-[5px] text-right">
+                  {validationError.code.message}
+                </p>
+              )}
+            </div>
           </div>
-          <div>
-            <label htmlFor="name" className="mb-2 block">
-              Product Code
-            </label>
+          <div className="md:grid grid-cols-2 gap-3">
+            <div className="mt-3">
+              <label htmlFor="name" className="block">
+                Regular Price
+              </label>
 
-            <input
-              {...register("code")}
-              type="text"
-              placeholder="Enter product name"
-              className={`w-full border py-2 px-3 rounded-md  outline-none mt-2 ${
-                validationError?.code && "border-red-600 text-red-400"
-              }`}
-            />
-            {validationError?.code && (
-              <p className="text-red-600 text-[14px]  mb-[5px] text-right">
-                {validationError.code.message}
-              </p>
-            )}
+              <input
+                {...register("regular_price")}
+                type="number"
+                placeholder="Enter regular price"
+                className={`w-full border py-2 px-3 rounded-md  outline-none mt-2 ${
+                  validationError?.regular_price &&
+                  "border-red-600 text-red-400"
+                }`}
+              />
+              {validationError?.regular_price && (
+                <p className="text-red-600 text-[14px]  mb-[5px] text-right">
+                  {validationError.regular_price.message}
+                </p>
+              )}
+            </div>
+            <div className="mt-3">
+              <label htmlFor="name" className="block">
+                Discount Price
+              </label>
+
+              <input
+                {...register("discount_price")}
+                type="text"
+                placeholder="Enter discount price"
+                className="border w-full py-2 px-3 mt-2 rounded-md outline-none"
+              />
+            </div>
           </div>
           <div className="mt-3">
-            <label htmlFor="name" className="mb-2 block">
-              Regular Price
-            </label>
-
-            <input
-              {...register("regular_price")}
-              type="number"
-              placeholder="Enter regular price"
-              className={`w-full border py-2 px-3 rounded-md  outline-none mt-2 ${
-                validationError?.regular_price && "border-red-600 text-red-400"
-              }`}
-            />
-            {validationError?.regular_price && (
-              <p className="text-red-600 text-[14px]  mb-[5px] text-right">
-                {validationError.regular_price.message}
-              </p>
-            )}
-          </div>
-          <div className="mt-3">
-            <label htmlFor="name" className="mb-2 block">
-              Discount Price
-            </label>
-
-            <input
-              {...register("discount_price")}
-              type="text"
-              placeholder="Enter discount price"
-              className="border w-full py-2 px-3  rounded-md outline-none"
-            />
-          </div>
-          <div className="mt-3">
-            <label htmlFor="name" className="mb-2 block">
+            <label htmlFor="name" className="block">
               Quantity
             </label>
 
@@ -167,24 +170,23 @@ const AddProduct = () => {
             )}
           </div>
           <div className="mt-3">
-            <label htmlFor="name" className="mb-2 block">
-              Status
+            <label htmlFor="name" className="block">
+              Product Description
             </label>
-
-            <input
-              {...register("status")}
-              placeholder="Quantity"
-              type="checkbox"
-              className={`border  py-2 px-3  rounded-md outline-none toggle toggle-success ${
-                validationError?.status && "border-red-600  bg-red-400"
+            <textarea
+              placeholder="Product Description"
+              {...register("description")}
+              className={`w-full h-28 border py-2 px-3 rounded-md  outline-none mt-2 ${
+                validationError?.description && "border-red-600 text-red-400"
               }`}
-            />
-            {validationError?.status && (
+            ></textarea>
+            {validationError?.description && (
               <p className="text-red-600 text-[14px]  mb-[5px] text-right">
-                {validationError.status.message}
+                {validationError.description.message}
               </p>
             )}
           </div>
+
           <div className="mt-3">
             <label htmlFor="name" className="mb-2 block">
               Category
@@ -238,7 +240,7 @@ const AddProduct = () => {
           </div>
           <div className="mt-3">
             <label htmlFor="name" className="mb-2 block">
-              Atrribute
+              Attribute
             </label>
 
             <Select
@@ -271,10 +273,9 @@ const AddProduct = () => {
           })}
 
           <div className="mt-3">
-            <label htmlFor="name" className="mb-2 block">
+            <label htmlFor="name" className="block">
               Product Image
             </label>
-
             <input
               type="file"
               className="w-full file-input file-input-bordered file-input-xs  outline-none mt-2 "
@@ -295,7 +296,7 @@ const AddProduct = () => {
             )}
           </div>
           <div className="mt-3">
-            <label htmlFor="name" className="mb-2 block">
+            <label htmlFor="name" className="block">
               Gallery Image
             </label>
             <div>
@@ -333,7 +334,7 @@ const AddProduct = () => {
             </div>
           </div>
           <div className="mt-3">
-            <label htmlFor="name" className="mb-2 block">
+            <label htmlFor="name" className="block">
               Description Image
             </label>
             <div>
@@ -369,6 +370,25 @@ const AddProduct = () => {
                   })}
               </div>
             </div>
+          </div>
+          <div className="mt-3">
+            <label htmlFor="name" className="block">
+              Status
+            </label>
+
+            <input
+              {...register("status")}
+              placeholder="Quantity"
+              type="checkbox"
+              className={`border py-2 px-3 mt-2 rounded-md outline-none toggle toggle-success ${
+                validationError?.status && "border-red-600  bg-red-400"
+              }`}
+            />
+            {validationError?.status && (
+              <p className="text-red-600 text-[14px]  mb-[5px] text-right">
+                {validationError.status.message}
+              </p>
+            )}
           </div>
           <input
             type="submit"

@@ -20,7 +20,7 @@ function AddToCartButton({ productID }: { productID: string }) {
     <>
       <button
         onClick={() => handleAddToCart(productID)}
-        className="bg-[#7daf3e] text-white px-3 py-2 text-[13px] rounded-sm w-full font-semibold transition-colors duration-300 hover:bg-[#6a9733] flex items-center justify-center gap-1"
+        className="bg-[#00C9B4] text-white px-3 py-2 text-[13px] rounded-sm w-full font-semibold transition-colors duration-300 hover:bg-[#168f83] flex items-center justify-center gap-1"
       >
         <BsCart2 />
         অর্ডার করুন

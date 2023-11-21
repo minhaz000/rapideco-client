@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { useQueryData } from "@/hooks/hook.query";
 import { FaPhoneAlt } from "react-icons/fa";
 import { toast } from "react-toastify";
+import Image from "next/image";
 const ProductDetails = () => {
   const sech = useSearchParams();
   const ID = sech.get("_id");
@@ -25,31 +26,35 @@ const ProductDetails = () => {
     }
   };
   const handleQuantityMinus = () => {
-    if (quantity > 1) {
+    if (quantity > 0) {
       setQuantity((prev) => prev - 1);
     } else {
-      toast.error("You can't select less then 1");
+      toast.error("You can't select less then 0");
     }
   };
   return (
     <div className="lg:flex gap-5">
       <div className="lg:basis-1/2">
-        <img
+        <Image
           src={imageUrl}
           className="w-full text-[300px] h-[300px] md:h-[350px] object-cover rounded cursor-pointer"
           alt=""
+          width={350}
+          height={350}
         />
         <div className="grid grid-cols-6 gap-3 mt-2">
           {[
             ...product?.data?.gallery_images,
             { img_url: product?.data?.product_image?.img_url },
           ]?.map((item, index) => (
-            <img
+            <Image
               key={index}
               src={item?.img_url}
               className="sm:w-20 h-14 md:h-20 rounded cursor-pointer object-cover"
               alt=""
               onClick={() => setImageUrl(item?.img_url)}
+              width={56}
+              height={56}
             />
           ))}
         </div>

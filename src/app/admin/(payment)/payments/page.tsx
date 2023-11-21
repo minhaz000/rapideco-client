@@ -206,7 +206,7 @@ const Payment = () => {
                 {selectedImage && (
                   <div className="my-3">
                     <Image
-                      src={URL.createObjectURL(selectedImage)}
+                      src={URL?.createObjectURL(selectedImage)}
                       alt="icon"
                       width={100}
                       height={100}

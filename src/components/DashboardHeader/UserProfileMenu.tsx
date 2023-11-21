@@ -29,6 +29,8 @@ const UserProfileMenu = () => {
             src={user}
             className="rounded-full w-10 h-10 bg-blue-600"
             alt=""
+            width={40}
+            height={40}
           />
           <div className="text-left">
             <h3 className="text-lg font-semibold leading-4">Isoftex</h3>

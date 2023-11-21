@@ -56,13 +56,13 @@ const HeaderSetting = ({ setting }: { setting: any }) => {
             />
           </div>
           <div className="md:basis-1/2">
-            <label htmlFor="theme" className="block mb-2 text-sm">
-              Header Color
+            <label htmlFor="logo" className="block mb-3 text-sm">
+              FavIcon
             </label>
             <input
-              {...register("header.color")}
-              type="color"
-              className="w-full h-10 rounded border"
+              {...register("header.favicon")}
+              type="file"
+              className="w-full py-1 px-1 rounded border"
             />
           </div>
         </div>
@@ -86,22 +86,34 @@ const HeaderSetting = ({ setting }: { setting: any }) => {
             />
           </div>
         </div>
-        <div className="w-full mt-3">
-          <label htmlFor="theme" className="block mb-3 text-sm">
-            Meta description
-          </label>
-          <textarea
-            {...register("header.meta_description")}
-            placeholder="Meta description"
-            className="w-full border p-2 outline-none  h-28"
-          ></textarea>
+        <div className="md:flex gap-5 mt-3">
+          <div className="md:basis-1/2">
+            <label htmlFor="theme" className="block mb-2 text-sm">
+              Header Color
+            </label>
+            <input
+              {...register("header.color")}
+              type="color"
+              className="w-full h-10 rounded border outline-none"
+            />
+          </div>
+          <div className="md:basis-1/2">
+            <label htmlFor="theme" className="block mb-3 text-sm">
+              Meta description
+            </label>
+            <input
+              {...register("header.meta_description")}
+              type="text"
+              className="w-full p-2 rounded border outline-none"
+            />
+          </div>
         </div>
         <div className="mt-10 border-t pt-6 capitalize">
           <h2 className="text-sm mb-2">Header nav menu</h2>
 
           {fields.map((item, i: any) => (
             <div
-              className="flex justify-between gap-3 items-center mb-3"
+              className="flex flex-col sm:flex-row justify-between gap-3 sm:items-center mb-3"
               key={i}
             >
               <input

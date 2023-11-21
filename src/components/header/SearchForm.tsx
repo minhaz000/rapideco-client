@@ -35,8 +35,7 @@ const SearchForm = ({ headerBg }: Props) => {
         />
         <button
           onChange={(e) => e.preventDefault()}
-          style={{ backgroundColor: `${headerBg}` }}
-          className={` text-white px-3 rounded-e-md`}
+          className={` text-white px-3 rounded-e-md bg-[#BC5189]`}
         >
           Search
         </button>

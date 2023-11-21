@@ -48,10 +48,6 @@ const menuItems = [
         title: "Add category",
         path: "/admin/add-category",
       },
-      {
-        title: "Edit category",
-        path: "/admin/edit-category",
-      },
     ],
   },
   {

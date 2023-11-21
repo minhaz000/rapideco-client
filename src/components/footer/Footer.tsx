@@ -24,7 +24,7 @@ const Footer = () => {
   };
   const headerBg = SettingData?.header?.color;
   return (
-    <section
+    <footer
       className="pt-7 pb-3 mt-12 mb-16 md:mb-0"
       style={{ backgroundColor: `${headerBg}` }}
     >
@@ -32,7 +32,13 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
           <div>
             <Link href="/" className="inline-block">
-              <Image src={Logo} alt="" className="w-24 md:w-32 lg:w-40" />
+              <Image
+                src={Logo}
+                alt=""
+                className="w-24 md:w-32 lg:w-40"
+                width={160}
+                height={140}
+              />
             </Link>
             <p className="text-slate-100 text-sm mt-2">{footer?.description}</p>
             <div className="flex gap-4 mt-3 text-slate-100">
@@ -101,7 +107,7 @@ const Footer = () => {
           <MobileBottomMenu Icon={BiCart} name="Cart" />
         </Link>
       </div>
-    </section>
+    </footer>
   );
 };
 

@@ -1,7 +1,7 @@
 import React from "react";
 const loading = () => {
   return (
-    <div className="h-screen justify-center items-center flex bg-sky-700">
+    <div className="justify-center items-center flex mt-10">
       <span className="loading loading-dots loading-lg text-white"></span>
     </div>
   );

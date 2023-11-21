@@ -83,7 +83,7 @@ const BodySetting = ({ setting }: { setting: any }) => {
                 return (
                   <div key={i} className="relative">
                     <Image
-                      src={image.img_url}
+                      src={image?.img_url}
                       width={100}
                       height={100}
                       alt="upload"
@@ -128,7 +128,7 @@ const BodySetting = ({ setting }: { setting: any }) => {
         <div className="mt-6 capitalize">
           {fields.map((item, i: any) => (
             <div
-              className="flex justify-between gap-3 items-center mb-3"
+              className="flex flex-col sm:flex-row justify-between gap-3 sm:items-center mb-3"
               key={i}
             >
               <input

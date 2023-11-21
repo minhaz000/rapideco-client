@@ -8,7 +8,7 @@ const HeaderTop = ({ headerBg }: any) => {
     <div className="flex flex-row justify-between items-center max-w-screen-xl mx-auto px-3 lg:px-12">
       <div className="basis-4/12 lg:basis-1/4">
         <Link href="/" className="inline-block">
-          <h2 className="text-[26px] sm:text-[30px] md:text-[40px] font-semibold text-[#7daf3e]">
+          <h2 className="text-[26px] sm:text-[30px] md:text-[40px] font-semibold ">
             Isoftex
           </h2>
         </Link>
@@ -18,10 +18,7 @@ const HeaderTop = ({ headerBg }: any) => {
         <div className="flex items-center justify-end gap-6">
           <div className="flex gap-4 items-center">
             <div>
-              <FaPhoneAlt
-                className="text-2xl"
-                style={{ color: `${headerBg}` }}
-              />
+              <FaPhoneAlt className="text-2xl text-[#BC5189]" />
             </div>
             <div className="text-start">
               <span className="text-[15px] text-gray-600">Phone</span>
@@ -33,8 +30,7 @@ const HeaderTop = ({ headerBg }: any) => {
               <BsCart className="text-3xl" />
             </Link>
             <span
-              style={{ backgroundColor: `${headerBg}` }}
-              className={`absolute -top-[3px] -right-[6px] text-white text-[12px] px-[5px] rounded-full`}
+              className={`absolute -top-[3px] -right-[6px] text-white text-[12px] px-[5px] rounded-full bg-[#BC5189]`}
             >
               0
             </span>

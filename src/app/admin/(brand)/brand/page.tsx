@@ -161,7 +161,6 @@ const Brand = () => {
                 <label htmlFor="name" className="mb-2 block">
                   Logo
                 </label>
-
                 <input
                   {...register("imgURL")}
                   type="file"
@@ -169,7 +168,7 @@ const Brand = () => {
                 />
               </div>
               <div className="mt-4">
-                <label htmlFor="">Meta Title</label>
+                <label>Meta Title</label>
                 <br />
                 <input
                   {...register("meta_title")}

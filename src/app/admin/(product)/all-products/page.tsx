@@ -71,14 +71,14 @@ const AllProduct = () => {
         <h2 className="text-lg">All Product</h2>
         <Link
           href={"/admin/add-product"}
-          className="bg-sky-800 px-4 py-2 rounded text-white capitalize"
+          className="bg-sky-800 text-[12px] md:text-lg px-2 md:px-4 py-2 rounded text-white capitalize"
         >
           Add new Product
         </Link>
       </div>
       <div className="shadow-[0_0_8px_3px_#d7d7d7bf] mt-6 mb-4 pb-3">
-        <div className="flex justify-between items-center border-b pb-3 px-4 pt-4 mb-4">
-          <div>
+        <div className="lg:flex justify-between items-center border-b pb-3 px-4 pt-4 mb-4">
+          <div className="lg:w-4/12">
             <h2 className="text-xl">All Product</h2>
             <div>
               <span className="text-[12px] underline text-slate-500 cursor-pointer mr-2">
@@ -89,7 +89,7 @@ const AllProduct = () => {
               </span>
             </div>
           </div>
-          <div className="flex gap-4">
+          <div className="grid lg:flex grid-cols-2 sm:grid-cols-3 gap-4 lg:w-8/12 mt-3 lg:mt-0">
             <select
               onChange={HandleQuery}
               name="brand"
@@ -144,7 +144,7 @@ const AllProduct = () => {
           </div>
         </div>
         <div className="overflow-x-auto mt-3 px-4 pt-4">
-          <table className="table  w-[1130px] lg:w-full border">
+          <table className="table w-[1050px]  md:w-[1130px] lg:w-full border">
             <thead>
               <tr className="border text-xs font-normal ">
                 <th className="py-3 text-slate-500 ps-4 text-start">SL</th>

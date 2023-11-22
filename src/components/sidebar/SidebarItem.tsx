@@ -1,23 +1,26 @@
+"use client";
 import Link from "next/link";
 import { useState } from "react";
 import { FaAngleRight, FaAngleDown } from "react-icons/fa";
-export default function SidebarItem({ item }) {
+export default function SidebarItem({ item }: any) {
   const [open, setOpen] = useState(false);
-
-  if (item.childrens) {
+  if (item.children) {
     return (
       <div className={open ? "sidebar-item open" : "sidebar-item"}>
         <div
           className="sidebar-title cursor-pointer"
           onClick={() => setOpen(!open)}
         >
-          <span className="text-[13px]">
-            {item.icon && <i className={item.icon}></i>} {item.title}
-          </span>
+          <div className="flex items-center gap-2">
+            <span className="text-[18px] block">{item.icon}</span>
+            <span className="text-[15px] opacity-95 inline-block">
+              {item.title}
+            </span>
+          </div>
           {open ? <FaAngleDown /> : <FaAngleRight />}
         </div>
         <div className="sidebar-content">
-          {item.childrens.map((child, index) => (
+          {item.children.map((child: any, index: any) => (
             <SidebarItem key={index} item={child} />
           ))}
         </div>
@@ -25,9 +28,14 @@ export default function SidebarItem({ item }) {
     );
   } else {
     return (
-      <Link href={item.path || "#"} className="sidebar-item plain text-[13px]">
-        {item.icon && <i className={item.icon}></i>}
-        {item.title}
+      <Link
+        href={item.path || "#"}
+        className="sidebar-item plain flex items-center gap-2 text-[17px]"
+      >
+        <span className="text-[18px] block">{item.icon}</span>
+        <span className="text-[15px] opacity-95 inline-block">
+          {item.title}
+        </span>
       </Link>
     );
   }

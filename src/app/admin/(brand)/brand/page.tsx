@@ -6,7 +6,7 @@ import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { useForm as useform, SubmitHandler } from "react-hook-form";
-import FormValues from "../brand";
+import FormValues from "@/interface/brand";
 import Uploder from "@/hooks/hook.upload";
 import { useAdminContext } from "@/context/admin.context";
 import { useMutationData } from "@/hooks/hook.query";
@@ -14,17 +14,18 @@ import axios from "@/hooks/hook.axios";
 const Brand = () => {
   const { Brands }: any = useAdminContext("/api/v0/brands");
   const newBrand = useMutationData(["add new brand"], "post", "api/v0/brand");
-  const { watch, register, reset, handleSubmit } = useform<FormValues>();
+  const { register, reset, handleSubmit } = useform<FormValues>();
   // =============== FUNCTION FOR THE PRODUCT POST REQUEST
   const HandleAddBrand: SubmitHandler<FormValues> = async (data) => {
     data.imgURL = await Uploder(data.imgURL);
-    newBrand.mutate(data, {
+    newBrand.mutate(data as any, {
       onSuccess: () => {
         toast.success("brand added");
         Brands.refetch();
         reset();
       },
-      onError: (error: any) => toast.error(error.message ? error.message : error?.data.message),
+      onError: (error: any) =>
+        toast.error(error.message ? error.message : error?.data.message),
     });
   };
   const handleDelete = (deleteId: string) => {
@@ -45,9 +46,26 @@ const Brand = () => {
             toast.success("Brand deleted");
             Brands.refetch();
           })
-          .catch((error: any) => toast.error(error.message ? error.message : error?.data.message));
+          .catch((error: any) =>
+            toast.error(error.message ? error.message : error?.data.message)
+          );
       }
     });
+  };
+  const handleFeatured = (e: any, ID: string) => {
+    e.preventDefault();
+    const data = e.target.checked ? { featured: true } : { featured: false };
+    axios
+      .put(`/api/v0/brand/${ID}`, data)
+      .then(() => {
+        Brands.refetch();
+        toast.success(
+          !e.target.checked ? "add to featured brand" : "removed from featured "
+        );
+      })
+      .catch((error: any) =>
+        toast.error(error.message ? error.message : error?.data.message)
+      );
   };
   return (
     <div>
@@ -56,7 +74,11 @@ const Brand = () => {
         <div className="basis-7/12 shadow-[0_0_10px_5px_#d7d7d7bf]">
           <div className="flex justify-between items-center border-b px-6 py-4">
             <h2>Brands</h2>
-            <input type="text" placeholder="Type name & enter" className="border outline-none py-2 px-2" />
+            <input
+              type="text"
+              placeholder="Type name & enter"
+              className="border outline-none py-2 px-2"
+            />
           </div>
           <div className="overflow-x-auto mt-3 p-4">
             <table className="table  w-[700px] lg:w-full border">
@@ -76,11 +98,22 @@ const Brand = () => {
                         <td className="py-5 ps-4">{i + 1}</td>
                         <td>{item.name}</td>
                         <td>
-                          <Image src={item.imgURL?.img_url} width={50} height={50} alt={item.name}></Image>
+                          <Image
+                            src={item.imgURL?.img_url}
+                            width={50}
+                            height={50}
+                            alt={item.name}
+                          ></Image>
                         </td>
 
                         <td>
                           <div className="flex gap-2 items-center">
+                            <input
+                              onChange={(e) => handleFeatured(e, item._id)}
+                              type="checkbox"
+                              className="toggle toggle-success"
+                              defaultChecked={item.featured ? true : false}
+                            />
                             <span
                               title="Edit"
                               className="bg-yellow-500 bg-opacity-50 text-white text-xs p-[5px] rounded-full cursor-pointer hover:bg-opacity-100"
@@ -107,7 +140,9 @@ const Brand = () => {
           </div>
         </div>
         <div className="basis-5/12 shadow-[0_0_10px_5px_#d7d7d7bf] pb-6">
-          <h2 className="border px-6 py-4 text-xl font-semibold">Add New Brand</h2>
+          <h2 className="border px-6 py-4 text-xl font-semibold">
+            Add New Brand
+          </h2>
           <div className="px-6 pt-4">
             <form onSubmit={handleSubmit(HandleAddBrand)}>
               <div>
@@ -126,7 +161,6 @@ const Brand = () => {
                 <label htmlFor="name" className="mb-2 block">
                   Logo
                 </label>
-
                 <input
                   {...register("imgURL")}
                   type="file"
@@ -134,7 +168,7 @@ const Brand = () => {
                 />
               </div>
               <div className="mt-4">
-                <label htmlFor="">Meta Title</label>
+                <label>Meta Title</label>
                 <br />
                 <input
                   {...register("meta_title")}

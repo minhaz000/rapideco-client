@@ -29,20 +29,42 @@ const AllCategory = () => {
             toast.success("category moved to Trash");
             Categories.refetch();
           })
-          .catch((error: any) => toast.error(error.message ? error.message : error?.data.message));
+          .catch((error: any) =>
+            toast.error(error.message ? error.message : error?.data.message)
+          );
       }
     });
+  };
+  const handleFeatured = (e: any, ID: string) => {
+    e.preventDefault();
+    const data = e.target.checked ? { featured: true } : { featured: false };
+    axios
+      .put(`/api/v0/category/${ID}`, data)
+      .then(() => {
+        Categories.refetch();
+        toast.success(
+          !e.target.checked
+            ? "add to featured category"
+            : "removed from featured "
+        );
+      })
+      .catch((error: any) =>
+        toast.error(error.message ? error.message : error?.data.message)
+      );
   };
   return (
     <div>
       <div className="flex justify-between items-center">
         <h2 className="text-lg">All Categories</h2>
-        <Link href={"/admin/add-category"} className="bg-sky-800 px-4 py-2 rounded text-white capitalize">
+        <Link
+          href={"/admin/add-category"}
+          className="bg-sky-800 px-4 py-2 rounded text-white capitalize"
+        >
           Add new Categories
         </Link>
       </div>
       <div className="shadow-[0_0_10px_5px_#d7d7d7bf] mt-6">
-        <div className="flex justify-between items-center border-b pb-3 px-4 pt-4 mb-4">
+        <div className="md:flex justify-between items-center border-b pb-3 px-4 pt-4 mb-4">
           <div>
             <h2 className="text-xl">Categories</h2>
             <div>
@@ -51,7 +73,7 @@ const AllCategory = () => {
               </span>
             </div>
           </div>
-          <div className="flex gap-4">
+          <div className="flex gap-4 mt-3 md:mt-0">
             <div>
               <input
                 onChange={() => {}}
@@ -60,7 +82,11 @@ const AllCategory = () => {
                 className="border outline-none text-sm py-2 px-3 w-40"
               />
             </div>
-            <select name="" id="" className="border py-2 px-3 outline-none w-40 text-xs text-slate-500">
+            <select
+              name=""
+              id=""
+              className="border py-2 px-3 outline-none w-40 text-xs text-slate-500"
+            >
               <option value="">Sort By</option>
             </select>
           </div>
@@ -71,7 +97,9 @@ const AllCategory = () => {
               <tr className="border text-xs font-normal ">
                 <th className="py-3 text-slate-500 ps-4 text-start">#</th>
                 <th className="py-3 text-slate-500 text-start">Name</th>
-                <th className="py-3 text-slate-500 text-start">Parent Category</th>
+                <th className="py-3 text-slate-500 text-start">
+                  Parent Category
+                </th>
                 <th className="py-3 text-slate-500 text-start">products</th>
                 {/* <th className="py-3 text-slate-500 text-start">Level</th> */}
                 <th className="py-3 text-slate-500 text-start">Icon</th>
@@ -86,18 +114,41 @@ const AllCategory = () => {
                   <>
                     <tr className="text-xs font-normal text-start border-b">
                       <td className="py-5 ps-4">{i + 1}</td>
-                      <td>{item.name}</td>
+                      <td>{item?.name}</td>
                       <td>{"root"}</td>
-                      <td>{"item.products.lenght"}</td>
+                      <td>{item?.products?.length}</td>
                       {/* <td>0</td> */}
                       <td>
-                        <Image src={item.icon?.img_url} width={50} height={50} alt={item.name}></Image>
+                        {item.icon?.img_url ? (
+                          <Image
+                            src={item.icon?.img_url}
+                            width={50}
+                            height={50}
+                            alt={item.name}
+                          ></Image>
+                        ) : (
+                          "-- _ --"
+                        )}
                       </td>
                       <td>
-                        <Image src={item.imgURL?.img_url} width={50} height={50} alt={item.name}></Image>
+                        {item.imgURL?.img_url ? (
+                          <Image
+                            src={item.imgURL?.img_url}
+                            width={50}
+                            height={50}
+                            alt={item.name}
+                          ></Image>
+                        ) : (
+                          "-- _ --"
+                        )}
                       </td>
                       <td>
-                        <input type="checkbox" className="toggle toggle-success" />
+                        <input
+                          onChange={(e) => handleFeatured(e, item._id)}
+                          type="checkbox"
+                          className="toggle toggle-success"
+                          defaultChecked={item?.featured ? true : false}
+                        />
                       </td>
                       <td>
                         <div className="flex gap-2 items-center">
@@ -105,13 +156,13 @@ const AllCategory = () => {
                             title="Edit"
                             className="bg-yellow-500 bg-opacity-50 text-white text-xs p-[5px] rounded-full cursor-pointer hover:bg-opacity-100"
                           >
-                            <Link href={`/admin/edit-category/${item._id}`}>
+                            <Link href={`/admin/edit-category/${item?._id}`}>
                               <FaRegEdit />
                             </Link>
                           </span>
 
                           <span
-                            onClick={() => handleDelete(item._id)}
+                            onClick={() => handleDelete(item?._id)}
                             title="Delete"
                             className="bg-red-500 bg-opacity-50 text-white text-xs p-[5px] rounded-full cursor-pointer hover:bg-opacity-100"
                           >
@@ -125,19 +176,33 @@ const AllCategory = () => {
                         <>
                           <tr className="text-xs font-normal text-start border-b">
                             <td className="py-5 ps-4">--</td>
-                            <td>{sub_item.name}</td>
-                            <td>{sub_item.parent_info.name}</td>
+                            <td>{sub_item?.name}</td>
+                            <td>{sub_item?.parent_info?.name}</td>
                             <td>{"sub_item"}</td>
                             {/* <td>0</td>
                       <td>0</td> */}
                             <td>
-                              <Image src={sub_item.icon?.img_url} width={50} height={50} alt={sub_item.name}></Image>
+                              <Image
+                                src={sub_item?.icon?.img_url}
+                                width={50}
+                                height={50}
+                                alt={sub_item?.name}
+                              ></Image>
                             </td>
                             <td>
-                              <Image src={sub_item.imgURL?.img_url} width={50} height={50} alt={sub_item.name}></Image>
+                              <Image
+                                src={sub_item.imgURL?.img_url}
+                                width={50}
+                                height={50}
+                                alt={sub_item.name}
+                              ></Image>
                             </td>
                             <td>
-                              <input type="checkbox" className="toggle toggle-success" checked />
+                              <input
+                                type="checkbox"
+                                className="toggle toggle-success"
+                                checked
+                              />
                             </td>
                             <td>
                               <div className="flex gap-2 items-center">

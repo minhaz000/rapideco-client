@@ -4,15 +4,22 @@ import Image from "next/image";
 import { useQueryData } from "@/hooks/hook.query";
 import { toast } from "react-toastify";
 import { useForm as useform, SubmitHandler } from "react-hook-form";
-import FormValues from "../../brand";
+import FormValues from "../../../../../interface/brand";
 import Uploder from "@/hooks/hook.upload";
 import { useAdminContext } from "@/context/admin.context";
 import { useMutationData } from "@/hooks/hook.query";
 import axios from "@/hooks/hook.axios";
 const EditBrand = ({ params }: { params: { brandID: string[] } }) => {
   const { Brands: allBrands }: any = useAdminContext("/api/v0/brands");
-  const { data: oldBrand, refetch } = useQueryData(["get single brand"], `/api/v0/brand/${params.brandID}`);
-  const updateBrand = useMutationData(["update new brand"], "put", `/api/v0/brand/${params.brandID}`);
+  const { data: oldBrand, refetch } = useQueryData(
+    ["get single brand"],
+    `/api/v0/brand/${params.brandID}`
+  );
+  const updateBrand = useMutationData(
+    ["update new brand"],
+    "put",
+    `/api/v0/brand/${params.brandID}`
+  );
   const [selectedBrand, setSelectedBrand] = useState("");
   const { register, reset, handleSubmit } = useform<FormValues>({
     defaultValues: async (): Promise<FormValues> => {
@@ -22,19 +29,19 @@ const EditBrand = ({ params }: { params: { brandID: string[] } }) => {
   });
 
   // =============== FUNCTION FOR THE UPDATE BRAND
-  const HandleUpdateBrand: SubmitHandler<FormValues> = async (data) => {
-    data.imgURL.length > 0 ? (data.imgURL = await Uploder(data.imgURL)) : null;
+  const HandleUpdateBrand: SubmitHandler<FormValues> = async (data: any) => {
+    data.imgURL?.length > 0 ? (data.imgURL = await Uploder(data.imgURL)) : null;
     updateBrand.mutate(data, {
       onSuccess: () => {
         toast.success("brand updated");
         refetch().then((res) => {
-          setSelectedBrand(res.data.data.imgUrl.img_url);
+          setSelectedBrand(res.data?.data?.imgUrl?.img_url);
         });
 
         allBrands.refetch();
-        refetch();
       },
-      onError: (error: any) => toast.error(error.message ? error.message : error?.data.message),
+      onError: (error: any) =>
+        toast.error(error.message ? error.message : error?.data.message),
     });
   };
 
@@ -82,7 +89,9 @@ const EditBrand = ({ params }: { params: { brandID: string[] } }) => {
           />
           <div className="relative inline-block mt-2">
             <Image
-              src={selectedBrand ? selectedBrand : oldBrand?.data?.imgURL?.img_url}
+              src={
+                selectedBrand ? selectedBrand : oldBrand?.data?.imgURL?.img_url
+              }
               alt=""
               width={80}
               height={80}
@@ -108,7 +117,11 @@ const EditBrand = ({ params }: { params: { brandID: string[] } }) => {
             className="w-full border py-2 px-3 outline-none mt-2 h-28"
           ></textarea>
         </div>
-        <input type="submit" value="Save" className="bg-red-600 text-white px-6 py-2 mt-4 rounded-md cursor-pointer" />
+        <input
+          type="submit"
+          value="Save"
+          className="bg-red-600 text-white px-6 py-2 mt-4 rounded-md cursor-pointer"
+        />
       </form>
     </div>
   );

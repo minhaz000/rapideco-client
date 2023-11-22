@@ -1,94 +1,54 @@
-import Image from "next/image";
-import React from "react";
-import Logo from "../../assets/logo.png";
-import Tracking from "../../assets/finding.png";
-import Cart from "../../assets/bag.png";
+"use client";
 import Link from "next/link";
-import { FaSearch } from "react-icons/fa";
+import SettingData from "../../../public/assets/site.settings.json";
+import HeaderTop from "./HeaderTop";
+import { useRootContext } from "@/context/root.context";
 const Header = () => {
+  const { collapseMenu, setCollapseMenu }: any = useRootContext();
+  const headerBg = SettingData?.header?.color;
   return (
-    <header className="pt-3">
+    <header className="pt-2">
       {/* Top bar */}
-      <div className="flex flex-row justify-between items-center max-w-screen-xl mx-auto px-3 lg:px-10">
-        <div className="basis-4/12 lg:basis-1/4">
-          <Link href="/" className="inline-block">
-            <Image
-              src={Logo}
-              alt="Logo image"
-              className="w-24 md:w-32 lg:w-40"
-            />
-          </Link>
-        </div>
-        <div className="basis-8/12 lg:basis-1/2">
-          <form className="flex">
-            <input
-              type="text"
-              placeholder="Search"
-              className="w-full border rounded-s-md px-2 md:px-3 py-[6px] md:py-[10px] outline-none"
-            />
-            <button className="bg-[#3bb77e] text-white px-3 rounded-e-md">
-              <FaSearch />
-            </button>
-          </form>
-        </div>
-        <div className="basis-1/4 ps-6 hidden lg:block text-center">
-          <div className="flex items-center justify-end gap-5">
-            <div>
-              <Link href="/" className="flex items-center  gap-1">
-                <Image
-                  src={Tracking}
-                  alt="tracking icon"
-                  width={40}
-                  height={40}
-                />
-                <span className="block text-center font-bold text-[14px]">
-                  অর্ডার ট্র্যাক <br /> করুন
-                </span>
-              </Link>
-            </div>
-            <div className="relative">
-              <Link href="/">
-                <Image src={Cart} alt="tracking icon" width={40} height={40} />
-              </Link>
-              <span className="absolute bg-[#3bb77e] top-0 -right-[5px] text-white text-[12px] px-[5px] rounded-full">
-                0
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
+      <HeaderTop headerBg={headerBg} />
       {/* Main menu  */}
-      <nav className="bg-[#3bb77e] mt-3 hidden lg:block">
-        <ul className="flex gap-4 max-w-screen-xl mx-auto py-3 px-10 text-white text-[14px]">
-          <li>
-            <Link href="/">হোম </Link>
-          </li>
-          <li>
-            <Link href="/">ছেলেদের পোশাক</Link>
-          </li>
-          <li>
-            <Link href="/">মেয়েদের পোশাক</Link>
-          </li>
-          <li>
-            <Link href="/">বাচ্চাদের পোষাক</Link>
-          </li>
-          <li>
-            <Link href="/">প্রসাধনী সামগ্রী</Link>
-          </li>
-          <li>
-            <Link href="/">গ্যাজেট</Link>
-          </li>
-          <li>
-            <Link href="/">গৃহসজ্জা</Link>
-          </li>
-          <li>
-            <Link href="/">হোলি ফ্রাইডে সেল</Link>
-          </li>
-          <li>
-            <Link href="/">লগইন/সাইনআপ</Link>
-          </li>
+
+      <nav
+        className={`hidden lg:block mt-2`}
+        style={{ backgroundColor: `${headerBg}` }}
+      >
+        <ul className="flex justify-center gap-4 max-w-screen-xl mx-auto py-[8px] lg:px-12 text-white text-[14px]">
+          {SettingData?.header?.nav_menu?.map((item: any, index: number) => (
+            <li key={index}>
+              <Link className="text-[17px]" href={item?.value}>
+                {item?.lavel}
+              </Link>
+            </li>
+          ))}
         </ul>
       </nav>
+      {/* mobile menu */}
+      <div
+        onClick={() => setCollapseMenu(false)}
+        className={`fixed  ${
+          collapseMenu ? "block opacity-100" : "hidden opacity-0"
+        } top-0 bottom-0 bg-black bg-opacity-50 z-10 h-screen w-full cursor-pointer duration-500`}
+      ></div>
+      <ul
+        className={`flex flex-col gap-4 py-[16px] ps-4 lg:px-12 text-white text-[14px] ${
+          collapseMenu
+            ? "visible opacity-100 -translate-x-0"
+            : "invisible lg:invisible opacity-0 lg:opacity-0 -translate-x-96"
+        } h-screen fixed top-0 bottom-0  overflow-y-auto z-50 transition-all duration-500 ease-in-out w-3/4`}
+        style={{ backgroundColor: `${headerBg}` }}
+      >
+        {SettingData?.header?.nav_menu?.map((item: any, index: number) => (
+          <li key={index}>
+            <Link className="text-[17px]" href={item?.value}>
+              {item?.lavel}
+            </Link>
+          </li>
+        ))}
+      </ul>
     </header>
   );
 };

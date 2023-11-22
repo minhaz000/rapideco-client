@@ -1,4 +1,4 @@
-.slick-dots {
+#homeSlider .slick-dots {
   position: absolute;
   bottom: 22px;
   display: block;
@@ -8,7 +8,7 @@
   list-style: none;
   text-align: center;
 }
-.slick-dots li button:before {
+#homeSlider .slick-dots li button:before {
   font-family: "slick";
   font-size: 12px;
   width: 27px;
@@ -16,31 +16,48 @@
   opacity: 0.25;
   color: white;
 }
-.slick-dots li.slick-active button:before {
+#homeSlider .slick-dots li.slick-active button:before {
   opacity: 0.75;
   color: white;
 }
-.slick-prev:before,
-.slick-next:before {
+#homeSlider .slick-prev:before,
+#homeSlider .slick-next:before {
   font-size: 24px;
   color: #ff4141;
 }
-.slick-prev,
-.slick-next {
+#homeSlider .slick-prev,
+#homeSlider .slick-next {
   top: 92%;
   width: 20px;
   height: 20px;
   padding: 0;
-  z-index: 99;
+  z-index: 40;
 }
-.slick-prev {
+
+#homeSlider .slick-prev {
   left: 44%;
 }
-.slick-prev:before,
-.slick-next:before {
+#homeSlider .slick-prev:before,
+#homeSlider .slick-next:before {
   font-size: 24px;
   color: #ffffff;
 }
-.slick-next {
+#homeSlider .slick-next {
   right: 44%;
+}
+@media (max-width: 765px) {
+  #homeSlider .slick-prev,
+  #homeSlider .slick-next {
+    top: 80% !important;
+  }
+  #homeSlider .slick-prev {
+    left: 36%;
+  }
+  #homeSlider .slick-next {
+    right: 50%;
+  }
+  #homeSlider .slick-dots {
+    bottom: 37px;
+    left: -7%;
+  }
 }

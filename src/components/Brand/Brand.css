@@ -1,0 +1,15 @@
+#shop-brand .slick-prev {
+  left: 16px !important;
+}
+#shop-brand .slick-next {
+  right: 26px !important;
+}
+#shop-brand .slick-prev:before,
+#shop-brand .slick-next:before {
+  color: #0f8100 !important;
+}
+#shop-brand .slick-prev:before,
+#shop-brand .slick-next:before {
+  font-size: 29px !important;
+  opacity: 1;
+}

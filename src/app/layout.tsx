@@ -1,12 +1,16 @@
 import "../css/globals.css";
-import { Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
 import Context from "../context/root.context";
 import Providers from "@/context/query.provider";
-const inter = Inter({ subsets: ["latin"] });
+const poppins = Poppins({
+  weight: ["300", "400", "500", "600", "700"],
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export const metadata = {
-  title: "Rapid Eco ",
-  description: "rapid growing ecomere ",
+  title: "Isoftex",
+  description: "Rapid growing e-commerce ",
 };
 
 export default function RootLayout({
@@ -16,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={poppins.className}>
         <Providers>
           <Context> {children} </Context>
         </Providers>

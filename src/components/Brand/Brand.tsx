@@ -9,7 +9,7 @@ const Brand = async () => {
 
   return (
     <section className="max-w-screen-xl mx-auto px-3 lg:px-10 mt-10">
-      <SectionHeading  sectionTitle="Shop By Brands" />
+      <SectionHeading sectionTitle="Shop By Brands" />
       <div className="mt-4" id="shop-brand">
         <BrandCarousel Brands={Brands} />
       </div>

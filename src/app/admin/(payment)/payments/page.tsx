@@ -16,20 +16,29 @@ import Link from "next/link";
 
 const Payment = () => {
   const [selectedImage, setSelectedImage] = useState(null);
-  const { data: allPayment, refetch } = useQueryData(["get all payent"], "api/v0/payments");
-  const newPayment = useMutationData(["add new payament"], "post", "api/v0/payment");
+  const { data: allPayment, refetch } = useQueryData(
+    ["get all payent"],
+    "api/v0/payments"
+  );
+  const newPayment = useMutationData(
+    ["add new payament"],
+    "post",
+    "api/v0/payment"
+  );
   const { register, reset, handleSubmit, setValue } = useform<FormValues>();
   // =============== FUNCTION FOR THE PRODUCT POST REQUEST
   const HandleAddPayment: SubmitHandler<FormValues> = async (data) => {
     data.method_code = slugify(data.method_code, { lower: true });
-    data.method_img = data.method_img.length > 0 && (await Upload(data.method_img));
+    data.method_img =
+      data.method_img.length > 0 && (await Upload(data.method_img));
     newPayment.mutate(data as any, {
       onSuccess: () => {
         toast.success("payment added");
         reset();
         refetch();
       },
-      onError: (error: any) => toast.error(error.message ? error.message : error?.data.message),
+      onError: (error: any) =>
+        toast.error(error.message ? error.message : error?.data.message),
     });
 
     console.log(data);
@@ -58,7 +67,9 @@ const Payment = () => {
             toast.success("method deleted");
             refetch();
           })
-          .catch((error: any) => toast.error(error.message ? error.message : error?.data.message));
+          .catch((error: any) =>
+            toast.error(error.message ? error.message : error?.data.message)
+          );
       }
     });
   };
@@ -67,11 +78,15 @@ const Payment = () => {
   return (
     <div>
       <h2 className="text-xl">All Payment</h2>
-      <div className=" flex gap-6 mt-6">
-        <div className="basis-7/12 shadow-[0_0_10px_5px_#d7d7d7bf]">
+      <div className="lg:flex gap-6 mt-6">
+        <div className="lg:basis-7/12 shadow-[0_0_10px_5px_#d7d7d7bf]">
           <div className="flex justify-between items-center border-b px-6 py-4">
             <h2>Payment Method</h2>
-            <input type="text" placeholder="Type name & enter" className="border outline-none py-2 px-2" />
+            <input
+              type="text"
+              placeholder="Type name & enter"
+              className="border outline-none py-2 px-2"
+            />
           </div>
           <div className="overflow-x-auto mt-3 p-4">
             <table className="table  w-[1130px] lg:w-full border">
@@ -86,11 +101,19 @@ const Payment = () => {
               <tbody className="border pt-2">
                 {allPayment?.data.map((item: any, i: number) => {
                   return (
-                    <tr key={i} className="text-xs font-normal text-start border-b">
+                    <tr
+                      key={i}
+                      className="text-xs font-normal text-start border-b"
+                    >
                       <td className="py-5 ps-4">{i + 1}</td>
                       <td>{item.method_name}</td>
                       <td>
-                        <Image src={item?.method_img?.img_url} width={50} height={50} alt=""></Image>
+                        <Image
+                          src={item?.method_img?.img_url}
+                          width={50}
+                          height={50}
+                          alt=""
+                        ></Image>
                       </td>
 
                       <td>
@@ -119,8 +142,10 @@ const Payment = () => {
             </table>
           </div>
         </div>
-        <div className="basis-5/12 shadow-[0_0_10px_5px_#d7d7d7bf] pb-6">
-          <h2 className="border px-6 py-4 text-xl font-semibold">Add New Method</h2>
+        <div className="mf:basis-5/12 shadow-[0_0_10px_3px_#d7d7d7bf] pb-6">
+          <h2 className="border px-6 py-4 text-xl font-semibold">
+            Add New Method
+          </h2>
           <div className="px-6 pt-4">
             <form onSubmit={handleSubmit(HandleAddPayment)}>
               <div>
@@ -181,7 +206,7 @@ const Payment = () => {
                 {selectedImage && (
                   <div className="my-3">
                     <Image
-                      src={URL.createObjectURL(selectedImage)}
+                      src={URL?.createObjectURL(selectedImage)}
                       alt="icon"
                       width={100}
                       height={100}

@@ -10,15 +10,27 @@ import { useAdminContext } from "@/context/admin.context";
 import Image from "next/image";
 
 const Page = () => {
-  const [selectedImage, setSelectedImage] = useState({ icon: null, imgURL: null });
+  const [selectedImage, setSelectedImage] = useState({
+    icon: null,
+    imgURL: null,
+  });
   const { Categories }: any = useAdminContext();
-  const newCategory = useMutationData<FormValues>(["add Category"], "post", "/api/v0/category");
-  const { watch, register, reset, handleSubmit, setValue } = useform<FormValues>();
+  const newCategory = useMutationData<FormValues>(
+    ["add Category"],
+    "post",
+    "/api/v0/category"
+  );
+  const { watch, register, reset, handleSubmit, setValue } =
+    useform<FormValues>();
   // =============== FUNCTION FOR THE PRODUCT POST REQUEST
   const HandleAddCategory: SubmitHandler<FormValues> = async (data: any) => {
     data.slug = slugify(data.name, { lower: true });
-    data?.icon?.length > 0 ? (data.icon = await Uploder(data.icon)) : delete data.icon;
-    data?.imgURL?.length > 0 ? (data.imgURL = await Uploder(data.imgURL)) : delete data.imgURL;
+    data?.icon?.length > 0
+      ? (data.icon = await Uploder(data.icon))
+      : delete data.icon;
+    data?.imgURL?.length > 0
+      ? (data.imgURL = await Uploder(data.imgURL))
+      : delete data.imgURL;
     data.parentID === "null" && delete data.parentID;
     newCategory.mutate(data as any, {
       onSuccess: () => {
@@ -27,7 +39,8 @@ const Page = () => {
         setSelectedImage({ icon: null, imgURL: null });
         reset();
       },
-      onError: (error: any) => toast.error(error.message ? error.message : error?.data.message),
+      onError: (error: any) =>
+        toast.error(error.message ? error.message : error?.data.message),
     });
   };
 
@@ -39,7 +52,7 @@ const Page = () => {
   const validationError = newCategory.error?.data.errors;
 
   return (
-    <div className="shadow-lg p-6 w-2/3 mx-auto border rounded">
+    <div className="shadow-lg p-6 lg:w-2/3 mx-auto border rounded">
       <h2 className="border-b pb-2 text-xl">Category information</h2>
       <form onSubmit={handleSubmit(HandleAddCategory)}>
         <div className="mt-4">
@@ -54,7 +67,9 @@ const Page = () => {
             }`}
           />
           {validationError?.name && (
-            <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.name.message}</p>
+            <p className="text-red-600 text-[14px]  mb-[5px] text-right">
+              {validationError.name.message}
+            </p>
           )}
         </div>
         <div className="mt-4">
@@ -71,13 +86,18 @@ const Page = () => {
             }`}
           />
           {validationError?.slug && (
-            <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.slug.message}</p>
+            <p className="text-red-600 text-[14px]  mb-[5px] text-right">
+              {validationError.slug.message}
+            </p>
           )}
         </div>
         <div className="mt-4">
           <label htmlFor="">Parent Category</label>
           <br />
-          <select {...register("parentID")} className="w-full border py-2 px-3 outline-none mt-2">
+          <select
+            {...register("parentID")}
+            className="w-full border py-2 px-3 outline-none mt-2"
+          >
             <option value="null">No parent</option>
             {Categories.data?.data?.map((item: any) => {
               return (
@@ -100,7 +120,7 @@ const Page = () => {
           {selectedImage.icon && (
             <div className="my-3">
               <Image
-                src={URL.createObjectURL(selectedImage.icon)}
+                src={URL?.createObjectURL(selectedImage?.icon)}
                 alt="icon"
                 width={100}
                 height={100}
@@ -122,7 +142,7 @@ const Page = () => {
           {selectedImage.imgURL && (
             <div className="my-3">
               <Image
-                src={URL.createObjectURL(selectedImage.imgURL)}
+                src={URL?.createObjectURL(selectedImage?.imgURL)}
                 alt="icon"
                 width={100}
                 height={100}
@@ -151,7 +171,11 @@ const Page = () => {
             className="w-full border py-2 px-3 outline-none mt-2 h-28"
           ></textarea>
         </div>
-        <input type="submit" value="Save" className="bg-sky-800 px-8 mt-3 py-2 rounded text-white cursor-pointer" />
+        <input
+          type="submit"
+          value="Save"
+          className="bg-sky-800 px-8 mt-3 py-2 rounded text-white cursor-pointer"
+        />
       </form>
     </div>
   );

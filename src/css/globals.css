@@ -1,6 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  background-color: #fff;
+}
 .sidebar-item {
   padding: 0.5em 0.5em;
   transition: background-color 0.15s;
@@ -35,4 +39,57 @@
 
 .slick-slide > div:focus-visible {
   outline: none !important;
+}
+.react-tabs__tab--selected {
+  background: #141423 !important;
+  border-color: #fff !important;
+  color: white !important;
+  border-radius: 5px 5px 0 0;
+}
+.react-tabs__tab-list {
+  border-bottom: 0px solid #aaa !important;
+  margin: 0 0 0px !important;
+}
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  font-size: 12px !important;
+  color: white;
+  font-weight: 700;
+}
+.swiper-button-next,
+.swiper-rtl .swiper-button-prev {
+  background: red !important;
+  width: 26px !important;
+  height: 26px !important;
+}
+.swiper-button-prev,
+.swiper-rtl .swiper-button-next {
+  background: red !important;
+  width: 26px !important;
+  height: 26px !important;
+}
+/* Style the scrollbar track */
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* Change this to your desired background color */
+}
+
+/* Style the scrollbar thumb */
+::-webkit-scrollbar-thumb {
+  background-color: #888; /* Change this to your desired thumb color */
+  border-radius: 5px; /* Round the corners of the thumb */
+}
+
+/* Optionally, you can style the scrollbar's corner */
+::-webkit-scrollbar-corner {
+  background-color: #f1f1f1; /* Match the track's background color */
+}
+/* Style the scrollbar track */
+scrollbar {
+  background-color: #f1f1f1; /* Change this to your desired background color */
+}
+
+/* Style the scrollbar thumb */
+scrollbar-thumb {
+  background-color: #888; /* Change this to your desired thumb color */
+  border-radius: 5px; /* Round the corners of the thumb */
 }

@@ -24,10 +24,6 @@ const menuItems = [
         title: "Add Product",
         path: "/admin/add-product",
       },
-      {
-        title: "Edit Product",
-        path: "/admin/edit-product",
-      },
     ],
   },
   {
@@ -51,10 +47,6 @@ const menuItems = [
       {
         title: "Add category",
         path: "/admin/add-category",
-      },
-      {
-        title: "Edit category",
-        path: "/admin/edit-category",
       },
     ],
   },

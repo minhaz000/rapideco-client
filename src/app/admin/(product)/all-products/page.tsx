@@ -11,15 +11,21 @@ import Pagination from "@/components/pagination/pagination";
 import { useAdminContext } from "@/context/admin.context";
 const AllProduct = () => {
   const { Brands, Categories }: any = useAdminContext();
-  const [query, setQuery]: any = useState({ s: "", category: "", brand: "", sort: "", status: "" });
+  const [query, setQuery]: any = useState({
+    s: "",
+    category: "",
+    brand: "",
+    sort: "",
+    status: "",
+  });
   const [pagination, setPagination] = useState({ page: 1, limit: 10 });
   const { data: Products, refetch } = useQueryData(
     ["get all product", pagination, query],
-    `/api/v0/products?page=${pagination.page}&limit=${pagination.limit}&s=${query.s}&sort=${
-      query.sort
-    }&category_info._id=${query.category}${query.status && `&status=${query.status}`}${
-      query.brand && `&brand_info._id=${query.brand}`
-    }`
+    `/api/v0/products?page=${pagination.page}&limit=${pagination.limit}&s=${
+      query.s
+    }&sort=${query.sort}&category_info._id=${query.category}${
+      query.status && `&status=${query.status}`
+    }${query.brand && `&brand_info._id=${query.brand}`}`
   );
 
   const handleDeleteProduct = (productID: string) => {
@@ -42,7 +48,9 @@ const AllProduct = () => {
             toast.success("product moved to Trash");
             Products.refetch();
           })
-          .catch((error: any) => toast.error(error.message ? error.message : error?.data.message));
+          .catch((error: any) =>
+            toast.error(error.message ? error.message : error?.data.message)
+          );
       }
     });
   };
@@ -61,13 +69,16 @@ const AllProduct = () => {
     <div>
       <div className="flex justify-between items-center">
         <h2 className="text-lg">All Product</h2>
-        <Link href={"/admin/add-product"} className="bg-sky-800 px-4 py-2 rounded text-white capitalize">
+        <Link
+          href={"/admin/add-product"}
+          className="bg-sky-800 text-[12px] md:text-lg px-2 md:px-4 py-2 rounded text-white capitalize"
+        >
           Add new Product
         </Link>
       </div>
-      <div className="shadow-[0_0_10px_5px_#d7d7d7bf] mt-6">
-        <div className="flex justify-between items-center border-b pb-3 px-4 pt-4 mb-4">
-          <div>
+      <div className="shadow-[0_0_8px_3px_#d7d7d7bf] mt-6 mb-4 pb-3">
+        <div className="lg:flex justify-between items-center border-b pb-3 px-4 pt-4 mb-4">
+          <div className="lg:w-4/12">
             <h2 className="text-xl">All Product</h2>
             <div>
               <span className="text-[12px] underline text-slate-500 cursor-pointer mr-2">
@@ -78,7 +89,7 @@ const AllProduct = () => {
               </span>
             </div>
           </div>
-          <div className="flex gap-4">
+          <div className="grid lg:flex grid-cols-2 sm:grid-cols-3 gap-4 lg:w-8/12 mt-3 lg:mt-0">
             <select
               onChange={HandleQuery}
               name="brand"
@@ -132,15 +143,19 @@ const AllProduct = () => {
             </div>
           </div>
         </div>
-        <div className="overflow-x-auto mt-3 p-4">
-          <table className="table  w-[1130px] lg:w-full border">
+        <div className="overflow-x-auto mt-3 px-4 pt-4">
+          <table className="table w-[1050px]  md:w-[1130px] lg:w-full border">
             <thead>
               <tr className="border text-xs font-normal ">
                 <th className="py-3 text-slate-500 ps-4 text-start">SL</th>
                 <th className="py-3 text-slate-500 text-start">Image</th>
                 <th className="py-3 text-slate-500 text-start">Title</th>
-                <th className="py-3 text-slate-500 text-start">Regular price</th>
-                <th className="py-3 text-slate-500 text-start">Discount price</th>
+                <th className="py-3 text-slate-500 text-start">
+                  Regular price
+                </th>
+                <th className="py-3 text-slate-500 text-start">
+                  Discount price
+                </th>
                 <th className="py-3 text-slate-500 text-start">Stock</th>
                 <th className="py-3 text-slate-500 text-start">Brand</th>
                 <th className="py-3 text-slate-500 text-start">Status</th>
@@ -150,7 +165,10 @@ const AllProduct = () => {
             <tbody className="border pt-2">
               {Products?.data?.map((item: any, i: number) => {
                 return (
-                  <tr key={i} className="text-xs font-normal text-start border-b">
+                  <tr
+                    key={i}
+                    className="text-xs font-normal text-start border-b"
+                  >
                     <td className="py-5 ps-4">{i + 1}</td>
                     <td>
                       {/* {item.product_image?.img_url ? (
@@ -163,12 +181,18 @@ const AllProduct = () => {
                     <td>{item?.regular_price}</td>
                     <td>{item.discount_price ? item.discount_price : "-"}</td>
                     <td>{item?.quantity}</td>
-                    <td>{item.brand_info?.name ? item.brand_info.name : "-"}</td>
+                    <td>
+                      {item.brand_info?.name ? item.brand_info.name : "-"}
+                    </td>
                     <td>
                       {item.status === "active" ? (
-                        <span className="bg-green-500 bg-opacity-70 text-white text-sm p-1 rounded">Active</span>
+                        <span className="bg-green-500 bg-opacity-70 text-white text-sm p-1 rounded">
+                          Active
+                        </span>
                       ) : (
-                        <span className="bg-red-500 bg-opacity-70 text-white text-sm p-1 rounded">Deactive</span>
+                        <span className="bg-red-500 bg-opacity-70 text-white text-sm p-1 rounded">
+                          Deactive
+                        </span>
                       )}
                     </td>
                     <td>
@@ -204,8 +228,13 @@ const AllProduct = () => {
             </tbody>
           </table>
         </div>
+        {Products?.data && (
+          <Pagination
+            pagination={Products.pagination}
+            setPagination={setPagination}
+          />
+        )}
       </div>
-      {Products?.data && <Pagination pagination={Products.pagination} setPagination={setPagination} />}
     </div>
   );
 };

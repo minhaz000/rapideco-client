@@ -14,7 +14,9 @@ const SuccessPage = ({ params }: { params: { token: string[] } }) => {
         toast.success(res.data?.data);
         router.push("/admin/dashboard");
       })
-      .catch((error: any) => toast.error(error.message ? error.message : error?.data.message));
+      .catch((error: any) =>
+        toast.error(error.message ? error.message : error?.data.message)
+      );
   }, []);
 
   return (

@@ -10,11 +10,22 @@ import { toast } from "react-toastify";
 import Image from "next/image";
 import { useAdminContext } from "@/context/admin.context";
 const Page = ({ params }: { params: { categoryID: string[] } }) => {
-  const [selectedImage, setSelectedImage] = useState({ icon: null, imgURL: null });
+  const [selectedImage, setSelectedImage] = useState({
+    icon: null,
+    imgURL: null,
+  });
   const { Categories }: any = useAdminContext();
-  const { data, refetch } = useQueryData(["single Category"], `/api/v0/category/${params.categoryID}`);
-  const updateCategory = useMutationData(["add Category"], "put", `/api/v0/category/${params.categoryID}`);
-  const { watch, register, reset, handleSubmit, setValue } = useform<FormValues>();
+  const { data, refetch } = useQueryData(
+    ["single Category"],
+    `/api/v0/category/${params.categoryID}`
+  );
+  const updateCategory = useMutationData(
+    ["add Category"],
+    "put",
+    `/api/v0/category/${params.categoryID}`
+  );
+  const { watch, register, reset, handleSubmit, setValue } =
+    useform<FormValues>();
   // console.log("currrentCategory ", currrentCategory?.data);
   const handleImage = (e: any) => {
     setSelectedImage({ ...selectedImage, [e.target.name]: e.target.files[0] });
@@ -22,8 +33,12 @@ const Page = ({ params }: { params: { categoryID: string[] } }) => {
   };
   // =============== FUNCTION FOR THE PRODUCT POST REQUEST
   const HandleEditCategory: SubmitHandler<FormValues> = async (fdata: any) => {
-    fdata.icon?.length > 0 ? (fdata.icon = await Uploder(fdata.icon)) : delete fdata.icon;
-    fdata.imgURL?.length > 0 ? (fdata.imgURL = await Uploder(fdata.imgURL)) : delete fdata.imgURL;
+    fdata.icon?.length > 0
+      ? (fdata.icon = await Uploder(fdata.icon))
+      : delete fdata.icon;
+    fdata.imgURL?.length > 0
+      ? (fdata.imgURL = await Uploder(fdata.imgURL))
+      : delete fdata.imgURL;
     fdata.parentID === "null" && delete fdata.parentID;
     fdata.slug = slugify(fdata.name, { lower: true });
 
@@ -41,7 +56,8 @@ const Page = ({ params }: { params: { categoryID: string[] } }) => {
 
         Categories.refetch();
       },
-      onError: (error: any) => toast.error(error.message ? error.message : error?.data.message),
+      onError: (error: any) =>
+        toast.error(error.message ? error.message : error?.data.message),
     });
   };
   useEffect(() => {
@@ -67,7 +83,9 @@ const Page = ({ params }: { params: { categoryID: string[] } }) => {
             }`}
           />
           {validationError?.name && (
-            <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.name.message}</p>
+            <p className="text-red-600 text-[14px]  mb-[5px] text-right">
+              {validationError.name.message}
+            </p>
           )}
         </div>
         <div className="mt-4">
@@ -85,13 +103,18 @@ const Page = ({ params }: { params: { categoryID: string[] } }) => {
             }`}
           />
           {validationError?.slug && (
-            <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.slug.message}</p>
+            <p className="text-red-600 text-[14px]  mb-[5px] text-right">
+              {validationError.slug.message}
+            </p>
           )}
         </div>
         <div className="mt-4">
           <label htmlFor="">Parent Category</label>
           <br />
-          <select {...register("parentID")} className="w-full border py-2 px-3 outline-none mt-2">
+          <select
+            {...register("parentID")}
+            className="w-full border py-2 px-3 outline-none mt-2"
+          >
             <option value="null">{data?.data.parent_info?.name}</option>
             {Categories.data?.data?.map((item: any) => {
               return (
@@ -113,7 +136,11 @@ const Page = ({ params }: { params: { categoryID: string[] } }) => {
           />
           <div className="my-3">
             <Image
-              src={selectedImage.icon ? URL.createObjectURL(selectedImage.icon) : data?.data.icon?.img_url}
+              src={
+                selectedImage.icon
+                  ? URL?.createObjectURL(selectedImage?.icon)
+                  : data?.data.icon?.img_url
+              }
               alt="icon"
               width={100}
               height={100}
@@ -133,7 +160,11 @@ const Page = ({ params }: { params: { categoryID: string[] } }) => {
           {/* <input {...register("imgURL")} type="file" className="w-full border py-2 px-3 outline-none mt-2" /> */}
           <div className="my-3">
             <Image
-              src={selectedImage.imgURL ? URL.createObjectURL(selectedImage.imgURL) : data?.data.imgURL?.img_url}
+              src={
+                selectedImage.imgURL
+                  ? URL?.createObjectURL(selectedImage?.imgURL)
+                  : data?.data.imgURL?.img_url
+              }
               alt="thumbnail"
               width={100}
               height={100}
@@ -161,7 +192,11 @@ const Page = ({ params }: { params: { categoryID: string[] } }) => {
             className="w-full border py-2 px-3 outline-none mt-2 h-28"
           ></textarea>
         </div>
-        <input type="submit" value="Save" className="bg-sky-800 px-8 mt-3 py-2 rounded text-white cursor-pointer" />
+        <input
+          type="submit"
+          value="Save"
+          className="bg-sky-800 px-8 mt-3 py-2 rounded text-white cursor-pointer"
+        />
       </form>
     </div>
   );

@@ -2,6 +2,7 @@
 import React from "react";
 import axios from "@/hooks/hook.axios";
 import { toast } from "react-toastify";
+import { BsCart2 } from "react-icons/bs";
 
 function AddToCartButton({ productID }: { productID: string }) {
   const handleAddToCart = (ID: string) => {
@@ -19,9 +20,10 @@ function AddToCartButton({ productID }: { productID: string }) {
     <>
       <button
         onClick={() => handleAddToCart(productID)}
-        className="bg-[#3bb77e] text-white px-3 py-2 text-[12px] rounded-sm w-full font-semibold transition-colors duration-300 hover:bg-[#278056]"
+        className="bg-[#00C9B4] text-white px-3 py-2 text-[13px] rounded-sm w-full font-semibold transition-colors duration-300 hover:bg-[#168f83] flex items-center justify-center gap-1"
       >
-        Buy Now
+        <BsCart2 />
+        অর্ডার করুন
       </button>
     </>
   );

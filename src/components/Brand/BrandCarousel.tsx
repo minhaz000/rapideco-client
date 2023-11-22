@@ -14,7 +14,7 @@ const BrandCarousel = ({ Brands }: { Brands: any }) => {
         navigation={true}
         breakpoints={{
           0: {
-            slidesPerView: 1,
+            slidesPerView: 2,
             spaceBetween: 10,
           },
           480: {
@@ -38,7 +38,13 @@ const BrandCarousel = ({ Brands }: { Brands: any }) => {
         {Brands?.data?.map((item: any) => (
           <SwiperSlide key={item._id}>
             <Link href="/">
-              <Image src={Cat1} alt="" />
+              <Image
+                src={Cat1}
+                alt=""
+                width={100}
+                height={100}
+                className="w-full h-[180px] object-cover"
+              />
             </Link>
           </SwiperSlide>
         ))}

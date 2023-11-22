@@ -31,8 +31,9 @@
   width: 20px;
   height: 20px;
   padding: 0;
-  z-index: 99;
+  z-index: 40;
 }
+
 #homeSlider .slick-prev {
   left: 44%;
 }
@@ -43,4 +44,20 @@
 }
 #homeSlider .slick-next {
   right: 44%;
+}
+@media (max-width: 765px) {
+  #homeSlider .slick-prev,
+  #homeSlider .slick-next {
+    top: 80% !important;
+  }
+  #homeSlider .slick-prev {
+    left: 36%;
+  }
+  #homeSlider .slick-next {
+    right: 50%;
+  }
+  #homeSlider .slick-dots {
+    bottom: 37px;
+    left: -7%;
+  }
 }

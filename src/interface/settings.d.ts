@@ -6,6 +6,7 @@ interface ISettings {
     meta_description: string;
     nav_menu: any;
     phone_number: string;
+    favicon: string;
   };
   body: {
     banner: any[];

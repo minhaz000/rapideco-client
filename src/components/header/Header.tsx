@@ -1,68 +1,54 @@
-import Image from "next/image";
-import Logo from "../../assets/logo.png";
-import Tracking from "../../assets/finding.png";
-import Cart from "../../assets/bag.png";
+"use client";
 import Link from "next/link";
-import SearchForm from "./SearchForm";
 import SettingData from "../../../public/assets/site.settings.json";
-import { FaPhoneAlt } from "react-icons/fa";
+import HeaderTop from "./HeaderTop";
+import { useRootContext } from "@/context/root.context";
 const Header = () => {
+  const { collapseMenu, setCollapseMenu }: any = useRootContext();
   const headerBg = SettingData?.header?.color;
   return (
-    <header className="pt-3">
+    <header className="pt-2">
       {/* Top bar */}
-      <div className="flex flex-row justify-between items-center max-w-screen-xl mx-auto px-3 lg:px-10">
-        <div className="basis-4/12 lg:basis-1/4">
-          <Link href="/" className="inline-block">
-            <Image
-              src={Logo}
-              alt="Logo image"
-              className="w-24 md:w-32 lg:w-40"
-            />
-          </Link>
-        </div>
-        <SearchForm headerBg={headerBg} />
-        <div className="basis-1/4 ps-6 hidden lg:block">
-          <div className="flex items-center justify-end gap-6">
-            <div className="flex gap-4 items-center">
-              <div>
-                <FaPhoneAlt
-                  className="text-2xl"
-                  style={{ color: `${headerBg}` }}
-                />
-              </div>
-              <div className="text-start">
-                <span className="text-[15px] text-gray-600">Phone</span>
-                <p className="text-[13px]">০১৭৬০১০৭৭৬৪</p>
-              </div>
-            </div>
-            <div className="relative">
-              <Link href="/cart">
-                <Image src={Cart} alt="tracking icon" width={40} height={40} />
-              </Link>
-              <span
-                style={{ backgroundColor: `${headerBg}` }}
-                className={`absolute top-0 -right-[5px] text-white text-[12px] px-[5px] rounded-full`}
-              >
-                0
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
+      <HeaderTop headerBg={headerBg} />
       {/* Main menu  */}
+
       <nav
-        className={` mt-3 hidden lg:block`}
+        className={`hidden lg:block mt-2`}
         style={{ backgroundColor: `${headerBg}` }}
       >
-        <ul className="flex gap-4 max-w-screen-xl mx-auto py-3 px-10 text-white text-[14px]">
+        <ul className="flex justify-center gap-4 max-w-screen-xl mx-auto py-[8px] lg:px-12 text-white text-[14px]">
           {SettingData?.header?.nav_menu?.map((item: any, index: number) => (
             <li key={index}>
-              <Link href={item?.value}>{item?.lavel}</Link>
+              <Link className="text-[17px]" href={item?.value}>
+                {item?.lavel}
+              </Link>
             </li>
           ))}
         </ul>
       </nav>
+      {/* mobile menu */}
+      <div
+        onClick={() => setCollapseMenu(false)}
+        className={`fixed  ${
+          collapseMenu ? "block opacity-100" : "hidden opacity-0"
+        } top-0 bottom-0 bg-black bg-opacity-50 z-10 h-screen w-full cursor-pointer duration-500`}
+      ></div>
+      <ul
+        className={`flex flex-col gap-4 py-[16px] ps-4 lg:px-12 text-white text-[14px] ${
+          collapseMenu
+            ? "visible opacity-100 -translate-x-0"
+            : "invisible lg:invisible opacity-0 lg:opacity-0 -translate-x-96"
+        } h-screen fixed top-0 bottom-0  overflow-y-auto z-50 transition-all duration-500 ease-in-out w-3/4`}
+        style={{ backgroundColor: `${headerBg}` }}
+      >
+        {SettingData?.header?.nav_menu?.map((item: any, index: number) => (
+          <li key={index}>
+            <Link className="text-[17px]" href={item?.value}>
+              {item?.lavel}
+            </Link>
+          </li>
+        ))}
+      </ul>
     </header>
   );
 };

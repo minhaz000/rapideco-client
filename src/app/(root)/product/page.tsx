@@ -1,10 +1,20 @@
-import ProductSinglePage from "../../../components/ProductSinglePage/ProductSinglePage";
+import axios from "../../../hooks/hook.axios";
+import { headers } from "next/headers";
+import SinglePage from "./SinglePage";
+export const generateMetadata = async ({ searchParams: { _id } }: any) => {
+  const headersList = headers();
+  const singleData = await axios({
+    headers: { origin: `https://${headersList.get("host")}` },
+    method: "GET",
+    url: `/api/v0/product/${_id}`,
+  });
+  console.log(singleData.data);
+  return {
+    title: singleData.data.data.title,
+  };
+};
 const SingleProduct = async () => {
-  return (
-    <section className="max-w-screen-xl mx-auto px-3 lg:px-10 mt-6">
-      {<ProductSinglePage />}
-    </section>
-  );
+  // return <SinglePage />;
 };
 
 export default SingleProduct;

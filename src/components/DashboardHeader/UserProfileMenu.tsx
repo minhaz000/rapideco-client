@@ -3,6 +3,8 @@ import Link from "next/link";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "../../hooks/hook.axios";
+import user from "@/assets/user.png";
+import Image from "next/image";
 const UserProfileMenu = () => {
   const [profileOpen, setProfileOpen] = useState(false);
   console.log(profileOpen);
@@ -23,10 +25,12 @@ const UserProfileMenu = () => {
           className="flex items-center gap-3 cursor-pointer"
           onClick={() => setProfileOpen(!profileOpen)}
         >
-          <img
-            src="https://i.ibb.co/vBH9ybB/2-1.jpg"
-            className="rounded-full w-10 h-10"
+          <Image
+            src={user}
+            className="rounded-full w-10 h-10 bg-blue-600"
             alt=""
+            width={40}
+            height={40}
           />
           <div className="text-left">
             <h3 className="text-lg font-semibold leading-4">Isoftex</h3>

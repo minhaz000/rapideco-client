@@ -1,13 +1,12 @@
 "use client";
-type Props = {
-  headerBg: string;
-};
 import React, { useState } from "react";
 import { useQueryData } from "@/hooks/hook.query";
 import Link from "next/link";
-const SearchForm = ({ headerBg }: Props) => {
+import { useRouter } from "next/navigation";
+const SearchForm = () => {
   const [query, setQuery] = useState("");
   const [isActive, setIsActive] = useState(false);
+  const router = useRouter();
   const { data: results, refetch } = useQueryData(
     ["get search", query],
     `/api/v0/products?is_delete=false&status=active&s=${query}`
@@ -23,9 +22,15 @@ const SearchForm = ({ headerBg }: Props) => {
       setQuery("");
     }, 500);
   };
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    if (query?.length > 0) {
+      router.push("/shop");
+    }
+  };
   return (
     <div className="basis-8/12 lg:basis-1/2 relative">
-      <form className="flex">
+      <form className="flex" onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Search"
@@ -34,8 +39,8 @@ const SearchForm = ({ headerBg }: Props) => {
           onBlur={handleSearch}
         />
         <button
-          onChange={(e) => e.preventDefault()}
           className={` text-white px-3 rounded-e-md bg-[#BC5189]`}
+          type="submit"
         >
           Search
         </button>

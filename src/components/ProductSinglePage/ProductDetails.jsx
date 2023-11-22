@@ -6,6 +6,7 @@ import { useQueryData } from "@/hooks/hook.query";
 import { FaPhoneAlt } from "react-icons/fa";
 import { toast } from "react-toastify";
 import Image from "next/image";
+import AddToCartButton from "../Product/addToCartButton";
 const ProductDetails = () => {
   const sech = useSearchParams();
   const ID = sech.get("_id");
@@ -136,16 +137,14 @@ const ProductDetails = () => {
           <p className="me-3 text-gray-500 text-xs">(20 Available)</p>
         </div>
         <div className="flex gap-2 mt-5">
-          <button className="bg-green-600 text-white px-5 md:px-10 rounded-sm py-2 w-full">
-            অর্ডার করুন
-          </button>
+          <AddToCartButton productID={product?.data?._id} />
           <button className="bg-orange-600 text-white px-5 md:px-10 rounded-sm py-2 w-full">
             Add to Cart
           </button>
         </div>
         <div className="mt-2 w-full">
           <Link
-            href={"/"}
+            href={"tel:01745689754"}
             className="bg-blue-500 text-white px-10 rounded-sm py-2 w-full text-center flex items-center justify-center gap-1"
           >
             <FaPhoneAlt />

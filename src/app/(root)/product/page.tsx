@@ -3,7 +3,7 @@ import SinglePage from "./SinglePage";
 export const generateMetadata = async ({ searchParams: { _id } }: any) => {
   const singleData = await axios.get(`/api/v0/product/${_id}`);
   return {
-    title: singleData.data.data.title,
+    title: singleData?.data?.data?.title,
   };
 };
 const SingleProduct = async () => {

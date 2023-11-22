@@ -2,8 +2,11 @@ import Link from "next/link";
 import SearchForm from "./SearchForm";
 import { FaPhoneAlt } from "react-icons/fa";
 import { BsCart } from "react-icons/bs";
+import { useQueryData } from "@/hooks/hook.query";
 
-const HeaderTop = ({ headerBg }: any) => {
+const HeaderTop = () => {
+  const { data: Cart } = useQueryData(["get cart"], "/api/v0/cart");
+  console.log(Cart);
   return (
     <div className="flex flex-row justify-between items-center max-w-screen-xl mx-auto px-3 lg:px-12">
       <div className="basis-4/12 lg:basis-1/4">
@@ -13,7 +16,7 @@ const HeaderTop = ({ headerBg }: any) => {
           </h2>
         </Link>
       </div>
-      <SearchForm headerBg={headerBg} />
+      <SearchForm />
       <div className="basis-1/4 ps-6 pe-3 hidden lg:block">
         <div className="flex items-center justify-end gap-6">
           <div className="flex gap-4 items-center">
@@ -32,7 +35,7 @@ const HeaderTop = ({ headerBg }: any) => {
             <span
               className={`absolute -top-[3px] -right-[6px] text-white text-[12px] px-[5px] rounded-full bg-[#BC5189]`}
             >
-              0
+              {Cart?.data ? Cart?.data?.items?.length : 0}
             </span>
           </div>
         </div>

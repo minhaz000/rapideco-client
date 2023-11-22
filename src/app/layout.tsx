@@ -7,12 +7,6 @@ const poppins = Poppins({
   subsets: ["latin"],
   display: "swap",
 });
-
-export const metadata = {
-  title: "Isoftex",
-  description: "Rapid growing e-commerce ",
-};
-
 export default function RootLayout({
   children,
 }: {
@@ -20,7 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={poppins.className}>
+      <body className={poppins.className + "bg-white"}>
         <Providers>
           <Context> {children} </Context>
         </Providers>

@@ -89,7 +89,7 @@ const Payment = () => {
             />
           </div>
           <div className="overflow-x-auto mt-3 p-4">
-            <table className="table  w-[1130px] lg:w-full border">
+            <table className="table  w-[630px] lg:w-full border">
               <thead>
                 <tr className="border text-xs font-normal ">
                   <th className="py-3 text-slate-500 ps-4 text-start">#</th>

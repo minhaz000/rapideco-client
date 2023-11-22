@@ -7,11 +7,10 @@ const Header = () => {
   const { collapseMenu, setCollapseMenu }: any = useRootContext();
   const headerBg = SettingData?.header?.color;
   return (
-    <header className="pt-2">
+    <header className="pt-2 shadow-md pb-2 mb-3 lg:mb-0 lg:pb-0 lg:shadow-none">
       {/* Top bar */}
-      <HeaderTop headerBg={headerBg} />
+      <HeaderTop />
       {/* Main menu  */}
-
       <nav
         className={`hidden lg:block mt-2`}
         style={{ backgroundColor: `${headerBg}` }}

@@ -1,5 +1,4 @@
 "use client";
-import P1 from "../../../assets/img.png";
 import Image from "next/image";
 import { useQueryData } from "@/hooks/hook.query";
 import Iproduct from "@/interface/product";
@@ -57,7 +56,7 @@ const CartPage = () => {
           <h2 className="text-center text-2xl font-semibold">
             Your Cart
             {Cart?.data ? (
-              <span>{Cart?.data?.length} Items</span>
+              <span> {Cart?.data?.items?.length} Items</span>
             ) : (
               <span> 0 Items</span>
             )}
@@ -86,24 +85,27 @@ const CartPage = () => {
               <tbody className="border pt-2">
                 {Cart?.data?.items.map((item: Iproduct, i: number) => {
                   return (
-                    <tr
-                      key={i}
-                      className="text-xs font-normal text-start border-b"
-                    >
-                      <td className="py-5 ps-4">
+                    <tr key={i} className="text-xs font-normal text-start">
+                      <td className="py-5 ps-4 border-b">
                         <div className="flex items-center gap-2">
-                          <Image src={P1} alt="" width={50} height={50} />
+                          <Image
+                            src={item?.product_image?.img_url}
+                            alt=""
+                            width={55}
+                            height={60}
+                            className="md:h-[50px] object-cover"
+                          />
                           <h3 className="text-lg text-slate-500">
                             {item?.title}
                           </h3>
                         </div>
                       </td>
-                      <td>
+                      <td className="border-b">
                         {item?.discount_price
                           ? item?.discount_price
                           : item?.regular_price}
                       </td>
-                      <td>
+                      <td className="border-b">
                         <div className="flex gap-1 me-3">
                           <span
                             onClick={() => handleQuantityMinus(item?._id)}
@@ -124,12 +126,12 @@ const CartPage = () => {
                           </span>
                         </div>
                       </td>
-                      <td>
+                      <td className="border-b">
                         {(item?.discount_price
                           ? item?.discount_price
                           : item?.regular_price) * item?.quantity}
                       </td>
-                      <td>
+                      <td className="border-b">
                         <button
                           onClick={() => handleRemove(item?._id)}
                           className="bg-red-600 px-2 py-1 rounded text-white"
@@ -145,12 +147,22 @@ const CartPage = () => {
           </div>
           <div className="mt-3 p-4">
             <div className="w-full md:w-4/12 ms-auto border rounded px-5 pt-3 pb-5">
-              <div className="flex justify-between items-center">
-                <span className="font-bold">Total:</span>
-                <span>{Cart?.data?.subtotal}</span>
+              <div>
+                <div className="flex justify-between items-center">
+                  <span className="font-semibold">Sub Total:</span>
+                  <span>Tk {Cart?.data?.subtotal}</span>
+                </div>
+                <div className="flex justify-between items-center mt-1">
+                  <span className="font-semibold">Shipping:</span>
+                  <span>Tk 00</span>
+                </div>
+                <div className="flex justify-between items-center mt-1 border-t pt-1">
+                  <span className="font-semibold">Total:</span>
+                  <span>Tk {Cart?.data?.subtotal}</span>
+                </div>
               </div>
 
-              <div className="mt-4">
+              <div className="mt-4 text-right">
                 <Link
                   href={"/checkout"}
                   className="bg-green-700 text-white w-full text-sm py-[6px] px-3 rounded-md mt-3"

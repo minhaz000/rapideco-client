@@ -4,9 +4,14 @@ type Props = {
   title: string;
   subTitle: string;
 };
-const DashboardStatsCard = ({ styleCard, icon: Icon, title, subTitle }: Props) => {
+const DashboardStatsCard = ({
+  styleCard,
+  icon: Icon,
+  title,
+  subTitle,
+}: Props) => {
   return (
-    <div className="flex items-center justify-center md:justify-start gap-4 py-8 rounded-md shadow-md">
+    <div className="flex items-center justify-start gap-4 py-8 rounded-md shadow-md ps-10 md:ps-0">
       <span className={`${styleCard} text-xl bg-opacity-30 py-5 px-5 rounded`}>
         <Icon />
       </span>

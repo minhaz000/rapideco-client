@@ -1,5 +1,4 @@
 "use client";
-import { faker } from "@faker-js/faker";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -37,15 +36,15 @@ export const options = {
 };
 
 const ChartOne = ({ chartData }: { chartData: any }) => {
-  const labels = Object.keys(chartData).reverse();
-  console.log(labels);
+  console.log(chartData);
+  const labels = Object?.keys(chartData)?.reverse();
   const data = {
     labels,
     datasets: [
       {
         fill: true,
         label: "Sales",
-        data: Object.values(chartData).reverse(),
+        data: Object?.values(chartData)?.reverse(),
         borderColor: "rgb(29, 209, 89,0.7)",
         backgroundColor: "rgb(29, 209, 89,0.7)",
       },

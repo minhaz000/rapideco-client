@@ -6,7 +6,6 @@ import { BsCart2 } from "react-icons/bs";
 
 function AddToCartButton({ productID }: { productID: string }) {
   const handleAddToCart = (ID: string) => {
-    console.log(ID);
     axios
       .put(`/api/v0/cart/add?productID=${ID}`)
       .then(() => {

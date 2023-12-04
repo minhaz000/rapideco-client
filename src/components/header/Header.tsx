@@ -36,7 +36,7 @@ const Header = () => {
         className={`flex flex-col gap-4 py-[16px] ps-4 lg:px-12 text-white text-[14px] ${
           collapseMenu
             ? "visible opacity-100 -translate-x-0"
-            : "invisible lg:invisible opacity-0 lg:opacity-0 -translate-x-96"
+            : "invisible lg:invisible opacity-0 lg:opacity-0 block lg:hidden -translate-x-96"
         } h-screen fixed top-0 bottom-0  overflow-y-auto z-50 transition-all duration-500 ease-in-out w-3/4`}
         style={{ backgroundColor: `${headerBg}` }}
       >

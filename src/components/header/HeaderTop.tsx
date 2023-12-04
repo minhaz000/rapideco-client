@@ -6,7 +6,6 @@ import { useQueryData } from "@/hooks/hook.query";
 
 const HeaderTop = () => {
   const { data: Cart } = useQueryData(["get cart"], "/api/v0/cart");
-  console.log(Cart);
   return (
     <div className="flex flex-row justify-between items-center max-w-screen-xl mx-auto px-3 lg:px-12">
       <div className="basis-4/12 lg:basis-1/4">

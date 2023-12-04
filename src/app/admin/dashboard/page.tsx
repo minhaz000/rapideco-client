@@ -19,8 +19,8 @@ const page = () => {
         <div className="lg:flex gap-4 mt-12 mb-8">
           {dashboard?.data && (
             <>
-              <ChartOne chartData={dashboard?.data.resultsByMonth} />
-              <ChartTwo chartData={dashboard?.data.top_sell} />
+              <ChartOne chartData={dashboard?.data?.resultsByMonth} />
+              <ChartTwo chartData={dashboard?.data?.top_sell} />
             </>
           )}
         </div>

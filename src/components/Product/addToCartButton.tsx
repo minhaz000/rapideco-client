@@ -3,17 +3,18 @@ import React from "react";
 import axios from "@/hooks/hook.axios";
 import { toast } from "react-toastify";
 import { BsCart2 } from "react-icons/bs";
+import { useRootContext } from "@/context/root.context";
 
 function AddToCartButton({ productID }: { productID: string }) {
+  const { Cart }: any = useRootContext();
   const handleAddToCart = (ID: string) => {
     axios
       .put(`/api/v0/cart/add?productID=${ID}`)
       .then(() => {
         toast.success("product added to cart");
+        Cart.refetch();
       })
-      .catch((error: any) =>
-        toast.error(error.message ? error.message : error?.data.message)
-      );
+      .catch((error: any) => toast.error(error.message ? error.message : error?.data.message));
   };
   return (
     <>

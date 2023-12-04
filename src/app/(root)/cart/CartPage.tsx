@@ -6,84 +6,60 @@ import axios from "@/hooks/hook.axios";
 import { toast } from "react-toastify";
 import Link from "next/link";
 import Loading from "@/components/common/Loading";
+import { useRootContext } from "@/context/root.context";
 const CartPage = () => {
-  const {
-    data: Cart,
-    refetch,
-    isLoading,
-  } = useQueryData(["get cart"], "/api/v0/cart");
-  console.log(Cart);
+  const { Cart }: any = useRootContext();
   const handleQuantityPlus = (ID: string, Q?: number) => {
     axios
       .put(`/api/v0/cart/add?productID=${ID}`)
       .then(() => {
         toast.success("product added to cart");
-        refetch();
+        Cart.refetch();
       })
-      .catch((error: any) =>
-        toast.error(error.message ? error.message : error?.data.message)
-      );
+      .catch((error: any) => toast.error(error.message ? error.message : error?.data.message));
   };
   const handleQuantityMinus = (ID: string) => {
     axios
       .put(`/api/v0/cart/add?productID=${ID}&add=-1`)
       .then(() => {
         toast.success("product added to cart");
-        refetch();
+        Cart.refetch();
       })
-      .catch((error: any) =>
-        toast.error(error.message ? error.message : error?.data.message)
-      );
+      .catch((error: any) => toast.error(error.message ? error.message : error?.data.message));
   };
   const handleRemove = (ID: string) => {
     axios
       .put(`/api/v0/cart/remove?productID=${ID}`)
       .then(() => {
         toast.success("product remove from cart");
-        refetch();
+        Cart.refetch();
       })
-      .catch((error: any) =>
-        toast.error(error.message ? error.message : error?.data.message)
-      );
+      .catch((error: any) => toast.error(error.message ? error.message : error?.data.message));
   };
 
   return (
     <>
-      {isLoading ? (
+      {Cart.isLoading ? (
         <Loading />
       ) : (
         <section className="max-w-screen-xl mx-auto px-3 lg:px-32 mt-6">
           <h2 className="text-center text-2xl font-semibold">
             Your Cart
-            {Cart?.data ? (
-              <span> {Cart?.data?.items?.length} Items</span>
-            ) : (
-              <span> 0 Items</span>
-            )}
+            {Cart?.data?.data ? <span> {Cart?.data?.data?.items?.length} Items</span> : <span> 0 Items</span>}
           </h2>
           <div className="overflow-x-auto mt-2 md:p-4">
             <table className="table w-[600px] lg:w-full border">
               <thead>
                 <tr className="border font-normal">
-                  <th className="py-3  border-y ps-4 text-start text-[16px]">
-                    Item
-                  </th>
-                  <th className="py-3 border-y ps-4 text-start text-[16px]">
-                    Price
-                  </th>
-                  <th className="py-3 border-y ps-4 text-start text-[16px]">
-                    Quantity
-                  </th>
-                  <th className="py-3 border-y ps-4 text-start text-[16px]">
-                    Total
-                  </th>
-                  <th className="py-3 border-y ps-4 text-start text-[16px]">
-                    Action
-                  </th>
+                  <th className="py-3  border-y ps-4 text-start text-[16px]">Item</th>
+                  <th className="py-3 border-y ps-4 text-start text-[16px]">Price</th>
+                  <th className="py-3 border-y ps-4 text-start text-[16px]">Quantity</th>
+                  <th className="py-3 border-y ps-4 text-start text-[16px]">Total</th>
+                  <th className="py-3 border-y ps-4 text-start text-[16px]">Action</th>
                 </tr>
               </thead>
               <tbody className="border pt-2">
-                {Cart?.data?.items.map((item: Iproduct, i: number) => {
+                {Cart?.data?.data?.items.map((item: Iproduct, i: number) => {
                   return (
                     <tr key={i} className="text-xs font-normal text-start">
                       <td className="py-5 ps-4 border-b">
@@ -95,16 +71,10 @@ const CartPage = () => {
                             height={60}
                             className="md:h-[50px] object-cover"
                           />
-                          <h3 className="text-lg text-slate-500">
-                            {item?.title}
-                          </h3>
+                          <h3 className="text-lg text-slate-500">{item?.title}</h3>
                         </div>
                       </td>
-                      <td className="border-b">
-                        {item?.discount_price
-                          ? item?.discount_price
-                          : item?.regular_price}
-                      </td>
+                      <td className="border-b">{item?.discount_price ? item?.discount_price : item?.regular_price}</td>
                       <td className="border-b">
                         <div className="flex gap-1 me-3">
                           <span
@@ -117,6 +87,7 @@ const CartPage = () => {
                             type="number"
                             value={item?.quantity}
                             className="w-10 border border-gray-300 outline-none text-center"
+                            onChange={() => {}}
                           />
                           <span
                             onClick={() => handleQuantityPlus(item?._id)}
@@ -127,9 +98,7 @@ const CartPage = () => {
                         </div>
                       </td>
                       <td className="border-b">
-                        {(item?.discount_price
-                          ? item?.discount_price
-                          : item?.regular_price) * item?.quantity}
+                        {(item?.discount_price ? item?.discount_price : item?.regular_price) * item?.quantity}
                       </td>
                       <td className="border-b">
                         <button
@@ -150,7 +119,7 @@ const CartPage = () => {
               <div>
                 <div className="flex justify-between items-center">
                   <span className="font-semibold">Sub Total:</span>
-                  <span>Tk {Cart?.data?.subtotal}</span>
+                  <span>Tk {Cart?.data?.data?.subtotal}</span>
                 </div>
                 <div className="flex justify-between items-center mt-1">
                   <span className="font-semibold">Shipping:</span>
@@ -158,7 +127,7 @@ const CartPage = () => {
                 </div>
                 <div className="flex justify-between items-center mt-1 border-t pt-1">
                   <span className="font-semibold">Total:</span>
-                  <span>Tk {Cart?.data?.subtotal}</span>
+                  <span>Tk {Cart?.data?.data?.subtotal}</span>
                 </div>
               </div>
 

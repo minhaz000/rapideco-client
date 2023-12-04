@@ -1,18 +1,17 @@
+"use client";
 import Link from "next/link";
 import SearchForm from "./SearchForm";
 import { FaPhoneAlt } from "react-icons/fa";
 import { BsCart } from "react-icons/bs";
-import { useQueryData } from "@/hooks/hook.query";
+import { useRootContext } from "@/context/root.context";
 
 const HeaderTop = () => {
-  const { data: Cart } = useQueryData(["get cart"], "/api/v0/cart");
+  const { Cart }: any = useRootContext();
   return (
     <div className="flex flex-row justify-between items-center max-w-screen-xl mx-auto px-3 lg:px-12">
       <div className="basis-4/12 lg:basis-1/4">
         <Link href="/" className="inline-block">
-          <h2 className="text-[26px] sm:text-[30px] md:text-[40px] font-semibold ">
-            Isoftex
-          </h2>
+          <h2 className="text-[26px] sm:text-[30px] md:text-[40px] font-semibold ">Isoftex</h2>
         </Link>
       </div>
       <SearchForm />
@@ -34,7 +33,7 @@ const HeaderTop = () => {
             <span
               className={`absolute -top-[3px] -right-[6px] text-white text-[12px] px-[5px] rounded-full bg-[#BC5189]`}
             >
-              {Cart?.data ? Cart?.data?.items?.length : 0}
+              {Cart?.data?.data ? Cart?.data?.data?.items?.length : 0}
             </span>
           </div>
         </div>

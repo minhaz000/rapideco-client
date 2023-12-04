@@ -33,7 +33,6 @@ apiRoute.post((req: any, res: any) => {
     item.img_url = `${item.path.split("public")[1]}`;
   });
   6;
-  console.log(req.files);
   res.status(201).json({ data: req.files });
 });
 export default apiRoute.handler({

@@ -6,7 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { useQueryData } from "@/hooks/hook.query";
 import Loading from "../common/Loading";
 const ProductSinglePage = () => {
-  const sech = useSearchParams();
+  const sech: any = useSearchParams();
   const ID = sech.get("_id");
   const { data: product, isLoading } = useQueryData(["get single data"], `/api/v0/product/${ID}`);
   if (isLoading) {

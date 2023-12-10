@@ -4,7 +4,7 @@ import SinglePage from "./SinglePage";
 export const generateMetadata = async ({ searchParams: { _id } }: any) => {
   const headersList = headers();
   const singleData = await axios({
-    headers: { origin: `https://${headersList.get("host")}` },
+    headers: { origin: process.env.HOST },
     method: "GET",
     url: `/api/v0/product/${_id}`,
   });
@@ -14,7 +14,7 @@ export const generateMetadata = async ({ searchParams: { _id } }: any) => {
   };
 };
 const SingleProduct = async () => {
-  // return <SinglePage />;
+  return <SinglePage />;
 };
 
 export default SingleProduct;

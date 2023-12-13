@@ -28,18 +28,12 @@ const ShopProductCard = ({ product }: { product: product }) => {
         <div className="py-3 px-4 text-center">
           <div>
             <h2 className="text-[13px] capitalize hover:text-[#00C9B4]">
-              {product.title.length > 47
-                ? product.title.slice(0, 48) + "..."
-                : product.title}
+              {product.title.length > 47 ? product.title.slice(0, 48) + "..." : product.title}
             </h2>
           </div>
           <div className="flex justify-center gap-3 mt-1">
-            <p className="text-[#00C9B4] font-semibold text-sm">
-              Tk{product.regular_price}
-            </p>
-            <p className="line-through text-gray-400 text-sm">
-              Tk{product.discount_price}
-            </p>
+            <p className="text-[#00C9B4] font-semibold text-sm">Tk{product.regular_price}</p>
+            <p className="line-through text-gray-400 text-sm">Tk{product.discount_price}</p>
           </div>
         </div>
       </div>

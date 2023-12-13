@@ -24,7 +24,15 @@
     },
     "strictNullChecks": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/hooks/useProducts.jsx", "server.js"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/hooks/useProducts.jsx",
+    "additional.d.ts",
+    "server.js"
+  ],
   "exclude": ["node_modules"],
   "ts-node": {
     "transpileOnly": true,

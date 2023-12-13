@@ -1,12 +1,8 @@
 /** @type {import('next').NextConfig} */
 const isDev = process.env.NODE_ENV === "development";
 const nextConfig = {
-  // experimental: {
-  //   serverActions: {
-  //     bodySizeLimit: "10mb",
-  //   },
-  // },
   images: {
+    domains: ["localhost:3000"],
     remotePatterns: [
       {
         protocol: "https",

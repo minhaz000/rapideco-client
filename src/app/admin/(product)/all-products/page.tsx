@@ -46,7 +46,7 @@ const AllProduct = () => {
           .then((res) => {
             console.log(res.data);
             toast.success("product moved to Trash");
-            Products.refetch();
+            refetch();
           })
           .catch((error: any) =>
             toast.error(error.message ? error.message : error?.data.message)
@@ -171,11 +171,16 @@ const AllProduct = () => {
                   >
                     <td className="py-5 ps-4">{i + 1}</td>
                     <td>
-                      {/* {item.product_image?.img_url ? (
-                        <Image src={item.product_image?.img_url} width={50} height={50} alt=""></Image>
+                      {item.product_image?.img_url ? (
+                        <Image
+                          src={item.product_image?.img_url}
+                          width={50}
+                          height={50}
+                          alt=""
+                        ></Image>
                       ) : (
                         "__-__"
-                      )} */}
+                      )}
                     </td>
                     <td>{item.title}</td>
                     <td>{item?.regular_price}</td>
@@ -197,13 +202,6 @@ const AllProduct = () => {
                     </td>
                     <td>
                       <div className="flex gap-2 items-center">
-                        <span
-                          title="View"
-                          className="bg-green-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
-                        >
-                          <FaRegEye />
-                        </span>
-
                         <span
                           title="Edit"
                           className="bg-yellow-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"

@@ -2,9 +2,10 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import SettingData from "../../../public/assets/site.settings.json";
+import { useRootContext } from "@/context/root.context";
 const BannerSlider = () => {
-  const bannerData = SettingData?.body?.banner;
+  const { settingsData }: any = useRootContext();
+  console.log(settingsData);
   const settings = {
     dots: true,
     infinite: true,
@@ -15,7 +16,7 @@ const BannerSlider = () => {
   };
   return (
     <Slider {...settings}>
-      {bannerData.map((item: any, index: number) => (
+      {settingsData?.body?.banner.map((item: any, index: number) => (
         <div key={index}>
           <img
             src={item?.img_url}

@@ -3,15 +3,21 @@ import DashboardTable from "./components/DashboardTable";
 import DashboardStats from "./components/DashboardStats";
 import ChartOne from "./components/ChartOne";
 import ChartTwo from "./components/ChartTwo";
-import { useQueryData } from "@/hooks/hook.query";
 import { Suspense } from "react";
+import getDashboardData from "@/lib/getDashboardData";
+// import { Metadata } from "next";
+
+// export const metadata: Metadata = {
+//   title: "Dashboard",
+// };
 
 const page = () => {
-  const { data: dashboard } = useQueryData(
-    ["get dashboard"],
-    `/auth/v0/dashboard`
-  );
-  // console.log(dashboard?.data);
+  // const { data: dashboard } = useQueryData(
+  //   ["get dashboard"],
+  //   `/auth/v0/dashboard`
+  // );
+  const { dashboard } = getDashboardData();
+  console.log(dashboard?.data);
   return (
     <>
       <Suspense fallback={<h2>Loading dashboard</h2>}>

@@ -1,10 +1,17 @@
+"use client";
+import { useRootContext } from "@/context/root.context";
 import Link from "next/link";
 import React from "react";
 import { BsArrowRightShort } from "react-icons/bs";
 const SectionHeading = ({ sectionTitle }: any) => {
+  const { settingsData }: any = useRootContext();
+  console.log(settingsData?.header?.themeColor);
   return (
     <div className="flex justify-between items-center border-b-2 pb-2 relative">
-      <span className="absolute top-[42px] left-0 h-[2px] w-2/12 bg-[#00C9B4]"></span>
+      <span
+        className="absolute top-[42px] left-0 h-[2px] w-2/12"
+        style={{ background: `${settingsData?.header?.themeColor}` }}
+      ></span>
       <h2 className="text-[16px] lg:text-[20px] text-[#39404a] font-bold uppercase">
         {sectionTitle}
       </h2>

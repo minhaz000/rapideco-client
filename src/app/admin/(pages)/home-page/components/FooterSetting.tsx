@@ -53,6 +53,16 @@ const FooterSetting = ({ setting }: { setting: any }) => {
                 className="border py-1 px-2 w-full"
               />
             </>
+            <div className="mt-3">
+              <label htmlFor="theme" className="block mb-2 text-sm">
+                Footer Color
+              </label>
+              <input
+                {...register("footer.color")}
+                type="color"
+                className="w-full h-10 rounded border outline-none"
+              />
+            </div>
             <div className="mt-4">
               <label className="text-[12px] block mb-1">
                 About description

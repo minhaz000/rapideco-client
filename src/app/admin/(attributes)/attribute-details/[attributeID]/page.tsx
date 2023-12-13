@@ -17,10 +17,16 @@ const Page = ({ params }: { params: { attributeID: string[] } }) => {
     ["get single attribute"],
     `/api/v0/attribute/${params.attributeID}`
   );
-  const updateAttribute = useMutationData(["update new attribute"], "put", `/api/v0/attribute/${params.attributeID}`);
+  const updateAttribute = useMutationData(
+    ["update new attribute"],
+    "put",
+    `/api/v0/attribute/${params.attributeID}`
+  );
   const { register, reset, handleSubmit, setValue } = useform<FormValues>();
   // =============== FUNCTION FOR THE PRODUCT POST REQUEST
-  const HandleUpdateAtrribute: SubmitHandler<FormValues> = async (data: any) => {
+  const HandleUpdateAtrribute: SubmitHandler<FormValues> = async (
+    data: any
+  ) => {
     console.log(data);
     const url =
       oldAttribute?.data.label !== data.label
@@ -65,7 +71,9 @@ const Page = ({ params }: { params: { attributeID: string[] } }) => {
             toast.success("atrribute updated");
             refetch();
           })
-          .catch((error: any) => toast.error(error.message ? error.message : error?.data.message));
+          .catch((error: any) =>
+            toast.error(error.message ? error.message : error?.data.message)
+          );
       }
     });
   };
@@ -74,7 +82,7 @@ const Page = ({ params }: { params: { attributeID: string[] } }) => {
   }, [oldAttribute]);
   return (
     <div>
-      <h2 className="text-xl">All Detail</h2>
+      <h2 className="text-xl">All Details</h2>
       <div className="flex lg:flex-row flex-col-reverse gap-6 mt-6">
         <div className="basis-7/12 shadow-[0_0_10px_5px_#d7d7d7bf]">
           <div className="flex justify-between items-center border-b px-6 py-4">
@@ -92,37 +100,51 @@ const Page = ({ params }: { params: { attributeID: string[] } }) => {
                 </tr>
               </thead>
               <tbody className="border pt-2">
-                {oldAttribute?.data?.attribute_options.map((item: any, i: number) => {
-                  return (
-                    <tr key={i} className="text-xs font-normal text-start border-b">
-                      <td className="py-5 ps-4">{i + 1}</td>
-                      <td>
-                        <span className=" py-1 rounded-md px-2">{item.label}</span>
-                      </td>
-                      <td>
-                        <span className="bg-gray-400 py-1 rounded-md px-2">{item.value}</span>
-                      </td>
-
-                      <td>
-                        <div className="flex gap-2 items-center">
-                          <span
-                            onClick={() => handleDelete(item._id)}
-                            title="Delete"
-                            className="bg-red-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
-                          >
-                            <FaRegTrashAlt />
+                {oldAttribute?.data?.attribute_options.map(
+                  (item: any, i: number) => {
+                    return (
+                      <tr
+                        key={i}
+                        className="text-xs font-normal text-start border-b"
+                      >
+                        <td className="py-5 ps-4">{i + 1}</td>
+                        <td>
+                          <span className=" py-1 rounded-md px-2">
+                            {item.label}
                           </span>
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
+                        </td>
+                        <td>
+                          <span
+                            className=" py-[6px] rounded-md px-2 capitalize text-white"
+                            style={{ background: `${item.value}` }}
+                          >
+                            {item.value}
+                          </span>
+                        </td>
+
+                        <td>
+                          <div className="flex gap-2 items-center">
+                            <span
+                              onClick={() => handleDelete(item._id)}
+                              title="Delete"
+                              className="bg-red-500 bg-opacity-50 hover:bg-opacity-100 text-white text-xs p-[5px] rounded-full cursor-pointer"
+                            >
+                              <FaRegTrashAlt />
+                            </span>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  }
+                )}
               </tbody>
             </table>
           </div>
         </div>
         <div className="basis-5/12 shadow-[0_0_10px_5px_#d7d7d7bf] pb-6">
-          <h2 className="border px-6 py-4 text-xl font-semibold">Add New Attribute Value</h2>
+          <h2 className="border px-6 py-4 text-xl font-semibold">
+            Add New Attribute Value
+          </h2>
           <div className="px-6 pt-4">
             <form onSubmit={handleSubmit(HandleUpdateAtrribute)}>
               <div>
@@ -138,30 +160,61 @@ const Page = ({ params }: { params: { attributeID: string[] } }) => {
                   className="border w-full py-2 px-3  rounded-md outline-none"
                 />
               </div>
-              <div>
-                <label htmlFor="name" className="mb-2 block">
-                  Attributes Key
-                </label>
+              {oldAttribute?.data?.label === "color" ? (
+                <>
+                  <div className="mt-2">
+                    <label htmlFor="name" className="mb-2 block">
+                      Attributes Key
+                    </label>
 
-                <input
-                  {...register("key.label")}
-                  type="text"
-                  placeholder="key"
-                  className="border w-full py-2 px-3  rounded-md outline-none"
-                />
-              </div>
-              <div>
-                <label htmlFor="name" className="mb-2 block">
-                  Attributes Value
-                </label>
+                    <input
+                      {...register("key.label")}
+                      type="text"
+                      placeholder="Label"
+                      className="border w-full py-2 px-3  rounded-md outline-none"
+                    />
+                  </div>
+                  <div className="mt-2">
+                    <label htmlFor="name" className="mb-2 block">
+                      Attributes Value
+                    </label>
 
-                <input
-                  {...register("key.value")}
-                  type="text"
-                  placeholder="value"
-                  className="border w-full py-2 px-3  rounded-md outline-none"
-                />
-              </div>
+                    <input
+                      {...register("key.value")}
+                      type="color"
+                      className="border w-full  rounded-md outline-none h-6"
+                    />
+                  </div>
+                </>
+              ) : (
+                <>
+                  {" "}
+                  <div>
+                    <label htmlFor="name" className="mb-2 block">
+                      Attributes Key
+                    </label>
+
+                    <input
+                      {...register("key.label")}
+                      type="text"
+                      placeholder="key"
+                      className="border w-full py-2 px-3  rounded-md outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="name" className="mb-2 block">
+                      Attributes Value
+                    </label>
+
+                    <input
+                      {...register("key.value")}
+                      type="text"
+                      placeholder="value"
+                      className="border w-full py-2 px-3  rounded-md outline-none"
+                    />
+                  </div>
+                </>
+              )}
               <input
                 type="submit"
                 value="Save"

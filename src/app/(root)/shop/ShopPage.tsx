@@ -62,9 +62,6 @@ const ShopPage = () => {
     const Debouncing = setTimeout(() => refetch, 1500);
     return () => clearTimeout(Debouncing);
   }, [pagination, query]);
-  console.log(formate);
-  console.log(cate);
-  console.log(query.categories);
   return (
     <>
       {isLoading ? (

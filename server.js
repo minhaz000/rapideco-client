@@ -38,6 +38,7 @@ const upload = multer({
 // Handle image upload
 server.post("/api/upload", upload.array("image"), (req, res) => {
   req.files.map((item) => {
+    req.path.replace(/\\/g, "/");
     item.img_url = `${item.path.split("public")[1]}`;
   });
   6;

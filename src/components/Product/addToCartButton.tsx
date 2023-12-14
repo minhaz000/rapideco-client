@@ -6,24 +6,19 @@ import { BsCart2 } from "react-icons/bs";
 import { useRouter } from "next/navigation";
 import { useRootContext } from "@/context/root.context";
 
-function AddToCartButton({ productID, Q }: { productID: string; Q?: any }) {
+function AddToCartButton({ productID, Q, A }: { productID: string; Q?: any; A?: any }) {
   const router = useRouter();
   const { Cart, settingsData }: any = useRootContext();
   const handleOrderNow = (ID: string) => {
-    const url =
-      Q > 0
-        ? `/api/v0/cart/add?productID=${ID}&quantity=${Q}`
-        : `/api/v0/cart/add?productID=${ID}`;
+    const url = Q > 0 ? `/api/v0/cart/add?productID=${ID}&quantity=${Q}` : `/api/v0/cart/add?productID=${ID}`;
     axios
-      .put(url)
+      .put(url, A)
       .then(() => {
         toast.success("product added to cart");
         router.push("/checkout");
         Cart.refetch();
       })
-      .catch((error: any) =>
-        toast.error(error.message ? error.message : error?.data.message)
-      );
+      .catch((error: any) => toast.error(error.message ? error.message : error?.data.message));
   };
   return (
     <>

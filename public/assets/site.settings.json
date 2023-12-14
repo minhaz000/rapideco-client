@@ -7,7 +7,10 @@
     "color": "#000000",
     "meta_title": "Isoftex eCommerce",
     "meta_description": "Let's develop our country together",
-    "favicon": { "0": {} },
+    "favicon": {
+      "img_url": "/uploads/screenshot_12-1702539093430-1702555608313.webp",
+      "path": "public/uploads/screenshot_12-1702539093430-1702555608313.webp"
+    },
     "phone_number": "01760107750",
     "textColor": "#000000",
     "themeColor": "#000000",

@@ -10,16 +10,12 @@ import AddToCartButton from "../Product/addToCartButton";
 import axios from "@/hooks/hook.axios";
 import { useRootContext } from "@/context/root.context";
 const ProductDetails = () => {
+  const [attributes, setAttributes] = useState({});
   const sech: any = useSearchParams();
   const { Cart }: any = useRootContext();
   const ID = sech.get("_id");
-  const { data: product } = useQueryData(
-    ["get single data"],
-    `/api/v0/product/${ID}`
-  );
-  const [imageUrl, setImageUrl] = useState(
-    `${product?.data?.product_image?.img_url}`
-  );
+  const { data: product } = useQueryData(["get single data"], `/api/v0/product/${ID}`);
+  const [imageUrl, setImageUrl] = useState(`${product?.data?.product_image?.img_url}`);
   const [quantity, setQuantity] = useState(1);
   const handleQuantityPlus = () => {
     if (quantity < 10) {
@@ -36,20 +32,23 @@ const ProductDetails = () => {
     }
   };
   const handleAddToCart = (ID: any) => {
-    const url =
-      quantity > 0
-        ? `/api/v0/cart/add?productID=${ID}&quantity=${quantity}`
-        : `/api/v0/cart/add?productID=${ID}`;
+    const url = `/api/v0/cart/add?productID=${ID}&quantity=${quantity}`;
     axios
-      .put(url)
+      .put(url, { variants: attributes })
       .then(() => {
         toast.success("product added to cart");
         Cart.refetch();
       })
-      .catch((error: any) =>
-        toast.error(error.message ? error.message : error?.data.message)
-      );
+      .catch((error: any) => toast.error(error.message ? error.message : error?.data.message));
   };
+
+  const handleAttributes = (e: any) => {
+    e.preventDefault();
+    setAttributes((pre) => {
+      return { ...pre, [e.target.name]: e.target.value };
+    });
+  };
+  console.log(attributes);
   return (
     <div className="lg:flex gap-5">
       <div className="lg:basis-1/2">
@@ -62,75 +61,74 @@ const ProductDetails = () => {
           style={{ maxWidth: "100%" }}
         />
         <div className="grid grid-cols-6 gap-3 mt-2">
-          {[
-            ...product?.data?.gallery_images,
-            { img_url: product?.data?.product_image?.img_url },
-          ]?.map((item, index) => (
-            <Image
-              key={index}
-              src={item?.img_url}
-              className="sm:w-20 h-14 md:h-20 rounded cursor-pointer object-contain"
-              alt=""
-              onClick={() => setImageUrl(item?.img_url)}
-              width={56}
-              height={56}
-            />
-          ))}
+          {[...product?.data?.gallery_images, { img_url: product?.data?.product_image?.img_url }]?.map(
+            (item, index) => (
+              <Image
+                key={index}
+                src={item?.img_url}
+                className="sm:w-20 h-14 md:h-20 rounded cursor-pointer object-contain"
+                alt=""
+                onClick={() => setImageUrl(item?.img_url)}
+                width={56}
+                height={56}
+              />
+            )
+          )}
         </div>
       </div>
       <div className="lg:basis-1/2 pt-6">
-        <h2 className="text-3xl font-medium text-slate-800">
-          {product?.data?.title}
-        </h2>
+        <h2 className="text-3xl font-medium text-slate-800">{product?.data?.title}</h2>
 
         <div className="mt-2">
           <p>
             <b className="text-green-600 font-medium text-xl me-2"> Price:</b>
-            <span className="text-green-600 font-medium text-xl me-2">
-              Tk {product?.data?.discount_price}
-            </span>
-            <span className="line-through text-gray-500 ">
-              Tk {product?.data?.regular_price}
-            </span>
+            <span className="text-green-600 font-medium text-xl me-2">Tk {product?.data?.discount_price}</span>
+            <span className="line-through text-gray-500 ">Tk {product?.data?.regular_price}</span>
           </p>
         </div>
-        {product?.data?.variants?.length > 0 ? (
-          <div className="mt-4 flex">
-            <p className="me-4 text-gray-500">Size:</p>
-            <div className="flex gap-4">
-              {product?.data?.variants[0]?.attribute_options?.map(
-                (sizeItem: any) => (
-                  <button className="uppercase text-sm px-2 rounded-full hover:bg-sky-600 hover:text-white">
-                    {sizeItem.value}
-                  </button>
-                )
-              )}
-            </div>
-          </div>
-        ) : null}
-        {product?.data?.variants?.length > 0 ? (
-          <div className="mt-4 flex">
-            <p className="me-4 text-gray-500">Colors:</p>
-            <div className="flex gap-4 items-center">
-              {product?.data?.variants[1]?.attribute_options?.map(
-                (colorItem: any) => (
-                  <button
-                    className="uppercase w-4 h-4 text-sm px-2 rounded-full"
-                    style={{ background: `${colorItem?.value}` }}
-                  ></button>
-                )
-              )}
-            </div>
-          </div>
-        ) : null}
+        {product?.data?.variants?.map((variant: any) => {
+          if (variant.value === "color") {
+            return (
+              <div className="mt-4 flex">
+                <p className="me-4 text-gray-500">{variant.label}:</p>
+                <div className="flex gap-4 items-center">
+                  {variant.attribute_options?.map((colorItem: any) => (
+                    <input
+                      defaultValue={colorItem.value}
+                      name={variant.value}
+                      onClick={handleAttributes}
+                      className="uppercase w-4 h-4 text-sm px-2 rounded-full cursor-pointer"
+                      readOnly
+                      style={{ background: `${colorItem?.value}` }}
+                    />
+                  ))}
+                </div>
+              </div>
+            );
+          } else {
+            return (
+              <div className="mt-4 flex">
+                <p className="me-4 text-gray-500">{variant.label}:</p>
+                <div className="flex gap-2">
+                  {variant?.attribute_options?.map((sizeItem: any) => (
+                    <input
+                      onClick={handleAttributes}
+                      defaultValue={sizeItem.value}
+                      name={variant.value}
+                      readOnly
+                      className="uppercase text-sm rounded-full hover:bg-sky-600 hover:text-white w-6 h-6 outline-none cursor-pointer text-center"
+                    />
+                  ))}
+                </div>
+              </div>
+            );
+          }
+        })}
 
         <div className="mt-3 flex items-center">
           <p className="me-2 text-gray-500">Quantity:</p>
           <div className="flex gap-1 me-3">
-            <span
-              onClick={handleQuantityMinus}
-              className="border border-gray-300 px-1 rounded-sm cursor-pointer"
-            >
+            <span onClick={handleQuantityMinus} className="border border-gray-300 px-1 rounded-sm cursor-pointer">
               -
             </span>
             <input
@@ -140,19 +138,14 @@ const ProductDetails = () => {
               max={"10"}
               className="w-10 border border-gray-300 outline-none text-center"
             />
-            <span
-              onClick={handleQuantityPlus}
-              className="border border-gray-300 px-1 rounded-sm cursor-pointer"
-            >
+            <span onClick={handleQuantityPlus} className="border border-gray-300 px-1 rounded-sm cursor-pointer">
               +
             </span>
           </div>
-          <p className="me-3 text-gray-500 text-xs">
-            ({product?.data.quantity} Available)
-          </p>
+          <p className="me-3 text-gray-500 text-xs">({product?.data.quantity} Available)</p>
         </div>
         <div className="flex gap-2 mt-5">
-          <AddToCartButton productID={product?.data?._id} Q={quantity} />
+          <AddToCartButton productID={product?.data?._id} Q={quantity} A={{ variants: attributes }} />
           <button
             onClick={() => handleAddToCart(product?.data?._id)}
             className="bg-orange-600 text-white px-5 md:px-10 rounded-sm py-2 w-full"
@@ -171,15 +164,11 @@ const ProductDetails = () => {
         </div>
         <div className="mt-3">
           <div className="flex justify-between items-center border-y py-2 px-3">
-            <h3 className=" text-[16px] text-blue-400">
-              ঢাকার বাইরে ডেলিভারি খরচ
-            </h3>
+            <h3 className=" text-[16px] text-blue-400">ঢাকার বাইরে ডেলিভারি খরচ</h3>
             <span className="font-semibold">৳ 120</span>
           </div>
           <div className="flex justify-between items-center border-b py-2 px-3">
-            <h3 className="text-[16px] text-blue-400">
-              ঢাকার ভিতরে ডেলিভারি খরচ
-            </h3>
+            <h3 className="text-[16px] text-blue-400">ঢাকার ভিতরে ডেলিভারি খরচ</h3>
             <span className="font-semibold">৳ 60</span>
           </div>
         </div>

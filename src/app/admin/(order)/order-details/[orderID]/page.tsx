@@ -15,19 +15,17 @@ const OrderDetails = ({ params }: { params: { orderID: string } }) => {
   const updateCategory = useMutationData(["edit order"], "put", `/api/v0/order/${params.orderID}`);
   function convertDateFormat(inputDate: string): string {
     const dateObject = new Date(inputDate);
-
     // Format date part
     const optionsDate: Intl.DateTimeFormatOptions = { day: "numeric", month: "short", year: "numeric" };
     const formattedDate = new Intl.DateTimeFormat("en-US", optionsDate).format(dateObject);
-
     // Format time part
     const hours = dateObject.getHours() % 12 || 12; // Convert to 12-hour format
     const minutes = dateObject.getMinutes();
     const ampm = dateObject.getHours() >= 12 ? "PM" : "AM";
     const formattedTime = `${hours}:${minutes.toLocaleString("en-US", { minimumIntegerDigits: 2 })} ${ampm}`;
-
     return `${formattedDate} | ${formattedTime}`;
   }
+
   // =============== FUNCTION FOR THE PRODUCT POST REQUEST
   const HandleEditOrder: SubmitHandler<FormValues> = async (fdata: any) => {
     console.log("fdata", fdata);
@@ -113,12 +111,12 @@ const OrderDetails = ({ params }: { params: { orderID: string } }) => {
           </div>
         </div>
         <div className="overflow-x-auto mt-3 p-4">
-          <table className="table  w-[1130px] lg:w-full border">
+          <table id="variantsTable" className="table  w-[1130px] lg:w-full border">
             <thead>
-              <tr className="border text-xs font-normal ">
+              <tr id="headerRow" className="border text-xs font-normal ">
                 <th className="py-3 text-slate-500 ps-4 text-start">#</th>
                 <th className="py-3 text-slate-500 text-start">Photo</th>
-                <th className="py-3 text-slate-500 text-start">DESCRIPTION</th>
+                <th className="py-3 text-slate-500 text-start">Name</th>
                 <th className="py-3 text-slate-500 text-start">DELIVERY TYPE</th>
                 <th className="py-3 text-slate-500 text-start">QTY</th>
                 <th className="py-3 text-slate-500 text-start">PRICE</th>
@@ -127,17 +125,22 @@ const OrderDetails = ({ params }: { params: { orderID: string } }) => {
             </thead>
             <tbody className="border pt-2">
               {data?.data.ordered_items.map((item: any, i: number) => {
-                <tr key={i} className="text-xs font-normal text-start border-b">
-                  <td className="py-5 ps-4">1</td>
-                  <td>
-                    <Image src={Img1} width={50} height={50} alt=""></Image>
-                  </td>
-                  <td>Gilda Men is Crew T-Shirts, Multipack</td>
-                  <td>Home Delivery</td>
-                  <td>1</td>
-                  <td>$30.000</td>
-                  <td>$30.000</td>
-                </tr>;
+                console.log(item);
+                return (
+                  <tr id="dataRow" key={i} className="text-xs font-normal text-start border-b">
+                    <td className="py-5 ps-4">1</td>
+                    <td>
+                      <Image src={item.product_image.img_url} width={50} height={50} alt=""></Image>
+                    </td>
+                    <td>{item.title}</td>
+                    <td>Home Delivery</td>
+                    <td>{item.quantity}</td>
+                    <td>{item.discount_price ? item.discount_price : item.regular_price} </td>
+                    <td>
+                      {item.discount_price ? item.discount_price * item.quantity : item.regular_price * item.quantity}
+                    </td>
+                  </tr>
+                );
               })}
             </tbody>
           </table>

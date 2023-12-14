@@ -10,6 +10,7 @@ import AddToCartButton from "../Product/addToCartButton";
 import axios from "@/hooks/hook.axios";
 import { useRootContext } from "@/context/root.context";
 const ProductDetails = () => {
+  const [attributes, setAttributes] = useState({});
   const sech: any = useSearchParams();
   const { Cart }: any = useRootContext();
   const ID = sech.get("_id");
@@ -50,6 +51,11 @@ const ProductDetails = () => {
         toast.error(error.message ? error.message : error?.data.message)
       );
   };
+
+  const handleAttributes = (e: any) => {
+    console.log(e.target.value);
+  };
+
   return (
     <div className="lg:flex gap-5">
       <div className="lg:basis-1/2">
@@ -94,35 +100,44 @@ const ProductDetails = () => {
             </span>
           </p>
         </div>
-        {product?.data?.variants?.length > 0 ? (
-          <div className="mt-4 flex">
-            <p className="me-4 text-gray-500">Size:</p>
-            <div className="flex gap-4">
-              {product?.data?.variants[0]?.attribute_options?.map(
-                (sizeItem: any) => (
-                  <button className="uppercase text-sm px-2 rounded-full hover:bg-sky-600 hover:text-white">
-                    {sizeItem.value}
-                  </button>
-                )
-              )}
-            </div>
-          </div>
-        ) : null}
-        {product?.data?.variants?.length > 0 ? (
-          <div className="mt-4 flex">
-            <p className="me-4 text-gray-500">Colors:</p>
-            <div className="flex gap-4 items-center">
-              {product?.data?.variants[1]?.attribute_options?.map(
-                (colorItem: any) => (
-                  <button
-                    className="uppercase w-4 h-4 text-sm px-2 rounded-full"
-                    style={{ background: `${colorItem?.value}` }}
-                  ></button>
-                )
-              )}
-            </div>
-          </div>
-        ) : null}
+        {product?.data?.variants?.map((variant: any) => {
+          if (variant.value === "color") {
+            return (
+              <div className="mt-4 flex">
+                <p className="me-4 text-gray-500">{variant.label}:</p>
+                <div className="flex gap-4 items-center">
+                  {variant.attribute_options?.map((colorItem: any) => (
+                    <input
+                      defaultValue={colorItem.value}
+                      name={variant.value}
+                      onClick={handleAttributes}
+                      className="uppercase w-4 h-4 text-sm px-2 rounded-full cursor-pointer"
+                      readOnly
+                      style={{ background: `${colorItem?.value}` }}
+                    />
+                  ))}
+                </div>
+              </div>
+            );
+          } else {
+            return (
+              <div className="mt-4 flex">
+                <p className="me-4 text-gray-500">{variant.label}:</p>
+                <div className="flex gap-2">
+                  {variant?.attribute_options?.map((sizeItem: any) => (
+                    <input
+                      onClick={handleAttributes}
+                      defaultValue={sizeItem.value}
+                      name={variant.value}
+                      readOnly
+                      className="uppercase text-sm rounded-full hover:bg-sky-600 hover:text-white w-6 h-6 outline-none cursor-pointer text-center"
+                    />
+                  ))}
+                </div>
+              </div>
+            );
+          }
+        })}
 
         <div className="mt-3 flex items-center">
           <p className="me-2 text-gray-500">Quantity:</p>

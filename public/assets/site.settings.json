@@ -10,11 +10,7 @@
     "favicon": { "0": {} },
     "phone_number": "01760107750",
     "textColor": "#000000",
-    "themeColor": "#000000",
-    "logo": {
-      "img_url": "/uploads/screenshot_12-1702539093430.png",
-      "path": "public/uploads/screenshot_12-1702539093430.png"
-    }
+    "themeColor": "#000000"
   },
   "body": {
     "banner": [
@@ -47,7 +43,7 @@
     "copyright": "Isoftex eCommerce CMS 2023",
     "logo": {
       "img_url": "/uploads/screenshot_12-1702455422120.png",
-      "path": "public\\uploads\\screenshot_12-1702455422120.png"
+      "path": "public/uploads/screenshot_12-1702455422120.png"
     },
     "color": "#151414"
   }

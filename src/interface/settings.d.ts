@@ -2,6 +2,8 @@ interface ISettings {
   header: {
     logo: any;
     color: any;
+    textColor: string;
+    themeColor: string;
     meta_title: string;
     meta_description: string;
     nav_menu: any;
@@ -15,6 +17,7 @@ interface ISettings {
   footer: {
     logo: any;
     description: any;
+    color: any;
     contact_info: {
       address: string;
       phone: string;

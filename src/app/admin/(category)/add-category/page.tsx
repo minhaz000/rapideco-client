@@ -34,7 +34,7 @@ const Page = () => {
     data.parentID === "null" && delete data.parentID;
     newCategory.mutate(data as any, {
       onSuccess: () => {
-        toast.success("category added");
+        toast.success("Category added!!");
         Categories.refetch();
         setSelectedImage({ icon: null, imgURL: null });
         reset();

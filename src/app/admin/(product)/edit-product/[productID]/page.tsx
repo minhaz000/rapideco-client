@@ -328,7 +328,7 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
           </div>
           <input
             type="submit"
-            value="Add Product"
+            value="Update Product"
             className="bg-blue-600 text-white px-6 py-2 mt-4 rounded-md cursor-pointer"
           />
         </form>

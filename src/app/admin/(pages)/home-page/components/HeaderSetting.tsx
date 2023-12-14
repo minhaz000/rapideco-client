@@ -9,9 +9,11 @@ import FormValues from "@/interface/settings";
 import { toast } from "react-toastify";
 import axios from "axios";
 import Uploder from "@/hooks/hook.upload";
+import Image from "next/image";
 
 const HeaderSetting = ({ setting }: { setting: any }) => {
   const [menuItem, setMenuItem] = useState(1);
+  console.log(setting);
   const { control, register, reset, handleSubmit, setValue, getValues } =
     useform<FormValues>();
   const { append, remove, fields } = useFieldArray({
@@ -54,6 +56,7 @@ const HeaderSetting = ({ setting }: { setting: any }) => {
               type="file"
               className="w-full py-1 px-1 rounded border"
             />
+            <Image src={setting?.header?.logo?.img_url} width={100} height={100} alt="" />
           </div>
           <div className="md:basis-1/2">
             <label htmlFor="logo" className="block mb-3 text-sm">
@@ -93,6 +96,28 @@ const HeaderSetting = ({ setting }: { setting: any }) => {
             </label>
             <input
               {...register("header.color")}
+              type="color"
+              className="w-full h-10 rounded border outline-none"
+            />
+          </div>
+          <div className="md:basis-1/2">
+            <label htmlFor="theme" className="block mb-2 text-sm">
+              Text Color
+            </label>
+            <input
+              {...register("header.textColor")}
+              type="color"
+              className="w-full h-10 rounded border outline-none"
+            />
+          </div>
+        </div>
+        <div className="md:flex gap-5 mt-3">
+          <div className="md:basis-1/2">
+            <label htmlFor="theme" className="block mb-2 text-sm">
+              Theme Color
+            </label>
+            <input
+              {...register("header.themeColor")}
               type="color"
               className="w-full h-10 rounded border outline-none"
             />

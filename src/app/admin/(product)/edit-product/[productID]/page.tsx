@@ -13,32 +13,39 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
   const [selectedImage, setSelectedImage] = useState([]);
   const [oldGalleryImage, setOldGalleryImage] = useState([]);
   const [selectedGalleryImageFile, setSelectedGalleryImageFile] = useState([]);
-  const { data: oldProduct, refetch } = useQueryData(["get old product"], `/api/v0/product/${params.productID}`);
-  const updateProduct = useMutationData(["update product "], "put", `/api/v0/product/${params.productID}`);
-  const { register, handleSubmit, watch, reset, setValue, getValues } = useForm<FormValues>();
+  const { data: oldProduct, refetch } = useQueryData(
+    ["get old product"],
+    `/api/v0/product/${params.productID}`
+  );
+  const updateProduct = useMutationData(
+    ["update product "],
+    "put",
+    `/api/v0/product/${params.productID}`
+  );
+  const { register, handleSubmit, watch, reset, setValue, getValues } =
+    useForm<FormValues>();
   // EDIT PRODUCT
   const HandleEditProduct: SubmitHandler<FormValues> = async (data) => {
     const gallery_images = await Uploder(selectedGalleryImageFile, "arry");
     // gallery_images && (data.gallery_images = [...data.gallery_images, ...gallery_images]);
-    data.gallery_images = gallery_images ? [...oldGalleryImage, ...gallery_images] : [...oldGalleryImage];
-    selectedImage?.length > 0 && (data.product_image = await Uploder(selectedImage));
+    data.gallery_images = gallery_images
+      ? [...oldGalleryImage, ...gallery_images]
+      : [...oldGalleryImage];
+    selectedImage?.length > 0 &&
+      (data.product_image = await Uploder(selectedImage));
     data.status ? (data.status = "active") : (data.status = "deactive");
-    data.category_info = data.category_info?.length > 1 && JSON.parse(data.category_info);
-    data.brand_info = data.brand_info?.length > 1 && JSON.parse(data.brand_info);
-    // console.log("product ", data.product_image);
-    // console.log("grally ", data.gallery_images);
-    // console.log("grally ", selectedGalleryImage);
-    console.log(data);
-    // console.log("file ", selectedGalleryImageFile);
-    // console.log(data.product_image);.
-
+    data.category_info =
+      data.category_info?.length > 1 && JSON.parse(data.category_info);
+    data.brand_info =
+      data.brand_info?.length > 1 && JSON.parse(data.brand_info);
     updateProduct.mutate(data as any, {
       onSuccess: () => {
         toast.success("product updated");
         refetch().then((res: any) => reset(res.data));
         setSelectedGalleryImageFile([]);
       },
-      onError: (error: any) => toast.error(error.message ? error.message : error?.data.message),
+      onError: (error: any) =>
+        toast.error(error.message ? error.message : error?.data.message),
     });
   };
 
@@ -46,21 +53,25 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
     setSelectedImage(e.target.files[0]);
   };
   const handleGalleyImage = (event: any) => {
-    const selectedFiles: any = [...event.target.files, ...selectedGalleryImageFile];
+    const selectedFiles: any = [
+      ...event.target.files,
+      ...selectedGalleryImageFile,
+    ];
     setSelectedGalleryImageFile(selectedFiles);
   };
 
   function deleteHandler(image: any) {
     console.log(image);
     setOldGalleryImage(oldGalleryImage.filter((e) => e !== image));
-    setSelectedGalleryImageFile(selectedGalleryImageFile.filter((e) => e !== image));
+    setSelectedGalleryImageFile(
+      selectedGalleryImageFile.filter((e) => e !== image)
+    );
   }
   function handleOnChange(e: any) {
     // e.target.value
     console.log(e.target.name);
     setValue(e.target.name, e.target.value);
   }
-  console.log(oldProduct?.data?.category_info?.name);
   useEffect(() => {
     setOldGalleryImage(oldProduct?.data?.gallery_images);
     reset(oldProduct?.data);
@@ -85,7 +96,9 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
               }`}
             />
             {validationError?.title && (
-              <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.title.message}</p>
+              <p className="text-red-600 text-[14px]  mb-[5px] text-right">
+                {validationError.title.message}
+              </p>
             )}
           </div>
           <div>
@@ -102,7 +115,9 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
               }`}
             />
             {validationError?.code && (
-              <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.code.message}</p>
+              <p className="text-red-600 text-[14px]  mb-[5px] text-right">
+                {validationError.code.message}
+              </p>
             )}
           </div>
           <div className="mt-3">
@@ -131,7 +146,9 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
               }`}
             />
             {validationError?.regular_price && (
-              <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.regular_price.message}</p>
+              <p className="text-red-600 text-[14px]  mb-[5px] text-right">
+                {validationError.regular_price.message}
+              </p>
             )}
           </div>
           <div className="mt-3">
@@ -160,26 +177,12 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
               }`}
             />
             {validationError?.qantity && (
-              <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.qantity.message}</p>
+              <p className="text-red-600 text-[14px]  mb-[5px] text-right">
+                {validationError.qantity.message}
+              </p>
             )}
           </div>
-          <div className="mt-3">
-            <label htmlFor="name" className="mb-2 block">
-              Status
-            </label>
 
-            <input
-              {...register("status")}
-              placeholder="Quantity"
-              type="checkbox"
-              className={`border  py-2 px-3  rounded-md outline-none toggle toggle-success ${
-                validationError?.status && "border-red-600  bg-red-400"
-              }`}
-            />
-            {validationError?.status && (
-              <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.status.message}</p>
-            )}
-          </div>
           <div className="mt-3">
             <label htmlFor="name" className="mb-2 block">
               Category
@@ -195,7 +198,10 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
               <option value="">{oldProduct?.data?.category_info?.name} </option>
               {Categories?.data?.data.map((item: any, i: number) => {
                 return (
-                  <option key={i} value={JSON.stringify({ _id: item._id, name: item.name })}>
+                  <option
+                    key={i}
+                    value={JSON.stringify({ _id: item._id, name: item.name })}
+                  >
                     {item.name}
                   </option>
                 );
@@ -203,7 +209,9 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
             </select>
 
             {validationError?.category_info && (
-              <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.category_info.message}</p>
+              <p className="text-red-600 text-[14px]  mb-[5px] text-right">
+                {validationError.category_info.message}
+              </p>
             )}
           </div>
           <div className="mt-3">
@@ -211,11 +219,18 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
               Brand
             </label>
 
-            <select name="brand_info" onChange={handleOnChange} className="border outline-none p-2 w-full">
+            <select
+              name="brand_info"
+              onChange={handleOnChange}
+              className="border outline-none p-2 w-full"
+            >
               <option value="">Select Brand</option>
               {Brands?.data?.data.map((item: any, i: number) => {
                 return (
-                  <option key={i} value={JSON.stringify({ _id: item._id, name: item.name })}>
+                  <option
+                    key={i}
+                    value={JSON.stringify({ _id: item._id, name: item.name })}
+                  >
                     {item.name}
                   </option>
                 );
@@ -248,7 +263,9 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
                   className="col-span-8"
                   isMulti={true}
                   defaultInputValue={item.attribute_options}
-                  onChange={(value) => setValue("variants.attribute_options", value)}
+                  onChange={(value) =>
+                    setValue("variants.attribute_options", value)
+                  }
                   options={item.attribute_options}
                 />
               </div>
@@ -300,7 +317,12 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
                   oldGalleryImage.map((image: any, i: number) => {
                     return (
                       <div key={i} className="relative">
-                        <Image src={image.img_url} width={100} height={100} alt="upload" />
+                        <Image
+                          src={image.img_url}
+                          width={100}
+                          height={100}
+                          alt="upload"
+                        />
                         <button
                           className="absolute top-0 right-0 bg-red-400 text-white px-1"
                           onClick={() => deleteHandler(image)}
@@ -313,7 +335,12 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
                 {selectedGalleryImageFile.map((image: any, i) => {
                   return (
                     <div key={i} className="relative">
-                      <Image src={URL.createObjectURL(image)} width={100} height={100} alt="upload" />
+                      <Image
+                        src={URL.createObjectURL(image)}
+                        width={100}
+                        height={100}
+                        alt="upload"
+                      />
                       <button
                         className="absolute top-0 right-0 bg-red-400 text-white px-1"
                         onClick={() => deleteHandler(image)}
@@ -325,6 +352,25 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
                 })}
               </div>
             </div>
+          </div>
+          <div className="mt-3">
+            <label htmlFor="name" className="mb-2 block">
+              Status
+            </label>
+
+            <input
+              {...register("status")}
+              placeholder="Quantity"
+              type="checkbox"
+              className={`border  py-2 px-3  rounded-md outline-none toggle toggle-success ${
+                validationError?.status && "border-red-600  bg-red-400"
+              }`}
+            />
+            {validationError?.status && (
+              <p className="text-red-600 text-[14px]  mb-[5px] text-right">
+                {validationError.status.message}
+              </p>
+            )}
           </div>
           <input
             type="submit"

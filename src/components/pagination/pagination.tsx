@@ -32,8 +32,8 @@ function pagination({
             key={item}
             value={item}
             className={
-              "join-item btn " +
-              `${pagination?.page == item && `bg-green-700 text-white`}`
+              "join-item px-4 me-2 " +
+              `${pagination?.page == item && `bg-slate-700 text-white`}`
             }
           >
             {item}

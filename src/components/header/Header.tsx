@@ -10,11 +10,12 @@ const Header = () => {
       {/* Top bar */}
       <HeaderTop />
       {/* Main menu  */}
+
       <nav
         className={`hidden lg:block mt-2`}
         style={{ backgroundColor: `${headerBg}` }}
       >
-        <ul className="flex justify-center gap-4 max-w-screen-xl mx-auto py-[8px] lg:px-12 text-white text-[14px]">
+        <ul className="flex justify-center gap-5 max-w-screen-xl mx-auto py-[8px] lg:px-12 text-white text-[14px]">
           {settingsData?.header?.nav_menu?.map((item: any, index: number) => (
             <li key={index}>
               <Link className="text-[17px]" href={item?.value}>
@@ -32,12 +33,11 @@ const Header = () => {
         } top-0 bottom-0 bg-black bg-opacity-50 z-10 h-screen w-full cursor-pointer duration-500`}
       ></div>
       <ul
-        className={`flex flex-col gap-4 py-[16px] ps-4 lg:px-12 text-white text-[14px] ${
+        className={`flex flex-col gap-4 py-[16px] ps-4 lg:px-12 text-[14px] ${
           collapseMenu
             ? "visible opacity-100 -translate-x-0"
             : "invisible lg:invisible opacity-0 lg:opacity-0 block lg:hidden -translate-x-96"
-        } h-screen fixed top-0 bottom-0  overflow-y-auto z-50 transition-all duration-500 ease-in-out w-full sm:w-3/4`}
-        style={{ backgroundColor: `${headerBg}` }}
+        } h-screen fixed top-0 bottom-0  overflow-y-auto z-50 transition-all duration-500 ease-in-out w-[90%] sm:w-3/4 bg-white`}
       >
         <button
           className="bg-white text-center text-black w-8 h-8 rounded-full font-bold text-lg absolute right-3"

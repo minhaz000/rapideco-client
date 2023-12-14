@@ -2,16 +2,21 @@ import Link from "next/link";
 import React from "react";
 import AddToCartButton from "./addToCartButton";
 import Image from "next/image";
+import { useRootContext } from "@/context/root.context";
 const ProductCard = ({ product }: { product: any }) => {
+  const { settingsData }: any = useRootContext();
   return (
-    <div className="flex flex-col group duration-300 hover:border hover:border-[#00C9B4] hover:shadow-lg border p-1  sm:p-2 rounded-sm bg-white">
+    <div className="flex flex-col group duration-300 hover:shadow-xl border p-1 sm:p-2 rounded-sm bg-white ">
       <Link href={`/product?_id=${product._id}`}>
         <div>
           <div className="overflow-hidden relative">
             {product.discount_price && (
-              <p className="absolute top-2 left-0 bg-white px-2 py-2 z-40 uppercase text-[12px] rounded-e-full shadow-xl flex items-center gap-2">
+              <p className="absolute top-2 left-0 bg-white px-[5px] py-[5px] z-40 uppercase text-[11px] font-semibold rounded-e-full shadow-xl flex items-center gap-2">
                 Off
-                <span className="bg-[#00C9B4] text-white rounded-full w-9 h-9  text-[11px] flex justify-center items-center">
+                <span
+                  style={{ background: `${settingsData?.header?.themeColor}` }}
+                  className=" text-white rounded-full w-8 h-8  text-[10px] flex justify-center items-center"
+                >
                   - {product.regular_price - product.discount_price}
                 </span>
               </p>
@@ -27,13 +32,22 @@ const ProductCard = ({ product }: { product: any }) => {
           </div>
           <div className="py-3 px-4 text-center">
             <div>
-              <h2 className="capitalize hover:text-green-600">
-                {product.title.length > 47 ? product.title.slice(0, 48) + "..." : product.title}
+              <h2 className="capitalize font-semibold">
+                {product.title.length > 47
+                  ? product.title.slice(0, 48) + "..."
+                  : product.title}
               </h2>
             </div>
             <div className="flex justify-center gap-3 mt-1">
-              <p className="text-[#3bb77e] font-semibold text-sm">Tk{product.regular_price}</p>
-              <p className="line-through text-gray-400 text-sm">Tk{product.discount_price}</p>
+              <p
+                className="font-semibold text-sm"
+                style={{ color: `${settingsData?.header?.themeColor}` }}
+              >
+                Tk{product.regular_price}
+              </p>
+              <p className="line-through text-gray-400 text-sm font-semibold">
+                Tk{product.discount_price}
+              </p>
             </div>
           </div>
         </div>

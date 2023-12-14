@@ -1,6 +1,7 @@
 import "../css/globals.css";
 import { Poppins } from "next/font/google";
 import Providers from "@/context/query.provider";
+import "react-loading-skeleton/dist/skeleton.css";
 import { Metadata } from "next";
 const poppins = Poppins({
   weight: ["300", "400", "500", "600", "700"],

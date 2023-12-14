@@ -5,31 +5,29 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { BsCart } from "react-icons/bs";
 import { useRootContext } from "@/context/root.context";
 import Image from "next/image";
+import Loading from "../common/Loading";
 
 const HeaderTop = () => {
   const { Cart, settingsData }: any = useRootContext();
   const headerBg = settingsData?.header?.color;
+  if (!settingsData) {
+    return <Loading />;
+  }
   return (
     <div className="flex flex-row justify-between items-center max-w-screen-xl mx-auto px-3 lg:px-12">
       <div className="basis-4/12 lg:basis-1/4">
         <Link href="/" className="inline-block">
-          {settingsData?.header?.logo ? (
-            <Image
-              src={settingsData?.header?.logo?.img_url}
-              width={150}
-              height={80}
-              alt="Logo Image"
-              style={{
-                width: "100%",
-                height: "auto",
-              }}
-              className="object-cover"
-            />
-          ) : (
-            <h2 className="text-[26px] sm:text-[30px] md:text-[40px] font-semibold ">
-              Your Logo
-            </h2>
-          )}
+          <Image
+            src={settingsData?.header?.logo?.img_url}
+            width={130}
+            height={80}
+            alt="Logo Image"
+            style={{
+              width: "100%",
+              height: "auto",
+            }}
+            className="object-cover"
+          />
         </Link>
       </div>
       <SearchForm />
@@ -43,9 +41,11 @@ const HeaderTop = () => {
               />
             </div>
             <div className="text-start">
-              <span className="text-[15px] text-gray-600 block">Phone</span>
+              <span className="text-[15px] text-gray-600 block font-semibold">
+                Phone
+              </span>
               <Link
-                className="text-[13px]"
+                className="text-[13px] block"
                 href={`tel:${settingsData?.header?.phone_number}`}
               >
                 {settingsData?.header?.phone_number}

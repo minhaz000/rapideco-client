@@ -68,28 +68,3 @@ body {
   width: 26px !important;
   height: 26px !important;
 }
-/* Style the scrollbar track */
-::-webkit-scrollbar-track {
-  background-color: #f1f1f1; /* Change this to your desired background color */
-}
-
-/* Style the scrollbar thumb */
-::-webkit-scrollbar-thumb {
-  background-color: #888; /* Change this to your desired thumb color */
-  border-radius: 5px; /* Round the corners of the thumb */
-}
-
-/* Optionally, you can style the scrollbar's corner */
-::-webkit-scrollbar-corner {
-  background-color: #f1f1f1; /* Match the track's background color */
-}
-/* Style the scrollbar track */
-scrollbar {
-  background-color: #f1f1f1; /* Change this to your desired background color */
-}
-
-/* Style the scrollbar thumb */
-scrollbar-thumb {
-  background-color: #888; /* Change this to your desired thumb color */
-  border-radius: 5px; /* Round the corners of the thumb */
-}

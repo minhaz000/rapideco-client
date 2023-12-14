@@ -2,14 +2,9 @@
   "header": {
     "nav_menu": [
       { "value": "/", "lavel": "Home" },
-      { "value": "shop", "lavel": "Shopo" },
-      { "value": "women", "lavel": "Women" },
-      { "value": "men", "lavel": "Men" },
-      { "value": "health-fitness", "lavel": "Health & Fitness" },
-      { "value": "kitchen-gadgets", "lavel": "Kitchen Gadgets" },
-      { "value": "contact-us", "lavel": "Contact Us" }
+      { "value": "shop", "lavel": "Shop" }
     ],
-    "color": "#e23f22",
+    "color": "#000000",
     "meta_title": "Isoftex eCommerce",
     "meta_description": "Let's develop our country together",
     "favicon": { "0": {} },
@@ -17,28 +12,25 @@
     "textColor": "#000000",
     "themeColor": "#000000",
     "logo": {
-      "img_url": "/uploads/screenshot_12-1702473932751.png",
-      "path": "public/uploads/screenshot_12-1702473932751.png"
+      "img_url": "/uploads/screenshot_12-1702539093430.png",
+      "path": "public/uploads/screenshot_12-1702539093430.png"
     }
   },
   "body": {
     "banner": [
       {
-        "img_url": "/uploads/s1.png",
-        "path": "public/uploads/screenshot-from-2023-10-15-21-58-01-1699028206175.png"
+        "img_url": "/uploads/webslider-03-scaled-1702528961166.jpg",
+        "path": "public/uploads/webslider-03-scaled-1702528961166.jpg"
       },
       {
-        "img_url": "/uploads/s2.png",
-        "path": "public/uploads/screenshot-from-2023-10-16-21-35-10-1699028206194.png"
-      },
-      {
-        "img_url": "/uploads/westrang_web_slise-(1)-1702448569539.jpg",
-        "path": "public/uploads/westrang_web_slise-(1)-1702448569539.jpg"
+        "img_url": "/uploads/westrang_web_slise-(1)-1702528961185.jpg",
+        "path": "public/uploads/westrang_web_slise-(1)-1702528961185.jpg"
       }
     ],
     "cat_menu": [
       { "lavel": "T shirt ", "value": "65452637df99fad2de47bc11" },
-      { "lavel": "Bathroom", "value": "6554ede7729f22e9b8f38087" }
+      { "lavel": "Bathroom", "value": "6554ede7729f22e9b8f38087" },
+      { "lavel": "", "value": "6575fafc99bcb99ab6ec646d" }
     ]
   },
   "footer": {

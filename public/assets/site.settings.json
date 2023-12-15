@@ -42,7 +42,11 @@
       { "value": "about-us", "lavel": "আমাদের সম্পর্কে" }
     ],
     "description": "ওনেমার্ট ই-কমার্স ওয়েবসাইট একটি ব্যবসা প্ল্যাটফর্ম, যেখানে আপনি আপনার পছন্দের পণ্য অনলাইনে ক্রয় করতে পারেন। ওনেমার্টে আপনি বিভিন্ন ক্যাটেগরিতে পণ্য সন্ধান করতে পারেন,",
-    "contact_info": { "address": "#০২, রোডঃ ০২,ঢাকা", "phone": "(+৮৮০) ০১৭৬০১০৭৭৬৪", "email": "rapidco@admin.com" },
+    "contact_info": {
+      "address": "#০২, রোডঃ ০২,ঢাকা",
+      "phone": "(+৮৮০) ০১৭৬০১০৭৭৬৪",
+      "email": "rapidco@admin.com"
+    },
     "copyright": "Isoftex eCommerce CMS 2023",
     "logo": {
       "img_url": "/uploads/screenshot_12-1702455422120.png",

@@ -5,14 +5,16 @@ import { toast } from "react-toastify";
 import axios from "../../hooks/hook.axios";
 import user from "@/assets/user.png";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 const UserProfileMenu = () => {
   const [profileOpen, setProfileOpen] = useState(false);
-  console.log(profileOpen);
+  const router = useRouter();
   const handleLogout = async () => {
     axios
       .delete("auth/v0/logout")
       .then((res) => {
         toast.success("Successfully Logout!!");
+        router.push("/login");
       })
       .catch((error) => {
         console.log(error);

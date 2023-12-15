@@ -71,6 +71,11 @@ const menuItems = [
     icon: <MdStars />,
   },
   {
+    title: "Shipping",
+    path: "/admin/shipping",
+    icon: <MdStars />,
+  },
+  {
     title: "Pages",
     icon: <MdPages />,
     children: [

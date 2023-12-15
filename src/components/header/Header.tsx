@@ -15,7 +15,7 @@ const Header = () => {
         className={`hidden lg:block mt-2`}
         style={{ backgroundColor: `${headerBg}` }}
       >
-        <ul className="flex justify-center gap-5 max-w-screen-xl mx-auto py-[8px] lg:px-12 text-white text-[14px]">
+        <ul className="flex justify-center gap-5 max-w-screen-xl mx-auto py-[10px] lg:px-12 text-white text-[14px]">
           {settingsData?.header?.nav_menu?.map((item: any, index: number) => (
             <li key={index}>
               <Link className="text-[17px]" href={item?.value}>

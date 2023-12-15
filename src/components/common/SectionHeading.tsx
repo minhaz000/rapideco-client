@@ -11,7 +11,7 @@ const SectionHeading = ({ sectionTitle }: any) => {
         {sectionTitle}
       </h2>
       <div
-        className="border px-4 py-1 rounded font-medium text-white duration-300 flex gap-2 items-center text-sm"
+        className="border px-4 py-[6px] rounded font-medium text-white duration-300 flex gap-2 items-center text-sm"
         style={{ background: `${settingsData?.header?.themeColor}` }}
       >
         <Link href={"/shop"}>See More</Link>

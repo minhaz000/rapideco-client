@@ -3,12 +3,15 @@ import Link from "next/link";
 import { useForm as useform, SubmitHandler } from "react-hook-form";
 import axios from "../../../hooks/hook.axios";
 import FormValues from "./login";
+import { useRouter } from "next/navigation";
 const LoginForm = () => {
+  const router = useRouter();
   const { register, handleSubmit } = useform<FormValues>();
   // =============== FUNCTION FOR THE PRODUCT POST REQUEST
   const HandleLogin: SubmitHandler<FormValues> = (data) => {
     console.log(data);
     axios.post("auth/v0/login", data).then((res) => {
+      router.push("/admin/dashboard");
       console.log(res);
     });
   };

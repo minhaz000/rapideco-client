@@ -13,15 +13,13 @@ import { useQueryData } from "@/hooks/hook.query";
 import { useRootContext } from "@/context/root.context";
 const CheckoutPage = () => {
   const [tabIndex, setTabIndex] = useState(0);
-  const { Cart }: any = useRootContext();
-  const { register, reset, handleSubmit } = useform<FormValues>();
-  const { data: payments } = useQueryData(
-    ["get payment methods"],
-    "/api/v0/payments?"
-  );
+  const [shipping, setShipping] = useState(0);
+  const { Cart, settingsData }: any = useRootContext();
+  const { register, reset, handleSubmit, setValue } = useform<FormValues>();
+  const { data: payments } = useQueryData(["get payment methods"], "/api/v0/payments?");
   const handleCheckOut: SubmitHandler<FormValues> = async (data) => {
-    // const Cart = await axios.get("/api/v0/cart");
-    console.log(data);
+    const Cart = await axios.get("/api/v0/cart");
+    console.log(Cart?.data?.data);
     data.ordered_items = Cart.data.data.items;
     data.payment_info = {
       amount: Cart.data.data.subtotal,
@@ -30,8 +28,7 @@ const CheckoutPage = () => {
       status: data?.payment_info?.trx_id ? "paid" : "unpaid",
     };
     data.payment_info.method_name = payments?.data[tabIndex].method_name;
-    data.payment_info.method_img_url =
-      payments.data[tabIndex].method_img.img_url;
+    data.payment_info.method_img_url = payments.data[tabIndex].method_img.img_url;
     axios
       .post("/api/v0/order", data)
       .then((res) => {
@@ -41,9 +38,7 @@ const CheckoutPage = () => {
         axios2.post("/api/sentmail", { order: res.data?.data });
         reset();
       })
-      .catch((error: any) =>
-        toast.error(error.message ? error.message : error?.data.message)
-      );
+      .catch((error: any) => toast.error(error.message ? error.message : error?.data.message));
   };
   const handleQuantityPlus = (ID: string, Q?: number) => {
     axios
@@ -52,9 +47,7 @@ const CheckoutPage = () => {
         toast.success("product added to cart");
         Cart.refetch();
       })
-      .catch((error: any) =>
-        toast.error(error.message ? error.message : error?.data.message)
-      );
+      .catch((error: any) => toast.error(error.message ? error.message : error?.data.message));
   };
   const handleQuantityMinus = (ID: string) => {
     axios
@@ -63,9 +56,7 @@ const CheckoutPage = () => {
         toast.success("product added to cart");
         Cart.refetch();
       })
-      .catch((error: any) =>
-        toast.error(error.message ? error.message : error?.data.message)
-      );
+      .catch((error: any) => toast.error(error.message ? error.message : error?.data.message));
   };
   const handleRemove = (ID: string) => {
     axios
@@ -74,9 +65,7 @@ const CheckoutPage = () => {
         toast.success("product remove from cart");
         Cart.refetch();
       })
-      .catch((error: any) =>
-        toast.error(error.message ? error.message : error?.data.message)
-      );
+      .catch((error: any) => toast.error(error.message ? error.message : error?.data.message));
   };
 
   return (
@@ -85,8 +74,7 @@ const CheckoutPage = () => {
         <div className="flex lg:flex-row flex-col-reverse gap-6 md:mt-14">
           <div className="lg:basis-5/12 border rounded py-3 px-5">
             <h3 className="text-center text-[16px] pt-3 pb-5">
-              অর্ডারটি কনফার্ম করতে আপনার নাম, ঠিকানা, মোবাইল নাম্বার, লিখে
-              অর্ডার কনফার্ম করুন বাটনে ক্লিক করুন
+              অর্ডারটি কনফার্ম করতে আপনার নাম, ঠিকানা, মোবাইল নাম্বার, লিখে অর্ডার কনফার্ম করুন বাটনে ক্লিক করুন
             </h3>
             <div>
               <label className="text-[14px]">আপনার নাম</label> <br />
@@ -125,21 +113,28 @@ const CheckoutPage = () => {
               />
             </div> */}
             <div className="mt-3">
-              <label className="text-[14px]">আপনার এরিয়া সিলেক্ট করুন</label>{" "}
-              <br />
+              <label className="text-[14px]">আপনার এরিয়া সিলেক্ট করুন</label> <br />
               <select
-                {...register("user_info.delivery_area")}
                 id=""
+                onChange={(e: any) => {
+                  console.log(e.target.value);
+                  const item = JSON.parse(e.target.value);
+                  setValue("user_info.delivery_area", item.zone);
+                  setShipping(item.cost);
+                }}
                 className="border w-full py-2 px-2 rounded outline-none mt-2 text-[14px]"
               >
-                <option value="in-dhaka">ঢাকার বাইরে</option>
-                <option value="out-of-dhaka">ঢাকার ভিতরে</option>
+                <option value={JSON.stringify({ zone: "", cost: 0 })}>আপনার এরিয়া সিলেক্ট করুন</option>
+                {settingsData?.shipping?.map((item: any, i: number) => {
+                  return (
+                    <option key={i} value={JSON.stringify(item)}>
+                      {item.zone}
+                    </option>
+                  );
+                })}
               </select>
             </div>
-            <button
-              type="submit"
-              className="mt-3 bg-sky-700 text-white py-2 px-4 rounded w-full "
-            >
+            <button type="submit" className="mt-3 bg-sky-700 text-white py-2 px-4 rounded w-full ">
               অর্ডার কনফার্ম করুন
             </button>
           </div>
@@ -151,98 +146,73 @@ const CheckoutPage = () => {
                   <table className="table w-[600px] sm:w-full border ">
                     <thead>
                       <tr className="border font-normal">
-                        <th className="py-3  border-y ps-4 text-start text-[16px]">
-                          Item
-                        </th>
-                        <th className="py-3 border-y ps-4 text-start text-[16px]">
-                          Price
-                        </th>
-                        <th className="py-3 border-y ps-4 text-start text-[16px]">
-                          Quantity
-                        </th>
-                        <th className="py-3 border-y ps-4 text-start text-[16px]">
-                          Total
-                        </th>
-                        <th className="py-3 border-y ps-4 text-start text-[16px]">
-                          Action
-                        </th>
+                        <th className="py-3  border-y ps-4 text-start text-[16px]">Item</th>
+                        <th className="py-3 border-y ps-4 text-start text-[16px]">Price</th>
+                        <th className="py-3 border-y ps-4 text-start text-[16px]">Quantity</th>
+                        <th className="py-3 border-y ps-4 text-start text-[16px]">Total</th>
+                        <th className="py-3 border-y ps-4 text-start text-[16px]">Action</th>
                       </tr>
                     </thead>
                     <tbody className="border pt-2">
-                      {Cart?.data?.data?.items.map(
-                        (item: Iproduct, i: number) => {
-                          return (
-                            <tr
-                              key={i}
-                              className="text-xs font-normal text-start"
-                            >
-                              <td className="py-3 ps-4 border-b">
-                                <div className="flex items-center gap-2">
-                                  <Image
-                                    src={item?.product_image?.img_url}
-                                    alt=""
-                                    width={40}
-                                    height={40}
-                                    className="md:h-[40px] object-cover"
-                                  />
-                                  <h3 className="text-[15px] text-slate-500">
-                                    {item?.title}
-                                  </h3>
-                                </div>
-                              </td>
-                              <td className="border-b">
-                                Tk
-                                {item?.discount_price
-                                  ? item?.discount_price
-                                  : item?.regular_price}
-                              </td>
-                              <td className="border-b">
-                                <div className="flex gap-1 me-3">
-                                  <span
-                                    onClick={() =>
-                                      handleQuantityMinus(item?._id)
-                                    }
-                                    className="border border-gray-300 px-1 rounded-sm cursor-pointer"
-                                  >
-                                    -
-                                  </span>
-                                  <input
-                                    type="text"
-                                    value={item?.quantity}
-                                    className="w-10 border border-gray-300 outline-none text-center"
-                                    onChange={() => {}}
-                                  />
-                                  <span
-                                    onClick={() =>
-                                      handleQuantityPlus(item?._id)
-                                    }
-                                    className="border border-gray-300 px-1 rounded-sm cursor-pointer"
-                                  >
-                                    +
-                                  </span>
-                                </div>
-                              </td>
-                              <td className="border-b">
-                                Tk
-                                {(item?.discount_price
-                                  ? item?.discount_price
-                                  : item?.regular_price) * item?.quantity}
-                              </td>
-                              <td className="border-b">
-                                <button
-                                  onClick={(e) => {
-                                    e.preventDefault();
-                                    handleRemove(item?._id);
-                                  }}
-                                  className="bg-red-600 px-2 py-1 rounded text-white"
+                      {Cart?.data?.data?.items.map((item: Iproduct, i: number) => {
+                        return (
+                          <tr key={i} className="text-xs font-normal text-start">
+                            <td className="py-3 ps-4 border-b">
+                              <div className="flex items-center gap-2">
+                                <Image
+                                  src={item?.product_image?.img_url}
+                                  alt=""
+                                  width={40}
+                                  height={40}
+                                  className="md:h-[40px] object-cover"
+                                />
+                                <h3 className="text-[15px] text-slate-500">{item?.title}</h3>
+                              </div>
+                            </td>
+                            <td className="border-b">
+                              Tk
+                              {item?.discount_price ? item?.discount_price : item?.regular_price}
+                            </td>
+                            <td className="border-b">
+                              <div className="flex gap-1 me-3">
+                                <span
+                                  onClick={() => handleQuantityMinus(item?._id)}
+                                  className="border border-gray-300 px-1 rounded-sm cursor-pointer"
                                 >
-                                  X
-                                </button>
-                              </td>
-                            </tr>
-                          );
-                        }
-                      )}
+                                  -
+                                </span>
+                                <input
+                                  type="text"
+                                  value={item?.quantity}
+                                  className="w-10 border border-gray-300 outline-none text-center"
+                                  onChange={() => {}}
+                                />
+                                <span
+                                  onClick={() => handleQuantityPlus(item?._id)}
+                                  className="border border-gray-300 px-1 rounded-sm cursor-pointer"
+                                >
+                                  +
+                                </span>
+                              </div>
+                            </td>
+                            <td className="border-b">
+                              Tk
+                              {(item?.discount_price ? item?.discount_price : item?.regular_price) * item?.quantity}
+                            </td>
+                            <td className="border-b">
+                              <button
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  handleRemove(item?._id);
+                                }}
+                                className="bg-red-600 px-2 py-1 rounded text-white"
+                              >
+                                X
+                              </button>
+                            </td>
+                          </tr>
+                        );
+                      })}
                     </tbody>
                   </table>
                 </div>
@@ -255,7 +225,7 @@ const CheckoutPage = () => {
                       </div>
                       <div className="flex justify-between items-center mt-1">
                         <span className="font-semibold">Shipping:</span>
-                        <span>Tk 00</span>
+                        <span>Tk {shipping}</span>
                       </div>
                       <div className="flex justify-between items-center mt-1 border-t pt-1">
                         <span className="font-semibold">Total:</span>
@@ -269,21 +239,13 @@ const CheckoutPage = () => {
               <div className="mt-4">
                 {payments?.data && (
                   <div className="mt-3">
-                    <Tabs
-                      selectedIndex={tabIndex}
-                      onSelect={(index) => setTabIndex(index)}
-                    >
+                    <Tabs selectedIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
                       <TabList>
                         {payments?.data.map((item: any, i: number) => {
                           return (
                             <Tab key={i}>
                               <div className="flex gap-2 items-center">
-                                <Image
-                                  src={item.method_img.img_url}
-                                  alt=""
-                                  width={30}
-                                  height={30}
-                                />
+                                <Image src={item.method_img.img_url} alt="" width={30} height={30} />
                                 <span> {item.method_name}</span>
                               </div>
                             </Tab>
@@ -298,10 +260,7 @@ const CheckoutPage = () => {
                               {item?.method_descrption}
                               {item.method_code !== "cod" && (
                                 <div className="mt-3">
-                                  <label>
-                                    Your {item.method_name} Account Number
-                                  </label>{" "}
-                                  <br />
+                                  <label>Your {item.method_name} Account Number</label> <br />
                                   <input
                                     {...register("payment_info.number")}
                                     type="text"
@@ -310,10 +269,7 @@ const CheckoutPage = () => {
                                     required
                                   />
                                   <br />
-                                  <label>
-                                    {item.method_name} Transaction ID
-                                  </label>{" "}
-                                  <br />
+                                  <label>{item.method_name} Transaction ID</label> <br />
                                   <input
                                     {...register("payment_info.trx_id")}
                                     type="text"

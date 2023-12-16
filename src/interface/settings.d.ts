@@ -26,5 +26,6 @@ interface ISettings {
     links: any;
     copyright: string;
   };
+  shipping: any;
 }
 export default ISettings;

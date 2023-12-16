@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 const CategoryCard = ({ item }: { item: any }) => {
   return (
-    <Link href={"/"}>
+    <Link href={`/shop?cate=${item._id}`}>
       <Image
         src={item?.icon?.img_url}
         height={200}

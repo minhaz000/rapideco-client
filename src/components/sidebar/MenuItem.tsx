@@ -6,6 +6,7 @@ import {
   AiOutlineShoppingCart,
   AiOutlineDollarCircle,
 } from "react-icons/ai";
+import { FaList } from "react-icons/fa";
 const menuItems = [
   {
     title: "Dashboard",
@@ -28,7 +29,7 @@ const menuItems = [
   },
   {
     title: "Orders",
-    icon: <BsTruck />,
+    icon: <FaList />,
     children: [
       {
         title: "All Orders",
@@ -73,7 +74,7 @@ const menuItems = [
   {
     title: "Shipping",
     path: "/admin/shipping",
-    icon: <MdStars />,
+    icon: <BsTruck />,
   },
   {
     title: "Pages",

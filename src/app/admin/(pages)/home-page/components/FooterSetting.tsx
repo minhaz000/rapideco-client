@@ -24,13 +24,14 @@ const FooterSetting = ({ setting }: { setting: any }) => {
     data.footer.logo.length > 0 ? (data.footer.logo = await Uploder(data.footer.logo)) : data.footer.logo;
     axios.post("/api/siteconfig", data).then((res) => {
       toast.success("site updated");
+      setting.refetch();
     });
   };
   const handleRemove = (i: number) => {
     remove(i);
   };
   useEffect(() => {
-    reset(setting);
+    reset(setting.data);
   }, [setting]);
   return (
     <div className="border mt-5 py-6 px-4 lg:px-10">

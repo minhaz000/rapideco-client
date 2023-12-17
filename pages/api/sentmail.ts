@@ -29,8 +29,10 @@ apiRoute.post(async (req: any, res: any) => {
   // main api function
 
   const body = generateOrderNotificationEmail(req.body.order);
-  await sendEmail(req.body.subject || "Notification of New Order", body);
-  res.status(201).json({ message: "email sent sucessfully" });
+
+  console.log(body);
+  // await sendEmail(req.body.subject || "Notification of New Order", body);
+  // res.status(201).json({ message: "email sent sucessfully" });
 });
 
 export default apiRoute.handler({

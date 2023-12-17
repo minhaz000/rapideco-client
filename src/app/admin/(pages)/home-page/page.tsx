@@ -6,14 +6,16 @@ import FooterSetting from "./components/FooterSetting";
 import BodySetting from "./components/BodySetting";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 const HomePage = () => {
-  const [setting, setSetting] = useState({});
-  useEffect(() => {
-    axios.get("/assets/site.settings.json").then((res) => {
-      setSetting(res.data);
-    });
-  }, []);
-
+  // const setting = useQueryData(["get setting data"], "/assets/site.settings.json");
+  const setting = useQuery({
+    queryKey: ["get setting data"],
+    queryFn: async () => {
+      const res = await axios.get("/assets/site.settings.json");
+      return res.data;
+    },
+  });
   return (
     <>
       <Tabs>
@@ -23,15 +25,9 @@ const HomePage = () => {
           <Tab>Footer</Tab>
         </TabList>
 
-        <TabPanel>
-          <HeaderSetting setting={setting} />
-        </TabPanel>
-        <TabPanel>
-          <BodySetting setting={setting} />
-        </TabPanel>
-        <TabPanel>
-          <FooterSetting setting={setting} />
-        </TabPanel>
+        <TabPanel>{setting.data && <HeaderSetting setting={setting} />}</TabPanel>
+        <TabPanel>{setting.data && <BodySetting setting={setting} />}</TabPanel>
+        <TabPanel>{setting.data && <FooterSetting setting={setting} />}</TabPanel>
       </Tabs>
     </>
   );

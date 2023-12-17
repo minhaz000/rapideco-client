@@ -22,6 +22,7 @@ const HeaderSetting = ({ setting }: { setting: any }) => {
 
     axios.post("/api/siteconfig", data).then((res) => {
       toast.success("site updated");
+      setting.refetch();
     });
   };
   const handlePageItem = (e: any) => {
@@ -32,7 +33,7 @@ const HeaderSetting = ({ setting }: { setting: any }) => {
     remove(i);
   };
   useEffect(() => {
-    reset(setting);
+    reset(setting.data);
   }, [setting]);
 
   return (
@@ -44,7 +45,7 @@ const HeaderSetting = ({ setting }: { setting: any }) => {
               Logo Upload
             </label>
             <input {...register("header.logo")} type="file" className="w-full py-1 px-1 rounded border" />
-            <Image src={setting?.header?.logo?.img_url} width={100} height={100} alt="" />
+            <Image src={setting?.data.header?.logo?.img_url} width={100} height={100} alt="" />
           </div>
           <div className="md:basis-1/2">
             <label htmlFor="logo" className="block mb-3 text-sm">

@@ -13,7 +13,7 @@ import { useMutationData, useQueryData } from "@/hooks/hook.query";
 import { useRootContext } from "@/context/root.context";
 const CheckoutPage = () => {
   const [tabIndex, setTabIndex] = useState(0);
-  const [shipping, setShipping] = useState(0);
+  const [shipping, setShipping] = useState("0");
   const { Cart, settingsData }: any = useRootContext();
   const newOrder = useMutationData(["order place"], "post", "api/v0/order");
   const { register, reset, handleSubmit, setValue } = useform<FormValues>();
@@ -72,6 +72,7 @@ const CheckoutPage = () => {
       })
       .catch((error: any) => toast.error(error.message ? error.message : error?.data.message));
   };
+
   const validationError: any = newOrder.error?.data?.errors;
   return (
     <section className="max-w-screen-xl mx-auto px-3 lg:px-12 mt-2 lg:mt-6">
@@ -241,7 +242,7 @@ const CheckoutPage = () => {
                       </div>
                       <div className="flex justify-between items-center mt-1 border-t pt-1">
                         <span className="font-semibold">Total:</span>
-                        <span>Tk {Cart?.data?.data?.subtotal + shipping}</span>
+                        <span>Tk {Cart?.data?.data?.subtotal + parseInt(shipping)}</span>
                       </div>
                     </div>
                   </div>

@@ -118,9 +118,12 @@ const Page = ({ params }: { params: { categoryID: string[] } }) => {
             <option value="null">{data?.data.parent_info?.name}</option>
             {Categories.data?.data?.map((item: any) => {
               return (
-                <option key={item._id} value={item._id}>
-                  {item.name}
-                </option>
+                <>
+                 
+                  <option key={item._id} value={item._id}>
+                    {item.name}
+                  </option>
+                </>
               );
             })}
           </select>

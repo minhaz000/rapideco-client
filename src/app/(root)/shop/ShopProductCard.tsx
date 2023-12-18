@@ -26,7 +26,7 @@ const ShopProductCard = ({ product }: { product: product }) => {
             <Image
               src={product?.product_image?.img_url}
               alt="product image"
-              className="h-[150px] sm:h-[180px] w-full object-cover object-top rounded"
+              className="h-[150px] sm:h-[180px] w-full object-cover rounded"
               height={180}
               width={180}
             />

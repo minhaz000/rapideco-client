@@ -14,7 +14,11 @@ import axios from "@/hooks/hook.axios";
 import slugify from "slugify";
 const Attributes = () => {
   const { Atrribute }: any = useAdminContext();
-  const newBrand = useMutationData(["add new attribute"], "post", "api/v0/attribute");
+  const newBrand = useMutationData(
+    ["add new attribute"],
+    "post",
+    "api/v0/attribute"
+  );
   const { register, reset, handleSubmit } = useform<FormValues>();
   // =============== FUNCTION FOR THE PRODUCT POST REQUEST
   const HandleAddAtrribute: SubmitHandler<FormValues> = async (data) => {
@@ -25,7 +29,8 @@ const Attributes = () => {
         Atrribute.refetch();
         reset();
       },
-      onError: (error: any) => toast.error(error.message ? error.message : error?.data.message),
+      onError: (error: any) =>
+        toast.error(error.message ? error.message : error?.data.message),
     });
   };
   const handleDelete = (deleteId: string) => {
@@ -46,7 +51,9 @@ const Attributes = () => {
             toast.success("Brand deleted");
             Atrribute.refetch();
           })
-          .catch((error: any) => toast.error(error.message ? error.message : error?.data.message));
+          .catch((error: any) =>
+            toast.error(error.message ? error.message : error?.data.message)
+          );
       }
     });
   };
@@ -57,7 +64,11 @@ const Attributes = () => {
         <div className="basis-7/12 shadow-[0_0_10px_5px_#d7d7d7bf]">
           <div className="flex justify-between items-center border-b px-6 py-4">
             <h2>Attributes</h2>
-            <input type="text" placeholder="Type name & enter" className="border outline-none py-2 px-2" />
+            <input
+              type="text"
+              placeholder="Type name & enter"
+              className="border outline-none py-2 px-2"
+            />
           </div>
           <div className="overflow-x-auto mt-3 p-4">
             <table className="table  w-[700px] lg:w-full border">
@@ -72,17 +83,19 @@ const Attributes = () => {
               <tbody className="border pt-2">
                 {Atrribute?.data?.data.map((item: any, i: number) => {
                   return (
-                    <tr key={i} className="text-xs font-normal text-start border-b">
+                    <tr
+                      key={i}
+                      className="text-xs font-normal text-start border-b"
+                    >
                       <td className="py-5 ps-4">{i + 1}</td>
-                      <td>{item.label}</td>
+                      <td className="capitalize">{item.label}</td>
                       <td>
                         <div className="flex gap-1 items-center">
-                          <span className="bg-gray-400 py-1 rounded-md block px-2">
-                            {item.attribute_options[0]?.label ? item.attribute_options[0]?.label : "-"}
-                          </span>
-                          <span className="bg-gray-400 py-1 rounded-md block px-2">
-                            {item.attribute_options[1]?.label ? item.attribute_options[1]?.label : "-"}
-                          </span>
+                          {item.attribute_options.map((lb: any) => (
+                            <span className="border py-1 rounded-md block px-2 text-[13px] capitalize">
+                              {lb.label}
+                            </span>
+                          ))}
                         </div>
                       </td>
 
@@ -114,7 +127,9 @@ const Attributes = () => {
           </div>
         </div>
         <div className="basis-5/12 shadow-[0_0_10px_5px_#d7d7d7bf] pb-6">
-          <h2 className="border px-6 py-4 text-xl font-semibold">Add New Attributes</h2>
+          <h2 className="border px-6 py-4 text-xl font-semibold">
+            Add New Attributes
+          </h2>
           <div className="px-6 pt-4">
             <form onSubmit={handleSubmit(HandleAddAtrribute)}>
               <div>

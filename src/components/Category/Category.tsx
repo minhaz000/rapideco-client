@@ -42,7 +42,7 @@ const Category = () => {
               },
               1200: {
                 slidesPerView: 6,
-                spaceBetween: 15,
+                spaceBetween: 30,
               },
             }}
           >

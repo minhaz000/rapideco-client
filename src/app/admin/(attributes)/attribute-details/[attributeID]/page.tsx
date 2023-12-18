@@ -109,14 +109,13 @@ const Page = ({ params }: { params: { attributeID: string[] } }) => {
                       >
                         <td className="py-5 ps-4">{i + 1}</td>
                         <td>
-                          <span className=" py-1 rounded-md px-2">
+                          <span className=" py-1 rounded-md px-2 capitalize">
                             {item.label}
                           </span>
                         </td>
                         <td>
                           <span
-                            className=" py-[6px] rounded-md px-2 capitalize text-white"
-                            style={{ background: `${item.value}` }}
+                            className=" py-[6px] rounded-md px-2 capitalize"
                           >
                             {item.value}
                           </span>

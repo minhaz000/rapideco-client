@@ -1,7 +1,11 @@
 {
   "header": {
-    "nav_menu": [],
-    "color": "#000000",
+    "nav_menu": [
+      { "value": "/", "lavel": "Home" },
+      { "value": "/shop", "lavel": "Shop" },
+      { "value": "", "lavel": "" }
+    ],
+    "color": "#e83b3b",
     "meta_title": "Isoftex eCommerce",
     "meta_description": "Let's develop our country together",
     "favicon": {
@@ -10,7 +14,7 @@
     },
     "phone_number": "01760107750",
     "textColor": "#000000",
-    "themeColor": "#000000",
+    "themeColor": "#e92f2f",
     "logo": {
       "img_url": "/uploads/screenshot_12-1702539093430-1702554920033.webp",
       "path": "public/uploads/screenshot_12-1702539093430-1702554920033.webp"
@@ -28,9 +32,9 @@
       }
     ],
     "cat_menu": [
-      { "lavel": "T shirt ", "value": "65452637df99fad2de47bc11" },
-      { "lavel": "Bathroom", "value": "6554ede7729f22e9b8f38087" },
-      { "lavel": "", "value": "6575fafc99bcb99ab6ec646d" }
+      { "lavel": "Bathroom Accessories", "value": "657d8d4879ce4602967a7c64" },
+      { "lavel": "Electronices", "value": "657d8d6c79ce4602967a7cec" },
+      { "lavel": "Home & Living", "value": "657d8d8679ce4602967a7d74" }
     ]
   },
   "footer": {
@@ -39,7 +43,11 @@
       { "value": "about-us", "lavel": "আমাদের সম্পর্কে" }
     ],
     "description": "ওনেমার্ট ই-কমার্স ওয়েবসাইট একটি ব্যবসা প্ল্যাটফর্ম, যেখানে আপনি আপনার পছন্দের পণ্য অনলাইনে ক্রয় করতে পারেন। ওনেমার্টে আপনি বিভিন্ন ক্যাটেগরিতে পণ্য সন্ধান করতে পারেন,",
-    "contact_info": { "address": "#০২, রোডঃ ০২,ঢাকা", "phone": "(+৮৮০) ০১৭৬০১০৭৭৬৪", "email": "rapidco@admin.com" },
+    "contact_info": {
+      "address": "#০২, রোডঃ ০২,ঢাকা",
+      "phone": "(+৮৮০) ০১৭৬০১০৭৭৬৪",
+      "email": "rapidco@admin.com"
+    },
     "copyright": "Isoftex eCommerce CMS 2023",
     "logo": {
       "img_url": "/uploads/screenshot_12-1702455422120.png",

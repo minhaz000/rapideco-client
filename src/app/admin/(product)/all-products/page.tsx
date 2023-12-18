@@ -64,7 +64,9 @@ const AllProduct = () => {
     const Debouncing = setTimeout(() => refetch, 1500);
     return () => clearTimeout(Debouncing);
   }, [pagination, query]);
-
+  const activeProducts = Products?.data?.filter(
+    (p: any) => p.status === "active"
+  );
   return (
     <div>
       <div className="flex justify-between items-center">
@@ -76,20 +78,24 @@ const AllProduct = () => {
           Add new Product
         </Link>
       </div>
-      <div className="shadow-[0_0_8px_3px_#d7d7d7bf] mt-6 mb-4 pb-3">
+      <div className="border mt-6 mb-4 pb-3">
         <div className="lg:flex justify-between items-center border-b pb-3 px-4 pt-4 mb-4">
           <div className="lg:w-4/12">
             <h2 className="text-xl">All Product</h2>
             <div>
               <span className="text-[12px] underline text-slate-500 cursor-pointer mr-2">
-                <Link href={"/admin/all-products"}>All Products</Link>
+                <Link href={"/admin/all-products"}>
+                  All Products({Products?.details?.active})
+                </Link>
               </span>
               <span className="text-[12px] underline text-slate-500 cursor-pointer">
-                <Link href={"/admin/trash-product"}>Trash</Link>
+                <Link href={"/admin/trash-product"}>
+                  Trash({Products?.details?.trash})
+                </Link>
               </span>
             </div>
           </div>
-          <div className="grid lg:flex grid-cols-2 sm:grid-cols-3 gap-4 lg:w-8/12 mt-3 lg:mt-0">
+          <div className="grid lg:flex grid-cols-2 sm:grid-cols-3 gap-4 lg:w-8/12 mt-3 lg:mt-0 pe-3">
             <select
               onChange={HandleQuery}
               name="brand"
@@ -163,7 +169,7 @@ const AllProduct = () => {
               </tr>
             </thead>
             <tbody className="border pt-2">
-              {Products?.data?.map((item: any, i: number) => {
+              {activeProducts?.map((item: any, i: number) => {
                 return (
                   <tr
                     key={i}
@@ -227,10 +233,12 @@ const AllProduct = () => {
           </table>
         </div>
         {Products?.data && (
-          <Pagination
-            pagination={Products.pagination}
-            setPagination={setPagination}
-          />
+          <div className="me-6 pb-4">
+            <Pagination
+              pagination={Products.pagination}
+              setPagination={setPagination}
+            />
+          </div>
         )}
       </div>
     </div>

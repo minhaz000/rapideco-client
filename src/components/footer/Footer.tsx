@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import Logo from "../../assets/logo-white1.png";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -30,7 +29,7 @@ const Footer = () => {
           <div>
             <Link href="/" className="inline-block">
               <Image
-                src={Logo}
+                src={settingsData?.footer?.logo?.img_url}
                 alt=""
                 className="w-24 md:w-32 lg:w-40"
                 width={160}
@@ -41,7 +40,7 @@ const Footer = () => {
               {settingsData?.footer?.description}
             </p>
             <div className="flex gap-4 mt-3 text-slate-100">
-              <Link href="/">
+              <Link href={"/"}>
                 <FaFacebookF />
               </Link>
               <Link href="/">
@@ -56,7 +55,7 @@ const Footer = () => {
             </div>
           </div>
           <div className="pt-4 lg:ps-10">
-            <h3 className="text-white text-xl mb-4">গুরুত্বপূর্ণ লিংক সমূহ</h3>
+            <h3 className="text-white text-xl mb-4">গুরুত্বপূর্ণ লিংক</h3>
             <ul className="flex flex-col gap-3 text-sm text-slate-100">
               {settingsData?.footer?.links?.map((link: any, index: any) => (
                 <li key={index}>

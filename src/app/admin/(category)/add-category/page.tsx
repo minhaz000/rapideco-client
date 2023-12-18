@@ -101,9 +101,11 @@ const Page = () => {
             <option value="null">No parent</option>
             {Categories.data?.data?.map((item: any) => {
               return (
-                <option key={item._id} value={item._id}>
-                  {item.name}
-                </option>
+                <>
+                  <option key={item._id} value={item._id}>
+                    {item.name}
+                  </option>
+                </>
               );
             })}
           </select>

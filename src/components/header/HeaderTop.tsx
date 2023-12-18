@@ -33,25 +33,24 @@ const HeaderTop = () => {
       <SearchForm />
       <div className="basis-1/4 ps-6 pe-3 hidden lg:block">
         <div className="flex items-center justify-end gap-6">
-          <div className="flex gap-4 items-center">
-            <div>
-              <FaPhoneAlt
-                className="text-2xl"
-                style={{ color: `${headerBg}` }}
-              />
+          <Link href={`tel:${settingsData?.header?.phone_number}`}>
+            <div className="flex gap-4 items-center">
+              <div>
+                <FaPhoneAlt
+                  className="text-2xl"
+                  style={{ color: `${headerBg}` }}
+                />
+              </div>
+              <div className="text-start">
+                <span className="text-[15px] text-gray-600 block font-semibold">
+                  Phone
+                </span>
+                <p className="text-[13px] block">
+                  {settingsData?.header?.phone_number}
+                </p>
+              </div>
             </div>
-            <div className="text-start">
-              <span className="text-[15px] text-gray-600 block font-semibold">
-                Phone
-              </span>
-              <Link
-                className="text-[13px] block"
-                href={`tel:${settingsData?.header?.phone_number}`}
-              >
-                {settingsData?.header?.phone_number}
-              </Link>
-            </div>
-          </div>
+          </Link>
           <div className="relative">
             <Link href="/cart">
               <BsCart className="text-3xl" />

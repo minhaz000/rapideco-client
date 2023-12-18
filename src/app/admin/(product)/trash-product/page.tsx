@@ -1,18 +1,32 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
-import Img1 from "../../../../assets/img.png";
+import React, { useEffect, useState } from "react";
 import { FaRegClock, FaRegTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { useQueryData } from "@/hooks/hook.query";
 import axios from "@/hooks/hook.axios";
-import deletePhoto from "axios";
 import { toast } from "react-toastify";
 import { useAdminContext } from "@/context/admin.context";
+import Pagination from "@/components/pagination/pagination";
 const TrashProduct = () => {
-  const { Products: AllProducts }: any = useAdminContext();
-  const { data: Products, refetch } = useQueryData(["get deleted products"], "/api/v0/products?is_delete=true");
+  const [query, setQuery]: any = useState({
+    s: "",
+    category: "",
+    brand: "",
+    sort: "",
+    status: "",
+  });
+  const { Products: AllProducts, Brands, Categories }: any = useAdminContext();
+  const [pagination, setPagination] = useState({ page: 1, limit: 10 });
+  const { data: Products, refetch } = useQueryData(
+    ["get all product", pagination, query],
+    `/api/v0/products?page=${pagination.page}&limit=${pagination.limit}&s=${
+      query.s
+    }&sort=${query.sort}&category_info._id=${query.category}${
+      query.status && `&status=${query.status}`
+    }${query.brand && `&brand_info._id=${query.brand}`}`
+  );
 
   const handleDeleteProduct = (deleteID: string) => {
     Swal.fire({
@@ -34,10 +48,16 @@ const TrashProduct = () => {
             toast.success("category deleted");
             refetch();
           })
-          .catch((error: any) => toast.error(error.message ? error.message : error?.data.message));
+          .catch((error: any) =>
+            toast.error(error.message ? error.message : error?.data.message)
+          );
       }
     });
   };
+  useEffect(() => {
+    const Debouncing = setTimeout(() => refetch, 1500);
+    return () => clearTimeout(Debouncing);
+  }, [pagination, query]);
   const handleRecover = (deleteID: string) => {
     axios
       .delete(`/api/v0/product/${deleteID}?recover=true`)
@@ -46,9 +66,16 @@ const TrashProduct = () => {
         refetch();
         AllProducts.refetch();
       })
-      .catch((error: any) => toast.error(error.message ? error.message : error?.data.message));
+      .catch((error: any) =>
+        toast.error(error.message ? error.message : error?.data.message)
+      );
   };
-
+  const HandleQuery = (e: any) => {
+    e.preventDefault();
+    setQuery((pre: any) => {
+      return { ...pre, [e.target.name]: e.target.value };
+    });
+  };
   console.log(Products?.data);
 
   return (
@@ -59,25 +86,68 @@ const TrashProduct = () => {
             <h2 className="text-xl">Trash Products</h2>
             <div>
               <span className="text-[12px] underline text-slate-500 cursor-pointer mr-2">
-                <Link href={"/admin/all-products"}>All Products(6)</Link>
+                <Link href={"/admin/all-products"}>
+                  All Products({Products?.details?.active})
+                </Link>
               </span>
               <span className="text-[12px] underline text-slate-500 cursor-pointer">
-                <Link href={"/admin/trash-product"}>Trash(5)</Link>
+                <Link href={"/admin/trash-product"}>
+                  Trash({Products?.details?.trash})
+                </Link>
               </span>
             </div>
           </div>
-          <div className="flex gap-4">
-            <select name="" id="" className="border py-2 px-3 outline-none text-xs text-slate-500">
-              <option value="">Bulk Action</option>
+          <div className="grid lg:flex grid-cols-2 sm:grid-cols-3 gap-4 lg:w-8/12 mt-3 lg:mt-0">
+            <select
+              onChange={HandleQuery}
+              name="brand"
+              className="border py-2 px-3 outline-none w-30 text-xs text-slate-500"
+            >
+              <option value="">Brands</option>
+              {Brands?.data?.data.map((item: any) => (
+                <option key={item._id} value={item._id}>
+                  {item.name}
+                </option>
+              ))}
             </select>
-            <select name="" id="" className="border py-2 px-3 outline-none w-40 text-xs text-slate-500">
-              <option value="">All Sellers</option>
+            <select
+              onChange={HandleQuery}
+              name="category"
+              className="border py-2 px-3 outline-none w-30 text-xs text-slate-500"
+            >
+              <option value="">Categories</option>
+              {Categories?.data?.data.map((item: any) => (
+                <option key={item._id} value={item._id}>
+                  {item.name}
+                </option>
+              ))}
             </select>
-            <select name="" id="" className="border py-2 px-3 outline-none w-40 text-xs text-slate-500">
+            <select
+              onChange={HandleQuery}
+              name="status"
+              className="border py-2 px-3 outline-none w-30 text-xs text-slate-500"
+            >
+              <option value="">Status</option>
+              <option value="active">active</option>
+              <option value="deactive">deactive</option>
+            </select>
+            <select
+              onChange={HandleQuery}
+              name="sort"
+              className="border py-2 px-3 outline-none w-30 text-xs text-slate-500"
+            >
               <option value="">Sort By</option>
+              <option value="">oldest</option>
+              <option value="-createdAt">newest</option>
             </select>
             <div>
-              <input type="text" placeholder="Type & Enter" className="border outline-none text-sm py-2 px-3 w-40" />
+              <input
+                onChange={HandleQuery}
+                name="s"
+                type="text"
+                placeholder="Type & Enter"
+                className="border outline-none text-sm py-2 px-3 w-40"
+              />
             </div>
           </div>
         </div>
@@ -88,8 +158,12 @@ const TrashProduct = () => {
                 <th className="py-3 text-slate-500 ps-4 text-start">SL</th>
                 <th className="py-3 text-slate-500 text-start">Image</th>
                 <th className="py-3 text-slate-500 text-start">Title</th>
-                <th className="py-3 text-slate-500 text-start">Regular price</th>
-                <th className="py-3 text-slate-500 text-start">Discount price</th>
+                <th className="py-3 text-slate-500 text-start">
+                  Regular price
+                </th>
+                <th className="py-3 text-slate-500 text-start">
+                  Discount price
+                </th>
                 <th className="py-3 text-slate-500 text-start">Stock</th>
                 <th className="py-3 text-slate-500 text-start">Brand</th>
                 <th className="py-3 text-slate-500 text-start">Status</th>
@@ -99,10 +173,18 @@ const TrashProduct = () => {
             <tbody className="border pt-2">
               {Products?.data.map((item: any, i: number) => {
                 return (
-                  <tr key={i} className="text-xs font-normal text-start border-b">
+                  <tr
+                    key={i}
+                    className="text-xs font-normal text-start border-b"
+                  >
                     <td className="py-5 ps-4">{i + 1}</td>
                     <td>
-                      <Image src={Img1} width={50} height={50} alt=""></Image>
+                      <Image
+                        src={item.product_image?.img_url}
+                        width={50}
+                        height={50}
+                        alt=""
+                      ></Image>
                     </td>
                     <td>{item.title}</td>
                     <td>{item?.regular_price}</td>
@@ -111,9 +193,13 @@ const TrashProduct = () => {
                     <td>Apple</td>
                     <td>
                       {item.status === "active" ? (
-                        <span className="bg-green-500 bg-opacity-70 text-white text-sm p-1 rounded">Active</span>
+                        <span className="bg-green-500 bg-opacity-70 text-white text-sm p-1 rounded">
+                          Active
+                        </span>
                       ) : (
-                        <span className="bg-red-500 bg-opacity-70 text-white text-sm p-1 rounded">Deactive</span>
+                        <span className="bg-red-500 bg-opacity-70 text-white text-sm p-1 rounded">
+                          Deactive
+                        </span>
                       )}
                     </td>
                     <td>
@@ -140,6 +226,14 @@ const TrashProduct = () => {
             </tbody>
           </table>
         </div>
+        {Products?.data && (
+          <div className="me-6 pb-4">
+            <Pagination
+              pagination={Products.pagination}
+              setPagination={setPagination}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

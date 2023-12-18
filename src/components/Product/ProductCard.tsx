@@ -25,9 +25,13 @@ const ProductCard = ({ product }: { product: any }) => {
                 Off
                 <span
                   style={{ background: `${settingsData?.header?.themeColor}` }}
-                  className=" text-white rounded-full w-8 h-8  text-[10px] flex justify-center items-center"
+                  className=" text-white rounded-full w-8 h-8 text-[10px] flex justify-center items-center font-semibold"
                 >
-                  {calculateDiscountPercentage(product.regular_price, product.discount_price)}%
+                  {calculateDiscountPercentage(
+                    product.regular_price,
+                    product.discount_price
+                  )}
+                  %
                 </span>
               </p>
             )}
@@ -35,22 +39,29 @@ const ProductCard = ({ product }: { product: any }) => {
             <Image
               src={product?.product_image?.img_url}
               alt="product image"
-              className="h-[150px] sm:h-[180px] w-full object-cover object-top rounded"
+              className="h-[150px] md:h-[180px] w-full object-cover rounded"
               height={180}
-              width={180}
+              width={200}
             />
           </div>
           <div className="py-3 px-4 text-center">
             <div>
               <h2 className="capitalize font-semibold">
-                {product.title.length > 47 ? product.title.slice(0, 48) + "..." : product.title}
+                {product.title.length > 47
+                  ? product.title.slice(0, 48) + "..."
+                  : product.title}
               </h2>
             </div>
             <div className="flex justify-center gap-3 mt-1">
-              <p className="font-semibold text-sm" style={{ color: `${settingsData?.header?.themeColor}` }}>
+              <p
+                className="font-semibold text-sm"
+                style={{ color: `${settingsData?.header?.themeColor}` }}
+              >
                 Tk{product.regular_price}
               </p>
-              <p className="line-through text-gray-400 text-sm font-semibold">Tk{product.discount_price}</p>
+              <p className="line-through text-gray-400 text-sm font-semibold">
+                Tk{product.discount_price}
+              </p>
             </div>
           </div>
         </div>

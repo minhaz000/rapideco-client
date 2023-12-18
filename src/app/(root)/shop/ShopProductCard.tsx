@@ -49,9 +49,9 @@ const ShopProductCard = ({ product }: { product: product }) => {
             </div>
             <div className="flex justify-center gap-3 mt-1">
               <p className="font-semibold text-sm" style={{ color: `${settingsData?.header?.themeColor}` }}>
-                Tk{product.regular_price}
+                Tk{product.discount_price}
               </p>
-              <p className="line-through text-gray-400 text-sm">Tk{product.discount_price}</p>
+              <p className="line-through text-gray-400 text-sm"> Tk{product.regular_price}</p>
             </div>
           </div>
         </div>

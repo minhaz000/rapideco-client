@@ -9,6 +9,9 @@ import ProductSkeleton from "./ProductSkeleton";
 
 const ProductCarousel = ({ categoryValue }: any) => {
   const { products, isLoading } = getProducts(categoryValue);
+  const categoryProduct = products?.data?.filter(
+    (pd: any) => pd?.category_info._id === categoryValue
+  );
   return (
     <div className="mt-4">
       {isLoading ? (
@@ -44,7 +47,7 @@ const ProductCarousel = ({ categoryValue }: any) => {
             },
           }}
         >
-          {products?.data?.map((product: any) => (
+          {categoryProduct?.map((product: any) => (
             <SwiperSlide key={product._id}>
               <ProductCard product={product} />
             </SwiperSlide>

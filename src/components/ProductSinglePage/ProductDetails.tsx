@@ -13,7 +13,7 @@ const ProductDetails = () => {
   const [attributes, setAttributes] = useState({});
   // const [activeAttr, setActiveAttr] = useState({});
   const sech: any = useSearchParams();
-  const { Cart }: any = useRootContext();
+  const { Cart, settingsData }: any = useRootContext();
   const ID = sech.get("_id");
   const { data: product } = useQueryData(
     ["get single data"],
@@ -63,7 +63,7 @@ const ProductDetails = () => {
       <div className="lg:basis-1/2">
         <Image
           src={imageUrl}
-          className="w-full text-[300px] h-[300px] md:h-[400px] object-cover rounded cursor-pointer"
+          className="w-full text-[300px] h-[300px] md:h-[400px] object-contain rounded cursor-pointer"
           alt=""
           width={400}
           height={400}
@@ -87,14 +87,14 @@ const ProductDetails = () => {
         </div>
       </div>
       <div className="lg:basis-1/2 pt-6">
-        <h2 className="text-3xl font-medium text-slate-800">
+        <h2 className="text-xl md:text-3xl font-medium text-slate-800">
           {product?.data?.title}
         </h2>
 
         <div className="mt-2">
           <p>
-            <b className="text-green-600 font-medium text-xl me-2"> Price:</b>
-            <span className="text-green-600 font-medium text-xl me-2">
+            <b className="text-lg me-2"> Price:</b>
+            <span className="text-green-600 font-medium text-lg me-2">
               Tk {product?.data?.discount_price}
             </span>
             <span className="line-through text-gray-500 ">
@@ -106,7 +106,7 @@ const ProductDetails = () => {
           if (variant.value === "color") {
             return (
               <div className="mt-4 flex">
-                <p className="me-4 text-gray-500 capitalize">
+                <p className="me-4 text-gray-500 capitalize text-lg">
                   {variant.label}:
                 </p>
                 <div className="flex gap-4 items-center">
@@ -132,7 +132,7 @@ const ProductDetails = () => {
           } else {
             return (
               <div className="mt-4 flex">
-                <p className="me-4 text-gray-500">{variant.label}:</p>
+                <p className="me-4 text-gray-500 text-lg">{variant.label}:</p>
                 <div className="flex gap-2">
                   {variant?.attribute_options?.map((sizeItem: any) => (
                     <input
@@ -155,7 +155,7 @@ const ProductDetails = () => {
         })}
 
         <div className="mt-3 flex items-center">
-          <p className="me-2 text-gray-500">Quantity:</p>
+          <p className="me-2 text-lg">Quantity:</p>
           <div className="flex gap-1 me-3">
             <span
               onClick={handleQuantityMinus}
@@ -177,9 +177,6 @@ const ProductDetails = () => {
               +
             </span>
           </div>
-          <p className="me-3 text-gray-500 text-xs">
-            ({product?.data.quantity} Available)
-          </p>
         </div>
         <div className="flex gap-2 mt-5">
           <AddToCartButton
@@ -204,18 +201,14 @@ const ProductDetails = () => {
           </Link>
         </div>
         <div className="mt-3">
-          <div className="flex justify-between items-center border-y py-2 px-3">
-            <h3 className=" text-[16px] text-blue-400">
-              ঢাকার বাইরে ডেলিভারি খরচ
-            </h3>
-            <span className="font-semibold">৳ 120</span>
-          </div>
-          <div className="flex justify-between items-center border-b py-2 px-3">
-            <h3 className="text-[16px] text-blue-400">
-              ঢাকার ভিতরে ডেলিভারি খরচ
-            </h3>
-            <span className="font-semibold">৳ 60</span>
-          </div>
+          {settingsData?.shipping?.map((ship: any) => (
+            <div className="flex justify-between items-center border-y py-2 px-3">
+              <h3 className=" text-[16px] text-blue-400 uppercase">
+                {ship?.zone}
+              </h3>
+              <span className="font-semibold">৳ {ship?.cost}</span>
+            </div>
+          ))}
         </div>
       </div>
     </div>

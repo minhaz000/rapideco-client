@@ -1,6 +1,7 @@
 "use client";
+import React, { useState, useRef } from "react";
 import Image from "next/image";
-import React, { useState } from "react";
+import JoditEditor from "jodit-react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import FormValues from "@/interface/product";
 import { useAdminContext } from "@/context/admin.context";
@@ -8,8 +9,9 @@ import Select from "react-select";
 import { toast } from "react-toastify";
 import Uploder from "@/hooks/hook.upload";
 import { useMutationData } from "@/hooks/hook.query";
-
 const AddProduct = () => {
+  const editor = useRef(null);
+  const [content, setContent] = useState("");
   const { Categories, Brands, Atrribute }: any = useAdminContext();
   const newProduct = useMutationData(
     ["add new prodct"],
@@ -72,7 +74,7 @@ const AddProduct = () => {
     });
   };
   const validationError: any = newProduct.error?.data?.errors;
-
+  console.log(content);
   return (
     <div className="pb-4 shadow-md border rounded mb-3 px-2 md:px-6 pt-2">
       <h2 className="text-2xl">Add Product</h2>
@@ -173,18 +175,13 @@ const AddProduct = () => {
             <label htmlFor="name" className="block">
               Product Description
             </label>
-            <textarea
-              placeholder="Product Description"
-              {...register("description")}
-              className={`w-full h-28 border py-2 px-3 rounded-md  outline-none mt-2 ${
-                validationError?.description && "border-red-600 text-red-400"
-              }`}
-            ></textarea>
-            {validationError?.description && (
-              <p className="text-red-600 text-[14px]  mb-[5px] text-right">
-                {validationError.description.message}
-              </p>
-            )}
+            <JoditEditor
+              ref={editor}
+              value={content}
+              onChange={(newContent) => {
+                setContent(newContent);
+              }}
+            />
           </div>
 
           <div className="mt-3">

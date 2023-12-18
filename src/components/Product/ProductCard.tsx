@@ -11,12 +11,11 @@ const ProductCard = ({ product }: { product: any }) => {
     // Calculate the percentage discount
     const priceDifference = regularPrice - discountPrice;
     const discountPercentage = (priceDifference / regularPrice) * 100;
-    console.log(Math.round(discountPercentage));
     return Math.round(discountPercentage);
   }
   const { settingsData }: any = useRootContext();
   return (
-    <div className="flex flex-col group duration-300 hover:shadow-xl border p-1 sm:p-2 rounded-sm bg-white ">
+    <div className="flex flex-col group duration-300 border p-1 sm:p-2 rounded-sm bg-white ">
       <Link href={`/product?_id=${product._id}`}>
         <div>
           <div className="overflow-hidden relative">
@@ -44,7 +43,7 @@ const ProductCard = ({ product }: { product: any }) => {
               width={200}
             />
           </div>
-          <div className="py-3 px-4 text-center">
+          <div className="py-3 px-2 text-center">
             <div>
               <h2 className="capitalize font-semibold">
                 {product.title.length > 47
@@ -57,10 +56,10 @@ const ProductCard = ({ product }: { product: any }) => {
                 className="font-semibold text-sm"
                 style={{ color: `${settingsData?.header?.themeColor}` }}
               >
-                Tk{product.regular_price}
+                Tk{product.discount_price}
               </p>
               <p className="line-through text-gray-400 text-sm font-semibold">
-                Tk{product.discount_price}
+                Tk{product.regular_price}
               </p>
             </div>
           </div>

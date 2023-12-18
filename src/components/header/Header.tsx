@@ -2,6 +2,7 @@
 import Link from "next/link";
 import HeaderTop from "./HeaderTop";
 import { useRootContext } from "@/context/root.context";
+import Image from "next/image";
 const Header = () => {
   const { collapseMenu, setCollapseMenu, settingsData }: any = useRootContext();
   const headerBg = settingsData?.header?.color;
@@ -39,12 +40,27 @@ const Header = () => {
             : "invisible lg:invisible opacity-0 lg:opacity-0 block lg:hidden -translate-x-96"
         } h-screen fixed top-0 bottom-0  overflow-y-auto z-50 transition-all duration-500 ease-in-out w-[90%] sm:w-3/4 bg-white`}
       >
-        <button
-          className="bg-white text-center text-black w-8 h-8 rounded-full font-bold text-lg absolute right-3"
-          onClick={() => setCollapseMenu(false)}
-        >
-          X
-        </button>
+        <div className="flex justify-between items-center border-b-2 pb-2">
+          <Link href="/" className="inline-block">
+            <Image
+              src={settingsData?.header?.logo?.img_url}
+              width={90}
+              height={90}
+              alt="Logo Image"
+              style={{
+                width: "100%",
+                height: "auto",
+              }}
+              className="object-cover"
+            />
+          </Link>
+          <button
+            className="bg-white text-center text-black w-8 h-8 rounded-full font-bold text-lg"
+            onClick={() => setCollapseMenu(false)}
+          >
+            X
+          </button>
+        </div>
         {settingsData?.header?.nav_menu?.map((item: any, index: number) => (
           <li key={index}>
             <Link

@@ -183,8 +183,13 @@ const OrderDetails = ({ params }: { params: { orderID: string } }) => {
                     <td>{item.title}</td>
                     <td>Home Delivery</td>
                     <td>{item.quantity}</td>
-                    <td>{item.variants.size}</td>
-                    <td>{item.variants.color}</td>
+                    <td className="capitalize">{item.variants.size}</td>
+                    <td>
+                      <span
+                        className="w-4 h-4 rounded-full block"
+                        style={{ background: `${item.variants.color}` }}
+                      ></span>
+                    </td>
                     <td>
                       {item.discount_price
                         ? item.discount_price

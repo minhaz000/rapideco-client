@@ -12,7 +12,7 @@ const RelatedProduct = ({ categoryID }) => {
     <div className="mt-20">
       <h2 className="mb-3 text-xl font-semibold">Related Products</h2>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
-        {products?.data.map((product) => {
+        {products?.data.slice(0, 10)?.map((product: any) => {
           return <ProductCard product={product} key={product._id} />;
         })}
       </div>

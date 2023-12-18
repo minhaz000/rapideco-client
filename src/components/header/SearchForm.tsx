@@ -37,7 +37,7 @@ const SearchForm = () => {
       <form className="flex" onSubmit={handleSubmit}>
         <input
           type="text"
-          placeholder="Search"
+          placeholder="Search Products..."
           value={query}
           className="w-full border rounded-s-md px-2 md:px-3 py-[6px] md:py-[10px] outline-none"
           onChange={HandleQuery}

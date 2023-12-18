@@ -41,10 +41,10 @@ body {
   outline: none !important;
 }
 .react-tabs__tab--selected {
-  background: #141423 !important;
-  border-color: #fff !important;
-  color: white !important;
-  border-radius: 5px 5px 0 0;
+  background: #ffffff !important;
+  border-color: #b9b7b7 !important;
+  color: black !important;
+  border-radius: 5px 5px 0 0 !important;
 }
 .react-tabs__tab-list {
   border-bottom: 0px solid #aaa !important;

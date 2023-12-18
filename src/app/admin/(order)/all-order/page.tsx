@@ -153,10 +153,12 @@ const AllOrders = () => {
           </table>
         </div>
         {allOrders?.data && (
-          <Pagination
-            pagination={allOrders.pagination}
-            setPagination={setPagination}
-          />
+          <div className="pe-6 pb-4">
+            <Pagination
+              pagination={allOrders.pagination}
+              setPagination={setPagination}
+            />
+          </div>
         )}
       </div>
     </div>

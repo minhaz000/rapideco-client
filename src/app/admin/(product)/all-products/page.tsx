@@ -65,7 +65,7 @@ const AllProduct = () => {
     return () => clearTimeout(Debouncing);
   }, [pagination, query]);
   const activeProducts = Products?.data?.filter(
-    (p: any) => p.status === "active"
+    (p: any) => p.is_delete == false
   );
   return (
     <div>

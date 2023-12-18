@@ -77,7 +77,7 @@ const TrashProduct = () => {
     });
   };
   console.log(Products?.data);
-
+  const trashProducts = Products?.data?.filter((p: any) => p.is_delete == true);
   return (
     <div>
       <div className="shadow-[0_0_10px_5px_#d7d7d7bf] mt-6">
@@ -171,7 +171,7 @@ const TrashProduct = () => {
               </tr>
             </thead>
             <tbody className="border pt-2">
-              {Products?.data.map((item: any, i: number) => {
+              {trashProducts?.map((item: any, i: number) => {
                 return (
                   <tr
                     key={i}

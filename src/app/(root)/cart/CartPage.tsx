@@ -47,7 +47,6 @@ const CartPage = () => {
     <>
       {Cart?.data?.data?.items?.length > 0 ? (
         <div>
-          {" "}
           {Cart?.isLoading ? (
             <Loading />
           ) : (
@@ -124,7 +123,7 @@ const CartPage = () => {
                             </td>
                             <td className="border-b">
                               {(item?.discount_price
-                                ? item?.discount_price
+                                ? item?.discount_price * item?.quantity
                                 : item?.regular_price) * item?.quantity}
                             </td>
                             <td className="border-b">
@@ -148,10 +147,6 @@ const CartPage = () => {
                     <div className="flex justify-between items-center">
                       <span className="font-semibold">Sub Total:</span>
                       <span>Tk {Cart?.data?.data?.subtotal}</span>
-                    </div>
-                    <div className="flex justify-between items-center mt-1">
-                      <span className="font-semibold">Shipping:</span>
-                      <span>Tk 00</span>
                     </div>
                     <div className="flex justify-between items-center mt-1 border-t pt-1">
                       <span className="font-semibold">Total:</span>

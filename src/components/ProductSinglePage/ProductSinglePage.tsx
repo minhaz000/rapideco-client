@@ -5,6 +5,7 @@ import RelatedProduct from "./RelatedProduct";
 import { useSearchParams } from "next/navigation";
 import { useQueryData } from "@/hooks/hook.query";
 import Loading from "../common/Loading";
+import Image from "next/image";
 const ProductSinglePage = () => {
   const sech: any = useSearchParams();
   const ID = sech.get("_id");
@@ -18,14 +19,26 @@ const ProductSinglePage = () => {
   return (
     <div>
       <ProductDetails />
-      <div className="mt-6">
-        <h2 className="inline-block border-b-2 pb-2 border-b-slate-500 text-xl">
+      <div className="mt-10">
+        <h2 className="inline-block border-2 border-b-0 pb-2 border-slate-200 rounded text-xl font-semibold px-2">
           Product Description
         </h2>
         <div className="mt-2">
-          <p className="text-[15px] text-gray-600">
+          <p className="text-[16px] text-gray-700">
             {product?.data?.description}
           </p>
+          <div className="mt-8">
+            {product.data?.description_img &&
+              product.data?.description_img?.map((item: any) => (
+                <Image
+                  src={item.img_url}
+                  alt="Description Image"
+                  width={500}
+                  height={500}
+                  sizes="100%"
+                />
+              ))}
+          </div>
         </div>
       </div>
       <RelatedProduct categoryID={product?.data?.category_info?._id} />

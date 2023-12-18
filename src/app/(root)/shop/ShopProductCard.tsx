@@ -6,6 +6,16 @@ import { useRootContext } from "@/context/root.context";
 import AddToCartButton from "@/components/Product/addToCartButton";
 const ShopProductCard = ({ product }: { product: product }) => {
   const { settingsData }: any = useRootContext();
+  function calculateDiscountPercentage(regularPrice, discountPrice) {
+    if (regularPrice <= 0 || discountPrice <= 0) {
+      throw new Error("Prices must be greater than zero");
+    }
+    // Calculate the percentage discount
+    const priceDifference = regularPrice - discountPrice;
+    const discountPercentage = (priceDifference / regularPrice) * 100;
+    console.log(Math.round(discountPercentage));
+    return Math.round(discountPercentage);
+  }
   return (
     <div className="flex flex-col group duration-300 hover:shadow-xl border p-1 sm:p-2 rounded-sm bg-white">
       <Link href={`/product?_id=${product._id}`}>
@@ -18,7 +28,7 @@ const ShopProductCard = ({ product }: { product: product }) => {
                   style={{ background: `${settingsData?.header?.themeColor}` }}
                   className=" text-white rounded-full w-9 h-9  text-[11px] flex justify-center items-center"
                 >
-                  - {product.regular_price - product.discount_price}
+                  {calculateDiscountPercentage(product.regular_price, product.discount_price)}%
                 </span>
               </p>
             )}
@@ -34,21 +44,14 @@ const ShopProductCard = ({ product }: { product: product }) => {
           <div className="py-3 px-4 text-center">
             <div>
               <h2 className="capitalize font-semibold">
-                {product.title.length > 47
-                  ? product.title.slice(0, 48) + "..."
-                  : product.title}
+                {product.title.length > 47 ? product.title.slice(0, 48) + "..." : product.title}
               </h2>
             </div>
             <div className="flex justify-center gap-3 mt-1">
-              <p
-                className="font-semibold text-sm"
-                style={{ color: `${settingsData?.header?.themeColor}` }}
-              >
+              <p className="font-semibold text-sm" style={{ color: `${settingsData?.header?.themeColor}` }}>
                 Tk{product.regular_price}
               </p>
-              <p className="line-through text-gray-400 text-sm">
-                Tk{product.discount_price}
-              </p>
+              <p className="line-through text-gray-400 text-sm">Tk{product.discount_price}</p>
             </div>
           </div>
         </div>

@@ -26,7 +26,7 @@ const page = () => {
             </>
           )}
         </div>
-        {/* <DashboardTable /> */}
+        <DashboardTable />
       </Suspense>
     </>
   );

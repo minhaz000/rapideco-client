@@ -1,8 +1,11 @@
 "use client";
 import { useQueryData } from "@/hooks/hook.query";
 import React, { useEffect, useState } from "react";
-import { FaRegEye } from "react-icons/fa";
+import { FaRegEye, FaRegTrashAlt } from "react-icons/fa";
 import Link from "next/link";
+import Swal from "sweetalert2";
+import axios from "@/hooks/hook.axios";
+import { toast } from "react-toastify";
 import Pagination from "@/components/pagination/pagination";
 const AllOrders = () => {
   const [query, setQuery] = useState({ _id: "", sort: "", status: "" });
@@ -11,7 +14,30 @@ const AllOrders = () => {
     ["get all order", pagination, query],
     `/api/v0/orders?page=${pagination.page}&limit=${pagination.limit}&_id=${query._id}&sort=${query.sort}&status=${query.status}`
   );
-
+  const handleDelete = (deleteId: string) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Move to trash",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        axios
+          .delete(`/api/v0/order/${deleteId}`)
+          .then(() => {
+            toast.success("order deleted");
+            refetch();
+          })
+          .catch((error: any) =>
+            toast.error(error.message ? error.message : error?.data.message)
+          );
+      }
+    });
+  };
   const HandleQuery = (e: any) => {
     e.preventDefault();
     setQuery((pre) => {
@@ -144,6 +170,13 @@ const AllOrders = () => {
                             <FaRegEye />
                           </Link>
                         </span>
+                        <span
+                          onClick={() => handleDelete(item._id)}
+                          title="Delete"
+                          className="bg-red-500 bg-opacity-50 text-white text-xs p-[5px] rounded-full cursor-pointer hover:bg-opacity-100"
+                        >
+                          <FaRegTrashAlt />
+                        </span>
                       </div>
                     </td>
                   </tr>
@@ -152,6 +185,7 @@ const AllOrders = () => {
             </tbody>
           </table>
         </div>
+
         {allOrders?.data && (
           <div className="pe-6 pb-4">
             <Pagination

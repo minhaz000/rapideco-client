@@ -12,11 +12,12 @@ import Loading from "@/components/common/Loading";
 const ShopPage = () => {
   const params = useSearchParams();
   const cate = params?.getAll("cate");
+  const s = params?.get("s");
   const [query, setQuery] = useState({
     categories: cate ? cate : [],
     price: [0, 10000],
     sort: "",
-    s: "",
+    s: s ? s : "",
     update: false,
   });
   const [pagination, setPagination] = useState({ page: 1, limit: 10 });

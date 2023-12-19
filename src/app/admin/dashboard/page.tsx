@@ -12,10 +12,6 @@ import getDashboardData from "@/lib/getDashboardData";
 // };
 
 const page = () => {
-  // const { data: dashboard } = useQueryData(
-  //   ["get dashboard"],
-  //   `/auth/v0/dashboard`
-  // );
   const { dashboard } = getDashboardData();
   console.log(dashboard?.data);
   return (

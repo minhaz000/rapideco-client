@@ -4,7 +4,7 @@ interface ICheckout {
     address: string;
     phone: string;
     email: string;
-    delivery_area: string;
+    delivery: any;
   };
   payment_info: {
     status?: "paid" | "unpaid";

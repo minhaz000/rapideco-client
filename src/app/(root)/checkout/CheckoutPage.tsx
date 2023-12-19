@@ -9,42 +9,65 @@ import { toast } from "react-toastify";
 import axios from "@/hooks/hook.axios";
 import Iproduct from "@/interface/product";
 import axios2 from "axios";
-import { useQueryData } from "@/hooks/hook.query";
+import { useMutationData, useQueryData } from "@/hooks/hook.query";
 import { useRootContext } from "@/context/root.context";
 const CheckoutPage = () => {
   const [tabIndex, setTabIndex] = useState(0);
-  const [shipping, setShipping] = useState(0);
+  const [shipping, setShipping] = useState("0");
   const { Cart, settingsData }: any = useRootContext();
+  const newOrder = useMutationData(["order place"], "post", "api/v0/order");
   const { register, reset, handleSubmit, setValue } = useform<FormValues>();
   const { data: payments } = useQueryData(
     ["get payment methods"],
     "/api/v0/payments?"
   );
   const handleCheckOut: SubmitHandler<FormValues> = async (data) => {
+<<<<<<< HEAD
     // const Cart = await axios.get("/api/v0/cart");
     // console.log(Cart?.data?.data);
     data.ordered_items = Cart.data.data.items;
+=======
+    if (Cart?.data?.data?.items.length < 1) {
+      toast.error("your cart is empty");
+      return null;
+    }
+    data.ordered_items = Cart?.data?.data.items;
+>>>>>>> 17a2fec3240544188f7ce073b44453fe28b4e0e5
     data.payment_info = {
-      amount: Cart.data.data.subtotal,
+      amount: Cart.data?.data.subtotal,
       method_name: "",
       method_img_url: "",
       status: data?.payment_info?.trx_id ? "paid" : "unpaid",
     };
     data.payment_info.method_name = payments?.data[tabIndex].method_name;
+<<<<<<< HEAD
     data.payment_info.method_img_url =
       payments.data[tabIndex].method_img.img_url;
     axios
       .post("/api/v0/order", data)
       .then((res) => {
+=======
+    data.payment_info.method_img_url = payments.data[tabIndex].method_img.img_url;
+    console.log(data.user_info.delivery);
+    newOrder.mutate(data as any, {
+      onSuccess: (res: any) => {
+>>>>>>> 17a2fec3240544188f7ce073b44453fe28b4e0e5
         axios.delete(`/api/v0/cart/${Cart.data.data._id}`);
         toast.success("Order placed successfully");
         Cart.refetch();
-        axios2.post("/api/sentmail", { order: res.data?.data });
+        console.log(res.data);
+        axios2.post("/api/sentmail", { order: res.data });
         reset();
+<<<<<<< HEAD
       })
       .catch((error: any) =>
         toast.error(error.message ? error.message : error?.data.message)
       );
+=======
+      },
+      onError: (error: any) => toast.error(error.message ? error.message : error?.data.message),
+    });
+>>>>>>> 17a2fec3240544188f7ce073b44453fe28b4e0e5
   };
   const handleQuantityPlus = (ID: string, Q?: number) => {
     axios
@@ -79,7 +102,12 @@ const CheckoutPage = () => {
         toast.error(error.message ? error.message : error?.data.message)
       );
   };
+<<<<<<< HEAD
   console.log(Cart);
+=======
+
+  const validationError: any = newOrder.error?.data?.errors;
+>>>>>>> 17a2fec3240544188f7ce073b44453fe28b4e0e5
   return (
     <section className="max-w-screen-xl mx-auto px-3 lg:px-12 mt-2 lg:mt-6">
       <form onSubmit={handleSubmit(handleCheckOut)}>
@@ -95,7 +123,9 @@ const CheckoutPage = () => {
                 {...register("user_info.name")}
                 type="text"
                 placeholder="আপনার নাম লিখুন"
-                className="border w-full py-2 px-2 rounded outline-none mt-2 text-[14px]"
+                className={`border w-full py-2 px-2 rounded outline-none mt-2 text-[14px] ${
+                  validationError?.["user_info.name"] && "border-red-600 text-red-400"
+                }`}
               />
             </div>
             <div className="mt-3">
@@ -104,7 +134,9 @@ const CheckoutPage = () => {
                 {...register("user_info.address")}
                 type="text"
                 placeholder="আপনার ঠিকানা লিখুন"
-                className="border w-full py-2 px-2 rounded outline-none mt-2 text-[14px]"
+                className={`border w-full py-2 px-2 rounded outline-none mt-2 text-[14px] ${
+                  validationError?.["user_info.address"] && "border-red-600 text-red-400"
+                }`}
               />
             </div>
             <div className="mt-3">
@@ -113,7 +145,9 @@ const CheckoutPage = () => {
                 {...register("user_info.phone")}
                 type="number"
                 placeholder="আপনার মোবাইল লিখুন"
-                className="border w-full py-2 px-2 rounded outline-none mt-2 text-[14px]"
+                className={`border w-full py-2 px-2 rounded outline-none mt-2 text-[14px] ${
+                  validationError?.["user_info.phone"] && "border-red-600 text-red-400"
+                }`}
               />
             </div>
             {/* <div className="mt-3">
@@ -131,12 +165,13 @@ const CheckoutPage = () => {
               <select
                 id=""
                 onChange={(e: any) => {
-                  console.log(e.target.value);
                   const item = JSON.parse(e.target.value);
-                  setValue("user_info.delivery_area", item.zone);
+                  setValue("user_info.delivery", item);
                   setShipping(item.cost);
                 }}
-                className="border w-full py-2 px-2 rounded outline-none mt-2 text-[14px]"
+                className={`border w-full py-2 px-2 rounded outline-none mt-2 text-[14px] ${
+                  validationError?.["user_info.delivery.zone"] && "border-red-600 text-red-400"
+                }`}
               >
                 <option value={JSON.stringify({ zone: "", cost: 0 })}>
                   আপনার এরিয়া সিলেক্ট করুন
@@ -273,7 +308,7 @@ const CheckoutPage = () => {
                       </div>
                       <div className="flex justify-between items-center mt-1 border-t pt-1">
                         <span className="font-semibold">Total:</span>
-                        <span>Tk {Cart?.data?.data?.subtotal}</span>
+                        <span>Tk {Cart?.data?.data?.subtotal + parseInt(shipping)}</span>
                       </div>
                     </div>
                   </div>

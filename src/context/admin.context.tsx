@@ -1,5 +1,5 @@
 "use client";
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { useQueryData } from "@/hooks/hook.query";
 const AdminContext = createContext("");
 function Context(props: any) {
@@ -9,7 +9,28 @@ function Context(props: any) {
   );
   const Brands = useQueryData(["all brands "], props.url || "api/v0/brands");
   const Atrribute = useQueryData(["all atrributes "], props.url || "/api/v0/attributes");
-  const value: any = { Categories, Brands, Atrribute };
+
+  const [settingsData, setSettingsData] = useState({});
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("/assets/site.settings.json", {
+          next: { revalidate: 60 },
+        });
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        console.log(data);
+        setSettingsData(data);
+      } catch (error) {
+        console.error("Fetch error:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+  const value: any = { Categories, Brands, Atrribute, settingsData };
   return <AdminContext.Provider value={value}> {props.children}</AdminContext.Provider>;
 }
 

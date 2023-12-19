@@ -121,7 +121,7 @@ function generateOrderNotificationEmail(order: any) {
         <h3>Order Status</h3>
         <p>${order.status}</p>
 
-        <p>Order placed on: ${formatLocalDate(order.createdAt.$date)}</p>
+        <p>Order placed on: ${formatLocalDate(order.createdAt)}</p>
 
         <p>Please review this order at your earliest convenience. If you have any questions or need further clarification, please feel free to reach out.</p>
 

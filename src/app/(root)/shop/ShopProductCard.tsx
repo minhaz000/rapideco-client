@@ -10,7 +10,6 @@ const ShopProductCard = ({ product }: { product: product }) => {
     if (regularPrice <= 0 || discountPrice <= 0) {
       throw new Error("Prices must be greater than zero");
     }
-    // Calculate the percentage discount
     const priceDifference = regularPrice - discountPrice;
     const discountPercentage = (priceDifference / regularPrice) * 100;
     console.log(Math.round(discountPercentage));

@@ -55,7 +55,6 @@ const HeaderSetting = ({ setting }: { setting: any }) => {
             <label htmlFor="logo" className="block mb-3 text-sm">
               Logo Upload
             </label>
-<<<<<<< HEAD
             <input
               {...register("header.logo")}
               type="file"
@@ -67,10 +66,6 @@ const HeaderSetting = ({ setting }: { setting: any }) => {
               height={100}
               alt=""
             />
-=======
-            <input {...register("header.logo")} type="file" className="w-full py-1 px-1 rounded border" />
-            <Image src={setting?.data.header?.logo?.img_url} width={100} height={100} alt="" />
->>>>>>> 17a2fec3240544188f7ce073b44453fe28b4e0e5
           </div>
           <div className="md:basis-1/2">
             <label htmlFor="logo" className="block mb-3 text-sm">

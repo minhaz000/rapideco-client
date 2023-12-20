@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {
   "header": {
     "nav_menu": [
@@ -61,6 +60,3 @@
     { "zone": "ঢাকার ভিতরে ডেলিভারি খরচ", "cost": "60" }
   ]
 }
-=======
-{"header":{"nav_menu":[{"value":"/","lavel":"Home"},{"value":"/shop","lavel":"shop"}],"color":"#000000","meta_title":"Isoftex eCommerce","meta_description":"Let's develop our country together","favicon":{"img_url":"/uploads/screenshot_12-1702539093430-1702555608313.webp","path":"public/uploads/screenshot_12-1702539093430-1702555608313.webp"},"phone_number":"01760107750","textColor":"#000000","themeColor":"#000000","logo":{"img_url":"/uploads/screenshot_12-1702539093430-1702554920033.webp","path":"public/uploads/screenshot_12-1702539093430-1702554920033.webp"}},"body":{"banner":[{"img_url":"/uploads/webslider-03-scaled-1702528961166.jpg","path":"public/uploads/webslider-03-scaled-1702528961166.jpg"},{"img_url":"/uploads/westrang_web_slise-(1)-1702528961185.jpg","path":"public/uploads/westrang_web_slise-(1)-1702528961185.jpg"}],"cat_menu":[{"lavel":"T shirt ","value":"65452637df99fad2de47bc11"},{"lavel":"Bathroom","value":"6554ede7729f22e9b8f38087"}]},"footer":{"links":[{"value":"order-tracking","lavel":"অর্ডার ট্র্যাকিং"},{"value":"about-us","lavel":"আমাদের সম্পর্কে"}],"description":"ওনেমার্ট ই-কমার্স ওয়েবসাইট একটি ব্যবসা প্ল্যাটফর্ম, যেখানে আপনি আপনার পছন্দের পণ্য অনলাইনে ক্রয় করতে পারেন। ওনেমার্টে আপনি বিভিন্ন ক্যাটেগরিতে পণ্য সন্ধান করতে পারেন,","contact_info":{"address":"#০২, রোডঃ ০২,ঢাকা","phone":"(+৮৮০) ০১৭৬০১০৭৭৬৪","email":"@admin.com"},"copyright":"Isoftex eCommerce CMS 2023","logo":{"img_url":"/uploads/screenshot_12-1702455422120.png","path":"public\\uploads\\screenshot_12-1702455422120.png"},"color":"#151414"},"shipping":[{"zone":"in Dhaka","cost":"50"},{"zone":"get new ","cost":"424"}]}
->>>>>>> 17a2fec3240544188f7ce073b44453fe28b4e0e5

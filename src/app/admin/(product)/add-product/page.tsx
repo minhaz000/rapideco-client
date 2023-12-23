@@ -1,7 +1,6 @@
 "use client";
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
-// import JoditEditor from "jodit-react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import FormValues from "@/interface/product";
 import { useAdminContext } from "@/context/admin.context";
@@ -9,9 +8,10 @@ import Select from "react-select";
 import { toast } from "react-toastify";
 import Uploder from "@/hooks/hook.upload";
 import { useMutationData } from "@/hooks/hook.query";
+import { useEditor, EditorContent } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+import { MenuBar } from "./Tiptap";
 const AddProduct = () => {
-  const editor = useRef(null);
-  const [content, setContent] = useState("");
   const { Categories, Brands, Atrribute }: any = useAdminContext();
   const newProduct = useMutationData(["add new prodct"], "post", "api/v0/product");
   const [selectedImage, setSelectedImage]: any = useState();
@@ -63,7 +63,19 @@ const AddProduct = () => {
     });
   };
   const validationError: any = newProduct.error?.data?.errors;
-  console.log(content);
+
+  const [description, setDescription] = useState("");
+  const editor = useEditor({
+    extensions: [StarterKit],
+    content: ``,
+
+    onUpdate: ({ editor }) => {
+      const html = editor.getHTML();
+      setDescription(html);
+    },
+  });
+  console.log(description);
+
   return (
     <div className="pb-4 shadow-md border rounded mb-3 px-2 md:px-6 pt-2">
       <h2 className="text-2xl">Add Product</h2>
@@ -152,16 +164,13 @@ const AddProduct = () => {
             )}
           </div>
           <div className="mt-3">
-            <label htmlFor="name" className="block">
+            <label htmlFor="name" className="block mb-2">
               Product Description
             </label>
-            {/* <JoditEditor
-              ref={editor}
-              value={content}
-              onChange={(newContent) => {
-                setContent(newContent);
-              }}
-            /> */}
+            <div className="textEditor">
+              <MenuBar editor={editor} />
+              <EditorContent editor={editor} />
+            </div>
           </div>
 
           <div className="mt-3">

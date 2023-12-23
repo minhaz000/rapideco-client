@@ -1,31 +1,37 @@
 import React from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/effect-fade";
 import { useRootContext } from "@/context/root.context";
+import { EffectFade } from "swiper/modules";
 const BannerSlider = () => {
   const { settingsData }: any = useRootContext();
-  console.log(settingsData);
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    nav: true,
-  };
   return (
-    <Slider {...settings}>
+    <Swiper
+      modules={[Navigation, Pagination, EffectFade]}
+      effect="fade"
+      pagination={{
+        clickable: true,
+      }}
+      navigation={true}
+      breakpoints={{
+        0: {
+          slidesPerView: 1,
+        },
+      }}
+    >
       {settingsData?.body?.banner.map((item: any, index: number) => (
-        <div key={index}>
+        <SwiperSlide key={index}>
           <img
             src={item?.img_url}
             alt=""
             className="w-full h-full md:h-[400px] object-cover"
           />
-        </div>
+        </SwiperSlide>
       ))}
-    </Slider>
+    </Swiper>
   );
 };
 

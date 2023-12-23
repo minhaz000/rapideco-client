@@ -33,11 +33,11 @@ const Category = () => {
                 spaceBetween: 10,
               },
               768: {
-                slidesPerView: 3,
+                slidesPerView: 4,
                 spaceBetween: 15,
               },
               1020: {
-                slidesPerView: 4,
+                slidesPerView: 5,
                 spaceBetween: 15,
               },
               1200: {

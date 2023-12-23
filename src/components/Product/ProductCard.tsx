@@ -18,7 +18,7 @@ const ProductCard = ({ product }: { product: any }) => {
     <div className="flex flex-col group duration-300 border p-1 sm:p-2 rounded-sm bg-white ">
       <Link href={`/product?_id=${product._id}`}>
         <div>
-          <div className="overflow-hidden relative">
+          <div className="overflow-hidden relative group">
             {product.discount_price && (
               <p className="absolute top-2 left-0 bg-white px-[5px] py-[5px] z-40 uppercase text-[11px] font-semibold rounded-e-full shadow-xl flex items-center gap-2">
                 Off
@@ -45,7 +45,7 @@ const ProductCard = ({ product }: { product: any }) => {
           </div>
           <div className="py-3 px-2 text-center">
             <div>
-              <h2 className="capitalize font-semibold">
+              <h2 className="capitalize font-semibold group-hover:text-red-600">
                 {product.title.length > 47
                   ? product.title.slice(0, 48) + "..."
                   : product.title}

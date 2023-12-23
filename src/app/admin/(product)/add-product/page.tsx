@@ -12,6 +12,7 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { MenuBar } from "./Tiptap";
 const AddProduct = () => {
+  const [description, setDescription] = useState("");
   const { Categories, Brands, Atrribute }: any = useAdminContext();
   const newProduct = useMutationData(["add new prodct"], "post", "api/v0/product");
   const [selectedImage, setSelectedImage]: any = useState();
@@ -62,6 +63,7 @@ const AddProduct = () => {
       onError: (error: any) => toast.error(error.message ? error.message : error?.data.message),
     });
   };
+
   const editor = useEditor({
     extensions: [StarterKit],
     content: ``,
@@ -250,7 +252,6 @@ const AddProduct = () => {
             <input
               type="file"
               className="w-full file-input file-input-bordered file-input-xs  outline-none mt-2 "
-              // className="border w-full py-2 px-3  rounded-md outline-none"
               onChange={handleImage}
             />
 

@@ -165,3 +165,17 @@ button.is_active {
   padding: 2px 3px;
   border-radius: 2px;
 }
+
+.textEditor h2 {
+  font-size: 22px;
+}
+.textEditor h3 {
+  font-size: 18px;
+}
+
+.textEditor ul {
+  list-style: disc;
+}
+.textEditor ol {
+  list-style: decimal;
+}

@@ -8,10 +8,14 @@ import { useAdminContext } from "@/context/admin.context";
 import FormValues from "@/interface/product";
 import Select from "react-select";
 import Uploder from "@/hooks/hook.upload";
+import { useEditor, EditorContent } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+import { MenuBar } from "../../add-product/Tiptap";
 const EditProduct = ({ params }: { params: { productID: string[] } }) => {
   const { Categories, Brands, Atrribute, Products }: any = useAdminContext();
   const [selectedImage, setSelectedImage] = useState([]);
   const [oldGalleryImage, setOldGalleryImage] = useState([]);
+  const [selectedDesImage, setSelectedDesImage] = useState([]);
   const [selectedGalleryImageFile, setSelectedGalleryImageFile] = useState([]);
   const { data: oldProduct, refetch } = useQueryData(
     ["get old product"],
@@ -59,6 +63,11 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
     ];
     setSelectedGalleryImageFile(selectedFiles);
   };
+  const handleDesImage = (event: any) => {
+    const selectedFiles: any = [...event.target.files, ...selectedDesImage];
+    setSelectedDesImage(selectedFiles);
+    event.target.value = "";
+  };
 
   function deleteHandler(image: any) {
     console.log(image);
@@ -77,6 +86,17 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
     reset(oldProduct?.data);
   }, [oldProduct]);
   const validationError: any = updateProduct.error?.data?.errors;
+  const [description, setDescription] = useState("");
+  const editor = useEditor({
+    extensions: [StarterKit],
+    content: ``,
+
+    onUpdate: ({ editor }) => {
+      const html = editor.getHTML();
+      setDescription(html);
+    },
+  });
+  console.log(oldProduct?.data);
   return (
     <div className="pb-4">
       <h2 className="text-2xl">Edit Product</h2>
@@ -121,16 +141,13 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
             )}
           </div>
           <div className="mt-3">
-            <label htmlFor="name" className="block">
+            <label htmlFor="name" className="block mb-2">
               Product Description
             </label>
-            <textarea
-              placeholder="Product Description"
-              {...register("description")}
-              className={`w-full h-28 border py-2 px-3 rounded-md  outline-none mt-2 ${
-                validationError?.description && "border-red-600 text-red-400"
-              }`}
-            ></textarea>
+            <div className="textEditor">
+              <MenuBar editor={editor} />
+              <EditorContent editor={editor} />
+            </div>
           </div>
           <div className="mt-3">
             <label htmlFor="name" className="mb-2 block">
@@ -280,9 +297,8 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
             <input
               {...register("product_image")}
               type="file"
-              multiple
               name="product_image"
-              className="border w-full py-2 px-3  rounded-md outline-none"
+              className="w-full file-input file-input-bordered file-input-xs  outline-none mt-2 "
               onChange={handleImage}
             />
 
@@ -309,7 +325,7 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
               <input
                 type="file"
                 multiple
-                className="border w-full py-2 px-3  rounded-md outline-none"
+                className="w-full file-input file-input-bordered file-input-xs  outline-none mt-2 "
                 onChange={handleGalleyImage}
               />
               <div className="flex gap-2 my-3">
@@ -350,6 +366,44 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
                     </div>
                   );
                 })}
+              </div>
+            </div>
+          </div>
+          <div className="mt-3">
+            <label htmlFor="name" className="block">
+              Description Image
+            </label>
+            <div>
+              <input
+                {...register("description_img")}
+                type="file"
+                multiple
+                className="w-full file-input file-input-bordered file-input-xs  outline-none mt-2 "
+                onChange={handleDesImage}
+              />
+              <div className="flex gap-2 my-3">
+                {selectedDesImage &&
+                  selectedDesImage.map((image: any, i: number) => {
+                    return (
+                      <div key={i} className="relative">
+                        <Image
+                          src={URL.createObjectURL(image as any)}
+                          width={100}
+                          height={100}
+                          alt="upload"
+                        />
+                        <button
+                          className="absolute top-0 right-0 bg-red-400 text-white px-1"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            deleteHandler(image);
+                          }}
+                        >
+                          x
+                        </button>
+                      </div>
+                    );
+                  })}
               </div>
             </div>
           </div>

@@ -75,14 +75,10 @@ const Footer = () => {
         </div>
       </div>
       {/* copyright */}
-      <div className="flex flex-col md:flex-row items-center justify-between max-w-screen-xl mx-auto px-3 lg:px-12 border-t-[1px] border-slate-50 mt-8 pt-3">
-        <p className="text-slate-100 text-sm text-center md:text-left">
+      <div className=" max-w-screen-xl mx-auto px-3 lg:px-12 border-t-[1px] border-slate-50 mt-8 pt-3">
+        <p className="text-slate-100 text-center text-[16px] capitalize">
           {settingsData?.footer?.copyright}
         </p>
-        <div className="flex gap-3 text-sm text-slate-100">
-          <Link href="/">Terms of Service</Link>
-          <Link href="/">Privacy Policy</Link>
-        </div>
       </div>
       {/* bottom menu */}
       <div className="fixed bottom-0 left-0 bg-white border-t-2 flex gap-3 justify-between items-center w-full px-6 py-2 lg:hidden z-[99]">
@@ -97,11 +93,10 @@ const Footer = () => {
         <Link href={"/shop"}>
           <MobileBottomMenu Icon={AiOutlineBars} name="Shop" />
         </Link>
-        <Link href="to:01760107764">
+        <Link href="to:01700000">
           <MobileBottomMenu Icon={BiPhoneCall} name="Phone" />
         </Link>
         <Link href={"/cart"}>
-          {" "}
           <MobileBottomMenu Icon={BiCart} name="Cart" />
         </Link>
       </div>

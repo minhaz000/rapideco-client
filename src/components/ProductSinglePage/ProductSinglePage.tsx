@@ -16,6 +16,7 @@ const ProductSinglePage = () => {
   if (isLoading) {
     return <Loading />;
   }
+  console.log(product);
   return (
     <div>
       <ProductDetails />

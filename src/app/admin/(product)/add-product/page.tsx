@@ -62,19 +62,17 @@ const AddProduct = () => {
       onError: (error: any) => toast.error(error.message ? error.message : error?.data.message),
     });
   };
-  const validationError: any = newProduct.error?.data?.errors;
-
-  const [description, setDescription] = useState("");
   const editor = useEditor({
     extensions: [StarterKit],
     content: ``,
 
     onUpdate: ({ editor }) => {
       const html = editor.getHTML();
-      setDescription(html);
+      setValue("description", html);
     },
   });
-  console.log(description);
+
+  const validationError: any = newProduct.error?.data?.errors;
 
   return (
     <div className="pb-4 shadow-md border rounded mb-3 px-2 md:px-6 pt-2">

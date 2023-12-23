@@ -13,16 +13,11 @@ import StarterKit from "@tiptap/starter-kit";
 import { MenuBar } from "./Tiptap";
 const AddProduct = () => {
   const { Categories, Brands, Atrribute }: any = useAdminContext();
-  const newProduct = useMutationData(
-    ["add new prodct"],
-    "post",
-    "api/v0/product"
-  );
+  const newProduct = useMutationData(["add new prodct"], "post", "api/v0/product");
   const [selectedImage, setSelectedImage]: any = useState();
   const [selectedGalleryImage, setSelectedGalleryImage] = useState([]);
   const [selectedDesImage, setSelectedDesImage] = useState([]);
-  const { register, handleSubmit, watch, reset, setValue, getValues } =
-    useForm<FormValues>();
+  const { register, handleSubmit, watch, reset, setValue, getValues } = useForm<FormValues>();
 
   // =============== IMAGE HANDLEING
 
@@ -49,15 +44,10 @@ const AddProduct = () => {
 
   const HandleAddProduct: SubmitHandler<FormValues> = async (data) => {
     data.gallery_images =
-      selectedGalleryImage.length == 1
-        ? [await Uploder(selectedGalleryImage)]
-        : await Uploder(selectedGalleryImage);
+      selectedGalleryImage.length == 1 ? [await Uploder(selectedGalleryImage)] : await Uploder(selectedGalleryImage);
     data.description_img =
-      selectedDesImage.length == 1
-        ? [await Uploder(selectedDesImage)]
-        : await Uploder(selectedDesImage);
-    data.product_image?.length > 0 &&
-      (data.product_image = await Uploder(data.product_image));
+      selectedDesImage.length == 1 ? [await Uploder(selectedDesImage)] : await Uploder(selectedDesImage);
+    data.product_image?.length > 0 && (data.product_image = await Uploder(data.product_image));
     data.status ? (data.status = "active") : (data.status = "deactive");
     data.category_info = data.category_info && JSON.parse(data.category_info);
     data.brand_info = data.brand_info && JSON.parse(data.brand_info);
@@ -69,8 +59,7 @@ const AddProduct = () => {
         setSelectedDesImage([]);
         reset();
       },
-      onError: (error: any) =>
-        toast.error(error.message ? error.message : error?.data.message),
+      onError: (error: any) => toast.error(error.message ? error.message : error?.data.message),
     });
   };
   const validationError: any = newProduct.error?.data?.errors;
@@ -106,9 +95,7 @@ const AddProduct = () => {
                 }`}
               />
               {validationError?.title && (
-                <p className="text-red-600 text-[14px]  mb-[5px] text-right">
-                  {validationError.title.message}
-                </p>
+                <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.title.message}</p>
               )}
             </div>
             <div>
@@ -124,9 +111,7 @@ const AddProduct = () => {
                 }`}
               />
               {validationError?.code && (
-                <p className="text-red-600 text-[14px]  mb-[5px] text-right">
-                  {validationError.code.message}
-                </p>
+                <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.code.message}</p>
               )}
             </div>
           </div>
@@ -141,14 +126,11 @@ const AddProduct = () => {
                 type="number"
                 placeholder="Enter regular price"
                 className={`w-full border py-2 px-3 rounded-md  outline-none mt-2 ${
-                  validationError?.regular_price &&
-                  "border-red-600 text-red-400"
+                  validationError?.regular_price && "border-red-600 text-red-400"
                 }`}
               />
               {validationError?.regular_price && (
-                <p className="text-red-600 text-[14px]  mb-[5px] text-right">
-                  {validationError.regular_price.message}
-                </p>
+                <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.regular_price.message}</p>
               )}
             </div>
             <div className="mt-3">
@@ -178,9 +160,7 @@ const AddProduct = () => {
               }`}
             />
             {validationError?.qantity && (
-              <p className="text-red-600 text-[14px]  mb-[5px] text-right">
-                {validationError.qantity.message}
-              </p>
+              <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.qantity.message}</p>
             )}
           </div>
           <div className="mt-3">
@@ -207,19 +187,14 @@ const AddProduct = () => {
               <option value="">Select category</option>
               {Categories?.data?.data.map((item: any) => {
                 return (
-                  <option
-                    key={item._id}
-                    value={JSON.stringify({ _id: item._id, name: item.name })}
-                  >
+                  <option key={item._id} value={JSON.stringify({ _id: item._id, name: item.name })}>
                     {item.name}
                   </option>
                 );
               })}
             </select>
             {validationError?.category_info && (
-              <p className="text-red-600 text-[14px]  mb-[5px] text-right">
-                {validationError.category_info.message}
-              </p>
+              <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.category_info.message}</p>
             )}
           </div>
           <div className="mt-3">
@@ -227,17 +202,11 @@ const AddProduct = () => {
               Brand
             </label>
 
-            <select
-              {...register("brand_info")}
-              className="border outline-none p-2 w-full"
-            >
+            <select {...register("brand_info")} className="border outline-none p-2 w-full">
               <option value="">Select Brand</option>
               {Brands?.data?.data.map((item: any) => {
                 return (
-                  <option
-                    key={item._id}
-                    value={JSON.stringify({ _id: item._id, name: item.name })}
-                  >
+                  <option key={item._id} value={JSON.stringify({ _id: item._id, name: item.name })}>
                     {item.name}
                   </option>
                 );
@@ -269,9 +238,7 @@ const AddProduct = () => {
                 <Select
                   className="col-span-8"
                   isMulti={true}
-                  onChange={(value) =>
-                    setValue("variants.attribute_options", value)
-                  }
+                  onChange={(value) => setValue("variants.attribute_options", value)}
                   options={item.attribute_options}
                 />
               </div>
@@ -318,12 +285,7 @@ const AddProduct = () => {
                   selectedGalleryImage.map((image: any, i: number) => {
                     return (
                       <div key={i} className="relative">
-                        <Image
-                          src={URL.createObjectURL(image as any)}
-                          width={100}
-                          height={100}
-                          alt="upload"
-                        />
+                        <Image src={URL.createObjectURL(image as any)} width={100} height={100} alt="upload" />
                         <button
                           className="absolute top-0 right-0 bg-red-400 text-white px-1"
                           onClick={(e) => {
@@ -356,12 +318,7 @@ const AddProduct = () => {
                   selectedDesImage.map((image: any, i: number) => {
                     return (
                       <div key={i} className="relative">
-                        <Image
-                          src={URL.createObjectURL(image as any)}
-                          width={100}
-                          height={100}
-                          alt="upload"
-                        />
+                        <Image src={URL.createObjectURL(image as any)} width={100} height={100} alt="upload" />
                         <button
                           className="absolute top-0 right-0 bg-red-400 text-white px-1"
                           onClick={(e) => {
@@ -391,9 +348,7 @@ const AddProduct = () => {
               }`}
             />
             {validationError?.status && (
-              <p className="text-red-600 text-[14px]  mb-[5px] text-right">
-                {validationError.status.message}
-              </p>
+              <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.status.message}</p>
             )}
           </div>
           <input

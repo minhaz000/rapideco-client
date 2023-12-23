@@ -1,10 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import {
-  useForm as useform,
-  SubmitHandler,
-  useFieldArray,
-} from "react-hook-form";
+import { useForm as useform, SubmitHandler, useFieldArray } from "react-hook-form";
 import FormValues from "@/interface/settings";
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -13,20 +9,15 @@ import Image from "next/image";
 
 const HeaderSetting = ({ setting }: { setting: any }) => {
   const [menuItem, setMenuItem] = useState(1);
-  const { control, register, reset, handleSubmit, setValue, getValues } =
-    useform<FormValues>();
+  const { control, register, reset, handleSubmit, setValue, getValues } = useform<FormValues>();
   const { append, remove, fields } = useFieldArray({
     control,
     name: "header.nav_menu",
   });
   // =============== FUNCTION FOR THE PRODUCT POST REQUEST
   const HandleEditHeader: SubmitHandler<FormValues> = async (data: any) => {
-    data.header.logo.length > 0
-      ? (data.header.logo = await Uploder(data.header.logo))
-      : data.header.logo;
-    data.header.favicon.length > 0
-      ? (data.header.favicon = await Uploder(data.header.favicon))
-      : data.header.favicon;
+    data.header.logo.length > 0 ? (data.header.logo = await Uploder(data.header.logo)) : data.header.logo;
+    data.header.favicon.length > 0 ? (data.header.favicon = await Uploder(data.header.favicon)) : data.header.favicon;
 
     axios.post("/api/siteconfig", data).then((res) => {
       toast.success("site updated");
@@ -46,52 +37,30 @@ const HeaderSetting = ({ setting }: { setting: any }) => {
 
   return (
     <div>
-      <form
-        onSubmit={handleSubmit(HandleEditHeader)}
-        className="border mt-5 py-6 px-4 lg:px-10"
-      >
+      <form onSubmit={handleSubmit(HandleEditHeader)} className="border mt-5 py-6 px-4 lg:px-10">
         <div className="md:flex gap-5">
           <div className="md:basis-1/2">
             <label htmlFor="logo" className="block mb-3 text-sm">
               Logo Upload
             </label>
-            <input
-              {...register("header.logo")}
-              type="file"
-              className="w-full py-1 px-1 rounded border"
-            />
-            <Image
-              src={setting?.header?.logo?.img_url}
-              width={100}
-              height={100}
-              alt=""
-            />
+            <input {...register("header.logo")} type="file" className="w-full py-1 px-1 rounded border" />
+            <Image src={setting?.header?.logo?.img_url} width={100} height={100} alt="" />
           </div>
           <div className="md:basis-1/2">
             <label htmlFor="logo" className="block mb-3 text-sm">
               FavIcon
             </label>
-            <input
-              {...register("header.favicon")}
-              type="file"
-              className="w-full py-1 px-1 rounded border"
-            />
+            <input {...register("header.favicon")} type="file" className="w-full py-1 px-1 rounded border" />
           </div>
         </div>
         <div className="md:flex gap-5 mt-3">
           <div className="md:basis-1/2">
             <label className="block mb-2 text-sm">Phone Number</label>
-            <input
-              {...register("header.phone_number")}
-              className="w-full p-2 rounded border"
-            />
+            <input {...register("header.phone_number")} className="w-full p-2 rounded border" />
           </div>
           <div className="md:basis-1/2">
             <label className="block mb-2 text-sm">Meta Title</label>
-            <input
-              {...register("header.meta_title")}
-              className="w-full p-2 rounded border"
-            />
+            <input {...register("header.meta_title")} className="w-full p-2 rounded border" />
           </div>
         </div>
         <div className="md:flex gap-5 mt-3">
@@ -99,21 +68,13 @@ const HeaderSetting = ({ setting }: { setting: any }) => {
             <label htmlFor="theme" className="block mb-2 text-sm">
               Header Color
             </label>
-            <input
-              {...register("header.color")}
-              type="color"
-              className="w-full h-10 rounded border outline-none"
-            />
+            <input {...register("header.color")} type="color" className="w-full h-10 rounded border outline-none" />
           </div>
           <div className="md:basis-1/2">
             <label htmlFor="theme" className="block mb-2 text-sm">
               Text Color
             </label>
-            <input
-              {...register("header.textColor")}
-              type="color"
-              className="w-full h-10 rounded border outline-none"
-            />
+            <input {...register("header.textColor")} type="color" className="w-full h-10 rounded border outline-none" />
           </div>
         </div>
         <div className="md:flex gap-5 mt-3">
@@ -138,10 +99,7 @@ const HeaderSetting = ({ setting }: { setting: any }) => {
           <h2 className="text-sm mb-2">Header nav menu</h2>
 
           {fields.map((item, i: any) => (
-            <div
-              className="flex flex-col sm:flex-row justify-between gap-3 sm:items-center mb-3"
-              key={i}
-            >
+            <div className="flex flex-col sm:flex-row justify-between gap-3 sm:items-center mb-3" key={i}>
               <input
                 {...register(`header.nav_menu.${i}.lavel`)}
                 type="text"
@@ -165,10 +123,7 @@ const HeaderSetting = ({ setting }: { setting: any }) => {
               </button>
             </div>
           ))}
-          <button
-            onClick={handlePageItem}
-            className=" bg-gray-200 py-2 px-3 rounded text-[12px] mt-[7px]"
-          >
+          <button onClick={handlePageItem} className=" bg-gray-200 py-2 px-3 rounded text-[12px] mt-[7px]">
             Add New
           </button>
           <input

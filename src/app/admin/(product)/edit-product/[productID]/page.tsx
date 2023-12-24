@@ -13,7 +13,6 @@ import StarterKit from "@tiptap/starter-kit";
 import { MenuBar } from "../../add-product/Tiptap";
 import Loading from "@/components/common/Loading";
 const EditProduct = ({ params }: { params: { productID: string[] } }) => {
-  const [description, setDescription] = useState(``);
   const { Categories, Brands, Atrribute }: any = useAdminContext();
   const [selectedImage, setSelectedImage] = useState([]);
   const [oldGalleryImage, setOldGalleryImage] = useState([]);
@@ -70,7 +69,7 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
 
   const editor = useEditor({
     extensions: [StarterKit],
-    content: `${description}`,
+    content: ` `,
 
     onUpdate: ({ editor }) => {
       const html = editor.getHTML();
@@ -81,7 +80,7 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
   useEffect(() => {
     setOldGalleryImage(oldProduct?.data?.gallery_images);
     reset(oldProduct?.data);
-    setDescription(oldProduct?.data?.description);
+    editor?.commands?.setContent(oldProduct?.data?.description);
     setManageAttr(oldProduct?.data.variants);
   }, [oldProduct]);
   const validationError: any = updateProduct.error?.data?.errors;

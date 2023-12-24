@@ -45,7 +45,7 @@ const ProductCard = ({ product }: { product: any }) => {
           </div>
           <div className="py-3 px-2 text-center">
             <div>
-              <h2 className="capitalize font-semibold group-hover:text-red-600 h-[48px]">
+              <h2 className="capitalize font-semibold group-hover:text-red-600 h-[48px] overflow-hidden">
                 {product.title.length > 47
                   ? product.title.slice(0, 48) + "..."
                   : product.title}

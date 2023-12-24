@@ -62,7 +62,7 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
     console.log(e.target.name);
     setValue(e.target.name, e.target.value);
   }
-  console.log("des", oldProduct?.data.description);
+
   const editor = useEditor({
     extensions: [StarterKit],
     content: oldProduct?.data.description,
@@ -78,16 +78,7 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
   }, [oldProduct]);
   const validationError: any = updateProduct.error?.data?.errors;
   const [description, setDescription] = useState("");
-  const editor = useEditor({
-    extensions: [StarterKit],
-    content: ``,
 
-    onUpdate: ({ editor }) => {
-      const html = editor.getHTML();
-      setDescription(html);
-    },
-  });
-  console.log(oldProduct?.data);
   return (
     <div className="pb-4">
       <h2 className="text-2xl">Edit Product</h2>

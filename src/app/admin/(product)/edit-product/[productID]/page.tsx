@@ -17,6 +17,7 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
   const { Categories, Brands, Atrribute }: any = useAdminContext();
   const [selectedImage, setSelectedImage] = useState([]);
   const [oldGalleryImage, setOldGalleryImage] = useState([]);
+  const [manageAtt, setManageAttr]: any = useState([]);
   const [selectedDesImage, setSelectedDesImage] = useState([]);
   const [selectedGalleryImageFile, setSelectedGalleryImageFile] = useState([]);
   const {
@@ -35,7 +36,7 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
     selectedImage?.length > 0 && (data.product_image = await Uploder(selectedImage));
     data.status ? (data.status = "active") : (data.status = "deactive");
     data.category_info = typeof data.category_info === "string" ? JSON.parse(data.category_info) : data.category_info;
-    data.category_info = typeof data.brand_info === "string" ? JSON.parse(data.brand_info) : data.brand_info;
+    data.brand_info = typeof data.brand_info === "string" ? JSON.parse(data.brand_info) : data.brand_info;
     updateProduct.mutate(data as any, {
       onSuccess: () => {
         toast.success("product updated");
@@ -66,7 +67,7 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
   function handleOnChange(e: any) {
     setValue(e.target.name, e.target.value);
   }
-  console.log(description);
+
   const editor = useEditor({
     extensions: [StarterKit],
     content: `${description}`,
@@ -77,21 +78,18 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
     },
   });
 
-  const handleAttribute = (value: any) => {
-    setValue("variants", value);
-    refetch();
-  };
   useEffect(() => {
     setOldGalleryImage(oldProduct?.data?.gallery_images);
     reset(oldProduct?.data);
     setDescription(oldProduct?.data?.description);
+    setManageAttr(oldProduct?.data.variants);
   }, [oldProduct]);
   const validationError: any = updateProduct.error?.data?.errors;
 
   if (isLoading) {
     return <Loading />;
   }
-
+  // console.log(manageAtt);
   return (
     <div className="pb-4">
       <h2 className="text-2xl">Edit Product</h2>
@@ -236,11 +234,14 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
             <Select
               isMulti={true}
               defaultValue={oldProduct?.data?.variants || []}
-              onChange={(value) => handleAttribute(value)}
+              onChange={(vaule: any) => {
+                setManageAttr(vaule);
+                setValue("variants", vaule);
+              }}
               options={Atrribute?.data?.data || []}
             />
           </div>
-          {oldProduct?.data?.variants?.map((item: any, i: number) => {
+          {manageAtt?.map((item: any, i: number) => {
             return (
               <div key={i} className="mt-3 grid grid-cols-12">
                 <label
@@ -254,7 +255,10 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
                   className="col-span-8"
                   isMulti={true}
                   defaultValue={item?.attribute_options}
-                  onChange={(value) => setValue("variants.attribute_options", value)}
+                  onChange={(value) => {
+                    manageAtt[i].attribute_options = value;
+                    setValue("variants", manageAtt);
+                  }}
                   options={item?.attribute_options}
                 />
               </div>

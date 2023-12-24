@@ -11,14 +11,21 @@ import Uploder from "@/hooks/hook.upload";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { MenuBar } from "../../add-product/Tiptap";
+import Loading from "@/components/common/Loading";
 const EditProduct = ({ params }: { params: { productID: string[] } }) => {
-  const { Categories, Brands, Atrribute, Products }: any = useAdminContext();
+  const [description, setDescription] = useState(``);
+  const { Categories, Brands, Atrribute }: any = useAdminContext();
   const [selectedImage, setSelectedImage] = useState([]);
   const [oldGalleryImage, setOldGalleryImage] = useState([]);
   const [selectedDesImage, setSelectedDesImage] = useState([]);
   const [selectedGalleryImageFile, setSelectedGalleryImageFile] = useState([]);
-  const { data: oldProduct, refetch } = useQueryData(["get old product"], `/api/v0/product/${params.productID}`);
+  const {
+    data: oldProduct,
+    refetch,
+    isLoading,
+  } = useQueryData(["get old product"], `/api/v0/product/${params.productID}`);
   const updateProduct = useMutationData(["update product "], "put", `/api/v0/product/${params.productID}`);
+
   const { register, handleSubmit, watch, reset, setValue, getValues } = useForm<FormValues>();
   // EDIT PRODUCT
   const HandleEditProduct: SubmitHandler<FormValues> = async (data) => {
@@ -53,31 +60,37 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
   };
 
   function deleteHandler(image: any) {
-    console.log(image);
     setOldGalleryImage(oldGalleryImage.filter((e) => e !== image));
     setSelectedGalleryImageFile(selectedGalleryImageFile.filter((e) => e !== image));
   }
   function handleOnChange(e: any) {
-    // e.target.value
-    console.log(e.target.name);
     setValue(e.target.name, e.target.value);
   }
-
+  console.log(description);
   const editor = useEditor({
     extensions: [StarterKit],
-    content: oldProduct?.data.description,
+    content: `${description}`,
 
     onUpdate: ({ editor }) => {
       const html = editor.getHTML();
       setValue("description", html);
     },
   });
+
+  const handleAttribute = (value: any) => {
+    setValue("variants", value);
+    refetch();
+  };
   useEffect(() => {
     setOldGalleryImage(oldProduct?.data?.gallery_images);
     reset(oldProduct?.data);
+    setDescription(oldProduct?.data?.description);
   }, [oldProduct]);
   const validationError: any = updateProduct.error?.data?.errors;
-  const [description, setDescription] = useState("");
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className="pb-4">
@@ -220,15 +233,14 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
             <label htmlFor="name" className="mb-2 block">
               Atrribute
             </label>
-
             <Select
               isMulti={true}
-              value={getValues("variants")}
-              onChange={(value) => setValue("variants", value)}
-              options={Atrribute?.data?.data}
+              defaultValue={oldProduct?.data?.variants || []}
+              onChange={(value) => handleAttribute(value)}
+              options={Atrribute?.data?.data || []}
             />
           </div>
-          {watch("variants")?.map((item: any, i: number) => {
+          {oldProduct?.data?.variants?.map((item: any, i: number) => {
             return (
               <div key={i} className="mt-3 grid grid-cols-12">
                 <label
@@ -241,9 +253,9 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
                 <Select
                   className="col-span-8"
                   isMulti={true}
-                  defaultInputValue={item.attribute_options}
+                  defaultValue={item?.attribute_options}
                   onChange={(value) => setValue("variants.attribute_options", value)}
-                  options={item.attribute_options}
+                  options={item?.attribute_options}
                 />
               </div>
             );

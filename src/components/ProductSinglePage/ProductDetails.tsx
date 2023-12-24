@@ -105,7 +105,7 @@ const ProductDetails = () => {
         {product?.data?.variants?.map((variant: any) => {
           if (variant.value === "color") {
             return (
-              <div className="mt-4 flex">
+              <div className="mt-4 flex items-center">
                 <p className="me-4 text-gray-500 capitalize text-lg">
                   {variant.label}:
                 </p>
@@ -131,7 +131,7 @@ const ProductDetails = () => {
             );
           } else {
             return (
-              <div className="mt-4 flex">
+              <div className="mt-4 flex items-center">
                 <p className="me-4 text-gray-500 text-lg">{variant.label}:</p>
                 <div className="flex gap-2">
                   {variant?.attribute_options?.map((sizeItem: any) => (

@@ -67,6 +67,7 @@ const ShopPage = () => {
   const categoryPHas = Categories?.data?.filter(
     (ct: any) => ct?.products?.length > 0
   );
+  console.log(categoryPHas);
   return (
     <>
       {products?.data?.length != 0 ? (

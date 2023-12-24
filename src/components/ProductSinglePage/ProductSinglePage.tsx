@@ -25,9 +25,10 @@ const ProductSinglePage = () => {
           Product Description
         </h2>
         <div className="mt-2">
-          <p className="text-[16px] text-gray-700">
-            {product?.data?.description}
-          </p>
+          <div
+            className="space-y-3"
+            dangerouslySetInnerHTML={{ __html: product?.data?.description }}
+          ></div>
           <div className="mt-8">
             {product.data?.description_img &&
               product.data?.description_img?.map((item: any) => (

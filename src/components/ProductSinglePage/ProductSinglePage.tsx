@@ -35,8 +35,8 @@ const ProductSinglePage = () => {
                 <Image
                   src={item.img_url}
                   alt="Description Image"
-                  width={500}
-                  height={500}
+                  width={1000}
+                  height={1000}
                   sizes="100%"
                 />
               ))}

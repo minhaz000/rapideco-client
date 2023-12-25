@@ -11,7 +11,9 @@ import Iproduct from "@/interface/product";
 import axios2 from "axios";
 import { useMutationData, useQueryData } from "@/hooks/hook.query";
 import { useRootContext } from "@/context/root.context";
+import { useRouter } from "next/navigation";
 const CheckoutPage = () => {
+  const router = useRouter();
   const [tabIndex, setTabIndex] = useState(0);
   const [shipping, setShipping] = useState("0");
   const { Cart, settingsData }: any = useRootContext();
@@ -37,9 +39,9 @@ const CheckoutPage = () => {
       onSuccess: (res: any) => {
         axios.delete(`/api/v0/cart/${Cart.data.data._id}`).then(() => Cart.refetch());
         toast.success("Order placed successfully");
-        console.log(res.data);
         axios2.post("/api/sentmail", { order: res.data });
         reset();
+        router.push("/order-success");
       },
       onError: (error: any) => toast.error(error.message ? error.message : error?.data.message),
     });
@@ -71,8 +73,11 @@ const CheckoutPage = () => {
       })
       .catch((error: any) => toast.error(error.message ? error.message : error?.data.message));
   };
+
   if (Cart?.data?.data?.items.length < 1) {
+    router.push("/shop");
   }
+
   const validationError: any = newOrder.error?.data?.errors;
   return (
     <section className="max-w-screen-xl mx-auto px-3 lg:px-12 mt-2 lg:mt-6">

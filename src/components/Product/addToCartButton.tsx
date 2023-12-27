@@ -15,8 +15,7 @@ function AddToCartButton({ productID, Q, A }: { productID: string; Q?: any; A?: 
       .put(url, A)
       .then(() => {
         toast.success("product added to cart");
-        router.push("/checkout");
-        Cart.refetch();
+        Cart.refetch().then(() => router.push("/checkout"));
       })
       .catch((error: any) => toast.error(error.message ? error.message : error?.data.message));
   };

@@ -8,7 +8,7 @@ import axios from "@/hooks/hook.axios";
 import { toast } from "react-toastify";
 import Pagination from "@/components/pagination/pagination";
 const AllOrders = () => {
-  const [query, setQuery] = useState({ _id: "", sort: "", status: "" });
+  const [query, setQuery] = useState({ _id: "", sort: "-createdAt", status: "" });
   const [pagination, setPagination] = useState({ page: 1, limit: 10 });
   const { data: allOrders, refetch } = useQueryData(
     ["get all order", pagination, query],
@@ -32,9 +32,7 @@ const AllOrders = () => {
             toast.success("order deleted");
             refetch();
           })
-          .catch((error: any) =>
-            toast.error(error.message ? error.message : error?.data.message)
-          );
+          .catch((error: any) => toast.error(error.message ? error.message : error?.data.message));
       }
     });
   };
@@ -56,10 +54,7 @@ const AllOrders = () => {
       month: "short",
       day: "numeric",
     };
-    const formattedDate: string = new Intl.DateTimeFormat(
-      "en-US",
-      options
-    ).format(dateObject);
+    const formattedDate: string = new Intl.DateTimeFormat("en-US", options).format(dateObject);
     return formattedDate;
   }
   // const newPayment = useMutationData(["add new payament"], "post", "api/v0/payment");
@@ -101,9 +96,7 @@ const AllOrders = () => {
               />
             </div>
             <div>
-              <button className="text-sm py-2 px-5 text-white bg-green-500">
-                Filter
-              </button>
+              <button className="text-sm py-2 px-5 text-white bg-green-500">Filter</button>
             </div>
           </div>
         </div>
@@ -111,24 +104,14 @@ const AllOrders = () => {
           <table className="table  w-[1270px] xl:w-full border">
             <thead>
               <tr className="border text-xs font-normal ">
-                <th className="py-3 text-slate-500 ps-4 text-start">
-                  Order Code:
-                </th>
-                <th className="py-3 text-slate-500 text-start">
-                  Num. of Products
-                </th>
+                <th className="py-3 text-slate-500 ps-4 text-start">Order Code:</th>
+                <th className="py-3 text-slate-500 text-start">Num. of Products</th>
                 <th className="py-3 text-slate-500 text-start">Customer</th>
                 <th className="py-3 text-slate-500 text-start">Amount</th>
-                <th className="py-3 text-slate-500 text-start">
-                  Delivery Status
-                </th>
-                <th className="py-3 text-slate-500 text-start">
-                  Payment method
-                </th>
+                <th className="py-3 text-slate-500 text-start">Delivery Status</th>
+                <th className="py-3 text-slate-500 text-start">Payment method</th>
                 <th className="py-3 text-slate-500 text-start">Date</th>
-                <th className="py-3 text-slate-500 text-start">
-                  Payment Status
-                </th>
+                <th className="py-3 text-slate-500 text-start">Payment Status</th>
 
                 <th className="py-3 text-slate-500 text-start">Action</th>
               </tr>
@@ -136,10 +119,7 @@ const AllOrders = () => {
             <tbody className="border pt-2">
               {allOrders?.data.map((item: any, i: number) => {
                 return (
-                  <tr
-                    key={i}
-                    className="text-xs font-normal text-start border-b"
-                  >
+                  <tr key={i} className="text-xs font-normal text-start border-b">
                     <td className="py-5 ps-4">{item._id}</td>
                     <td>{item.ordered_items.length}</td>
                     <td>{item.user_info.name}</td>
@@ -149,13 +129,9 @@ const AllOrders = () => {
                     <td>{convertDateFormat(item.createdAt)}</td>
                     <td>
                       {item.payment_info.trx_id ? (
-                        <span className="bg-green-500 bg-opacity-70 text-white text-sm p-1 rounded">
-                          Paid
-                        </span>
+                        <span className="bg-green-500 bg-opacity-70 text-white text-sm p-1 rounded">Paid</span>
                       ) : (
-                        <span className="bg-red-500 bg-opacity-70 text-white text-sm p-1 rounded">
-                          Unpaid
-                        </span>
+                        <span className="bg-red-500 bg-opacity-70 text-white text-sm p-1 rounded">Unpaid</span>
                       )}
                     </td>
                     <td>
@@ -186,10 +162,7 @@ const AllOrders = () => {
 
         {allOrders?.data && (
           <div className="pe-6 pb-4">
-            <Pagination
-              pagination={allOrders.pagination}
-              setPagination={setPagination}
-            />
+            <Pagination pagination={allOrders.pagination} setPagination={setPagination} />
           </div>
         )}
       </div>

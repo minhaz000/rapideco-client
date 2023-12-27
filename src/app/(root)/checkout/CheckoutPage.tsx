@@ -38,11 +38,13 @@ const CheckoutPage = () => {
     data.payment_info.method_name = payments?.data[tabIndex].method_name;
     data.payment_info.method_img_url =
       payments.data[tabIndex].method_img.img_url;
+    console.log(data.user_info.delivery);
     newOrder.mutate(data as any, {
       onSuccess: (res: any) => {
-        axios.delete(`/api/v0/cart/${Cart.data.data._id}`);
+        axios
+          .delete(`/api/v0/cart/${Cart.data.data._id}`)
+          .then(() => Cart.refetch());
         toast.success("Order placed successfully");
-        Cart.refetch();
         axios2.post("/api/sentmail", { order: res.data });
         reset();
         router.push("/order-success");
@@ -84,6 +86,10 @@ const CheckoutPage = () => {
         toast.error(error.message ? error.message : error?.data.message)
       );
   };
+
+  if (Cart?.data?.data?.items.length < 1) {
+    router.push("/shop");
+  }
 
   const validationError: any = newOrder.error?.data?.errors;
   return (

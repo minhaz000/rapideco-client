@@ -2,11 +2,12 @@
 const isDev = process.env.NODE_ENV === "development";
 const nextConfig = {
   images: {
-    domains: ["localhost:3000"],
+    loader: "custom",
+    loaderFile: "./src/utils/loader.ts",
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "https://imgbb.com/",
+        hostname: "https://imgbb.com",
       },
     ],
   },

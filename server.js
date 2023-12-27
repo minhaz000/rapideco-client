@@ -18,10 +18,8 @@ const storage = multer.diskStorage({
     const uniqueSuffix = Date.now();
     cb(
       null,
-      file.originalname.toLocaleLowerCase().split(" ").join("-").split(".")[0] +
-        "-" +
-        uniqueSuffix +
-        path.extname(file.originalname)
+      file.originalname.toLocaleLowerCase().split(" ").join("-").split(".")[0] + "-" + uniqueSuffix + ".webp"
+      // path.extname(file.originalname)
     );
   },
 });

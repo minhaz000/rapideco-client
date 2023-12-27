@@ -57,8 +57,6 @@ const AllOrders = () => {
     const formattedDate: string = new Intl.DateTimeFormat("en-US", options).format(dateObject);
     return formattedDate;
   }
-  console.log(query);
-  console.log(allOrders?.data);
   // const newPayment = useMutationData(["add new payament"], "post", "api/v0/payment");
   return (
     <div>

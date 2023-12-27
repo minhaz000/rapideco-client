@@ -7,7 +7,6 @@ const Upload = async (fileList: any, resType?: "arry" | "object") => {
   for (var i = 0; i < fileList.length; i++) {
     formData.append("image", fileList[i]);
   }
-  // console.log(formData);
   const res = await axios.post("/api/upload", formData);
   // IMAGE URL FORMATE
   res.data.data.map((item: any) => {

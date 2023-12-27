@@ -14,14 +14,13 @@ const Page = ({ params }: { params: { paymentID: string[] } }) => {
   const { data, refetch } = useQueryData(["single payment"], `/api/v0/payment/${params.paymentID}`);
   const newPayment = useMutationData(["add payment"], "put", `/api/v0/payment/${params.paymentID}`);
   const { watch, register, reset, handleSubmit, setValue } = useform<FormValues>();
-  // console.log("currrentCategory ", currrentCategory?.data);
+ 
   const handleImage = (e: any) => {
     setSelectedImage(e.target.files[0]);
     setValue("method_img", e.target.files);
   };
   // =============== FUNCTION FOR THE PRODUCT POST REQUEST
   const HandleEditCategory: SubmitHandler<FormValues> = async (data) => {
-    console.log("fdata", data);
     data.method_code = slugify(data.method_code, { lower: true });
     data.method_img.length > 0 && (data.method_img = await Upload(data.method_img));
 

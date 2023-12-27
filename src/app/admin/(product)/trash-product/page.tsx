@@ -43,7 +43,6 @@ const TrashProduct = () => {
         axios
           .delete(`/api/v0/product/${deleteID}?permanent=true`)
           .then(async (res) => {
-         
             // await deletePhoto.post("/api/delete", [res.data.data.imgURL, res.data.data.icon]);
             toast.success("category deleted");
             refetch();
@@ -75,7 +74,7 @@ const TrashProduct = () => {
       return { ...pre, [e.target.name]: e.target.value };
     });
   };
-  console.log(Products?.data);
+
   const trashProducts = Products?.data?.filter((p: any) => p.is_delete == true);
   return (
     <div>

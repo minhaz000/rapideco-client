@@ -8,11 +8,9 @@ import { toast } from "react-toastify";
 function ForgetPage() {
   const { register, handleSubmit } = useForm<FormValues>();
   const HandleForget: SubmitHandler<FormValues> = (data) => {
-    console.log(data);
     axios
       .post("/auth/v0/forget-password", data)
       .then((res) => {
-        console.log(res);
         toast.success(res.data?.data);
       })
       .catch((error: any) =>

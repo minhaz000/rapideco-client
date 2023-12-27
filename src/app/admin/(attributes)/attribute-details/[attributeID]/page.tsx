@@ -27,14 +27,12 @@ const Page = ({ params }: { params: { attributeID: string[] } }) => {
   const HandleUpdateAtrribute: SubmitHandler<FormValues> = async (
     data: any
   ) => {
-    console.log(data);
+   
     const url =
       oldAttribute?.data.label !== data.label
         ? `/api/v0/attribute/${params.attributeID}`
         : `/api/v0/attribute/${params.attributeID}?add=true`;
     const postData = oldAttribute?.data.label !== data.label ? data : data.key;
-    console.log(url);
-    console.log(postData);
     axios.put(url, postData).then(() => {
       toast.success("category updated");
       reset();

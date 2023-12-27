@@ -51,7 +51,6 @@ const ProductDetails = () => {
   };
 
   const handleAttributes = (e: any) => {
-    console.log(attributes);
     e.preventDefault();
     setAttributes((pre) => {
       return { ...pre, [e.target.name]: e.target.value };

@@ -78,7 +78,6 @@ const OrderDetails = ({ params }: { params: { orderID: string } }) => {
       options
     );
     // const res = await axios.post("/api/v0/invoice", { template });
-    // console.log(res.data);
     const pdfBuffer = await response.arrayBuffer();
     const pdfBlob = new Blob([pdfBuffer], { type: "application/pdf" });
     const pdfUrl = URL.createObjectURL(pdfBlob);

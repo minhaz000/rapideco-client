@@ -40,8 +40,6 @@ const Payment = () => {
       onError: (error: any) =>
         toast.error(error.message ? error.message : error?.data.message),
     });
-
-    console.log(data);
   };
 
   const handleImage = (e: any) => {

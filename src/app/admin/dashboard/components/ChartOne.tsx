@@ -36,7 +36,6 @@ export const options = {
 };
 
 const ChartOne = ({ chartData }: { chartData: any }) => {
-  console.log(chartData);
   const labels = Object?.keys(chartData)?.reverse();
   const data = {
     labels,

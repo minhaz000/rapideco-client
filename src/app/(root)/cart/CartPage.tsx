@@ -42,7 +42,7 @@ const CartPage = () => {
         toast.error(error.message ? error.message : error?.data.message)
       );
   };
-  // console.log(Cart.data.data.items);
+
   return (
     <>
       {Cart?.data?.data?.items?.length > 0 ? (

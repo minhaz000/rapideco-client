@@ -44,7 +44,6 @@ const AllProduct = () => {
         axios
           .delete(`/api/v0/product/${productID}`)
           .then((res) => {
-            console.log(res.data);
             toast.success("product moved to Trash");
             refetch();
           })

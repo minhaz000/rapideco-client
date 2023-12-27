@@ -5,15 +5,10 @@ import ChartOne from "./components/ChartOne";
 import ChartTwo from "./components/ChartTwo";
 import { Suspense } from "react";
 import getDashboardData from "@/lib/getDashboardData";
-// import { Metadata } from "next";
-
-// export const metadata: Metadata = {
-//   title: "Dashboard",
-// };
 
 const page = () => {
   const { dashboard } = getDashboardData();
-  console.log(dashboard?.data);
+
   return (
     <>
       <Suspense fallback={<h2>Loading dashboard</h2>}>

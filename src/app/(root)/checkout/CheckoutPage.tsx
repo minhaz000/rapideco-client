@@ -38,7 +38,6 @@ const CheckoutPage = () => {
     data.payment_info.method_name = payments?.data[tabIndex].method_name;
     data.payment_info.method_img_url =
       payments.data[tabIndex].method_img.img_url;
-    console.log(data.user_info.delivery);
     newOrder.mutate(data as any, {
       onSuccess: (res: any) => {
         axios.delete(`/api/v0/cart/${Cart.data.data._id}`);

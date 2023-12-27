@@ -10,8 +10,6 @@ apiRoute.post((req: any, res: any) => {
       console.log("file deleted");
     });
   }
-  console.log(path);
-
   res.status(201).json({ data: "deleted file " });
 });
 export default apiRoute.handler({

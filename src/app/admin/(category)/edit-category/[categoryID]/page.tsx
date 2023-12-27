@@ -26,7 +26,6 @@ const Page = ({ params }: { params: { categoryID: string[] } }) => {
   );
   const { watch, register, reset, handleSubmit, setValue } =
     useform<FormValues>();
-  // console.log("currrentCategory ", currrentCategory?.data);
   const handleImage = (e: any) => {
     setSelectedImage({ ...selectedImage, [e.target.name]: e.target.files[0] });
     setValue(e.target.name, e.target.files);
@@ -41,10 +40,6 @@ const Page = ({ params }: { params: { categoryID: string[] } }) => {
       : delete fdata.imgURL;
     fdata.parentID === "null" && delete fdata.parentID;
     fdata.slug = slugify(fdata.name, { lower: true });
-
-    console.log("fdata", fdata);
-    // console.log("heko", newdata);
-
     updateCategory.mutate(fdata, {
       onSuccess: async () => {
         toast.success("category updated");
@@ -119,7 +114,6 @@ const Page = ({ params }: { params: { categoryID: string[] } }) => {
             {Categories.data?.data?.map((item: any) => {
               return (
                 <>
-                 
                   <option key={item._id} value={item._id}>
                     {item.name}
                   </option>
@@ -160,7 +154,6 @@ const Page = ({ params }: { params: { categoryID: string[] } }) => {
             name="imgURL"
             className="w-full file-input file-input-bordered file-input-xs  outline-none mt-2 "
           />
-          {/* <input {...register("imgURL")} type="file" className="w-full border py-2 px-3 outline-none mt-2" /> */}
           <div className="my-3">
             <Image
               src={

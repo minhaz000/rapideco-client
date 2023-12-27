@@ -19,7 +19,7 @@ const Header = () => {
         <ul className="flex justify-center gap-5 max-w-screen-xl mx-auto py-[10px] lg:px-12 text-white text-[14px]">
           {settingsData?.header?.nav_menu?.map((item: any, index: number) => (
             <li key={index}>
-              <Link className="text-[17px]" href={item?.value}>
+              <Link className="text-[17px] font-semibold" href={item?.value}>
                 {item?.lavel}
               </Link>
             </li>
@@ -64,7 +64,7 @@ const Header = () => {
         {settingsData?.header?.nav_menu?.map((item: any, index: number) => (
           <li key={index}>
             <Link
-              className="text-[17px]"
+              className="text-[17px] font-semibold"
               href={item?.value}
               onClick={() => setCollapseMenu(false)}
             >

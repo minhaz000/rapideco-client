@@ -8,7 +8,10 @@ function Context(props: any) {
     props.url || "/api/v0/categories?is_delete=false&parent_info._id=null"
   );
   const Brands = useQueryData(["all brands "], props.url || "api/v0/brands");
-  const Atrribute = useQueryData(["all atrributes "], props.url || "/api/v0/attributes");
+  const Atrribute = useQueryData(
+    ["all atrributes "],
+    props.url || "/api/v0/attributes"
+  );
 
   const [settingsData, setSettingsData] = useState({});
   useEffect(() => {
@@ -21,7 +24,6 @@ function Context(props: any) {
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
-        console.log(data);
         setSettingsData(data);
       } catch (error) {
         console.error("Fetch error:", error);
@@ -31,7 +33,12 @@ function Context(props: any) {
     fetchData();
   }, []);
   const value: any = { Categories, Brands, Atrribute, settingsData };
-  return <AdminContext.Provider value={value}> {props.children}</AdminContext.Provider>;
+  return (
+    <AdminContext.Provider value={value}>
+      {" "}
+      {props.children}
+    </AdminContext.Provider>
+  );
 }
 
 export default Context;

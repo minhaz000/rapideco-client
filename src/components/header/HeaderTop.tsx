@@ -20,12 +20,8 @@ const HeaderTop = () => {
           <Image
             src={settingsData?.header?.logo?.img_url}
             width={130}
-            height={80}
+            height={50}
             alt="Logo Image"
-            style={{
-              width: "100%",
-              height: "auto",
-            }}
             className="object-cover"
           />
         </Link>

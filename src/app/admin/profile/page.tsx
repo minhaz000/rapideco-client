@@ -6,10 +6,7 @@ const Profile = () => {
   const { register, handleSubmit } = useForm();
   // =============== FUNCTION FOR THE PRODUCT POST REQUEST
   const handleUpdate = (data: any) => {
-    console.log(data);
-    axios.post("auth/v0/manage", data).then((res) => {
-      console.log(res);
-    });
+    axios.post("auth/v0/manage", data).then((res) => {});
   };
   return (
     <section className="border shadow md:w-3/5 mx-auto rounded mt-4 px-4 py-2">

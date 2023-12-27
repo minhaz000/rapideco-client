@@ -12,8 +12,10 @@ import { useQueryData } from "@/hooks/hook.query";
 import { useAdminContext } from "@/context/admin.context";
 const Trash = () => {
   const { Categories: AllCatergory }: any = useAdminContext();
-  const { data: Categories, refetch } = useQueryData(["get deleted category"], "/api/v0/categories?is_delete=true");
-  console.log(Categories);
+  const { data: Categories, refetch } = useQueryData(
+    ["get deleted category"],
+    "/api/v0/categories?is_delete=true"
+  );
   const handleDelete = (deleteID: string) => {
     Swal.fire({
       title: "Are you sure?",
@@ -29,12 +31,16 @@ const Trash = () => {
         axios
           .delete(`/api/v0/category/${deleteID}?permanent=true`)
           .then(async (res) => {
-            console.log(res.data);
-            await deletePhoto.post("/api/delete", [res.data.data.imgURL, res.data.data.icon]);
+            await deletePhoto.post("/api/delete", [
+              res.data.data.imgURL,
+              res.data.data.icon,
+            ]);
             toast.success("category deleted");
             refetch();
           })
-          .catch((error: any) => toast.error(error.message ? error.message : error?.data.message));
+          .catch((error: any) =>
+            toast.error(error.message ? error.message : error?.data.message)
+          );
       }
     });
   };
@@ -47,7 +53,9 @@ const Trash = () => {
         refetch();
         AllCatergory.refetch();
       })
-      .catch((error: any) => toast.error(error.message ? error.message : error?.data.message));
+      .catch((error: any) =>
+        toast.error(error.message ? error.message : error?.data.message)
+      );
   };
 
   return (
@@ -73,7 +81,11 @@ const Trash = () => {
                 className="border outline-none text-sm py-2 px-3 w-40"
               />
             </div>
-            <select name="" id="" className="border py-2 px-3 outline-none w-40 text-xs text-slate-500">
+            <select
+              name=""
+              id=""
+              className="border py-2 px-3 outline-none w-40 text-xs text-slate-500"
+            >
               <option value="">Sort By</option>
             </select>
           </div>
@@ -84,7 +96,9 @@ const Trash = () => {
               <tr className="border text-xs font-normal ">
                 <th className="py-3 text-slate-500 ps-4 text-start">#</th>
                 <th className="py-3 text-slate-500 text-start">Name</th>
-                <th className="py-3 text-slate-500 text-start">Parent Category</th>
+                <th className="py-3 text-slate-500 text-start">
+                  Parent Category
+                </th>
                 <th className="py-3 text-slate-500 text-start">products</th>
                 {/* <th className="py-3 text-slate-500 text-start">Level</th> */}
                 <th className="py-3 text-slate-500 text-start">Icon</th>
@@ -105,20 +119,34 @@ const Trash = () => {
                       <td>0</td>
                       <td>
                         {item.icon?.img_url ? (
-                          <Image src={item.icon?.img_url} width={50} height={50} alt={item.name}></Image>
+                          <Image
+                            src={item.icon?.img_url}
+                            width={50}
+                            height={50}
+                            alt={item.name}
+                          ></Image>
                         ) : (
                           "-- _ --"
                         )}
                       </td>
                       <td>
                         {item.imgURL?.img_url ? (
-                          <Image src={item.imgURL?.img_url} width={50} height={50} alt={item.name}></Image>
+                          <Image
+                            src={item.imgURL?.img_url}
+                            width={50}
+                            height={50}
+                            alt={item.name}
+                          ></Image>
                         ) : (
                           "-- _ --"
                         )}
                       </td>
                       <td>
-                        <input type="checkbox" className="toggle toggle-success" checked />
+                        <input
+                          type="checkbox"
+                          className="toggle toggle-success"
+                          checked
+                        />
                       </td>
                       <td>
                         <div className="flex gap-2 items-center">

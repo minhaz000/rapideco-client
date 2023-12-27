@@ -36,7 +36,7 @@ const Footer = () => {
                 height={140}
               />
             </Link>
-            <p className="text-slate-100 text-sm mt-2">
+            <p className="text-slate-100 text-[16px] mt-2 leading-[30px]">
               {settingsData?.footer?.description}
             </p>
             <div className="flex gap-4 mt-3 text-slate-100">
@@ -55,18 +55,22 @@ const Footer = () => {
             </div>
           </div>
           <div className="pt-4 lg:ps-10">
-            <h3 className="text-white text-xl mb-4">গুরুত্বপূর্ণ লিংক</h3>
+            <h3 className="text-white text-xl mb-6 font-semibold">
+              গুরুত্বপূর্ণ লিংক
+            </h3>
             <ul className="flex flex-col gap-3 text-sm text-slate-100">
               {settingsData?.footer?.links?.map((link: any, index: any) => (
                 <li key={index}>
-                  <Link href={link.value}>{link.lavel}</Link>
+                  <Link className="text-[16px]" href={link.value}>
+                    {link.lavel}
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
           <div className="pt-4 lg:pe-5">
-            <h3 className="text-white text-xl mb-4">ঠিকানা</h3>
-            <div className="flex flex-col gap-3 text-sm text-slate-100">
+            <h3 className="text-white text-xl mb-6 font-semibold">ঠিকানা</h3>
+            <div className="flex flex-col gap-3 text-[16px] text-slate-100">
               <p>ঠিকানাঃ {settingsData?.footer?.contact_info?.address}।</p>
               <p>মোবাইলঃ {settingsData?.footer?.contact_info?.phone} ।</p>
               <p> ইমেইলঃ {settingsData?.footer?.contact_info?.email} ।</p>

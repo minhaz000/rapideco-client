@@ -12,7 +12,7 @@ const ShopProductCard = ({ product }: { product: product }) => {
     }
     const priceDifference = regularPrice - discountPrice;
     const discountPercentage = (priceDifference / regularPrice) * 100;
-    console.log(Math.round(discountPercentage));
+ 
     return Math.round(discountPercentage);
   }
   return (

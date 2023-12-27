@@ -88,7 +88,6 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
   if (isLoading) {
     return <Loading />;
   }
-  // console.log(manageAtt);
   return (
     <div className="pb-4">
       <h2 className="text-2xl">Edit Product</h2>

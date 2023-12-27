@@ -9,10 +9,10 @@ const LoginForm = () => {
   const { register, handleSubmit } = useform<FormValues>();
   // =============== FUNCTION FOR THE PRODUCT POST REQUEST
   const HandleLogin: SubmitHandler<FormValues> = (data) => {
-    console.log(data);
+   
     axios.post("auth/v0/login", data).then((res) => {
       router.push("/admin/dashboard");
-      console.log(res);
+   
     });
   };
   return (

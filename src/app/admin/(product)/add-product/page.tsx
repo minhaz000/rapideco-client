@@ -32,7 +32,6 @@ const AddProduct = () => {
   };
   const handleGalleyImage = (event: any) => {
     const selectedFiles: any = [...event.target.files, ...selectedGalleryImage];
-    console.log(Array.from(selectedFiles));
     setSelectedGalleryImage(selectedFiles);
     event.target.value = "";
   };
@@ -91,7 +90,6 @@ const AddProduct = () => {
   //   // to retrieve your editors content from somewhere
   //   editor?.commands?.setContent(` `);
   // }, [editor]);
-  // console.log(description);
   const validationError: any = newProduct.error?.data?.errors;
 
   return (

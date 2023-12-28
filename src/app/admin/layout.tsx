@@ -6,7 +6,11 @@ import AdminContext from "@/context/admin.context";
 import UserProfileMenu from "@/components/DashboardHeader/UserProfileMenu";
 import { useQueryData } from "@/hooks/hook.query";
 import { useRouter } from "next/navigation";
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
+export default function AdminLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const router = useRouter();
   const [mobileMenu, setMobileMenu] = useState(false);
   // const { data: user, isSuccess, isError } = useQueryData(["get user"], "/auth/v0/profile");
@@ -44,8 +48,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </button>
         <Sidebar />
       </div>
-      <div className="xl:ps-[300px]">
-        <div className="flex justify-between items-center border-b border-[#E9ECEF] py-4 px-3 xl:px-8 text-end">
+      <div className="xl:ps-[300px] h-[100vh] overflow-y-auto bg-white relative">
+        <div className="flex justify-between items-center border-b border-[#E9ECEF] py-4 px-3 xl:px-8 text-end sticky top-0 bg-white z-10">
           <div>
             <button className="block xl:hidden" onClick={handleMobileMenuShow}>
               <FaBars className="text-2xl" />
@@ -53,7 +57,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           </div>
           <UserProfileMenu />
         </div>
-        <div className="px-3 xl:px-8 mt-8">{children}</div>
+        <div className="px-3 xl:px-8 mt-8 ">{children}</div>
       </div>
     </AdminContext>
   );

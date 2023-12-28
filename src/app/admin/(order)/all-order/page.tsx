@@ -59,7 +59,7 @@ const AllOrders = () => {
   }
   // const newPayment = useMutationData(["add new payament"], "post", "api/v0/payment");
   return (
-    <div>
+    <div className="mb-8">
       <div className="shadow-[0_0_8px_3px_#d7d7d7bf] pb-3">
         <div className="lg:flex justify-between items-center border-b pb-3 px-4 pt-4 mb-4">
           <h2 className="text-xl">All Orders</h2>
@@ -96,7 +96,7 @@ const AllOrders = () => {
               />
             </div>
             <div>
-              <button className="text-sm py-2 px-5 text-white bg-green-500">Filter</button>
+              <button className="text-sm py-2 px-5 text-white bg-blue-500">Filter</button>
             </div>
           </div>
         </div>

@@ -44,8 +44,8 @@ const AllCategory = () => {
         Categories.refetch();
         toast.success(
           !e.target.checked
-            ? "add to featured category"
-            : "removed from featured "
+            ? "Add to featured category"
+            : "Removed from featured "
         );
       })
       .catch((error: any) =>
@@ -53,12 +53,12 @@ const AllCategory = () => {
       );
   };
   return (
-    <div>
+    <div className="mb-8">
       <div className="flex justify-between items-center">
-        <h2 className="text-lg">All Categories</h2>
+        <h2 className="text-lg font-semibold">All Categories</h2>
         <Link
           href={"/admin/add-category"}
-          className="bg-sky-800 px-4 py-2 rounded text-white capitalize"
+          className="bg-blue-500 px-4 py-2 rounded text-white capitalize"
         >
           Add new Categories
         </Link>
@@ -69,7 +69,7 @@ const AllCategory = () => {
             <h2 className="text-xl">Categories</h2>
             <div>
               <span className="text-[12px] underline text-slate-500 cursor-pointer">
-                <Link href={"/admin/trash-category"}>Trash(5)</Link>
+                <Link href={"/admin/trash-category"}>Trash({Categories?.details?.trash ? Categories?.details?.trash : 0})</Link>
               </span>
             </div>
           </div>
@@ -179,8 +179,6 @@ const AllCategory = () => {
                             <td>{sub_item?.name}</td>
                             <td>{sub_item?.parent_info?.name}</td>
                             <td>{"sub_item"}</td>
-                            {/* <td>0</td>
-                      <td>0</td> */}
                             <td>
                               <Image
                                 src={sub_item?.icon?.img_url}
@@ -201,7 +199,7 @@ const AllCategory = () => {
                               <input
                                 type="checkbox"
                                 className="toggle toggle-success"
-                                checked
+                                checked={item?.featured}
                               />
                             </td>
                             <td>

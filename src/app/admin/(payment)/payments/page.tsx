@@ -2,12 +2,10 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
-import Img1 from "@/assets/img.png";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { useForm as useform, SubmitHandler } from "react-hook-form";
 import FormValues from "@/interface/payment";
-import { useAdminContext } from "@/context/admin.context";
 import { useMutationData, useQueryData } from "@/hooks/hook.query";
 import axios from "@/hooks/hook.axios";
 import slugify from "slugify";
@@ -74,17 +72,12 @@ const Payment = () => {
 
   const validationError = newPayment.error?.data.errors;
   return (
-    <div>
-      <h2 className="text-xl">All Payment</h2>
+    <div className="mb-8">
+      <h2 className="text-xl font-semibold">All Payment</h2>
       <div className="lg:flex gap-6 mt-6">
         <div className="lg:basis-7/12 shadow-[0_0_10px_5px_#d7d7d7bf]">
           <div className="flex justify-between items-center border-b px-6 py-4">
             <h2>Payment Method</h2>
-            <input
-              type="text"
-              placeholder="Type name & enter"
-              className="border outline-none py-2 px-2"
-            />
           </div>
           <div className="overflow-x-auto mt-3 p-4">
             <table className="table  w-[630px] lg:w-full border">
@@ -140,7 +133,7 @@ const Payment = () => {
             </table>
           </div>
         </div>
-        <div className="mf:basis-5/12 shadow-[0_0_10px_3px_#d7d7d7bf] pb-6">
+        <div className="md:basis-5/12 shadow-[0_0_10px_3px_#d7d7d7bf] pb-6 mt-8 md:mt-0">
           <h2 className="border px-6 py-4 text-xl font-semibold">
             Add New Method
           </h2>
@@ -217,7 +210,7 @@ const Payment = () => {
               <input
                 type="submit"
                 value="Save"
-                className="bg-red-600 text-white px-6 py-2 mt-4 rounded-md cursor-pointer"
+                className="bg-blue-600 text-white px-6 py-2 mt-4 rounded-md cursor-pointer"
               />
             </form>
           </div>

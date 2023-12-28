@@ -72,7 +72,7 @@ const AllProduct = () => {
         <h2 className="text-lg">All Product</h2>
         <Link
           href={"/admin/add-product"}
-          className="bg-sky-800 text-[12px] md:text-lg px-2 md:px-4 py-2 rounded text-white capitalize"
+          className="bg-blue-500 text-[12px] md:text-lg px-2 md:px-4 py-2 rounded text-white capitalize"
         >
           Add new Product
         </Link>
@@ -80,7 +80,7 @@ const AllProduct = () => {
       <div className="border mt-6 mb-4 pb-3">
         <div className="lg:flex justify-between items-center border-b pb-3 px-4 pt-4 mb-4">
           <div className="lg:w-4/12">
-            <h2 className="text-xl">All Product</h2>
+            <h2 className="text-xl font-semibold">All Product</h2>
             <div>
               <span className="text-[12px] underline text-slate-500 cursor-pointer mr-2">
                 <Link href={"/admin/all-products"}>
@@ -94,57 +94,59 @@ const AllProduct = () => {
               </span>
             </div>
           </div>
-          <div className="grid lg:flex grid-cols-2 sm:grid-cols-3 gap-4 lg:w-8/12 mt-3 lg:mt-0 pe-3">
-            <select
-              onChange={HandleQuery}
-              name="brand"
-              className="border py-2 px-3 outline-none w-30 text-xs text-slate-500"
-            >
-              <option value="">Brands</option>
-              {Brands?.data?.data.map((item: any) => (
-                <option key={item._id} value={item._id}>
-                  {item.name}
-                </option>
-              ))}
-            </select>
-            <select
-              onChange={HandleQuery}
-              name="category"
-              className="border py-2 px-3 outline-none w-30 text-xs text-slate-500"
-            >
-              <option value="">Categories</option>
-              {Categories?.data?.data.map((item: any) => (
-                <option key={item._id} value={item._id}>
-                  {item.name}
-                </option>
-              ))}
-            </select>
-            <select
-              onChange={HandleQuery}
-              name="status"
-              className="border py-2 px-3 outline-none w-30 text-xs text-slate-500"
-            >
-              <option value="">Status</option>
-              <option value="active">active</option>
-              <option value="deactive">deactive</option>
-            </select>
-            <select
-              onChange={HandleQuery}
-              name="sort"
-              className="border py-2 px-3 outline-none w-30 text-xs text-slate-500"
-            >
-              <option value="">Sort By</option>
-              <option value="">oldest</option>
-              <option value="-createdAt">newest</option>
-            </select>
-            <div>
-              <input
+          <div className="lg:w-8/12 lg:flex justify-end">
+            <div className="grid lg:flex grid-cols-2 sm:grid-cols-3 gap-4  mt-3 lg:mt-0 pe-3">
+              <select
                 onChange={HandleQuery}
-                name="s"
-                type="text"
-                placeholder="Type & Enter"
-                className="border outline-none text-sm py-2 px-3 w-40"
-              />
+                name="brand"
+                className="border py-2 px-3 outline-none w-30 text-xs text-slate-500"
+              >
+                <option value="">Brands</option>
+                {Brands?.data?.data.map((item: any) => (
+                  <option key={item._id} value={item._id}>
+                    {item.name}
+                  </option>
+                ))}
+              </select>
+              <select
+                onChange={HandleQuery}
+                name="category"
+                className="border py-2 px-3 outline-none w-30 text-xs text-slate-500"
+              >
+                <option value="">Categories</option>
+                {Categories?.data?.data.map((item: any) => (
+                  <option key={item._id} value={item._id}>
+                    {item.name}
+                  </option>
+                ))}
+              </select>
+              <select
+                onChange={HandleQuery}
+                name="status"
+                className="border py-2 px-3 outline-none w-30 text-xs text-slate-500"
+              >
+                <option value="">Status</option>
+                <option value="active">active</option>
+                <option value="deactive">deactive</option>
+              </select>
+              <select
+                onChange={HandleQuery}
+                name="sort"
+                className="border py-2 px-3 outline-none w-30 text-xs text-slate-500"
+              >
+                <option value="">Sort By</option>
+                <option value="">oldest</option>
+                <option value="-createdAt">newest</option>
+              </select>
+              <div>
+                <input
+                  onChange={HandleQuery}
+                  name="s"
+                  type="text"
+                  placeholder="Type & Enter"
+                  className="border outline-none text-sm py-2 px-3 w-40"
+                />
+              </div>
             </div>
           </div>
         </div>

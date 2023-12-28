@@ -22,7 +22,7 @@ const HeaderTop = () => {
             width={130}
             height={50}
             alt="Logo Image"
-            className="object-cover"
+            className="object-cover w-[90%] sm:w-[130px]"
           />
         </Link>
       </div>

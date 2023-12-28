@@ -43,9 +43,9 @@ const HeaderSetting = ({ setting }: { setting: any }) => {
   };
   useEffect(() => {
     reset(setting.data);
-    setHeaderLogo(setting?.header?.logo?.img_url);
+    setHeaderLogo(setting?.data?.header?.logo?.img_url);
   }, [setting]);
-  console.log(setting?.header);
+  console.log(setting);
   return (
     <div>
       <form
@@ -54,18 +54,18 @@ const HeaderSetting = ({ setting }: { setting: any }) => {
       >
         <div className="md:flex gap-5">
           <div className="md:basis-1/2">
-            <label htmlFor="logo" className="block mb-3 text-sm">
-              Logo Upload
+            <label htmlFor="logo" className="block mb-3 text-lg font-semibold">
+              Logo Upload (130 * 50)
             </label>
             <input
               {...register("header.logo")}
               type="file"
               className="w-full py-1 px-1 rounded border"
             />
-            <Image src={headerLogo} width={100} height={100} alt="" />
+            <Image src={headerLogo} width={100} height={100} alt="Logo" />
           </div>
           <div className="md:basis-1/2">
-            <label htmlFor="logo" className="block mb-3 text-sm">
+            <label htmlFor="logo" className="block mb-3 text-lg font-semibold">
               FavIcon
             </label>
             <input
@@ -73,18 +73,28 @@ const HeaderSetting = ({ setting }: { setting: any }) => {
               type="file"
               className="w-full py-1 px-1 rounded border"
             />
+            <Image
+              src={setting?.data?.header?.favicon?.img_url}
+              width={40}
+              height={40}
+              alt="Favicon"
+            />
           </div>
         </div>
         <div className="md:flex gap-5 mt-3">
           <div className="md:basis-1/2">
-            <label className="block mb-2 text-sm">Phone Number</label>
+            <label className="block mb-2 text-lg font-semibold">
+              Phone Number
+            </label>
             <input
               {...register("header.phone_number")}
               className="w-full p-2 rounded border"
             />
           </div>
           <div className="md:basis-1/2">
-            <label className="block mb-2 text-sm">Meta Title</label>
+            <label className="block mb-2 text-lg font-semibold">
+              Meta Title
+            </label>
             <input
               {...register("header.meta_title")}
               className="w-full p-2 rounded border"
@@ -93,7 +103,7 @@ const HeaderSetting = ({ setting }: { setting: any }) => {
         </div>
         <div className="md:flex gap-5 mt-3">
           <div className="md:basis-1/2">
-            <label htmlFor="theme" className="block mb-2 text-sm">
+            <label htmlFor="theme" className="block mb-2 text-lg font-semibold">
               Header Color
             </label>
             <input
@@ -103,7 +113,7 @@ const HeaderSetting = ({ setting }: { setting: any }) => {
             />
           </div>
           <div className="md:basis-1/2">
-            <label htmlFor="theme" className="block mb-2 text-sm">
+            <label htmlFor="theme" className="block mb-2 text-lg font-semibold">
               Text Color
             </label>
             <input
@@ -115,7 +125,9 @@ const HeaderSetting = ({ setting }: { setting: any }) => {
         </div>
         <div className="md:flex gap-5 mt-3">
           <div className="md:basis-1/2">
-            <label className="block mb-2 text-sm">Theme Color</label>
+            <label className="block mb-2 text-lg font-semibold">
+              Theme Color
+            </label>
             <input
               {...register("header.themeColor")}
               type="color"
@@ -123,7 +135,9 @@ const HeaderSetting = ({ setting }: { setting: any }) => {
             />
           </div>
           <div className="md:basis-1/2">
-            <label className="block mb-3 text-sm">Meta description</label>
+            <label className="block mb-3 text-lg font-semibold">
+              Meta description
+            </label>
             <input
               {...register("header.meta_description")}
               type="text"
@@ -132,7 +146,7 @@ const HeaderSetting = ({ setting }: { setting: any }) => {
           </div>
         </div>
         <div className="mt-10 border-t pt-6 capitalize">
-          <h2 className="text-sm mb-2">Header nav menu</h2>
+          <h2 className="text-lg font-semibold mb-2">Header nav menu</h2>
 
           {fields.map((item, i: any) => (
             <div

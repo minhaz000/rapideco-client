@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import Img1 from "../../../../assets/img.png";
 import { FaRegClock, FaRegTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 import axios from "@/hooks/hook.axios";
@@ -57,19 +56,15 @@ const Trash = () => {
         toast.error(error.message ? error.message : error?.data.message)
       );
   };
-
   return (
-    <div>
-      <div className="flex justify-between items-center">
-        <h2 className="text-lg">All Trash Categories</h2>
-      </div>
+    <div className="mb-8">
       <div className="shadow-[0_0_10px_5px_#d7d7d7bf] mt-6">
         <div className="flex justify-between items-center border-b pb-3 px-4 pt-4 mb-4">
           <div>
-            <h2 className="text-xl">Trash Categories</h2>
+            <h2 className="text-xl font-semibold">Trash Categories</h2>
             <div>
               <span className="text-[12px] underline text-slate-500 cursor-pointer mr-2">
-                <Link href={"/admin/all-categories"}>All Categories(1)</Link>
+                <Link href={"/admin/all-categories"}>All Categories({Categories?.details?.active ? Categories?.details?.active : 0})</Link>
               </span>
             </div>
           </div>

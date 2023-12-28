@@ -35,8 +35,7 @@ const UserProfileMenu = () => {
             height={40}
           />
           <div className="text-left">
-            <h3 className="text-lg font-semibold leading-4">Isoftex</h3>
-            <span className="opacity-90 text-sm">Admin</span>
+            <h3 className="text-lg font-semibold leading-4">Rinku</h3>
           </div>
         </div>
         <div

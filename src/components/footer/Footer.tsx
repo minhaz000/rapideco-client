@@ -32,8 +32,8 @@ const Footer = () => {
                 src={settingsData?.footer?.logo?.img_url}
                 alt=""
                 className="w-24 md:w-32 lg:w-40"
-                width={160}
-                height={140}
+                width={140}
+                height={120}
               />
             </Link>
             <p className="text-slate-100 text-[16px] mt-2 leading-[30px]">

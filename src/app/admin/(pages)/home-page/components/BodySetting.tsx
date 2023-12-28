@@ -51,7 +51,7 @@ const BodySetting = ({ setting }: { setting: any }) => {
     <>
       <form onSubmit={handleSubmit(HandleEditBody)} className="border mt-5 py-6 px-4 lg:px-10">
         <div>
-          <label htmlFor="logo" className="block mb-3 text-sm">
+          <label htmlFor="logo" className="block mb-3 text-lg font-semibold">
             Banner Slider
           </label>
           <input

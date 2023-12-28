@@ -44,7 +44,7 @@ const Page = ({ params }: { params: { paymentID: string[] } }) => {
   const validationError: any = newPayment.error?.data?.errors;
 
   return (
-    <div className="shadow-lg p-6 w-2/3 mx-auto border rounded">
+    <div className="shadow-lg p-6 lg:w-2/3 mx-auto border rounded mb-5">
       <h2 className="border-b pb-2 text-xl">Update Category information</h2>
       <form onSubmit={handleSubmit(HandleEditCategory)}>
         <div>

@@ -5,7 +5,8 @@ import FormValues from "@/interface/settings";
 import { toast } from "react-toastify";
 import axios from "axios";
 const page = () => {
-  const { control, register, reset, handleSubmit, setValue, getValues } = useForm<FormValues>();
+  const { control, register, reset, handleSubmit, setValue, getValues } =
+    useForm<FormValues>();
   const { append, remove, fields } = useFieldArray({
     control,
     name: "shipping",
@@ -31,9 +32,12 @@ const page = () => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>
         <div className="mt-10 border-t pt-6 capitalize">
-          <h2 className="text-sm mb-2">Shipping Details</h2>
+          <h2 className="text-lg font-semibold mb-2">Shipping Details</h2>
           {fields.map((item, i: any) => (
-            <div className="flex flex-col sm:flex-row justify-between gap-3 sm:items-center mb-3" key={i}>
+            <div
+              className="flex flex-col sm:flex-row justify-between gap-3 sm:items-center mb-3"
+              key={i}
+            >
               <input
                 {...register(`shipping.${i}.zone`)}
                 type="text"
@@ -57,7 +61,10 @@ const page = () => {
               </button>
             </div>
           ))}
-          <button onClick={handlePageItem} className=" bg-gray-200 py-2 px-3 rounded text-[12px] mt-[7px]">
+          <button
+            onClick={handlePageItem}
+            className=" bg-gray-200 py-2 px-3 rounded text-[12px] mt-[7px]"
+          >
             Add New
           </button>
           <input

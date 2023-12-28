@@ -79,16 +79,15 @@ const Page = ({ params }: { params: { attributeID: string[] } }) => {
     reset(oldAttribute?.data);
   }, [oldAttribute]);
   return (
-    <div>
-      <h2 className="text-xl">All Details</h2>
+    <div className="mb-8">
+      <h2 className="text-xl font-semibold">All Details</h2>
       <div className="flex lg:flex-row flex-col-reverse gap-6 mt-6">
-        <div className="basis-7/12 shadow-[0_0_10px_5px_#d7d7d7bf]">
+        <div className="lg:basis-7/12 shadow-[0_0_10px_5px_#d7d7d7bf]">
           <div className="flex justify-between items-center border-b px-6 py-4">
-            <h2>Size</h2>
-            {/* <input type="text" placeholder="Type name & enter" className="border outline-none py-2 px-2" /> */}
+            <h2 className="font-semibold">Size</h2>
           </div>
           <div className="overflow-x-auto mt-3 p-4">
-            <table className="table  w-[700px] lg:w-full border">
+            <table className="table  w-[500px] sm:w-full border">
               <thead>
                 <tr className="border text-xs font-normal ">
                   <th className="py-3 text-slate-500 ps-4 text-start">#</th>
@@ -138,7 +137,7 @@ const Page = ({ params }: { params: { attributeID: string[] } }) => {
             </table>
           </div>
         </div>
-        <div className="basis-5/12 shadow-[0_0_10px_5px_#d7d7d7bf] pb-6">
+        <div className="lg:basis-5/12 shadow-[0_0_10px_5px_#d7d7d7bf] pb-6">
           <h2 className="border px-6 py-4 text-xl font-semibold">
             Add New Attribute Value
           </h2>

@@ -7,7 +7,7 @@ export const generateMetadata = async ({ searchParams: { _id } }: any) => {
     url: `/api/v0/product/${_id}`,
   });
   return {
-    title: singleData?.data?.data?.title,
+    title: singleData?.data?.data?.title || "XStore",
   };
 };
 const SingleProduct = async () => {

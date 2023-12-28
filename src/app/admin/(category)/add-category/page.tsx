@@ -176,7 +176,7 @@ const Page = () => {
         <input
           type="submit"
           value="Save"
-          className="bg-sky-800 px-8 mt-3 py-2 rounded text-white cursor-pointer"
+          className="bg-blue-500 px-8 mt-3 py-2 rounded text-white cursor-pointer"
         />
       </form>
     </div>

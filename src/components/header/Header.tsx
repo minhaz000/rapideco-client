@@ -44,18 +44,18 @@ const Header = () => {
           <Link href="/" className="inline-block">
             <Image
               src={settingsData?.header?.logo?.img_url}
-              width={90}
-              height={90}
+              width={50}
+              height={50}
               alt="Logo Image"
               style={{
-                width: "100%",
+                width: "30%",
                 height: "auto",
               }}
               className="object-cover"
             />
           </Link>
           <button
-            className="bg-white text-center text-black w-8 h-8 rounded-full font-bold text-lg"
+            className="bg-white text-center w-8 h-8 rounded-full font-bold text-lg me-7"
             onClick={() => setCollapseMenu(false)}
           >
             X

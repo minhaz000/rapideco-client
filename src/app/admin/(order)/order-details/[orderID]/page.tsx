@@ -59,7 +59,6 @@ const OrderDetails = ({ params }: { params: { orderID: string } }) => {
   useEffect(() => {
     reset(data?.data);
   }, [data]);
-
   const handleDownload = async (e) => {
     e.preventDefault();
     const logo =
@@ -87,10 +86,9 @@ const OrderDetails = ({ params }: { params: { orderID: string } }) => {
     document.body.appendChild(link);
     link.click();
   };
-
   return (
-    <div className="shadow-[0_0_10px_5px_#d7d7d7bf] py-4">
-      <h2 className="border-b pb-2 px-6">Order Details</h2>
+    <div className="shadow-[0_0_10px_5px_#d7d7d7bf] py-4 mb-8">
+      <h2 className="border-b pb-2 px-6 text-lg font-semibold">Order Details</h2>
       <form onSubmit={handleSubmit(HandleEditOrder)}>
         <div className="mt-6 px-6 lg:flex gap-4">
           <div className="lg:basis-1/2">
@@ -244,7 +242,7 @@ const OrderDetails = ({ params }: { params: { orderID: string } }) => {
           </div>
         </div>
         <input
-          className="bg-sky-800 px-8 mt-3 ml-5 py-2 rounded text-white cursor-pointer"
+          className="bg-blue-500 px-8 mt-3 ml-5 py-2 rounded text-white cursor-pointer capitalize"
           type="submit"
           value="update"
         />

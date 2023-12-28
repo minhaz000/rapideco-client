@@ -41,6 +41,7 @@ const ProductCard = ({ product }: { product: any }) => {
               className="h-[150px] md:h-[180px] w-full object-cover rounded"
               height={180}
               width={200}
+              loading="eager"
             />
           </div>
           <div className="py-3 px-2 text-center">
@@ -65,7 +66,7 @@ const ProductCard = ({ product }: { product: any }) => {
           </div>
         </Link>
         <div className="mt-auto">
-          <AddToCartButton productID={product._id} />
+          <AddToCartButton productID={product._id} product={product} />
         </div>
       </div>
     </div>

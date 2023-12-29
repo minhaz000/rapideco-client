@@ -21,11 +21,11 @@ const AllProduct = () => {
   const [pagination, setPagination] = useState({ page: 1, limit: 10 });
   const { data: Products, refetch } = useQueryData(
     ["get all product", pagination, query],
-    `/api/v0/products?page=${pagination.page}&limit=${pagination.limit}&s=${
-      query.s
-    }&sort=${query.sort}&category_info._id=${query.category}${
-      query.status && `&status=${query.status}`
-    }${query.brand && `&brand_info._id=${query.brand}`}`
+    `/api/v0/products?is_delete=false&page=${pagination.page}&limit=${pagination.limit}&s=${query.s}&sort=${
+      query.sort
+    }&category_info._id=${query.category}${query.status && `&status=${query.status}`}${
+      query.brand && `&brand_info._id=${query.brand}`
+    }`
   );
 
   const handleDeleteProduct = (productID: string) => {
@@ -47,9 +47,7 @@ const AllProduct = () => {
             toast.success("product moved to Trash");
             refetch();
           })
-          .catch((error: any) =>
-            toast.error(error.message ? error.message : error?.data.message)
-          );
+          .catch((error: any) => toast.error(error.message ? error.message : error?.data.message));
       }
     });
   };
@@ -63,9 +61,7 @@ const AllProduct = () => {
     const Debouncing = setTimeout(() => refetch, 1500);
     return () => clearTimeout(Debouncing);
   }, [pagination, query]);
-  const activeProducts = Products?.data?.filter(
-    (p: any) => p.is_delete == false
-  );
+  console.log(Products);
   return (
     <div>
       <div className="flex justify-between items-center">
@@ -83,14 +79,10 @@ const AllProduct = () => {
             <h2 className="text-xl font-semibold">All Product</h2>
             <div>
               <span className="text-[12px] underline text-slate-500 cursor-pointer mr-2">
-                <Link href={"/admin/all-products"}>
-                  All Products({Products?.details?.active})
-                </Link>
+                <Link href={"/admin/all-products"}>All Products({Products?.details?.active})</Link>
               </span>
               <span className="text-[12px] underline text-slate-500 cursor-pointer">
-                <Link href={"/admin/trash-product"}>
-                  Trash({Products?.details?.trash})
-                </Link>
+                <Link href={"/admin/trash-product"}>Trash({Products?.details?.trash})</Link>
               </span>
             </div>
           </div>
@@ -157,12 +149,8 @@ const AllProduct = () => {
                 <th className="py-3 text-slate-500 ps-4 text-start">SL</th>
                 <th className="py-3 text-slate-500 text-start">Image</th>
                 <th className="py-3 text-slate-500 text-start">Title</th>
-                <th className="py-3 text-slate-500 text-start">
-                  Regular price
-                </th>
-                <th className="py-3 text-slate-500 text-start">
-                  Discount price
-                </th>
+                <th className="py-3 text-slate-500 text-start">Regular price</th>
+                <th className="py-3 text-slate-500 text-start">Discount price</th>
                 <th className="py-3 text-slate-500 text-start">Stock</th>
                 <th className="py-3 text-slate-500 text-start">Brand</th>
                 <th className="py-3 text-slate-500 text-start">Status</th>
@@ -170,21 +158,13 @@ const AllProduct = () => {
               </tr>
             </thead>
             <tbody className="border pt-2">
-              {activeProducts?.map((item: any, i: number) => {
+              {Products?.data?.map((item: any, i: number) => {
                 return (
-                  <tr
-                    key={i}
-                    className="text-xs font-normal text-start border-b"
-                  >
+                  <tr key={i} className="text-xs font-normal text-start border-b">
                     <td className="py-5 ps-4">{i + 1}</td>
                     <td>
                       {item.product_image?.img_url ? (
-                        <Image
-                          src={item.product_image?.img_url}
-                          width={50}
-                          height={50}
-                          alt=""
-                        ></Image>
+                        <Image src={item.product_image?.img_url} width={50} height={50} alt=""></Image>
                       ) : (
                         "__-__"
                       )}
@@ -193,18 +173,12 @@ const AllProduct = () => {
                     <td>{item?.regular_price}</td>
                     <td>{item.discount_price ? item.discount_price : "-"}</td>
                     <td>{item?.quantity}</td>
-                    <td>
-                      {item.brand_info?.name ? item.brand_info.name : "-"}
-                    </td>
+                    <td>{item.brand_info?.name ? item.brand_info.name : "-"}</td>
                     <td>
                       {item.status === "active" ? (
-                        <span className="bg-green-500 bg-opacity-70 text-white text-sm p-1 rounded">
-                          Active
-                        </span>
+                        <span className="bg-green-500 bg-opacity-70 text-white text-sm p-1 rounded">Active</span>
                       ) : (
-                        <span className="bg-red-500 bg-opacity-70 text-white text-sm p-1 rounded">
-                          Deactive
-                        </span>
+                        <span className="bg-red-500 bg-opacity-70 text-white text-sm p-1 rounded">Deactive</span>
                       )}
                     </td>
                     <td>
@@ -235,10 +209,7 @@ const AllProduct = () => {
         </div>
         {Products?.data && (
           <div className="me-6 pb-4">
-            <Pagination
-              pagination={Products.pagination}
-              setPagination={setPagination}
-            />
+            <Pagination pagination={Products.pagination} setPagination={setPagination} />
           </div>
         )}
       </div>

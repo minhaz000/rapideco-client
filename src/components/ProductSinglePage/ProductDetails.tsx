@@ -72,10 +72,11 @@ const ProductDetails = () => {
       <div className="lg:basis-1/2">
         <Image
           src={imageUrl}
-          className="w-full h-[300px] md:h-[400px] object-contain rounded cursor-pointer"
+          className="w-full h-[300px] md:h-[400px] object-cover rounded cursor-pointer"
           alt=""
           width={582}
           height={400}
+          sizes="100%"
         />
         <div className="grid grid-cols-6 gap-3 mt-2">
           {[
@@ -102,12 +103,20 @@ const ProductDetails = () => {
         <div className="mt-2">
           <p>
             <b className="text-lg me-2"> Price:</b>
-            <span className="text-green-600 font-medium text-lg me-2">
-              Tk {product?.data?.discount_price}
-            </span>
-            <span className="line-through text-gray-500 ">
-              Tk {product?.data?.regular_price}
-            </span>
+            {product?.data?.discount_price ? (
+              <>
+                <span className="text-green-600 font-medium text-lg me-2">
+                  Tk {product?.data?.discount_price}
+                </span>
+                <span className="line-through text-gray-500 ">
+                  Tk {product?.data?.regular_price}
+                </span>
+              </>
+            ) : (
+              <span className="text-green-600 font-medium text-lg me-2">
+                Tk {product?.data?.regular_price}
+              </span>
+            )}
           </p>
         </div>
         {product?.data?.variants?.map((variant: any) => {

@@ -52,17 +52,28 @@ const ProductCard = ({ product }: { product: any }) => {
                   : product.title}
               </h2>
             </div>
-            <div className="flex justify-center gap-3 mt-1">
-              <p
-                className="font-semibold text-sm"
-                style={{ color: `${settingsData?.header?.themeColor}` }}
-              >
-                Tk{product.discount_price}
-              </p>
-              <p className="line-through text-gray-400 text-sm font-semibold">
-                Tk{product.regular_price}
-              </p>
-            </div>
+            {product.discount_price ? (
+              <div className="flex justify-center gap-3 mt-1">
+                <p
+                  className="font-semibold text-sm"
+                  style={{ color: `${settingsData?.header?.themeColor}` }}
+                >
+                  Tk{product.discount_price}
+                </p>
+                <p className="line-through text-gray-400 text-sm font-semibold">
+                  Tk{product.regular_price}
+                </p>
+              </div>
+            ) : (
+              <div className="flex justify-center gap-3 mt-1">
+                <p
+                  className="font-semibold text-sm"
+                  style={{ color: `${settingsData?.header?.themeColor}` }}
+                >
+                  Tk{product.regular_price}
+                </p>
+              </div>
+            )}
           </div>
         </Link>
         <div className="mt-auto">

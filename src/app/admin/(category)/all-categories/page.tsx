@@ -1,5 +1,4 @@
 "use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -8,7 +7,6 @@ import Swal from "sweetalert2";
 import { useAdminContext } from "@/context/admin.context";
 import { toast } from "react-toastify";
 import axios from "@/hooks/hook.axios";
-
 const AllCategory = () => {
   const { Categories }: any = useAdminContext();
   const handleDelete = (deleteId: string) => {
@@ -67,11 +65,6 @@ const AllCategory = () => {
         <div className="md:flex justify-between items-center border-b pb-3 px-4 pt-4 mb-4">
           <div>
             <h2 className="text-xl">Categories</h2>
-            <div>
-              <span className="text-[12px] underline text-slate-500 cursor-pointer">
-                <Link href={"/admin/trash-category"}>Trash({Categories?.details?.trash ? Categories?.details?.trash : 0})</Link>
-              </span>
-            </div>
           </div>
           <div className="flex gap-4 mt-3 md:mt-0">
             <div>

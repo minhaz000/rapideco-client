@@ -94,6 +94,7 @@ const FooterSetting = ({ setting }: { setting: any }) => {
                   type="text"
                   className="border py-1 px-2 w-full outline-none"
                   placeholder="www.facebook.com"
+                  {...register("footer.social_links")}
                 />
               </div>
               <div className="flex items-center mt-3">

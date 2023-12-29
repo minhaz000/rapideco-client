@@ -76,7 +76,6 @@ const ProductDetails = () => {
           alt=""
           width={582}
           height={400}
-          
         />
         <div className="grid grid-cols-6 gap-3 mt-2">
           {[
@@ -190,6 +189,7 @@ const ProductDetails = () => {
         <div className="flex gap-2 mt-5">
           <AddToCartButton
             product={product?.data}
+            productID={product.id}
             Q={quantity}
             A={{ variants: attributes }}
           />

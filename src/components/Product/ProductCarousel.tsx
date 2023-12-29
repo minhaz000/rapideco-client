@@ -8,10 +8,12 @@ import getProducts from "@/lib/getProducts";
 import ProductSkeleton from "./ProductSkeleton";
 
 const ProductCarousel = ({ categoryValue }: any) => {
+  console.log(categoryValue);
   const { products, isLoading } = getProducts(categoryValue);
   const categoryProduct = products?.data?.filter(
     (pd: any) => pd?.category_info._id === categoryValue
   );
+  console.log(products);
   return (
     <div className="mt-4">
       {isLoading ? (

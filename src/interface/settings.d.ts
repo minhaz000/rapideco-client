@@ -24,6 +24,7 @@ interface ISettings {
       email: string;
     };
     links: any;
+    social_links: any;
     copyright: string;
   };
   shipping: any;

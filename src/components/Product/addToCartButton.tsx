@@ -13,7 +13,7 @@ function AddToCartButton({
   A,
 }: {
   product: any;
-  productID: any;
+  productID: string;
   Q?: any;
   A?: any;
 }) {
@@ -22,7 +22,7 @@ function AddToCartButton({
 
   const handleOrderNow = (ID: string) => {
     try {
-      if (product?.variants.length > 1 && Object.keys(A.variants).length < 1) {
+      if (product?.variants.length > 0 && Object.keys(A.variants).length < 0) {
         throw new Error("variants is not selected");
       }
       const url =

@@ -70,8 +70,7 @@ const TrashProduct = () => {
       return { ...pre, [e.target.name]: e.target.value };
     });
   };
-  console.log(Products);
-  const trashProducts = Products?.data?.filter((p: any) => p.is_delete == true);
+
   return (
     <div>
       <div className="shadow-[0_0_10px_5px_#d7d7d7bf] mt-6">
@@ -173,13 +172,7 @@ const TrashProduct = () => {
                       {item.status === "active" ? (
                         <span className="bg-green-500 bg-opacity-70 text-white text-sm p-1 rounded">Active</span>
                       ) : (
-<<<<<<< HEAD
-                        <span className="bg-red-500 bg-opacity-70 text-white text-sm p-1 rounded">Deactive</span>
-=======
-                        <span className="bg-red-500 bg-opacity-70 text-white text-sm p-1 rounded">
-                          Deactivate
-                        </span>
->>>>>>> 79e06b293e9be9131f07a059b53aafd04be62c91
+                        <span className="bg-red-500 bg-opacity-70 text-white text-sm p-1 rounded">Deactivate</span>
                       )}
                     </td>
                     <td>

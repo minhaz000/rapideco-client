@@ -44,7 +44,7 @@ const TrashProduct = () => {
           .delete(`/api/v0/product/${deleteID}?permanent=true`)
           .then(async (res) => {
             // await deletePhoto.post("/api/delete", [res.data.data.imgURL, res.data.data.icon]);
-            toast.success("category deleted");
+            toast.success("Product deleted");
             refetch();
           })
           .catch((error: any) =>
@@ -196,7 +196,7 @@ const TrashProduct = () => {
                         </span>
                       ) : (
                         <span className="bg-red-500 bg-opacity-70 text-white text-sm p-1 rounded">
-                          Deactive
+                          Deactivate
                         </span>
                       )}
                     </td>

@@ -6,19 +6,10 @@ import "swiper/css/navigation";
 import ProductCard from "./ProductCard";
 import getProducts from "@/lib/getProducts";
 import ProductSkeleton from "./ProductSkeleton";
-import { useEffect, useState } from "react";
 
 const ProductCarousel = ({ categoryValue }: any) => {
   // console.log(categoryValue);
-  const [categoryId, setCategoryId] = useState(categoryValue);
-  const { products, isLoading } = getProducts(categoryId);
-  // const categoryProduct = products?.data?.filter(
-  //   (pd: any) => pd?.category_info._id === categoryValue
-  // );
-  useEffect(() => {
-    // console.log("ami change", categoryValue);
-    setCategoryId(categoryValue);
-  }, [categoryValue]);
+  const { products, isLoading } = getProducts(categoryValue);
   return (
     <div className="mt-4">
       {isLoading ? (

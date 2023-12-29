@@ -10,6 +10,7 @@ import axios from "@/hooks/hook.axios";
 const AllCategory = () => {
   const { Categories }: any = useAdminContext();
   const handleDelete = (deleteId: string) => {
+    console.log(deleteId);
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -17,19 +18,17 @@ const AllCategory = () => {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Move to trash",
+      confirmButtonText: "Delete",
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire("Deleted!", "Your file has been deleted.", "success");
         axios
-          .delete(`/api/v0/category/${deleteId}`)
+          .delete(`/api/v0/category/${deleteId}?permanent=true`)
           .then(() => {
-            toast.success("category moved to Trash");
+            toast.success("category deleted successfully");
             Categories.refetch();
           })
-          .catch((error: any) =>
-            toast.error(error.message ? error.message : error?.data.message)
-          );
+          .catch((error: any) => toast.error(error.message ? error.message : error?.data.message));
       }
     });
   };
@@ -40,24 +39,15 @@ const AllCategory = () => {
       .put(`/api/v0/category/${ID}`, data)
       .then(() => {
         Categories.refetch();
-        toast.success(
-          !e.target.checked
-            ? "Add to featured category"
-            : "Removed from featured "
-        );
+        toast.success(!e.target.checked ? "Add to featured category" : "Removed from featured ");
       })
-      .catch((error: any) =>
-        toast.error(error.message ? error.message : error?.data.message)
-      );
+      .catch((error: any) => toast.error(error.message ? error.message : error?.data.message));
   };
   return (
     <div className="mb-8">
       <div className="flex justify-between items-center">
         <h2 className="text-lg font-semibold">All Categories</h2>
-        <Link
-          href={"/admin/add-category"}
-          className="bg-blue-500 px-4 py-2 rounded text-white capitalize"
-        >
+        <Link href={"/admin/add-category"} className="bg-blue-500 px-4 py-2 rounded text-white capitalize">
           Add new Categories
         </Link>
       </div>
@@ -75,11 +65,7 @@ const AllCategory = () => {
                 className="border outline-none text-sm py-2 px-3 w-40"
               />
             </div>
-            <select
-              name=""
-              id=""
-              className="border py-2 px-3 outline-none w-40 text-xs text-slate-500"
-            >
+            <select name="" id="" className="border py-2 px-3 outline-none w-40 text-xs text-slate-500">
               <option value="">Sort By</option>
             </select>
           </div>
@@ -90,9 +76,7 @@ const AllCategory = () => {
               <tr className="border text-xs font-normal ">
                 <th className="py-3 text-slate-500 ps-4 text-start">#</th>
                 <th className="py-3 text-slate-500 text-start">Name</th>
-                <th className="py-3 text-slate-500 text-start">
-                  Parent Category
-                </th>
+                <th className="py-3 text-slate-500 text-start">Parent Category</th>
                 <th className="py-3 text-slate-500 text-start">products</th>
                 {/* <th className="py-3 text-slate-500 text-start">Level</th> */}
                 <th className="py-3 text-slate-500 text-start">Icon</th>
@@ -113,24 +97,14 @@ const AllCategory = () => {
                       {/* <td>0</td> */}
                       <td>
                         {item.icon?.img_url ? (
-                          <Image
-                            src={item.icon?.img_url}
-                            width={50}
-                            height={50}
-                            alt={item.name}
-                          ></Image>
+                          <Image src={item.icon?.img_url} width={50} height={50} alt={item.name}></Image>
                         ) : (
                           "-- _ --"
                         )}
                       </td>
                       <td>
                         {item.imgURL?.img_url ? (
-                          <Image
-                            src={item.imgURL?.img_url}
-                            width={50}
-                            height={50}
-                            alt={item.name}
-                          ></Image>
+                          <Image src={item.imgURL?.img_url} width={50} height={50} alt={item.name}></Image>
                         ) : (
                           "-- _ --"
                         )}
@@ -173,27 +147,13 @@ const AllCategory = () => {
                             <td>{sub_item?.parent_info?.name}</td>
                             <td>{"sub_item"}</td>
                             <td>
-                              <Image
-                                src={sub_item?.icon?.img_url}
-                                width={50}
-                                height={50}
-                                alt={sub_item?.name}
-                              ></Image>
+                              <Image src={sub_item?.icon?.img_url} width={50} height={50} alt={sub_item?.name}></Image>
                             </td>
                             <td>
-                              <Image
-                                src={sub_item.imgURL?.img_url}
-                                width={50}
-                                height={50}
-                                alt={sub_item.name}
-                              ></Image>
+                              <Image src={sub_item.imgURL?.img_url} width={50} height={50} alt={sub_item.name}></Image>
                             </td>
                             <td>
-                              <input
-                                type="checkbox"
-                                className="toggle toggle-success"
-                                checked={item?.featured}
-                              />
+                              <input type="checkbox" className="toggle toggle-success" checked={item?.featured} />
                             </td>
                             <td>
                               <div className="flex gap-2 items-center">

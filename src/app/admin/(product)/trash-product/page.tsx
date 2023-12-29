@@ -43,7 +43,8 @@ const TrashProduct = () => {
         axios
           .delete(`/api/v0/product/${deleteID}?permanent=true`)
           .then(async (res) => {
-            toast.success("product deleted");
+            // await deletePhoto.post("/api/delete", [res.data.data.imgURL, res.data.data.icon]);
+            toast.success("Product deleted");
             refetch();
           })
           .catch((error: any) => toast.error(error.message ? error.message : error?.data.message));
@@ -172,7 +173,13 @@ const TrashProduct = () => {
                       {item.status === "active" ? (
                         <span className="bg-green-500 bg-opacity-70 text-white text-sm p-1 rounded">Active</span>
                       ) : (
+<<<<<<< HEAD
                         <span className="bg-red-500 bg-opacity-70 text-white text-sm p-1 rounded">Deactive</span>
+=======
+                        <span className="bg-red-500 bg-opacity-70 text-white text-sm p-1 rounded">
+                          Deactivate
+                        </span>
+>>>>>>> 79e06b293e9be9131f07a059b53aafd04be62c91
                       )}
                     </td>
                     <td>

@@ -30,7 +30,7 @@ const Footer = () => {
             <Link href="/" className="inline-block">
               <Image
                 src={settingsData?.footer?.logo?.img_url}
-                alt=""
+                alt="Logo"
                 className="w-24 md:w-32 lg:w-40"
                 width={140}
                 height={120}

@@ -36,7 +36,7 @@ const ProductDetails = () => {
     const selectedOptions = new Set(Object.values(activeVariant));
     for (const variant of variantData) {
       const variantLabel = variant.value;
-      const variantOptions = new Set(variant.attribute_options.map((option) => option.value));
+      const variantOptions = new Set(variant.attribute_options.map((option: any) => option.value));
       if (!(variantLabel in activeVariant) || !variantOptions.has(activeVariant[variantLabel])) {
         return variantLabel;
       }

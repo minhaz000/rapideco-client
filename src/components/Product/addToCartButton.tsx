@@ -22,8 +22,9 @@ function AddToCartButton({ product, Q, A }: { product: any; Q?: any; A?: any }) 
   };
   const handleOrderNow = (ID: string) => {
     try {
-      if (product?.variants?.length > 0 && Object.keys(A.variants).length < product?.variants?.length) {
-        const variant = findUnselectedVariantName(product?.variants, A.variants);
+      const variants = A?.variants || {};
+      if (product?.variants?.length > 0 && Object.keys(variants).length < product?.variants?.length) {
+        const variant = findUnselectedVariantName(product?.variants, variants);
         throw new Error(`${variant} is not selected`);
       }
       const url = Q > 0 ? `/api/v0/cart/add?productID=${ID}&quantity=${Q}` : `/api/v0/cart/add?productID=${ID}`;

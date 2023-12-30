@@ -26,11 +26,7 @@ const ProductCard = ({ product }: { product: any }) => {
                   style={{ background: `${settingsData?.header?.themeColor}` }}
                   className=" text-white rounded-full w-8 h-8 text-[10px] flex justify-center items-center font-semibold"
                 >
-                  {calculateDiscountPercentage(
-                    product.regular_price,
-                    product.discount_price
-                  )}
-                  %
+                  {calculateDiscountPercentage(product.regular_price, product.discount_price)}%
                 </span>
               </p>
             )}
@@ -47,29 +43,19 @@ const ProductCard = ({ product }: { product: any }) => {
           <div className="py-3 px-2 text-center">
             <div>
               <h2 className="capitalize font-semibold group-hover:text-red-600 h-[48px] overflow-hidden">
-                {product.title.length > 47
-                  ? product.title.slice(0, 48) + "..."
-                  : product.title}
+                {product.title.length > 47 ? product.title.slice(0, 48) + "..." : product.title}
               </h2>
             </div>
             {product.discount_price ? (
               <div className="flex justify-center gap-3 mt-1">
-                <p
-                  className="font-semibold text-sm"
-                  style={{ color: `${settingsData?.header?.themeColor}` }}
-                >
+                <p className="font-semibold text-sm" style={{ color: `${settingsData?.header?.themeColor}` }}>
                   Tk{product.discount_price}
                 </p>
-                <p className="line-through text-gray-400 text-sm font-semibold">
-                  Tk{product.regular_price}
-                </p>
+                <p className="line-through text-gray-400 text-sm font-semibold">Tk{product.regular_price}</p>
               </div>
             ) : (
               <div className="flex justify-center gap-3 mt-1">
-                <p
-                  className="font-semibold text-sm"
-                  style={{ color: `${settingsData?.header?.themeColor}` }}
-                >
+                <p className="font-semibold text-sm" style={{ color: `${settingsData?.header?.themeColor}` }}>
                   Tk{product.regular_price}
                 </p>
               </div>
@@ -77,7 +63,7 @@ const ProductCard = ({ product }: { product: any }) => {
           </div>
         </Link>
         <div className="mt-auto">
-          <AddToCartButton productID={product._id} product={product} />
+          <AddToCartButton product={product} />
         </div>
       </div>
     </div>

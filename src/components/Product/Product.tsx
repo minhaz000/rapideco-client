@@ -9,7 +9,7 @@ const Product = ({
 }) => {
   return (
     <section className="max-w-screen-xl mx-auto px-3 lg:px-12 mt-10">
-      <SectionHeading sectionTitle={sectionTitle} />
+      <SectionHeading sectionTitle={sectionTitle} categoryId={categoryValue} />
       {<ProductCarousel categoryValue={categoryValue} />}
     </section>
   );

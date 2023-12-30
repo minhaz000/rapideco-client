@@ -2,7 +2,7 @@
 import { useRootContext } from "@/context/root.context";
 import Link from "next/link";
 import React from "react";
-const SectionHeading = ({ sectionTitle }: any) => {
+const SectionHeading = ({ sectionTitle, categoryId }: any) => {
   const { settingsData }: any = useRootContext();
 
   return (
@@ -14,7 +14,9 @@ const SectionHeading = ({ sectionTitle }: any) => {
         className="border px-4 py-[6px] rounded font-medium text-white duration-300 flex gap-2 items-center text-sm"
         style={{ background: `${settingsData?.header?.themeColor}` }}
       >
-        <Link href={"/shop"}>See More</Link>
+        <Link href={categoryId ? `/shop?cate=${categoryId}` : "/shop"}>
+          See More
+        </Link>
       </div>
     </div>
   );

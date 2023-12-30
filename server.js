@@ -33,6 +33,7 @@ const upload = multer({
     suportedformats.test(extension) ? cb(null, true) : cb(new Error(" invalid file type "));
   },
 });
+
 // Handle image upload
 server.post("/api/upload", upload.array("image"), (req, res) => {
   req.files.map((item) => {

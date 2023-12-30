@@ -81,7 +81,6 @@ const ProductDetails = () => {
           width={582}
           height={400}
           sizes="100%"
-          
         />
         <div className="grid grid-cols-6 gap-3 mt-2">
           {[
@@ -211,7 +210,7 @@ const ProductDetails = () => {
             onClick={() => handleAddToCart(product?.data?._id)}
             className="bg-orange-600 text-white px-5 md:px-10 rounded-sm py-2 w-full"
           >
-            Add to Cart
+            কার্ট করুন
           </button>
         </div>
         <div className="mt-2 w-full">

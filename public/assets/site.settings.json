@@ -49,13 +49,13 @@
       { "value": "Privacy Policy", "lavel": "Privacy Policy" },
       { "value": "about-us", "lavel": "About Us" }
     ],
-    "description": "XStore ই-কমার্স ওয়েবসাইট একটি ব্যবসা প্ল্যাটফর্ম, যেখানে আপনি আপনার পছন্দের পণ্য অনলাইনে ক্রয় করতে পারেন। XStore আপনি বিভিন্ন ক্যাটেগরিতে পণ্য সন্ধান করতে পারেন,",
+    "description": "Xstore হাই ভোল্টেজ লোডিং ফ্রী ই-কমার্স অটোমেশন কোম্পানি, যার ম্যধোমে খুব সহজেই তৈরি করতে পারবেন আপনার ই-কমার্স ওয়েবসাইট কোন কোডিং ও টেকনিক্যাল অভিজ্ঞতা ছাড়াই।",
     "contact_info": {
-      "address": "#০২, রোডঃ ০২,ঢাকা",
-      "phone": "(+৮৮০) ০১৭৬০১০৭৭৬৪",
-      "email": "xstore@admin.com"
+      "address": "পান্থপথ, গ্রিনরোড ঢাকা (রিমোট ডেস্ক)",
+      "phone": "+8801858463389",
+      "email": "xstore@isoftex.com"
     },
-    "copyright": "Xstore eCommerce CMS 2023",
+    "copyright": "© Xstore - Amplify Your Sales | A products by iSoftex.",
     "logo": {
       "img_url": "/uploads/picsart_23-12-26_01-03-34-996-removebg-preview-1703736378605.webp",
       "path": "public/uploads/picsart_23-12-26_01-03-34-996-removebg-preview-1703736378605.webp"

@@ -6,6 +6,13 @@ import Image from "next/image";
 const Header = () => {
   const { collapseMenu, setCollapseMenu, settingsData }: any = useRootContext();
   const headerBg = settingsData?.header?.color;
+  if (!settingsData?.header) {
+    return (
+      <div className="justify-center items-center flex h-[100vh] absolute w-full top-0 bottom-0 left-0 z-20 bg-white">
+        <span className="loading loading-bars loading-lg"></span>
+      </div>
+    );
+  }
   return (
     <header className="pt-2 shadow-md pb-2 mb-3 lg:mb-0 lg:pb-0 lg:shadow-none">
       {/* Top bar */}

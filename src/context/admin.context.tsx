@@ -14,6 +14,7 @@ function Context(props: any) {
   );
 
   const [settingsData, setSettingsData] = useState({});
+  const [mobileMenu, setMobileMenu] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -32,7 +33,14 @@ function Context(props: any) {
 
     fetchData();
   }, []);
-  const value: any = { Categories, Brands, Atrribute, settingsData };
+  const value: any = {
+    Categories,
+    Brands,
+    Atrribute,
+    settingsData,
+    mobileMenu,
+    setMobileMenu,
+  };
   return (
     <AdminContext.Provider value={value}>
       {" "}

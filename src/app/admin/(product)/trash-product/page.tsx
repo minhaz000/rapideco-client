@@ -21,11 +21,11 @@ const TrashProduct = () => {
   const [pagination, setPagination] = useState({ page: 1, limit: 10 });
   const { data: Products, refetch } = useQueryData(
     ["get all product", pagination, query],
-    `/api/v0/products?is_delete=true&page=${pagination.page}&limit=${pagination.limit}&s=${query.s}&sort=${
-      query.sort
-    }&category_info._id=${query.category}${query.status && `&status=${query.status}`}${
-      query.brand && `&brand_info._id=${query.brand} `
-    }`
+    `/api/v0/products?is_delete=true&page=${pagination.page}&limit=${
+      pagination.limit
+    }&s=${query.s}&sort=${query.sort}&category_info._id=${query.category}${
+      query.status && `&status=${query.status}`
+    }${query.brand && `&brand_info._id=${query.brand} `}`
   );
 
   const handleDeleteProduct = (deleteID: string) => {
@@ -47,7 +47,9 @@ const TrashProduct = () => {
             toast.success("Product deleted");
             refetch();
           })
-          .catch((error: any) => toast.error(error.message ? error.message : error?.data.message));
+          .catch((error: any) =>
+            toast.error(error.message ? error.message : error?.data.message)
+          );
       }
     });
   };
@@ -62,7 +64,9 @@ const TrashProduct = () => {
         toast.success("category restored");
         refetch();
       })
-      .catch((error: any) => toast.error(error.message ? error.message : error?.data.message));
+      .catch((error: any) =>
+        toast.error(error.message ? error.message : error?.data.message)
+      );
   };
   const HandleQuery = (e: any) => {
     e.preventDefault();
@@ -80,10 +84,14 @@ const TrashProduct = () => {
             <h2 className="text-xl">Trash Products</h2>
             <div>
               <span className="text-[12px] underline text-slate-500 cursor-pointer mr-2">
-                <Link href={"/admin/all-products"}>All Products({Products?.details?.active})</Link>
+                <Link href={"/admin/all-products"}>
+                  All Products({Products?.details?.active})
+                </Link>
               </span>
               <span className="text-[12px] underline text-slate-500 cursor-pointer">
-                <Link href={"/admin/trash-product"}>Trash({Products?.details?.trash})</Link>
+                <Link href={"/admin/trash-product"}>
+                  Trash({Products?.details?.trash})
+                </Link>
               </span>
             </div>
           </div>
@@ -148,8 +156,12 @@ const TrashProduct = () => {
                 <th className="py-3 text-slate-500 ps-4 text-start">SL</th>
                 <th className="py-3 text-slate-500 text-start">Image</th>
                 <th className="py-3 text-slate-500 text-start">Title</th>
-                <th className="py-3 text-slate-500 text-start">Regular price</th>
-                <th className="py-3 text-slate-500 text-start">Discount price</th>
+                <th className="py-3 text-slate-500 text-start">
+                  Regular price
+                </th>
+                <th className="py-3 text-slate-500 text-start">
+                  Discount price
+                </th>
                 <th className="py-3 text-slate-500 text-start">Stock</th>
                 <th className="py-3 text-slate-500 text-start">Brand</th>
                 <th className="py-3 text-slate-500 text-start">Status</th>
@@ -159,10 +171,18 @@ const TrashProduct = () => {
             <tbody className="border pt-2">
               {Products?.data?.map((item: any, i: number) => {
                 return (
-                  <tr key={i} className="text-xs font-normal text-start border-b">
+                  <tr
+                    key={i}
+                    className="text-xs font-normal text-start border-b"
+                  >
                     <td className="py-5 ps-4">{i + 1}</td>
                     <td>
-                      <Image src={item.product_image?.img_url} width={50} height={50} alt=""></Image>
+                      <Image
+                        src={item.product_image?.img_url}
+                        width={50}
+                        height={50}
+                        alt=""
+                      ></Image>
                     </td>
                     <td>{item.title}</td>
                     <td>{item?.regular_price}</td>
@@ -171,15 +191,13 @@ const TrashProduct = () => {
                     <td>Apple</td>
                     <td>
                       {item.status === "active" ? (
-                        <span className="bg-green-500 bg-opacity-70 text-white text-sm p-1 rounded">Active</span>
-                      ) : (
-<<<<<<< HEAD
-                        <span className="bg-red-500 bg-opacity-70 text-white text-sm p-1 rounded">Deactive</span>
-=======
-                        <span className="bg-red-500 bg-opacity-70 text-white text-sm p-1 rounded">
-                          Deactivate
+                        <span className="bg-green-500 bg-opacity-70 text-white text-sm p-1 rounded">
+                          Active
                         </span>
->>>>>>> 79e06b293e9be9131f07a059b53aafd04be62c91
+                      ) : (
+                        <span className="bg-red-500 bg-opacity-70 text-white text-sm p-1 rounded">
+                          Deactive
+                        </span>
                       )}
                     </td>
                     <td>
@@ -208,7 +226,10 @@ const TrashProduct = () => {
         </div>
         {Products?.data && (
           <div className="me-6 pb-4">
-            <Pagination pagination={Products.pagination} setPagination={setPagination} />
+            <Pagination
+              pagination={Products.pagination}
+              setPagination={setPagination}
+            />
           </div>
         )}
       </div>

@@ -5,14 +5,9 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { BsCart } from "react-icons/bs";
 import { useRootContext } from "@/context/root.context";
 import Image from "next/image";
-import Loading from "../common/Loading";
-
 const HeaderTop = () => {
   const { Cart, settingsData }: any = useRootContext();
   const headerBg = settingsData?.header?.color;
-  if (!settingsData) {
-    return <Loading />;
-  }
   return (
     <div className="flex flex-row justify-between items-center max-w-screen-xl mx-auto px-3 lg:px-12">
       <div className="basis-4/12 lg:basis-1/4">

@@ -4,6 +4,7 @@ const next = require("next");
 const multer = require("multer");
 const { createServer } = require("http");
 const { parse } = require("url");
+cors = require("cors");
 
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
@@ -33,6 +34,7 @@ const upload = multer({
     suportedformats.test(extension) ? cb(null, true) : cb(new Error(" invalid file type "));
   },
 });
+
 // Handle image upload
 server.post("/api/upload", upload.array("image"), (req, res) => {
   req.files.map((item) => {
@@ -43,6 +45,7 @@ server.post("/api/upload", upload.array("image"), (req, res) => {
   res.status(201).json({ data: req.files });
 });
 server.use("/", express.static("public"));
+server.use(cors());
 app.prepare().then(() => {
   server.all("*", (req, res) => {
     return handle(req, res);

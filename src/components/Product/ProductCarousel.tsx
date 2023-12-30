@@ -4,12 +4,19 @@ import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import ProductCard from "./ProductCard";
-import getProducts from "@/lib/getProducts";
 import ProductSkeleton from "./ProductSkeleton";
+import { useEffect, useState } from "react";
+import axios from "@/hooks/hook.axios";
 
 const ProductCarousel = ({ categoryValue }: any) => {
-  // console.log(categoryValue);
-  const { products, isLoading } = getProducts(categoryValue);
+  const [products, setProducts] = useState([]);
+  const [isLoading, setIsloading] = useState(true);
+  useEffect(() => {
+    axios.get(`/api/v0/products?is_delete=false&status=active&category_info._id=${categoryValue}`).then((res) => {
+      setProducts(res?.data?.data);
+      setIsloading(false);
+    });
+  }, []);
   return (
     <div className="mt-4">
       {isLoading ? (
@@ -45,7 +52,7 @@ const ProductCarousel = ({ categoryValue }: any) => {
             },
           }}
         >
-          {products?.data?.map((product: any) => (
+          {products?.map((product: any) => (
             <SwiperSlide key={product._id}>
               <ProductCard product={product} />
             </SwiperSlide>

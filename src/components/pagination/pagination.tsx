@@ -1,12 +1,6 @@
 import React from "react";
 
-function pagination({
-  pagination,
-  setPagination,
-}: {
-  pagination: any;
-  setPagination: any;
-}) {
+function pagination({ pagination, setPagination }: { pagination: any; setPagination: any }) {
   const handlePage = (e: any) => {
     e.preventDefault();
     setPagination((pre: any) => {
@@ -16,13 +10,10 @@ function pagination({
   const handlePerPage = (e: any) => {
     e.preventDefault();
     setPagination((pre: any) => {
-      return { ...pre, limit: parseInt(e?.target?.value) };
+      return { ...pre, page: 1, limit: parseInt(e?.target?.value) };
     });
   };
-  const Pages = Array?.from(
-    { length: pagination?.total_page },
-    (_, index) => index + 1
-  );
+  const Pages = Array?.from({ length: pagination?.total_page }, (_, index) => index + 1);
   return (
     <div className="flex justify-end">
       <div className="join mt-6">
@@ -31,10 +22,7 @@ function pagination({
             onClick={handlePage}
             key={item}
             value={item}
-            className={
-              "join-item px-4 me-2 " +
-              `${pagination?.page == item && `bg-slate-700 text-white`}`
-            }
+            className={"join-item px-4 me-2 " + `${pagination?.page == item && `bg-slate-700 text-white`}`}
           >
             {item}
           </button>

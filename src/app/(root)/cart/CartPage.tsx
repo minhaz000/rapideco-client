@@ -168,9 +168,9 @@ const CartPage = () => {
           )}
         </div>
       ) : (
-        <div className="text-center mt-7">
-          <h2 className="text-lg mb-3">কোন প্রোডাক্ট নেই</h2>
-          <Link href="/" className="bg-black text-white px-4 py-2 rounded mt-1">
+        <div className="text-center mt-7 h-[50vh] flex flex-col justify-center items-center">
+          <h2 className="text-3xl mb-3">কোন প্রোডাক্ট নেই</h2>
+          <Link href="/" className="bg-red-500 text-white px-4 py-2 rounded mt-1">
             প্রোডাক্ট বাছাই করুন
           </Link>
         </div>

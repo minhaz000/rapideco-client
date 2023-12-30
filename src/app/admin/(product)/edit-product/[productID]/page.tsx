@@ -24,25 +24,40 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
     refetch,
     isLoading,
   } = useQueryData(["get old product"], `/api/v0/product/${params.productID}`);
-  const updateProduct = useMutationData(["update product "], "put", `/api/v0/product/${params.productID}`);
+  const updateProduct = useMutationData(
+    ["update product "],
+    "put",
+    `/api/v0/product/${params.productID}`
+  );
 
-  const { register, handleSubmit, watch, reset, setValue, getValues } = useForm<FormValues>();
+  const { register, handleSubmit, watch, reset, setValue, getValues } =
+    useForm<FormValues>();
   // EDIT PRODUCT
   const HandleEditProduct: SubmitHandler<FormValues> = async (data) => {
     const gallery_images = await Uploder(selectedGalleryImageFile, "arry");
     // gallery_images && (data.gallery_images = [...data.gallery_images, ...gallery_images]);
-    data.gallery_images = gallery_images ? [...oldGalleryImage, ...gallery_images] : [...oldGalleryImage];
-    selectedImage?.length > 0 && (data.product_image = await Uploder(selectedImage));
+    data.gallery_images = gallery_images
+      ? [...oldGalleryImage, ...gallery_images]
+      : [...oldGalleryImage];
+    selectedImage?.length > 0 &&
+      (data.product_image = await Uploder(selectedImage));
     data.status ? (data.status = "active") : (data.status = "deactive");
-    data.category_info = typeof data.category_info === "string" ? JSON.parse(data.category_info) : data.category_info;
-    data.brand_info = typeof data.brand_info === "string" ? JSON.parse(data.brand_info) : data.brand_info;
+    data.category_info =
+      typeof data.category_info === "string"
+        ? JSON.parse(data.category_info)
+        : data.category_info;
+    data.brand_info =
+      typeof data.brand_info === "string"
+        ? JSON.parse(data.brand_info)
+        : data.brand_info;
     updateProduct.mutate(data as any, {
       onSuccess: () => {
         toast.success("product updated");
         refetch().then((res: any) => reset(res.data));
         setSelectedGalleryImageFile([]);
       },
-      onError: (error: any) => toast.error(error.message ? error.message : error?.data.message),
+      onError: (error: any) =>
+        toast.error(error.message ? error.message : error?.data.message),
     });
   };
 
@@ -50,7 +65,10 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
     setSelectedImage(e.target.files[0]);
   };
   const handleGalleyImage = (event: any) => {
-    const selectedFiles: any = [...event.target.files, ...selectedGalleryImageFile];
+    const selectedFiles: any = [
+      ...event.target.files,
+      ...selectedGalleryImageFile,
+    ];
     setSelectedGalleryImageFile(selectedFiles);
   };
   const handleDesImage = (event: any) => {
@@ -61,7 +79,9 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
 
   function deleteHandler(image: any) {
     setOldGalleryImage(oldGalleryImage.filter((e) => e !== image));
-    setSelectedGalleryImageFile(selectedGalleryImageFile.filter((e) => e !== image));
+    setSelectedGalleryImageFile(
+      selectedGalleryImageFile.filter((e) => e !== image)
+    );
   }
   function handleOnChange(e: any) {
     setValue(e.target.name, e.target.value);
@@ -76,7 +96,7 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
       setValue("description", html);
     },
   });
-
+  console.log(oldProduct?.data?.description);
   useEffect(() => {
     setOldGalleryImage(oldProduct?.data?.gallery_images);
     reset(oldProduct?.data);
@@ -93,38 +113,96 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
       <h2 className="text-2xl">Edit Product</h2>
       <div className="mt-6">
         <form onSubmit={handleSubmit(HandleEditProduct)}>
-          <div>
-            <label htmlFor="name" className="mb-2 block">
-              Product Title
-            </label>
+          <div className="md:grid grid-cols-2 gap-3">
+            <div>
+              <label className="mb-2 block">
+                Product Title{" "}
+                <span className="text-red-500 font-semibold">*</span>
+              </label>
 
-            <input
-              {...register("title")}
-              type="text"
-              placeholder="Enter product name"
-              className={`w-full border py-2 px-3 rounded-md  outline-none mt-2 ${
-                validationError?.title && "border-red-600 text-red-400"
-              }`}
-            />
-            {validationError?.title && (
-              <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.title.message}</p>
-            )}
+              <input
+                {...register("title")}
+                type="text"
+                placeholder="Enter product name"
+                className={`w-full border py-2 px-3 rounded-md  outline-none mt-2 ${
+                  validationError?.title && "border-red-600 text-red-400"
+                }`}
+              />
+              {validationError?.title && (
+                <p className="text-red-600 text-[14px]  mb-[5px] text-right">
+                  {validationError.title.message}
+                </p>
+              )}
+            </div>
+            <div>
+              <label className="mb-2 block">
+                Product Code{" "}
+                <span className="text-red-500 font-semibold">*</span>
+              </label>
+
+              <input
+                {...register("code")}
+                type="text"
+                placeholder="Enter product name"
+                className={`w-full border py-2 px-3 rounded-md  outline-none mt-2 ${
+                  validationError?.code && "border-red-600 text-red-400"
+                }`}
+              />
+              {validationError?.code && (
+                <p className="text-red-600 text-[14px]  mb-[5px] text-right">
+                  {validationError.code.message}
+                </p>
+              )}
+            </div>
           </div>
-          <div>
-            <label htmlFor="name" className="mb-2 block">
-              Product Code
-            </label>
+          <div className="md:grid grid-cols-2 gap-3">
+            <div className="mt-3">
+              <label className="mb-2 block">
+                Regular Price{" "}
+                <span className="text-red-500 font-semibold">*</span>
+              </label>
+
+              <input
+                {...register("regular_price")}
+                type="number"
+                placeholder="Enter regular price"
+                className={`w-full border py-2 px-3 rounded-md  outline-none mt-2 ${
+                  validationError?.regular_price &&
+                  "border-red-600 text-red-400"
+                }`}
+              />
+              {validationError?.regular_price && (
+                <p className="text-red-600 text-[14px]  mb-[5px] text-right">
+                  {validationError.regular_price.message}
+                </p>
+              )}
+            </div>
+            <div className="mt-3">
+              <label className="mb-2 block">Discount Price</label>
+
+              <input
+                {...register("discount_price")}
+                type="text"
+                placeholder="Enter discount price"
+                className="border w-full py-2 px-3  rounded-md outline-none"
+              />
+            </div>
+          </div>
+          <div className="mt-3">
+            <label className="mb-2 block">Quantity</label>
 
             <input
-              {...register("code")}
-              type="text"
-              placeholder="Enter product name"
+              {...register("quantity")}
+              type="number"
+              placeholder="Quantity"
               className={`w-full border py-2 px-3 rounded-md  outline-none mt-2 ${
-                validationError?.code && "border-red-600 text-red-400"
+                validationError?.quantity && "border-red-600 text-red-400"
               }`}
             />
-            {validationError?.code && (
-              <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.code.message}</p>
+            {validationError?.quantity && (
+              <p className="text-red-600 text-[14px]  mb-[5px] text-right">
+                {validationError.quantity.message}
+              </p>
             )}
           </div>
           <div className="mt-3">
@@ -136,69 +214,27 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
               <EditorContent editor={editor} />
             </div>
           </div>
-          <div className="mt-3">
-            <label htmlFor="name" className="mb-2 block">
-              Regular Price
-            </label>
-
-            <input
-              {...register("regular_price")}
-              type="number"
-              placeholder="Enter regular price"
-              className={`w-full border py-2 px-3 rounded-md  outline-none mt-2 ${
-                validationError?.regular_price && "border-red-600 text-red-400"
-              }`}
-            />
-            {validationError?.regular_price && (
-              <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.regular_price.message}</p>
-            )}
-          </div>
-          <div className="mt-3">
-            <label htmlFor="name" className="mb-2 block">
-              Discount Price
-            </label>
-
-            <input
-              {...register("discount_price")}
-              type="text"
-              placeholder="Enter discount price"
-              className="border w-full py-2 px-3  rounded-md outline-none"
-            />
-          </div>
-          <div className="mt-3">
-            <label htmlFor="name" className="mb-2 block">
-              Quantity
-            </label>
-
-            <input
-              {...register("quantity")}
-              type="number"
-              placeholder="Quantity"
-              className={`w-full border py-2 px-3 rounded-md  outline-none mt-2 ${
-                validationError?.qantity && "border-red-600 text-red-400"
-              }`}
-            />
-            {validationError?.qantity && (
-              <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.qantity.message}</p>
-            )}
-          </div>
 
           <div className="mt-3">
-            <label htmlFor="name" className="mb-2 block">
-              Category
+            <label className="mb-2 block">
+              Category <span className="text-red-500 font-semibold">*</span>
             </label>
 
             <select
+              defaultValue={oldProduct?.data?.category_info?.name}
               name="category_info"
               onChange={handleOnChange}
               className={`w-full border py-2 px-3 rounded-md  outline-none mt-2 ${
                 validationError?.category_info && "border-red-600 text-red-400"
               }`}
             >
-              <option value="">{oldProduct?.data?.category_info?.name} </option>
+              {/* <option value="">{oldProduct?.data?.category_info?.name} </option> */}
               {Categories?.data?.data.map((item: any, i: number) => {
                 return (
-                  <option key={i} value={JSON.stringify({ _id: item._id, name: item.name })}>
+                  <option
+                    key={i}
+                    value={JSON.stringify({ _id: item._id, name: item.name })}
+                  >
                     {item.name}
                   </option>
                 );
@@ -206,7 +242,9 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
             </select>
 
             {validationError?.category_info && (
-              <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.category_info.message}</p>
+              <p className="text-red-600 text-[14px]  mb-[5px] text-right">
+                {validationError.category_info.message}
+              </p>
             )}
           </div>
           <div className="mt-3">
@@ -214,11 +252,19 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
               Brand
             </label>
 
-            <select name="brand_info" onChange={handleOnChange} className="border outline-none p-2 w-full">
+            <select
+              name="brand_info"
+              onChange={handleOnChange}
+              className="border outline-none p-2 w-full"
+              defaultValue={oldProduct?.data?.brand_info?.name}
+            >
               <option value="">Select Brand</option>
               {Brands?.data?.data.map((item: any, i: number) => {
                 return (
-                  <option key={i} value={JSON.stringify({ _id: item._id, name: item.name })}>
+                  <option
+                    key={i}
+                    value={JSON.stringify({ _id: item._id, name: item.name })}
+                  >
                     {item.name}
                   </option>
                 );
@@ -265,7 +311,8 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
 
           <div className="mt-3">
             <label htmlFor="name" className="mb-2 block">
-              Product Image
+              Product Image (200 * 180){" "}
+              <span className="text-red-500 font-semibold">*</span>
             </label>
 
             <input
@@ -307,7 +354,12 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
                   oldGalleryImage.map((image: any, i: number) => {
                     return (
                       <div key={i} className="relative">
-                        <Image src={image.img_url} width={100} height={100} alt="upload" />
+                        <Image
+                          src={image.img_url}
+                          width={100}
+                          height={100}
+                          alt="upload"
+                        />
                         <button
                           className="absolute top-0 right-0 bg-red-400 text-white px-1"
                           onClick={() => deleteHandler(image)}
@@ -320,7 +372,12 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
                 {selectedGalleryImageFile.map((image: any, i) => {
                   return (
                     <div key={i} className="relative">
-                      <Image src={URL.createObjectURL(image)} width={100} height={100} alt="upload" />
+                      <Image
+                        src={URL.createObjectURL(image)}
+                        width={100}
+                        height={100}
+                        alt="upload"
+                      />
                       <button
                         className="absolute top-0 right-0 bg-red-400 text-white px-1"
                         onClick={() => deleteHandler(image)}
@@ -350,7 +407,12 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
                   selectedDesImage.map((image: any, i: number) => {
                     return (
                       <div key={i} className="relative">
-                        <Image src={URL.createObjectURL(image as any)} width={100} height={100} alt="upload" />
+                        <Image
+                          src={URL.createObjectURL(image as any)}
+                          width={100}
+                          height={100}
+                          alt="upload"
+                        />
                         <button
                           className="absolute top-0 right-0 bg-red-400 text-white px-1"
                           onClick={(e) => {
@@ -380,7 +442,9 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
               }`}
             />
             {validationError?.status && (
-              <p className="text-red-600 text-[14px]  mb-[5px] text-right">{validationError.status.message}</p>
+              <p className="text-red-600 text-[14px]  mb-[5px] text-right">
+                {validationError.status.message}
+              </p>
             )}
           </div>
           <input

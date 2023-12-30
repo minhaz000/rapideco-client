@@ -179,3 +179,26 @@ button.is_active {
 .textEditor ol {
   list-style: decimal;
 }
+.product-description{
+  padding-left:8px
+}
+.product-description h2 {
+  font-size: 19px;
+  font-weight: 500;
+}
+.product-description h3 {
+  font-size: 16px;
+  font-weight: 500;
+}
+.product-description ul li {
+  margin-bottom: 5px;
+  list-style: disc;
+}
+.product-description ol li {
+  margin-bottom: 5px;
+  list-style: decimal;
+}
+
+.product-description ul {
+  padding-left: 32px;
+}

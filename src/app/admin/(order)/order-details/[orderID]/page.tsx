@@ -86,9 +86,12 @@ const OrderDetails = ({ params }: { params: { orderID: string } }) => {
     document.body.appendChild(link);
     link.click();
   };
+  console.log(data?.data);
   return (
-    <div className="shadow-[0_0_10px_5px_#d7d7d7bf] py-4 mb-8">
-      <h2 className="border-b pb-2 px-6 text-lg font-semibold">Order Details</h2>
+    <div className="shadow py-4 mb-8">
+      <h2 className="border-b pb-2 px-6 text-lg font-semibold">
+        Order Details
+      </h2>
       <form onSubmit={handleSubmit(HandleEditOrder)}>
         <div className="mt-6 px-6 lg:flex gap-4">
           <div className="lg:basis-1/2">
@@ -107,10 +110,10 @@ const OrderDetails = ({ params }: { params: { orderID: string } }) => {
               {...register("status")}
               className="w-full border py-2 px-3 outline-none  text-xl text-slate-500"
             >
-              <option value="on hold">on hold</option>
-              <option value="processing">processing</option>
-              <option value="complete">complete</option>
-              <option value="canceled">canceled</option>
+              <option value="on hold">On hold</option>
+              <option value="processing">Processing</option>
+              <option value="complete">Complete</option>
+              <option value="canceled">Canceled</option>
             </select>
           </div>
         </div>
@@ -129,13 +132,13 @@ const OrderDetails = ({ params }: { params: { orderID: string } }) => {
           </div>
           <div className="text-end basis-1/2 lg:ps-28 mt-10">
             <div className="flex items-center justify-between gap-4 mb-2">
-              <span>Order #</span>
+              <b>Order #</b>
               <span>{data?.data?._id}</span>
             </div>
             <div className="flex items-center justify-between gap-4 mb-2">
-              <span>Order Status</span>
+              <b>Order Status</b>
               {data?.data?.status == "complete" ? (
-                <span className="bg-green-500 text-white px-2 py-1 rounded text-[10px]">
+                <span className="bg-green-500 text-white px-2 capitalize py-1 rounded text-[10px]">
                   {data?.data?.status}
                 </span>
               ) : data?.data?.status == "canceled" ? (
@@ -143,28 +146,28 @@ const OrderDetails = ({ params }: { params: { orderID: string } }) => {
                   {data?.data?.status}
                 </span>
               ) : (
-                <span className="bg-orange-500 text-white px-2 py-1 rounded text-[10px]">
+                <span className="bg-orange-500 text-white capitalize px-2 py-1 rounded text-[10px]">
                   {data?.data?.status}
                 </span>
               )}
             </div>
             <div className="flex items-center justify-between gap-4 mb-2">
-              <span>Order date</span>
+              <b>Order date</b>
               <span>
                 {data?.data?.createdAt &&
                   convertDateFormat(data?.data?.createdAt)}
               </span>
             </div>
             <div className="flex items-center justify-between gap-4 mb-2">
-              <span>Total</span>
+              <b>Total</b>
               <span>{data?.data.payment_info?.amount}</span>
             </div>
             <div className="flex items-center justify-between gap-4 mb-2">
-              <span>Payment method</span>
+              <b>Payment method</b>
               <span>{data?.data.payment_info?.method_name}</span>
             </div>
             <div className="flex items-center justify-between gap-4 mb-2">
-              <span>Payment ID</span>
+              <b>Payment ID</b>
               <span>{data?.data.payment_info?.trx_id}</span>
             </div>
           </div>
@@ -185,8 +188,10 @@ const OrderDetails = ({ params }: { params: { orderID: string } }) => {
                 <th className="py-3 text-slate-500 text-start">QTY</th>
                 <th className="py-3 text-slate-500 text-start">Size</th>
                 <th className="py-3 text-slate-500 text-start">Color</th>
+                <th className="py-3 text-slate-500 text-start">
+                  Shipping Cost
+                </th>
                 <th className="py-3 text-slate-500 text-start">Price</th>
-                <th className="py-3 text-slate-500 text-start">Total</th>
               </tr>
             </thead>
             <tbody className="border pt-2">
@@ -216,6 +221,7 @@ const OrderDetails = ({ params }: { params: { orderID: string } }) => {
                         style={{ background: `${item?.variants?.color}` }}
                       ></span>
                     </td>
+                    <td>{data?.data?.user_info?.delivery?.cost}</td>
                     <td>
                       {item?.discount_price
                         ? item.discount_price * item?.quantity
@@ -227,11 +233,13 @@ const OrderDetails = ({ params }: { params: { orderID: string } }) => {
             </tbody>
           </table>
         </div>
-        <div className="lg:w-72 lg:ms-auto px-6 pt-8 pb-6">
+        <div className="lg:w-72 lg:ms-auto px-6 pt-4 pb-6">
           <div className="flex justify-between items-center border-t py-2">
             <span>Total :</span>
-            <span className="text-2xl font-semibold">
-              {data?.data.payment_info.amount} ৳
+            <span className="text-xl font-semibold">
+              Tk{" "}
+              {data?.data.payment_info.amount +
+                data?.data?.user_info?.delivery?.cost}
             </span>
           </div>
 

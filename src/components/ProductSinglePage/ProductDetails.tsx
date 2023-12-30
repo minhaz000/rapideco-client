@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useQueryData } from "@/hooks/hook.query";
@@ -15,7 +15,7 @@ const ProductDetails = () => {
   const sech: any = useSearchParams();
   const { Cart, settingsData }: any = useRootContext();
   const ID = sech.get("_id");
-  const { data: product } = useQueryData(
+  const { data: product, refetch } = useQueryData(
     ["get single data"],
     `/api/v0/product/${ID}`
   );
@@ -66,6 +66,10 @@ const ProductDetails = () => {
       return { ...pre, [e.target.name]: e.target.value };
     });
   };
+  useEffect(() => {
+    refetch();
+    setImageUrl(product?.data?.product_image?.img_url);
+  }, [ID, product]);
 
   return (
     <div className="lg:flex gap-5">
@@ -77,6 +81,7 @@ const ProductDetails = () => {
           width={582}
           height={400}
           sizes="100%"
+          
         />
         <div className="grid grid-cols-6 gap-3 mt-2">
           {[
@@ -119,10 +124,10 @@ const ProductDetails = () => {
             )}
           </p>
         </div>
-        {product?.data?.variants?.map((variant: any) => {
+        {product?.data?.variants?.map((variant: any, i: any) => {
           if (variant.value === "color") {
             return (
-              <div className="mt-4 flex items-center">
+              <div className="mt-4 flex items-center" key={i}>
                 <p className="me-4 text-gray-500 capitalize text-lg">
                   {variant.label}:
                 </p>
@@ -148,7 +153,7 @@ const ProductDetails = () => {
             );
           } else {
             return (
-              <div className="mt-4 flex items-center">
+              <div className="mt-4 flex items-center" key={i}>
                 <p className="me-4 text-gray-500 text-lg">{variant.label}:</p>
                 <div className="flex gap-2">
                   {variant?.attribute_options?.map((sizeItem: any) => (
@@ -211,11 +216,11 @@ const ProductDetails = () => {
         </div>
         <div className="mt-2 w-full">
           <Link
-            href={"tel:01745689754"}
+            href={`tel:${settingsData?.header?.phone_number}`}
             className="bg-blue-500 text-white px-10 rounded-sm py-2 w-full text-center flex items-center justify-center gap-1"
           >
             <FaPhoneAlt />
-            01745689754
+            {settingsData?.header?.phone_number}
           </Link>
         </div>
         <div className="mt-3">

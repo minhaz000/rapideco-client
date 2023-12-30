@@ -8,6 +8,7 @@ import Slider from "rc-slider";
 import Pagination from "@/components/pagination/pagination";
 import "rc-slider/assets/index.css";
 import Loading from "@/components/common/Loading";
+import Link from "next/link";
 
 const ShopPage = () => {
   const params = useSearchParams();
@@ -177,10 +178,16 @@ const ShopPage = () => {
           )}
         </>
       ) : (
-        <div className="mt-8">
+        <div className="mt-8 h-[60vh] flex flex-col justify-center items-center">
           <h2 className="text-center text-3xl">
             আন্তরিকভাবে দুঃখিত কোন প্রোডাক্ট পাওয়া যাইনি
           </h2>
+          <Link
+            href="/"
+            className="bg-red-500 py-2 px-8 rounded mt-4 font-semibold text-white"
+          >
+            Go Home
+          </Link>
         </div>
       )}
     </>

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useRootContext } from "@/context/root.context";
 import { FaSearch } from "react-icons/fa";
+import Skeleton from "react-loading-skeleton";
 const SearchForm = () => {
   const { settingsData }: any = useRootContext();
   const headerBg = settingsData?.header?.color;
@@ -35,24 +36,28 @@ const SearchForm = () => {
   };
   return (
     <div className="basis-8/12 lg:basis-1/2 relative">
-      <form className="flex" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Search Products..."
-          value={query}
-          className="w-full border rounded-s-md px-2 md:px-3 py-[6px] md:py-[10px] outline-none"
-          onChange={HandleQuery}
-          onBlur={handleSearch}
-        />
-        <button
-          style={{ background: `${headerBg}` }}
-          className={` text-white px-3 rounded-e-md`}
-          type="submit"
-        >
-          <span className="hidden sm:block">Search</span>
-          <FaSearch className="block sm:hidden" />
-        </button>
-      </form>
+      {settingsData?.header ? (
+        <form className="flex" onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="Search Products..."
+            value={query}
+            className="w-full border rounded-s-md px-2 md:px-3 py-[6px] md:py-[10px] outline-none"
+            onChange={HandleQuery}
+            onBlur={handleSearch}
+          />
+          <button
+            style={{ background: `${headerBg}` }}
+            className={` text-white px-3 rounded-e-md`}
+            type="submit"
+          >
+            <span className="hidden sm:block">Search</span>
+            <FaSearch className="block sm:hidden" />
+          </button>
+        </form>
+      ) : (
+        <Skeleton height={50} />
+      )}
       {/* Search data show */}
       {isActive && (
         <div className="absolute bg-slate-50 border top-12 left-0 w-[95%] px-4 py-2 z-[999999]">

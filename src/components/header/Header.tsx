@@ -3,36 +3,34 @@ import Link from "next/link";
 import HeaderTop from "./HeaderTop";
 import { useRootContext } from "@/context/root.context";
 import Image from "next/image";
+import Skeleton from "react-loading-skeleton";
 const Header = () => {
   const { collapseMenu, setCollapseMenu, settingsData }: any = useRootContext();
   const headerBg = settingsData?.header?.color;
-  if (!settingsData?.header) {
-    return (
-      <div className="justify-center items-center flex h-[100vh] absolute w-full top-0 bottom-0 left-0 z-20 bg-white">
-        <span className="loading loading-bars loading-lg"></span>
-      </div>
-    );
-  }
   return (
     <header className="pt-2 shadow-md pb-2 mb-3 lg:mb-0 lg:pb-0 lg:shadow-none">
       {/* Top bar */}
       <HeaderTop />
       {/* Main menu  */}
 
-      <nav
-        className={`hidden lg:block mt-2`}
-        style={{ backgroundColor: `${headerBg}` }}
-      >
-        <ul className="flex justify-center gap-5 max-w-screen-xl mx-auto py-[10px] lg:px-12 text-white text-[14px]">
-          {settingsData?.header?.nav_menu?.map((item: any, index: number) => (
-            <li key={index}>
-              <Link className="text-[17px] font-semibold" href={item?.value}>
-                {item?.lavel}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
+      {settingsData?.header ? (
+        <nav
+          className={`hidden lg:block mt-2`}
+          style={{ backgroundColor: `${headerBg}` }}
+        >
+          <ul className="flex justify-center gap-5 max-w-screen-xl mx-auto py-[10px] lg:px-12 text-white text-[14px]">
+            {settingsData?.header?.nav_menu?.map((item: any, index: number) => (
+              <li key={index}>
+                <Link className="text-[17px] font-semibold" href={item?.value}>
+                  {item?.lavel}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      ) : (
+        <Skeleton height={50} />
+      )}
       {/* mobile menu */}
       <div
         onClick={() => setCollapseMenu(false)}

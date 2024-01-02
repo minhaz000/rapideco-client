@@ -116,7 +116,7 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
           <div className="md:grid grid-cols-2 gap-3">
             <div>
               <label className="mb-2 block">
-                Product Title{" "}
+                Product Title
                 <span className="text-red-500 font-semibold">*</span>
               </label>
 
@@ -221,14 +221,15 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
             </label>
 
             <select
-              defaultValue={oldProduct?.data?.category_info?.name}
               name="category_info"
               onChange={handleOnChange}
               className={`w-full border py-2 px-3 rounded-md  outline-none mt-2 ${
                 validationError?.category_info && "border-red-600 text-red-400"
               }`}
             >
-              {/* <option value="">{oldProduct?.data?.category_info?.name} </option> */}
+              <option value={oldProduct?.data?.category_info?.name}>
+                {oldProduct?.data?.category_info?.name}{" "}
+              </option>
               {Categories?.data?.data.map((item: any, i: number) => {
                 return (
                   <option
@@ -256,9 +257,8 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
               name="brand_info"
               onChange={handleOnChange}
               className="border outline-none p-2 w-full"
-              defaultValue={oldProduct?.data?.brand_info?.name}
             >
-              <option value="">Select Brand</option>
+              <option value={oldProduct?.data?.brand_info?.name}>{oldProduct?.data?.brand_info?.name}</option>
               {Brands?.data?.data.map((item: any, i: number) => {
                 return (
                   <option

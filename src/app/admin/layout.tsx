@@ -7,7 +7,7 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // const { data: user, isSuccess, isError } = useQueryData(["get user"], "/auth/v0/profile");
+  // const {isError,isSuccess,user } = useAdminContext();
 
   // if (isError) {
   //   router.push("/login");

@@ -3,10 +3,13 @@ import Link from "next/link";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "../../hooks/hook.axios";
-import user from "@/assets/user.png";
+import user1 from "@/assets/user.png";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useAdminContext } from "@/context/admin.context";
 const UserProfileMenu = () => {
+  const { user }: any = useAdminContext();
+  console.log(user?.data);
   const [profileOpen, setProfileOpen] = useState(false);
   const router = useRouter();
   const handleLogout = async () => {
@@ -28,14 +31,16 @@ const UserProfileMenu = () => {
           onClick={() => setProfileOpen(!profileOpen)}
         >
           <Image
-            src={user}
+            src={user1}
             className="rounded-full w-10 h-10 bg-blue-600"
             alt=""
             width={40}
             height={40}
           />
           <div className="text-left">
-            <h3 className="text-lg font-semibold leading-4">Rinku</h3>
+            <h3 className="text-lg font-semibold leading-4 capitalize">
+              {user?.data?.username}
+            </h3>
           </div>
         </div>
         <div

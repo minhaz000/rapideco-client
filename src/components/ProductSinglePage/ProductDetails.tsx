@@ -84,6 +84,7 @@ const ProductDetails = () => {
           alt=""
           width={582}
           height={400}
+          quality="100"
           sizes="100%"
         />
         <div className="grid grid-cols-6 gap-3 mt-2">

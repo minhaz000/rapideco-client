@@ -9,11 +9,7 @@ import Image from "next/image";
 const ProductSinglePage = () => {
   const sech: any = useSearchParams();
   const ID = sech.get("_id");
-  const {
-    data: product,
-    isLoading,
-    refetch,
-  } = useQueryData(["get single data"], `/api/v0/product/${ID}`);
+  const { data: product, isLoading, refetch } = useQueryData(["get single data"], `/api/v0/product/${ID}`);
   // const [productS, setProductS]: any = useState([product?.data]);
   useEffect(() => {
     // setProductS(product?.data);
@@ -43,6 +39,7 @@ const ProductSinglePage = () => {
                   alt="Description Image"
                   width={1000}
                   height={1000}
+                  quality="100"
                   sizes="100%"
                 />
               ))}

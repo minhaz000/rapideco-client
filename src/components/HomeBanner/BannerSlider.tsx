@@ -26,8 +26,8 @@ const BannerSlider = () => {
         <SwiperSlide key={index}>
           <img
             src={item?.img_url}
-            alt=""
-            className="w-full h-full md:h-[400px] object-cover"
+            alt="Banner Image"
+            className="w-full h-full md:h-[400px]"
           />
         </SwiperSlide>
       ))}

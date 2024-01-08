@@ -74,17 +74,15 @@ const ProductDetails = () => {
     refetch();
     setImageUrl(product?.data?.product_image?.img_url);
   }, [ID, product]);
-
   return (
     <div className="lg:flex gap-5">
       <div className="lg:basis-1/2">
         <Image
           src={imageUrl}
-          className="w-full h-[300px] md:h-[400px] object-cover rounded cursor-pointer"
+          className="w-full h-[300px] md:h-[720px] rounded cursor-pointer"
           alt=""
-          width={582}
-          height={400}
-          quality="100"
+          width={580}
+          height={720}
           sizes="100%"
         />
         <div className="grid grid-cols-6 gap-3 mt-2">
@@ -94,7 +92,7 @@ const ProductDetails = () => {
                 key={index}
                 src={item?.img_url}
                 className="sm:w-20 h-14 md:h-20 rounded cursor-pointer object-contain"
-                alt=""
+                alt="Product Image"
                 onClick={() => setImageUrl(item?.img_url)}
                 width={56}
                 height={56}

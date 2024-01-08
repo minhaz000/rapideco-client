@@ -133,7 +133,7 @@ const Page = () => {
         </div>
 
         <div className="mt-4">
-          <label htmlFor="">Cover image (250x250)</label>
+          <label htmlFor="">Cover image (170x150)</label>
           <br />
           <input
             onChange={handleImage}

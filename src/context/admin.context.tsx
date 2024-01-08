@@ -15,6 +15,11 @@ function Context(props: any) {
 
   const [settingsData, setSettingsData] = useState({});
   const [mobileMenu, setMobileMenu] = useState(false);
+  const {
+    data: user,
+    isSuccess,
+    isError,
+  } = useQueryData(["get user"], "/auth/v0/profile");
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -40,6 +45,9 @@ function Context(props: any) {
     settingsData,
     mobileMenu,
     setMobileMenu,
+    user,
+    isSuccess,
+    isError,
   };
   return (
     <AdminContext.Provider value={value}>

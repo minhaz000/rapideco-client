@@ -7,8 +7,19 @@ import CategoryCard from "./CategoryCard";
 import SectionHeading from "../common/SectionHeading";
 import getCategories from "@/lib/getCategories";
 import CategorySkeleton from "./CategorySkeleton";
+import { useEffect, useState } from "react";
+import axios from "@/hooks/hook.axios";
 const Category = () => {
   const { categories, isLoading } = getCategories();
+  // const [categories, setCategories] = useState([]);
+  // const [isLoading, setIsLoading] = useState(true);
+  // useEffect(() => {
+  //   axios.get("/api/v0/categories?is_delete=false&featured=true").then((res) => {
+  //     setCategories(res.data.data);
+  //     console.log(res.data);
+  //     setIsLoading(false);
+  //   });
+  // }, []);
   return (
     <section className="max-w-screen-xl mx-auto px-3 lg:px-12 mt-10">
       <SectionHeading sectionTitle="SHOP BY CATEGORIES" />
@@ -46,7 +57,7 @@ const Category = () => {
               },
             }}
           >
-            {categories?.data?.map((item: any) => (
+            {categories?.data.map((item: any) => (
               <SwiperSlide key={item._id}>
                 <CategoryCard item={item} />
               </SwiperSlide>

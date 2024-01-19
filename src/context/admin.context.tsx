@@ -8,18 +8,11 @@ function Context(props: any) {
     props.url || "/api/v0/categories?is_delete=false&parent_info._id=null"
   );
   const Brands = useQueryData(["all brands "], props.url || "api/v0/brands");
-  const Atrribute = useQueryData(
-    ["all atrributes "],
-    props.url || "/api/v0/attributes"
-  );
+  const Atrribute = useQueryData(["all atrributes "], props.url || "/api/v0/attributes");
 
   const [settingsData, setSettingsData] = useState({});
   const [mobileMenu, setMobileMenu] = useState(false);
-  const {
-    data: user,
-    isSuccess,
-    isError,
-  } = useQueryData(["get user"], "/auth/v0/profile");
+  const { data: user, isSuccess, isError } = useQueryData(["get user"], "/auth/v0/profile");
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -49,12 +42,7 @@ function Context(props: any) {
     isSuccess,
     isError,
   };
-  return (
-    <AdminContext.Provider value={value}>
-      {" "}
-      {props.children}
-    </AdminContext.Provider>
-  );
+  return <AdminContext.Provider value={value}>{props.children}</AdminContext.Provider>;
 }
 
 export default Context;

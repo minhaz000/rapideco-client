@@ -27,9 +27,7 @@ function Context(props: any) {
     fetchData();
   }, []);
   const value: any = { Cart, collapseMenu, setCollapseMenu, settingsData };
-  return (
-    <RootContext.Provider value={value}> {props.children}</RootContext.Provider>
-  );
+  return <RootContext.Provider value={value}> {props.children}</RootContext.Provider>;
 }
 
 export default Context;

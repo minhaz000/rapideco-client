@@ -12,16 +12,7 @@ import {
   Legend,
 } from "chart.js";
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Filler,
-  Legend
-);
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Filler, Legend);
 
 export const options = {
   responsive: true,
@@ -53,7 +44,7 @@ const ChartOne = ({ chartData }: { chartData: any }) => {
     <div className="md:basis-7/12">
       <h2 className="text-xl">Yearly Sales</h2>
       <div className="w-full">
-        <Line options={options} data={data} />;
+        <Line options={options} data={data} />
       </div>
     </div>
   );

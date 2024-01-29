@@ -2,12 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  FaFacebookF,
-  FaLinkedinIn,
-  FaInstagram,
-  FaWhatsapp,
-} from "react-icons/fa";
+import { FaFacebookF, FaLinkedinIn, FaWhatsapp } from "react-icons/fa";
 import MobileBottomMenu from "./MobileBottomMenu";
 import { BiHomeAlt, BiPhoneCall, BiCart } from "react-icons/bi";
 import { AiOutlineBars } from "react-icons/ai";
@@ -39,17 +34,19 @@ const Footer = () => {
             <p className="text-slate-100 text-[16px] mt-2 leading-[30px]">
               {settingsData?.footer?.description}
             </p>
-            <div className="flex gap-4 mt-3 text-slate-100">
-              <Link href={"/"}>
+            <div className="flex gap-4 mt-3 text-slate-100 text-lg">
+              <Link
+                target="_blank"
+                href={
+                  "https://www.facebook.com/backpackbdofficial?mibextid=ZbWKwL"
+                }
+              >
                 <FaFacebookF />
               </Link>
-              <Link href="/">
+              <Link href="#">
                 <FaLinkedinIn />
               </Link>
-              <Link href="/">
-                <FaInstagram />
-              </Link>
-              <Link href="/">
+              <Link href="#">
                 <FaWhatsapp />
               </Link>
             </div>

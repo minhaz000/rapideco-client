@@ -96,7 +96,7 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
       setValue("description", html);
     },
   });
-  console.log(oldProduct?.data?.description);
+
   useEffect(() => {
     setOldGalleryImage(oldProduct?.data?.gallery_images);
     reset(oldProduct?.data);

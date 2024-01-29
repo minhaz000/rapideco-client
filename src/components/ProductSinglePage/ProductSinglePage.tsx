@@ -9,7 +9,11 @@ import Image from "next/image";
 const ProductSinglePage = () => {
   const sech: any = useSearchParams();
   const ID = sech.get("_id");
-  const { data: product, isLoading, refetch } = useQueryData(["get single data"], `/api/v0/product/${ID}`);
+  const {
+    data: product,
+    isLoading,
+    refetch,
+  } = useQueryData(["get single data"], `/api/v0/product/${ID}`);
   // const [productS, setProductS]: any = useState([product?.data]);
   useEffect(() => {
     // setProductS(product?.data);
@@ -18,7 +22,7 @@ const ProductSinglePage = () => {
   if (isLoading) {
     return <Loading />;
   }
-  // console.log(productS);
+
   return (
     <div>
       <ProductDetails />

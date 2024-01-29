@@ -10,7 +10,7 @@ import axios from "@/hooks/hook.axios";
 const AllCategory = () => {
   const { Categories }: any = useAdminContext();
   const handleDelete = (deleteId: string) => {
-    console.log(deleteId);
+   
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",

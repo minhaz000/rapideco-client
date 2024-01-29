@@ -77,7 +77,7 @@ const menuItems = [
     icon: <BsTruck />,
   },
   {
-    title: "Pages",
+    title: "Settings",
     icon: <MdPages />,
     children: [
       {

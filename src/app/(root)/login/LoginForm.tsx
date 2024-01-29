@@ -5,6 +5,7 @@ import axios from "../../../hooks/hook.axios";
 import FormValues from "./login";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { useRootContext } from "@/context/root.context";
 const LoginForm = () => {
   const router = useRouter();
   const { register, handleSubmit } = useform<FormValues>();
@@ -16,9 +17,12 @@ const LoginForm = () => {
         router.push("/admin/dashboard");
       })
       .catch((error) => {
-        toast.error(error.status == 400 ? error.data : error?.data.message.type);
+        toast.error(
+          error.status == 400 ? error.data : error?.data.message.type
+        );
       });
   };
+  const { settingsData }: any = useRootContext();
   return (
     <div className="max-w-screen-xl mx-auto px-3 lg:px-12 mt-6 hero min-h-screen bg-base-200">
       <div className="md:flex flex-row gap-8">
@@ -27,7 +31,9 @@ const LoginForm = () => {
         </div>
         <div className="card shadow-xl bg-base-100 w-full md:w-1/2 me-0 md:me-8">
           <div className="card-body">
-            <h1 className="text-4xl font-bold text-center mb-6 border-b pb-4">Login now!</h1>
+            <h1 className="text-4xl font-bold text-center mb-6 border-b pb-4">
+              Login now!
+            </h1>
             <form onSubmit={handleSubmit(HandleLogin)}>
               <div className="form-control">
                 <label className="label">
@@ -53,13 +59,18 @@ const LoginForm = () => {
                   />
                 </div>
                 <label className="label">
-                  <a href="#" className="label-text-alt link link-hover">
+                  <a href="/forget" className="label-text-alt link link-hover">
                     Forgot password?
                   </a>
                 </label>
               </div>
               <div className="form-control mt-6">
-                <button className="bg-green-600 text-white text-xl px-6 md:px-8 border border-green-600 py-2 rounded cursor-pointer font-semibold">
+                <button
+                  style={{
+                    backgroundColor: `${settingsData?.header?.themeColor}`,
+                  }}
+                  className=" text-white text-xl px-6 md:px-8 border border-green-600 py-2 rounded cursor-pointer font-semibold"
+                >
                   Login
                 </button>
               </div>

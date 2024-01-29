@@ -9,7 +9,6 @@ import { useRouter } from "next/navigation";
 import { useAdminContext } from "@/context/admin.context";
 const UserProfileMenu = () => {
   const { user }: any = useAdminContext();
-  console.log(user?.data);
   const [profileOpen, setProfileOpen] = useState(false);
   const router = useRouter();
   const handleLogout = async () => {

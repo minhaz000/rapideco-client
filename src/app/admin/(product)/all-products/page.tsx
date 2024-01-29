@@ -63,7 +63,7 @@ const AllProduct = () => {
     const Debouncing = setTimeout(() => refetch, 1500);
     return () => clearTimeout(Debouncing);
   }, [pagination, query]);
-  console.log(Products);
+ 
   return (
     <div>
       <div className="flex justify-between items-center">

@@ -5,6 +5,7 @@ import { useForm as useform, SubmitHandler } from "react-hook-form";
 import FormValues from "./forget";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import { useRootContext } from "@/context/root.context";
 function ForgetPage() {
   const { register, handleSubmit } = useForm<FormValues>();
   const HandleForget: SubmitHandler<FormValues> = (data) => {
@@ -17,6 +18,7 @@ function ForgetPage() {
         toast.error(error.message ? error.message : error?.data.message)
       );
   };
+  const { settingsData }: any = useRootContext();
   return (
     <section className="max-w-screen-sm mx-auto lg:px-10 mt-6 border rounded py-6 px-10">
       <form onSubmit={handleSubmit(HandleForget)}>
@@ -26,7 +28,12 @@ function ForgetPage() {
           placeholder="Enter your email"
           className="w-full border p-3 outline-none"
         />
-        <button className="bg-green-500 px-20 py-2 rounded text-white mt-5">
+        <button
+          style={{
+            backgroundColor: `${settingsData?.header?.themeColor}`,
+          }}
+          className=" px-20 py-2 rounded text-white mt-5"
+        >
           Send
         </button>
       </form>

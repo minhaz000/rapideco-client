@@ -86,7 +86,6 @@ const OrderDetails = ({ params }: { params: { orderID: string } }) => {
     document.body.appendChild(link);
     link.click();
   };
-  console.log(data?.data);
   return (
     <div className="shadow py-4 mb-8">
       <h2 className="border-b pb-2 px-6 text-lg font-semibold">

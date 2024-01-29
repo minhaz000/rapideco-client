@@ -9,7 +9,7 @@ import getDashboardData from "@/lib/getDashboardData";
 
 const page = () => {
   const { dashboard } = getDashboardData();
-  console.log(dashboard);
+
   return (
     <>
       <Suspense fallback={<h2>Loading dashboard</h2>}>

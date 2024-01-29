@@ -45,7 +45,7 @@ const HeaderSetting = ({ setting }: { setting: any }) => {
     reset(setting.data);
     setHeaderLogo(setting?.data?.header?.logo?.img_url);
   }, [setting]);
-  console.log(setting);
+  
   return (
     <div>
       <form

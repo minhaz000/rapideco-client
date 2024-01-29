@@ -4,16 +4,20 @@ import { useForm as useform, SubmitHandler } from "react-hook-form";
 import axios from "../../../hooks/hook.axios";
 import FormValues from "./login";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 const LoginForm = () => {
   const router = useRouter();
   const { register, handleSubmit } = useform<FormValues>();
   // =============== FUNCTION FOR THE PRODUCT POST REQUEST
   const HandleLogin: SubmitHandler<FormValues> = (data) => {
-   
-    axios.post("auth/v0/login", data).then((res) => {
-      router.push("/admin/dashboard");
-   
-    });
+    axios
+      .post("auth/v0/login", data)
+      .then((res) => {
+        router.push("/admin/dashboard");
+      })
+      .catch((error) => {
+        toast.error(error.status == 400 ? error.data : error?.data.message.type);
+      });
   };
   return (
     <div className="max-w-screen-xl mx-auto px-3 lg:px-12 mt-6 hero min-h-screen bg-base-200">
@@ -23,9 +27,7 @@ const LoginForm = () => {
         </div>
         <div className="card shadow-xl bg-base-100 w-full md:w-1/2 me-0 md:me-8">
           <div className="card-body">
-            <h1 className="text-4xl font-bold text-center mb-6 border-b pb-4">
-              Login now!
-            </h1>
+            <h1 className="text-4xl font-bold text-center mb-6 border-b pb-4">Login now!</h1>
             <form onSubmit={handleSubmit(HandleLogin)}>
               <div className="form-control">
                 <label className="label">

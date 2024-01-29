@@ -11,7 +11,7 @@ async function ClientLayout({ children }: { children: React.ReactNode }) {
     <Context>
       <Header />
       {children}
-      {/* <Footer /> */}
+      <Footer />
     </Context>
   );
 }

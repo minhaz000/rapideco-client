@@ -56,9 +56,9 @@ const Footer = () => {
           <div className="pt-4 lg:pe-5">
             <h3 className="text-white text-xl mb-6 font-semibold">ঠিকানা</h3>
             <div className="flex flex-col gap-3 text-[16px] text-slate-100">
-              <p>ঠিকানাঃ {settingsData?.footer?.contact_info?.address}।</p>
-              <p>মোবাইলঃ {settingsData?.footer?.contact_info?.phone} ।</p>
-              <p> ইমেইলঃ {settingsData?.footer?.contact_info?.email} ।</p>
+              <p>ঠিকানাঃ {settingsData?.footer?.contact_info?.address}</p>
+              <p>মোবাইলঃ {settingsData?.footer?.contact_info?.phone}</p>
+              <p> ইমেইলঃ {settingsData?.footer?.contact_info?.email}</p>
             </div>
           </div>
         </div>

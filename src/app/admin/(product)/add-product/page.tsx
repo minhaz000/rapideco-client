@@ -282,7 +282,7 @@ const AddProduct = () => {
 
           <div className="mt-3">
             <label htmlFor="name" className="block">
-              Product Image (200 * 250){" "}
+              Product Image (200 * 200){" "}
               <span className="text-red-500 font-semibold">*</span>
             </label>
             <input

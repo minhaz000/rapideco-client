@@ -14,8 +14,9 @@ import { MenuBar } from "../../add-product/Tiptap";
 import Loading from "@/components/common/Loading";
 const EditProduct = ({ params }: { params: { productID: string[] } }) => {
   const { Categories, Brands, Atrribute }: any = useAdminContext();
-  const [selectedImage, setSelectedImage] = useState([]);
+  const [selectedImage, setSelectedImage] = useState();
   const [oldGalleryImage, setOldGalleryImage] = useState([]);
+  const [oldDesImage, setOldDesImage] = useState([]);
   const [manageAtt, setManageAttr]: any = useState([]);
   const [selectedDesImage, setSelectedDesImage] = useState([]);
   const [selectedGalleryImageFile, setSelectedGalleryImageFile] = useState([]);
@@ -32,7 +33,12 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
     const gallery_images = await Uploder(selectedGalleryImageFile, "arry");
     // gallery_images && (data.gallery_images = [...data.gallery_images, ...gallery_images]);
     data.gallery_images = gallery_images ? [...oldGalleryImage, ...gallery_images] : [...oldGalleryImage];
-    selectedImage?.length > 0 && (data.product_image = await Uploder(selectedImage));
+    console.log(selectedDesImage.length);
+    const description_img = await Uploder(selectedDesImage, "arry");
+    data.description_img = description_img ? [...oldDesImage, ...description_img] : [...oldDesImage];
+    // selectedDesImage.length > 0 ? [...(await Uploder(selectedDesImage))] : await Uploder(selectedDesImage);
+    console.log(data.description_img);
+    data.product_image?.length > 0 && (data.product_image = await Uploder(data.product_image));
     data.status ? (data.status = "active") : (data.status = "deactive");
     data.category_info = typeof data.category_info === "string" ? JSON.parse(data.category_info) : data.category_info;
     data.brand_info = typeof data.brand_info === "string" ? JSON.parse(data.brand_info) : data.brand_info;
@@ -48,6 +54,7 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
 
   const handleImage = (e: any) => {
     setSelectedImage(e.target.files[0]);
+    setValue("product_image", e.target.files);
   };
   const handleGalleyImage = (event: any) => {
     const selectedFiles: any = [...event.target.files, ...selectedGalleryImageFile];
@@ -61,7 +68,9 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
 
   function deleteHandler(image: any) {
     setOldGalleryImage(oldGalleryImage.filter((e) => e !== image));
+    setOldDesImage(oldDesImage.filter((e) => e !== image));
     setSelectedGalleryImageFile(selectedGalleryImageFile.filter((e) => e !== image));
+    setSelectedDesImage(selectedDesImage.filter((e) => e !== image));
   }
   function handleOnChange(e: any) {
     setValue(e.target.name, e.target.value);
@@ -76,9 +85,9 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
       setValue("description", html);
     },
   });
-
   useEffect(() => {
     setOldGalleryImage(oldProduct?.data?.gallery_images);
+    setOldDesImage(oldProduct?.data?.description_img);
     reset(oldProduct?.data);
     editor?.commands?.setContent(oldProduct?.data?.description);
     setManageAttr(oldProduct?.data.variants);
@@ -278,11 +287,7 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
 
             <div className="my-3">
               <Image
-                src={
-                  selectedImage.length > 1
-                    ? URL.createObjectURL(selectedImage[0])
-                    : oldProduct?.data?.product_image?.img_url
-                }
+                src={selectedImage ? URL.createObjectURL(selectedImage) : oldProduct?.data?.product_image?.img_url}
                 alt="thumbnail"
                 width={100}
                 height={100}
@@ -346,6 +351,20 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
                 onChange={handleDesImage}
               />
               <div className="flex gap-2 my-3">
+                {oldDesImage &&
+                  oldDesImage.map((image: any, i: number) => {
+                    return (
+                      <div key={i} className="relative">
+                        <Image src={image.img_url} width={100} height={100} alt="upload" />
+                        <button
+                          className="absolute top-0 right-0 bg-red-400 text-white px-1"
+                          onClick={() => deleteHandler(image)}
+                        >
+                          x
+                        </button>
+                      </div>
+                    );
+                  })}
                 {selectedDesImage &&
                   selectedDesImage.map((image: any, i: number) => {
                     return (

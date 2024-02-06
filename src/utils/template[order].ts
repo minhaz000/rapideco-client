@@ -72,10 +72,16 @@ function generateOrderNotificationEmail(order: any) {
             <th>Phone</th>
             <td>${order.user_info.phone}</td>
           </tr>
+          ${
+            order.user_info.email
+              ? `
           <tr>
             <th>Email</th>
             <td>${order.user_info.email}</td>
           </tr>
+          `
+              : ``
+          }
           <tr>
             <th>Address</th>
             <td>${order.user_info.address}</td>
@@ -128,13 +134,12 @@ function generateOrderNotificationEmail(order: any) {
         <p>Thank you for your cooperation.</p>
 
         <p>Best regards,<br>
-        iSoftex  Support Team<br>
+        Xstore  Support Team<br>
         </p>
         <address>
-        Green Road, Dhaka, Bangladesh<br>
-        +8801609751612<br>
-          <a href="www.isoftex.com">isoftex.com</a><br>
-          <a href="mailto:support@isoftex.com">support@isoftex.com</a>
+          Green Road - Dhaka, Bangladesh (Remote Desk)<br>
+          <a href="www.xstore.com.bd">xstore.com.bd</a><br>
+          <a href="mailto:support@xstore.com.bd">support@xstore.com.bd</a>
         </address> 
       </div>
     </body>

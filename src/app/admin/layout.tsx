@@ -5,13 +5,26 @@ import SidebarCloseMenu from "./DashboardHome/SidebarCloseMenu";
 import ProfileMenuClick from "./DashboardHome/ProfileMenuClick";
 import { useRouter } from "next/navigation";
 import { useQueryData } from "@/hooks/hook.query";
+import { useEffect, useState } from "react";
+import axios from "@/hooks/hook.axios";
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
-  const { data: user, isSuccess, isError } = useQueryData(["get user"], "/auth/v0/profile");
+  // const { data: user, isSuccess, isError } = useQueryData(["get user"], "/auth/v0/profile");
   const router = useRouter();
-  if (isError) {
-    router.push("/login");
+  const [user, SetUser] = useState(null);
+  const [loading, SetLading] = useState(true);
+  useEffect(() => {
+    axios
+      .get("/auth/v0/profile")
+      .then((res) => {
+        SetUser(res.data.data);
+        SetLading(false);
+      })
+      .catch(() => router.push("/login"));
+  }, []);
+  if (loading) {
+    return <> loading</>;
   }
-  if (user?.data && isSuccess) {
+  if (user) {
     return (
       <AdminContext>
         <SidebarMenuOnclick />

@@ -10,6 +10,7 @@ const Profile = () => {
   // =============== FUNCTION FOR THE PRODUCT POST REQUEST
   const handleUpdate = async (data: any) => {
     try {
+      data.password = data?.new_password;
       axios.put("auth/v0/manage", data).then((res) => {
         toast.success("profile updated");
       });

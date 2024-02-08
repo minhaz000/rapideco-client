@@ -37,9 +37,9 @@ const ProductCard = ({ product }: { product: any }) => {
             <Image
               src={product?.product_image?.img_url}
               alt="product image"
-              className="h-[200px] w-full rounded"
-              height={200}
-              width={200}
+              className="w-full rounded"
+              height={189}
+              width={189}
               loading="eager"
             />
           </div>

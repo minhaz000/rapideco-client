@@ -93,15 +93,21 @@ const ProductDetails = () => {
   }, [ID, product]);
   return (
     <div className="lg:flex gap-5">
-      <div className="lg:basis-1/2">
-        <Image
+      <div className="w-full lg:basis-1/2">
+        <img
           src={imageUrl}
-          className="w-full h-[300px] md:h-[720px] rounded cursor-pointer"
           alt=""
-          width={580}
-          height={720}
-          sizes="100%"
+          className="w-[100%] h-[100%] md:h-[582px] rounded cursor-pointer relative"
         />
+        {/* <div className="w-[100%] h-[380px] md:h-[582px] rounded cursor-pointer relative">
+          <Image
+            src={imageUrl}
+            className=" rounded cursor-pointer"
+            alt=""
+            fill
+          />
+        </div> */}
+
         <div className="grid grid-cols-6 gap-3 mt-2">
           {[
             ...product?.data?.gallery_images,

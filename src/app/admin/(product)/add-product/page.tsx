@@ -269,7 +269,7 @@ const AddProduct = () => {
           </div>
           <div className="mt-3">
             <label htmlFor="name" className="block">
-              Gallery Image
+              Gallery Image(582 * 582) 
             </label>
             <div>
               <input

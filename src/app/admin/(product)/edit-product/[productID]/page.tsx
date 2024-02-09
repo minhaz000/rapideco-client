@@ -275,7 +275,7 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
 
           <div className="mt-3">
             <label htmlFor="name" className="mb-2 block">
-              Product Image (200 * 180) <span className="text-red-500 font-semibold">*</span>
+              Product Image (200 * 200) <span className="text-red-500 font-semibold">*</span>
             </label>
 
             <input
@@ -297,7 +297,7 @@ const EditProduct = ({ params }: { params: { productID: string[] } }) => {
           </div>
           <div className="mt-3">
             <label htmlFor="name" className="mb-2 block">
-              Gallery Image
+              Gallery Image(582 * 582)
             </label>
 
             <div>

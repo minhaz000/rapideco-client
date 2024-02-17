@@ -15,7 +15,10 @@ const Footer = () => {
   };
   const headerBg = settingsData?.footer?.color;
   return (
-    <footer className="pt-7 pb-3 mt-12 mb-16 md:mb-0" style={{ backgroundColor: `${headerBg}` }}>
+    <footer
+      className="pt-7 pb-3 mt-12 mb-16 md:mb-0"
+      style={{ backgroundColor: `${headerBg}` }}
+    >
       <div className="max-w-screen-xl mx-auto px-3 lg:px-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
           <div>
@@ -28,9 +31,16 @@ const Footer = () => {
                 height={120}
               />
             </Link>
-            <p className="text-slate-100 text-[16px] mt-2 leading-[30px]">{settingsData?.footer?.description}</p>
+            <p className="text-slate-100 text-[16px] mt-2 leading-[30px]">
+              {settingsData?.footer?.description}
+            </p>
             <div className="flex gap-4 mt-3 text-slate-100 text-lg">
-              <Link target="_blank" href={"https://www.facebook.com/backpackbdofficial?mibextid=ZbWKwL"}>
+              <Link
+                target="_blank"
+                href={
+                  "https://www.facebook.com/backpackbdofficial?mibextid=ZbWKwL"
+                }
+              >
                 <FaFacebookF />
               </Link>
               <Link href="#">
@@ -42,12 +52,14 @@ const Footer = () => {
             </div>
           </div>
           <div className="pt-4 lg:ps-10">
-            <h3 className="text-white text-xl mb-6 font-semibold">গুরুত্বপূর্ণ লিংক</h3>
+            <h3 className="text-white text-xl mb-6 font-semibold">
+              গুরুত্বপূর্ণ লিংক
+            </h3>
             <ul className="flex flex-col gap-3 text-sm text-slate-100">
               {settingsData?.footer?.links?.map((link: any, index: any) => (
                 <li key={index}>
-                  <Link className="text-[16px]" href={link.value}>
-                    {link.lavel}
+                  <Link className="text-[16px]" href={link.lavel}>
+                    {link.value}
                   </Link>
                 </li>
               ))}
@@ -65,14 +77,20 @@ const Footer = () => {
       </div>
       {/* copyright */}
       <div className=" max-w-screen-xl mx-auto px-3 lg:px-12 border-t-[1px] border-slate-50 mt-8 pt-3">
-        <p className="text-slate-100 text-center text-[16px] capitalize">{settingsData?.footer?.copyright}</p>
+        <p className="text-slate-100 text-center text-[16px] capitalize">
+          {settingsData?.footer?.copyright}
+        </p>
       </div>
       {/* bottom menu */}
       <div className="fixed bottom-0 left-0 bg-white border-t-2 flex gap-3 justify-between items-center w-full px-6 py-2 lg:hidden z-[99]">
         <Link href="/">
           <MobileBottomMenu Icon={BiHomeAlt} name="Home" />
         </Link>
-        <MobileBottomMenu Icon={RxDashboard} onSidebar={handleRootMenu} name="Category" />
+        <MobileBottomMenu
+          Icon={RxDashboard}
+          onSidebar={handleRootMenu}
+          name="Category"
+        />
         <Link href={"/shop"}>
           <MobileBottomMenu Icon={AiOutlineBars} name="Shop" />
         </Link>

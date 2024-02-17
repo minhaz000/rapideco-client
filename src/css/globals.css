@@ -179,8 +179,8 @@ button.is_active {
 .textEditor ol {
   list-style: decimal;
 }
-.product-description{
-  padding-left:8px
+.product-description {
+  padding-left: 8px;
 }
 .product-description h2 {
   font-size: 19px;
@@ -201,4 +201,10 @@ button.is_active {
 
 .product-description ul {
   padding-left: 32px;
+}
+.product-description p {
+  word-wrap: break-word;
+}
+.terms-list li {
+  list-style: initial;
 }

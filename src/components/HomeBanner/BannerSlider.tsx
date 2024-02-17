@@ -12,6 +12,9 @@ const BannerSlider = () => {
     <Swiper
       modules={[Navigation, Pagination, EffectFade]}
       effect="fade"
+      autoplay={{
+        delay: 3000,
+      }}
       pagination={{
         clickable: true,
       }}

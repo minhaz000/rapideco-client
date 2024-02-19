@@ -93,11 +93,11 @@ const ProductDetails = () => {
   }, [ID, product]);
   return (
     <div className="lg:flex gap-5">
-      <div className="w-full lg:basis-1/2">
+      <div className="w-full lg:basis-1/2 relative">
         <img
           src={imageUrl}
           alt=""
-          className="w-[100%] h-[100%] md:h-[582px] rounded cursor-pointer relative"
+          className=" max-w-full w-full rounded cursor-pointer relative"
         />
         {/* <div className="w-[100%] h-[380px] md:h-[582px] rounded cursor-pointer relative">
           <Image

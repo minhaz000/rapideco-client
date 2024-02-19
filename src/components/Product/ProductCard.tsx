@@ -34,14 +34,16 @@ const ProductCard = ({ product }: { product: any }) => {
                 </span>
               </p>
             )}
-            <Image
-              src={product?.product_image?.img_url}
-              alt="product image"
-              className="w-full rounded"
-              height={189}
-              width={189}
-              loading="eager"
-            />
+            <div className="w-full h-full relative">
+              <Image
+                src={product?.product_image?.img_url}
+                alt="product image"
+                className="w-full rounded"
+                height={200}
+                width={200}
+                loading="eager"
+              />
+            </div>
           </div>
           <div className="py-3 px-2 text-center">
             <div>

@@ -1,34 +1,25 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Rapideco (Multi-Client E-Commerce Platform)
 
-## Getting Started
+A fully-featured e-commerce platform designed to host multiple client sites on a single server, with secure payment integration and subscription management.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## Key Features
+- **Multi-client architecture:** One server can host multiple client sites, each with its own MongoDB database, ensuring data separation and privacy.  
+- **Custom payment methods:** Integrated bKash, Rocket, and Nagad for seamless transactions.  
+- **Subscription management:** Super admin can activate/deactivate client sites and manage subscription plans (monthly or per usage).  
+- **Server cost optimization:** Single backend serves multiple clients, reducing hosting costs while maintaining performance.  
+- **Security & control:** Protects server code while allowing admins to manage client operations safely.  
+- **SEO-friendly:** Built with Next.js for optimized search engine indexing and fast page rendering.  
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Challenges Solved
+- Managing multiple client databases without mixing data in REST api 
+- Securely controlling admin privileges for different clients  
+- Optimizing a single server for multiple production sites without performance issues  
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+---
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Technologies Used
+Next.js, Node.js, MongoDB, Tailwind CSS, VPS hosting, Custom payment gateway integration (bKash, Rocket, Nagad)
